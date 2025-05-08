@@ -90,11 +90,8 @@ const Hero: React.FC = () => {
                 <span>Here</span>
             </motion.h1>
 
-
-
-
             <motion.p
-              className="text-base sm:text-lg text-gray-300"
+              className="text-base sm:text-lg text-gray-300 h__txt"
               variants={textVariants}
               initial="hidden"
               animate="visible"

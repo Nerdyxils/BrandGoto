@@ -20,12 +20,21 @@
   padding-bottom: 20px;
 }
 
+/* Hero Background */
+.hero-bg {
+  background-image: url('./assets/Pattern.png');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  position: relative; /* Ensure the pseudo-element is positioned relative to this */
+}
+
 /* Dark Overlay using ::before */
 .hero-bg::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.1);
   z-index: 0;
 }
 
@@ -73,7 +82,8 @@ svg path {
 }
 
 .text-teal-900 {
-  color: #023942;
+  color: #2FA0B5;
+  ;
 }
 
 .text-orange-500 {
