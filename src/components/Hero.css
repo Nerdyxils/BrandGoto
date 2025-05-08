@@ -1,0 +1,36 @@
+.hero-txt {
+    margin-top: 50px;
+}
+
+.sm__txt {
+    font-size: 18px;
+    font-weight: 400;
+    color: #A3D9DF;
+}
+
+.hero-heading {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; 
+    font-weight: 700; 
+    text-align: center;
+    font-size: 76px;
+    font-weight: 800;
+    line-height: 20px;
+    letter-spacing: 2%;
+}
+  
+  .hero-heading span:nth-child(1) {
+    color: #F75F0B;
+  }
+  .hero-heading span:nth-child(2) {
+    color: #023942;
+  }
+  .hero-heading span:nth-child(3) {
+    color: #ffffff;
+  }
+  .hero-heading span:nth-child(4) {
+    color: #CFF8FF;
+  }
+  

@@ -1,13 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+
 :root {
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
-/* Static white logo stroke */
+.container {
+  width: 90%;
+  margin: 0 auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+/* Dark Overlay using ::before */
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
+
+/* Ensure content is above the overlay */
+.hero-bg > * {
+  position: relative;
+  z-index: 1;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* Apply Poppins font globally */
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0 !important;
+}
+
+/* Preloader styles */
 svg path {
   stroke: #ffffff;
   stroke-width: 2;
@@ -20,21 +58,44 @@ svg path {
   fill: none;
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
-  animation: drawStroke 2s ease-in-out infinite; /* 5s per cycle, ease-in-out for breathing */
+  animation: drawStroke 3s ease-in-out infinite;
 }
 
-/* Add a delay to each path for sequential animation */
-/* .orange-stroke path:nth-child(1) { animation-delay: 0s; }
-.orange-stroke path:nth-child(2) { animation-delay: 0.5s; }
-.orange-stroke path:nth-child(3) { animation-delay: 1s; }
-.orange-stroke path:nth-child(4) { animation-delay: 1.5s; }
-.orange-stroke path:nth-child(5) { animation-delay: 2s; }
-.orange-stroke path:nth-child(6) { animation-delay: 2.5s; }
-.orange-stroke path:nth-child(7) { animation-delay: 3s; } */
-
-/* Stroke reveal animation */
 @keyframes drawStroke {
   to {
     stroke-dashoffset: 0;
   }
+}
+
+/* Brand color utilities */
+.bg-teal-900 {
+  background-color: #023942;
+}
+
+.text-teal-900 {
+  color: #023942;
+}
+
+.text-orange-500 {
+  color: #F75F0B;
+}
+
+.bg-orange-500 {
+  background-color: #F75F0B;
+}
+
+.bg-orange-600 {
+  background-color: #E0540A;
+}
+
+.border-orange-500 {
+  border-color: #F75F0B;
+}
+
+.text-light-cyan {
+  color: #CFF8FF;
+}
+
+.font-poppins {
+  font-family: 'Poppins', sans-serif;
 }
