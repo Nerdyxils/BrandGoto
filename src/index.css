@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+}
+
+/* Static white logo stroke */
+svg path {
+  stroke: #ffffff;
+  stroke-width: 2;
+  fill: none;
+}
+
+.orange-stroke path {
+  stroke: #F75F0B;
+  stroke-width: 2;
+  fill: none;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawStroke 2s ease-in-out infinite; /* 5s per cycle, ease-in-out for breathing */
+}
+
+/* Add a delay to each path for sequential animation */
+/* .orange-stroke path:nth-child(1) { animation-delay: 0s; }
+.orange-stroke path:nth-child(2) { animation-delay: 0.5s; }
+.orange-stroke path:nth-child(3) { animation-delay: 1s; }
+.orange-stroke path:nth-child(4) { animation-delay: 1.5s; }
+.orange-stroke path:nth-child(5) { animation-delay: 2s; }
+.orange-stroke path:nth-child(6) { animation-delay: 2.5s; }
+.orange-stroke path:nth-child(7) { animation-delay: 3s; } */
+
+/* Stroke reveal animation */
+@keyframes drawStroke {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
