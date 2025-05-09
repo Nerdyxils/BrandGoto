@@ -46,22 +46,362 @@
     margin-left: auto;
     margin-right: auto;
   }
-  
-  @media (max-width: 768px) {
-    .hero-heading{
-        font-size: 45px;
-        line-height: 32px;
-        font-weight: 500;
-        letter-spacing: 1%;
-        gap: 10px; 
-    }
-  
-    .h__txt {
-        font-size: 16px;
-        line-height: 20px;
-        letter-spacing: 1%;
-        max-width: 90%;
-        margin-left: auto;
-        margin-right: auto;
-    }
+
+
+/* Glow effect for online indicator */
+.shadow-glow {
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8), 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+/* Stats Section Fallback Styles */
+.stats-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  width: 100%;
+  max-width: 1200px; 
+  margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+  .stats-container {
+    display: grid; /* Switch to grid for desktop */
+    grid-template-columns: 1.5fr 1.5fr 1.5fr;
+    gap: 0px;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
   }
+}
+
+/* Left Cards */
+.left-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 170px; /* Match the card's max-width */
+  min-width: 150px; /* Prevent squashing on smaller screens */
+  margin: 0 auto; /* Center within the parent */
+}
+
+.left-card {
+  background-color: #1F2937; /* Default background (overridden by animation) */
+  border-radius: 8px; /* Equivalent to rounded-lg */
+  padding: 10px; /* Equivalent to p-4 */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.left-card-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.left_top_stats {
+  display: flex;
+  align-items: center;
+  gap: 8px; 
+}
+
+.left-card-icon {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Equivalent to gap-2 */
+}
+
+.left-card-label {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  color: #D1D5DB; /* Equivalent to text-gray-300 */
+}
+
+.left-card-value {
+  font-size: 28px;
+  font-weight: 400;
+  color: #ffffff; /* Equivalent to text-white */
+  margin-top: 0px; 
+  margin-bottom: 0px;
+}
+
+.left-card-change {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 16px; /* Equivalent to gap-1 */
+  font-size: 14px;
+  color: #22C55E; /* Equivalent to text-green-500 */
+  margin-top: auto; /* Equivalent to mt-auto */
+  font-weight: 500;
+}
+
+.change-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px; /* Smaller gap to keep span and img close together */
+  font-size: 14px;
+  color: #22C55E; /* Equivalent to text-green-500 */
+}
+
+.change-group img {
+  width: 14px; /* Ensure the arrow image matches the font size for alignment */
+  height: 14px;
+}
+
+/* Middle Image */
+.middle-image-container {
+  position: relative;
+  width: 100%;
+  max-width: 293px;
+  min-width: 250px; /* Prevent squashing on smaller screens */
+  height: 357px;
+  margin: 0 auto; /* Center the image container */
+}
+
+/* Ensure the middle image itself is centered */
+.middle-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px; /* Equivalent to rounded-lg */
+  display: block; /* Ensure the image behaves as a block element */
+  margin: 0 auto; /* Center the image */
+}
+
+.middle-image-overlay {
+  position: absolute;
+  bottom: 0px;
+  width: 95%; 
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
+  padding: 8px; /* Equivalent to p-2 */
+  border-radius: 4px; /* Equivalent to rounded */
+}
+
+.middle-image-name {
+  font-size: 16px;
+  line-height: 6px;
+  font-weight: 500;
+  color: #2FA0B5; /* Equivalent to text-white */
+}
+
+.middle-image-position {
+  font-size: 10px;
+  line-height: 2px;
+  font-weight: 400;
+  color: #033943; /* Equivalent to text-gray-300 */
+}
+
+/* Right Cards */
+.right-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 378px; /* Match the card's max-width */
+  min-width: 300px; /* Prevent squashing on smaller screens */
+  margin: 0 auto; /* Center within the parent */
+}
+
+.right-card {
+  background-color: #1F2937; /* Default background (overridden by animation) */
+  border-radius: 8px; /* Equivalent to rounded-lg */
+  padding: 16px; /* Equivalent to p-4 */
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.right-card-dot {
+  position: absolute;
+  top: -8px; /* Equivalent to -top-2 */
+  left: -8px; /* Equivalent to -left-2 */
+  width: 10px; /* Equivalent to w-4 */
+  height: 10px; /* Equivalent to h-4 */
+  background-color: #ffffff; /* Equivalent to bg-white */
+  border-radius: 50%; /* Equivalent to rounded-full */
+}
+
+.right-card-content {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* Equivalent to gap-4 */
+  width: 100%;
+}
+
+.right-card-arrow-container {
+  width: 32px; /* Equivalent to w-8 */
+  height: 32px; /* Equivalent to h-8 */
+  background-color: #ffffff; /* Equivalent to bg-white */
+  border-radius: 50%; /* Equivalent to rounded-full */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.right-card-arrow {
+  color: #000000; /* Equivalent to text-black */
+}
+
+.right-card-texts {
+  flex: 1; /* Equivalent to flex-1 */
+}
+
+.right-card-label {
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 400;
+  color: #ffffff; /* Equivalent to text-white */
+}
+
+.right-card-sublabel {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  color: #9CA3AF; /* Equivalent to text-gray-400 */
+}
+
+.right-card-change {
+  display: flex;
+  align-items: center;
+  gap: 0px; 
+  font-size: 27px;
+  color: #fff; /* Equivalent to text-green-500 */
+}
+
+/* Mobile Viewport (below 768px) */
+@media (max-width: 767px) {
+  .stats-container {
+    gap: 24px; /* Already reduced gap for mobile */
+  }
+
+  .left-card {
+    width: 100%;
+    max-width: 200px; /* Wider on mobile to prevent squashing */
+    height: 150px; /* Slightly smaller height */
+    padding: 12px; /* Reduce padding for better fit */
+    margin: 0 auto; /* Center the card */
+  }
+
+  .left-card-label {
+    font-size: 16px; /* Slightly smaller text */
+    line-height: 24px;
+  }
+
+  .left-card-value {
+    font-size: 20px; /* Slightly smaller text */
+  }
+
+  .left-card-change {
+    font-size: 12px; /* Slightly smaller text */
+  }
+
+  .middle-image-container {
+    max-width: 250px; /* Reduce image size for mobile */
+    height: 300px; /* Adjust height proportionally */
+  }
+
+  .middle-image-overlay {
+    bottom: 12px;
+    left: 12px;
+    padding: 6px;
+  }
+
+  .middle-image-name {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .middle-image-position {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .right-card {
+    width: 100%;
+    max-width: 300px; /* Wider on mobile to prevent squashing */
+    height: 70px; /* Slightly smaller height */
+    padding: 12px; /* Reduce padding for better fit */
+    margin: 0 auto; /* Center the card */
+  }
+
+  .right-card-label {
+    font-size: 14px; /* Slightly smaller text */
+    line-height: 20px;
+  }
+
+  .right-card-sublabel {
+    font-size: 10px; /* Slightly smaller text */
+    line-height: 14px;
+  }
+
+  .right-card-change {
+    font-size: 12px; /* Slightly smaller text */
+  }
+
+  .right-card-arrow-container {
+    width: 28px; /* Slightly smaller arrow container */
+    height: 28px;
+  }
+}
+
+/* Tablet Viewport (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .stats-container {
+    flex-direction: column; /* Keep stacked for tablet */
+    gap: 28px; /* Slightly larger gap for tablet */
+  }
+
+  .left-card {
+    width: 100%;
+    max-width: 150px; /* Adjusted width for tablet */
+    height: 160px; /* Slightly smaller height */
+    padding: 14px;
+    margin: 0 auto;
+  }
+
+  .middle-image-container {
+    max-width: 270px; /* Slightly smaller image for tablet */
+    height: 320px;
+  }
+
+  .right-card {
+    width: 100%;
+    max-width: 330px; /* Adjusted width for tablet */
+    height: 75px; /* Slightly smaller height */
+    padding: 14px;
+    margin: 0 auto;
+  }
+}
+
+/* Fallback for backdrop-filter (unsupported browsers) */
+@supports not (backdrop-filter: blur(10px)) {
+  .left-card,
+  .right-card {
+    background: rgba(255, 255, 255, 0.2); /* Slightly more opaque fallback for glassmorphism */
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-heading {
+    font-size: 45px;
+    line-height: 32px;
+    font-weight: 500;
+    letter-spacing: 1%;
+    gap: 10px; 
+  }
+
+  .h__txt {
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 1%;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
