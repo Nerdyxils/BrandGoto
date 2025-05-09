@@ -231,10 +231,10 @@ const Hero: React.FC = () => {
                 <motion.div
                   key={index}
                   className="left-card"
-                  style={{ maxHeight: '130px', width: '100%', maxWidth: '170px' }}
+                  style={{ maxHeight: '130px', width: '100%'}}
                   initial={{
                     scale: index < 2 ? 1.1 : 0.9,
-                    background: index < 2 ? '#1F2937' : 'rgba(255, 255, 255, 0.1)',
+                    background: index < 2 ? '#000000' : 'rgba(255, 255, 255, 0.1)',
                     backdropFilter: index < 2 ? 'none' : 'blur(10px)',
                     border: index < 2 ? 'none' : '1px solid rgba(255, 255, 255, 0.2)',
                     boxShadow: index < 2 ? '0 4px 12px rgba(0, 0, 0, 0.1)' : 'none',
@@ -284,7 +284,7 @@ const Hero: React.FC = () => {
                   style={{ maxHeight: '81px', maxWidth: '378px', width: '100%' }}
                   initial={{
                     scale: index === 0 ? 1.1 : 0.9,
-                    background: index === 0 ? '#1F2937' : 'rgba(255, 255, 255, 0.1)',
+                    background: index === 0 ? '#000000' : 'rgba(255, 255, 255, 0.1)',
                     backdropFilter: index === 0 ? 'none' : 'blur(10px)',
                     border: index === 0 ? 'none' : '1px solid rgba(255, 255, 255, 0.2)',
                     boxShadow: index === 0 ? '0 4px 12px rgba(0, 0, 0, 0.1)' : 'none',
@@ -312,6 +312,26 @@ const Hero: React.FC = () => {
                 </motion.div>
               ))}
             </div>
+          </div>
+
+          <div className="cta-container">
+            <motion.div
+              className="cta-box"
+              initial={{ y: 50, opacity: 0 }} // Start 50px below and fully transparent
+              animate={{ y: 0, opacity: 1 }} // Move to original position and fully opaque
+              transition={{ duration: 0.6, ease: "easeOut" }} // Smooth ease-out animation over 0.6s
+            >
+              <div className="cta-image-wrapper">
+                <img src={HeroImg} alt="Client Success Manager" className="cta-image" />
+                <span className="cta-online-indicator"></span>
+              </div>
+              <div className="cta-text">
+                <span className="cta-name">Jane Doe</span>
+                <br />
+                <span className="cta-role">Client Success Manager</span>
+              </div>
+              <button className="cta-button">Book a Free Consultation</button>
+            </motion.div>
           </div>
         </div>
       </section>

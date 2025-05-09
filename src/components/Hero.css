@@ -87,7 +87,7 @@
 }
 
 .left-card {
-  background-color: #1F2937; /* Default background (overridden by animation) */
+  background-color: #000000; /* Default background (overridden by animation) */
   border-radius: 8px; /* Equivalent to rounded-lg */
   padding: 10px; /* Equivalent to p-4 */
   width: 100%;
@@ -207,7 +207,7 @@
 }
 
 .right-card {
-  background-color: #1F2937; /* Default background (overridden by animation) */
+  background-color: #000000; /* Default background (overridden by animation) */
   border-radius: 8px; /* Equivalent to rounded-lg */
   padding: 16px; /* Equivalent to p-4 */
   position: relative;
@@ -280,25 +280,35 @@
     gap: 24px; /* Already reduced gap for mobile */
   }
 
+  .left-cards {
+    width: 100%; /* Ensure the container takes full width */
+    max-width: 100%; /* Remove the max-width constraint */
+  }
+
   .left-card {
-    width: 100%;
-    max-width: 200px; /* Wider on mobile to prevent squashing */
-    height: 150px; /* Slightly smaller height */
-    padding: 12px; /* Reduce padding for better fit */
-    margin: 0 auto; /* Center the card */
+    width: 80%; /* Take full width on mobile */
+    /* max-width: 100%; */
+    height: 120px; /* Slightly reduce height for better proportion */
+    padding: 16px; /* Increase padding for better spacing */
+    margin: 0 auto; /* Keep centered */
+  }
+
+  .left_top_stats {
+    gap: 12px; /* Increase gap between icon and label for better spread */
   }
 
   .left-card-label {
-    font-size: 16px; /* Slightly smaller text */
-    line-height: 24px;
+    font-size: 18px; /* Increase font size for better readability */
+    line-height: 26px;
   }
 
   .left-card-value {
-    font-size: 20px; /* Slightly smaller text */
+    font-size: 24px; /* Slightly larger text for better spread */
   }
 
   .left-card-change {
-    font-size: 12px; /* Slightly smaller text */
+    font-size: 14px; /* Slightly larger text */
+    gap: 20px; /* Increase gap to spread out the value and change group */
   }
 
   .middle-image-container {
@@ -403,5 +413,106 @@
     max-width: 90%;
     margin-left: auto;
     margin-right: auto;
+  }
+}
+
+/* CTA Section */
+.cta-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 40px 0; /* Add some spacing above and below the CTA */
+}
+
+.cta-box {
+  display: grid;
+  grid-template-columns: .5fr 1.5fr 2fr; /* First column fixed for image, second for text, third for button */
+  align-items: center;
+  max-width: 480px;
+  max-height: 780px;
+  background-color:#131313;
+  border-radius: 50px; /* 50% of height for pill shape */
+  padding: 12px;
+  gap: 0px;
+  box-sizing: border-box;
+}
+
+/* First Column: Image with Online Indicator */
+.cta-image-wrapper {
+  position: relative;
+  width: 50px;
+  height: 50px;
+}
+
+.cta-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50% 50%;
+}
+
+.cta-online-indicator {
+  position: absolute;
+  top: -4px; 
+  right: -4px;
+  width: 12px;
+  height: 12px;
+  background-color: #22C55E; /* Green online indicator, matching left-card-change */
+  border-radius: 50%;
+  border: 2px solid #1F2937; /* Match background for a clean edge */
+}
+
+/* Second Column: Name and Role */
+.cta-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0px;
+}
+
+.cta-name {
+  font-size: 16px;
+  line-height: 2px;
+  font-weight: 500;
+  color: #fff; /* Match middle-image-name */
+}
+
+.cta-role {
+  font-size: 12px;
+  line-height: 2px;
+  font-weight: 400;
+  color: #fff; /* Match middle-image-position */
+}
+
+/* Third Column: Button */
+.cta-button {
+   background-color: #F75F0B;
+    color: #ffffff;
+    padding: 10px 14px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #E0540A; 
+}
+
+/* Mobile Viewport (below 768px) */
+@media (max-width: 767px) {
+  .cta-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 40px 0; 
+  gap: 10px !important;
+}
+  .cta-button {
+    font-size: 14px;
   }
 }
