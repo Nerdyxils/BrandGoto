@@ -11,6 +11,7 @@ import Arrowup from '../assets/ArrowUpRight.png'
 import BigArr from '../assets/bigarrow.png'
 import TinArr from '../assets/tinyarrow-dropdown.png'
 import './Hero.css';
+import Herotwo from './Herotwo';
 
 const Hero: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -293,22 +294,22 @@ const Hero: React.FC = () => {
                 >
                   {/* Online Indicator Dot */}
                   <div className="right-card-dot shadow-glow" />
-                  <div className="right-card-content">
-                    {/* Sub-Column 1: Arrow */}
-                    <div className="right-card-arrow-container">
-                      <img src={BigArr} className="right-card-arrow" />
+                    <div className="right-card-content">
+                      {/* Sub-Column 1: Arrow */}
+                      <div className="right-card-arrow-container">
+                        <img src={BigArr} className="right-card-arrow" />
+                      </div>
+                      {/* Sub-Column 2: Texts */}
+                      <div className="right-card-texts">
+                        <p className="right-card-label">{stat.label}</p>
+                        <p className="right-card-sublabel">{stat.subLabel}</p>
+                      </div>
+                      {/* Sub-Column 3: Stat */}
+                      <div className="right-card-change">
+                        <span>{stat.value}</span>
+                        <img src={TinArr} />
+                      </div>
                     </div>
-                    {/* Sub-Column 2: Texts */}
-                    <div className="right-card-texts">
-                      <p className="right-card-label">{stat.label}</p>
-                      <p className="right-card-sublabel">{stat.subLabel}</p>
-                    </div>
-                    {/* Sub-Column 3: Stat */}
-                    <div className="right-card-change">
-                      <span>{stat.value}</span>
-                      <img src={TinArr} />
-                    </div>
-                  </div>
                 </motion.div>
               ))}
             </div>
@@ -335,6 +336,7 @@ const Hero: React.FC = () => {
           </div>
         </div>
       </section>
+      <Herotwo />
     </motion.div>
   );
 };

@@ -25,7 +25,7 @@
   background-image: url('./assets/Pattern.png');
   background-size: cover;
   background-position: center;
-  height: 100vh;
+  height: 100%;
   position: relative; /* Ensure the pseudo-element is positioned relative to this */
 }
 
