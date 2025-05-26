@@ -41,7 +41,7 @@ const childFade = {
             whileInView="visible"
             viewport={{ once: true, amount: 0.4 }}
             >
-            <motion.p className="section-intro" variants={childFade}>
+            <motion.p className="section-intro text-light-cyan" variants={childFade}>
                 Things We’ve Built
             </motion.p>
 

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './ContactSection.css';
 import { motion, AnimatePresence } from 'framer-motion';
+import patternBg from '../assets/Pattern.png';
+import LogoImg from '../assets/logo.svg';
 
 const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', services: [] as string[] });
@@ -24,9 +26,8 @@ const ContactSection: React.FC = () => {
     e.preventDefault();
     console.log('Form submitted:', formData);
     setShowToast(true);
-
-    setTimeout(() => setShowToast(false), 3500); // hide toast after 3.5s
-    setFormData({ name: '', phone: '', email: '', services: [] }); // reset form
+    setTimeout(() => setShowToast(false), 3500);
+    setFormData({ name: '', phone: '', email: '', services: [] });
   };
 
   const services = [
@@ -37,12 +38,18 @@ const ContactSection: React.FC = () => {
     'Domain & Business Email Setup',
     'Creative Direction & Strategy',
   ];
-    if (showToast) {
-        setTimeout(() => setShowToast(false), 3500); // hide toast after 3.5s
-    }
+
   return (
-    <section className="contact-section">
-        <AnimatePresence>
+    <section className="contact-section"
+          style={{
+            backgroundImage: `url(${patternBg})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            position: 'relative',
+            overflow: 'hidden',
+        }}
+    >
+      <AnimatePresence>
         {showToast && (
           <motion.div
             className="form-toast"
@@ -55,6 +62,19 @@ const ContactSection: React.FC = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <motion.div
+        className="form-header"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <p className="section-pretitle">Let’s Make It Happen</p>
+        <h2 className="section-title">
+          <span className="orange">Start</span> <span className="teal">Conversation</span> with <span className="text-light-cyan">Us</span>
+        </h2>
+        <p className="section-subtitle_txt">Have a project in mind? We’d love to hear about it.</p>
+      </motion.div>
 
       <motion.div
         className="contact-wrapper"
@@ -94,43 +114,51 @@ const ContactSection: React.FC = () => {
         </div>
       </motion.div>
 
-      <footer className="footer">
-            <div className="partners">
-              <div className="brand-partners">
+      <motion.footer
+        className="footer"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="partners">
+          <div className="brand-partners">
             <p>PARTNERED BY THE WORLD’S TOP BRANDS</p>
             <div className="logos">
-              <span>• Venom</span>
-              <span>ASUS</span>
-              <span>HERITAGE</span>
-              <span>• Venom</span>
+              <img src="/images/herlogo.png" alt="" />
+              <img src="/images/herlogo.png" alt="" />
+              <img src="/images/herlogo.png" alt="" />
+              <img src="/images/herlogo.png" alt="" />
             </div>
           </div>
         </div>
-          
 
         <div className="footer-top">
-            <div className="logo-social">
-                <img src="/images/brand-logo-white.svg" alt="Brandgoto Logo" />
-                <div className="socials">
-                <a href="#"><i className="fab fa-xing"></i></a>
-                <a href="#"><i className="fab fa-linkedin-in"></i></a>
-                <a href="#"><i className="fab fa-instagram"></i></a>
-                <a href="#"><i className="fab fa-facebook-f"></i></a>
-                </div>
-                <p>© Copyright 2025, All Rights Reserved.</p>
+          <div className="logo-social">
+            <img src={LogoImg} alt="BrandGoto Logo" />
+            <div className="socials">
+              <a href="#"><i className="fab fa-x-twitter"></i></a>
+              <a href="#"><i className="fab fa-linkedin-in"></i></a>
+              <a href="#"><i className="fab fa-instagram"></i></a>
+              <a href="#"><i className="fab fa-facebook-f"></i></a>
             </div>
-            <div className="signup_txt">
-                <p>Signup to get access to Brandgoto updates. We will notify you about releases and industry news.</p>
-            </div>
-            <div className="newsletter">
-                <form>
-                <input type="email" placeholder="What's your e-mail?" required />
-                <button type="submit">→</button>
-                </form>
-                <p className="privacy">I confirm that I have read <strong>Brandgoto’s Privacy Policy</strong> and agree with it.</p>
-            </div>
+            <p className='copy_w'>© Copyright 2025, All Rights Reserved.</p>
+          </div>
+
+          <div className="signup_txt">
+            <p>Signup to get access to Brandgoto updates. We will notify you about releases and industry news.</p>
+          </div>
+
+          <div className="newsletter">
+            <form>
+              <input type="email" placeholder="What's your e-mail?" required />
+              <button type="submit">→</button>
+            </form>
+            <p className="privacy">
+              I confirm that I have read <strong>Brandgoto’s Privacy Policy</strong> and agree with it.
+            </p>
+          </div>
         </div>
-      </footer>
+      </motion.footer>
     </section>
   );
 };

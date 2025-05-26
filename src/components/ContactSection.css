@@ -2,7 +2,27 @@
   background: black;
   color: white;
   padding: 4rem 1rem;
+  padding-bottom: 0;
   font-family: 'Poppins', sans-serif;
+
+  background-image: url('./assets/Pattern.png');
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  position: relative;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 0;
+}
+
+.contact-wrapper,
+.footer {
+  position: relative;
+  z-index: 1; /* Ensure they are above the overlay */
 }
 
 .contact-wrapper {
@@ -16,6 +36,32 @@
   backdrop-filter: blur(10px);
 }
 
+.form-header {
+    text-align: center;
+    padding: 2rem;
+    margin-bottom: 50px;
+}
+
+.form-header h2 {
+  font-size: 48px;
+  font-weight: 400;
+  margin: 0 auto;
+}
+
+.form-header p {
+  font-size: 18px;
+  font-weight: 400;
+  margin: 0 auto;
+}
+
+.section-pretitle {
+  color: #CFF8FF;
+}
+
+.section-subtitle_txt {
+    color: #fff
+}
+
 .form-content {
   flex: 1;
   min-width: 300px;
@@ -23,8 +69,11 @@
 }
 
 .form-content h3 {
-  font-size: 24px;
+  font-size: 32px;
+  font-weight: 400;
   margin-bottom: 1rem;
+  color: #9DA8A9;
+  margin-bottom: 50px;
 }
 
 .form-content form {
@@ -49,8 +98,10 @@
 }
 
 .services-title {
-  font-weight: 600;
+  font-weight: 500;
   margin-top: 1rem;
+  font-size: 16px;
+  color: #ACBCC0;
 }
 
 .checkbox-grid {
@@ -64,6 +115,8 @@
   display: flex;
   align-items: center;
   gap: 0.4rem;
+  font-weight: 400;
+  color: #A0A6A7;
 }
 
 button[type="submit"] {
@@ -72,7 +125,7 @@ button[type="submit"] {
   background: #F75F0B;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 50px;
   font-weight: 600;
   cursor: pointer;
 }
@@ -105,8 +158,14 @@ button[type="submit"] {
   flex-wrap: nowrap;
   justify-content: space-between;
   gap: 2rem;
-  border-top: 1px solid rgba(255,255,255,0.1);
-  padding-top: 2rem;
+  padding: 2rem;
+  background-color: #000;
+}
+
+.partners  {
+    text-align: center;
+    justify-content: center;
+    margin: 50px auto;
 }
 
 .brand-partners p {
@@ -114,22 +173,30 @@ button[type="submit"] {
   margin-bottom: 0.5rem;
 }
 
-.logos {
+.brand-partners .logos {
   display: flex;
   gap: 1.5rem;
-  font-size: 1.2rem;
   opacity: 0.7;
+    text-align: center;
+    justify-content: center;
+    margin: 50px auto;
+}
+
+.brand-partners .logos img {
+    min-width: 150px;
+    height: auto;
+    transition: transform 0.3s ease;
 }
 
 .newsletter input[type="email"] {
-  padding: 0.6rem;
+  padding: 0.8rem;
   border: none;
   border-radius: 20px 0 0 20px;
   width: 70%;
 }
 
 .newsletter button {
-  padding: 0.6rem 1rem;
+  padding: 0.8rem 1rem;
   background: #F75F0B;
   color: white;
   border: none;
@@ -147,10 +214,38 @@ button[type="submit"] {
   align-items: center;
   gap: 1rem;
 }
+.logo-social img {
+margin-bottom: 20px;
+}
 
 .socials a {
-  margin: 0 0.25rem;
+  margin: 30px 5px;
   color: white;
+  border-radius: 50% 50%;
+  padding: 0.5rem;
+  background-color: #141414;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.socials a:hover {
+  background-color: #F75F0B;
+  color: white;
+}
+
+.signup_txt {
+    font-size: 18px;
+    color: #fff;
+    line-height: 30px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.copy_w {
+    font-size: 12px;
+    color: #D6D1CE;
+    margin-top: 40px;
 }
 
 .form-toast {
@@ -183,4 +278,12 @@ button[type="submit"] {
     flex-direction: column;
     gap: 2rem;
   }
+
+  .signup_txt {
+    font-size: 15px;
+    color: #fff;
+    line-height: 30px;
+    max-width: 100%;
+    margin: 0 auto;
+}
 }
