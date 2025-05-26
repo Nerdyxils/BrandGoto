@@ -1,0 +1,186 @@
+.contact-section {
+  background: black;
+  color: white;
+  padding: 4rem 1rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.contact-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: stretch;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+}
+
+.form-content {
+  flex: 1;
+  min-width: 300px;
+  padding: 2rem;
+}
+
+.form-content h3 {
+  font-size: 24px;
+  margin-bottom: 1rem;
+}
+
+.form-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-content input[type="text"],
+.form-content input[type="email"] {
+  padding: 0.75rem;
+  border: none;
+  background: rgba(255,255,255,0.07);
+  border-radius: 6px;
+  color: white;
+}
+
+.form-content input:focus {
+  outline: none;
+  background: rgba(255,255,255,0.15);
+  box-shadow: 0 0 5px rgba(255,255,255,0.3);
+}
+
+.services-title {
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.5rem;
+}
+
+.checkbox-grid label {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+button[type="submit"] {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: #F75F0B;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.form-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+}
+
+.form-image img {
+  max-width: 100%;
+  border-radius: 12px;
+  position: absolute;
+  bottom: -50px;
+  right: -10px;
+}
+
+/* ========== Footer ========== */
+.footer {
+  margin-top: 4rem;
+}
+
+.footer-top {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  gap: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 2rem;
+}
+
+.brand-partners p {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.logos {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+.newsletter input[type="email"] {
+  padding: 0.6rem;
+  border: none;
+  border-radius: 20px 0 0 20px;
+  width: 70%;
+}
+
+.newsletter button {
+  padding: 0.6rem 1rem;
+  background: #F75F0B;
+  color: white;
+  border: none;
+  border-radius: 0 20px 20px 0;
+}
+
+.newsletter p.privacy {
+  font-size: 0.75rem;
+  margin-top: 0.5rem;
+  opacity: 0.7;
+}
+
+.logo-social {
+  display: block;
+  align-items: center;
+  gap: 1rem;
+}
+
+.socials a {
+  margin: 0 0.25rem;
+  color: white;
+}
+
+.form-toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(29, 29, 29, 0.95);
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  z-index: 9999;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+}
+
+
+@media (max-width: 768px) {
+  .contact-wrapper {
+    flex-direction: column-reverse;
+    padding: 1.5rem;
+  }
+
+  .form-image {
+    order: -1;
+  }
+
+  .footer-top {
+    flex-direction: column;
+    gap: 2rem;
+  }
+}

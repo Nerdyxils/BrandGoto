@@ -26,7 +26,7 @@
   background-size: cover;
   background-position: center;
   height: 100%;
-  position: relative; /* Ensure the pseudo-element is positioned relative to this */
+  position: relative;
 }
 
 /* Dark Overlay using ::before */
@@ -45,7 +45,7 @@
 }
 
 img {
-  max-width: 100%;
+  max-width: 100% !important;
 }
 
 /* Apply Poppins font globally */
@@ -83,7 +83,6 @@ svg path {
 
 .text-teal-900 {
   color: #2FA0B5;
-  ;
 }
 
 .text-orange-500 {
@@ -108,4 +107,10 @@ svg path {
 
 .font-poppins {
   font-family: 'Poppins', sans-serif;
+}
+
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 45px !important;
+  }
 }

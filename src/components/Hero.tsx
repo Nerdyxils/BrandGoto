@@ -3,7 +3,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { ArrowUpRight, BarChart2, Users, Rocket, ArrowUp } from 'lucide-react';
 import Navbar from './Navbar';
 import LogoSvg from '../assets/LogoSvg';
-import HeroImg from '../assets/Silas.JPG';
+import HeroImg from '/images/Founder.JPG';
 import ImgCo from '../assets/conversion.png'
 import ImgDi from '../assets/digital.png'
 import ImgCs from '../assets/clientS.png'
@@ -12,6 +12,12 @@ import BigArr from '../assets/bigarrow.png'
 import TinArr from '../assets/tinyarrow-dropdown.png'
 import './Hero.css';
 import Herotwo from './Herotwo';
+import ServicesSection from './ServicesSection';
+import RecentProjects from './RecentProjects';
+import TeamSection from './TeamSection';
+import './ScrollSnap.css'; // 
+import TestimonialsSection from './TestimonialsSection';
+import ContactSection from './ContactSection';
 
 const Hero: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -271,7 +277,7 @@ const Hero: React.FC = () => {
                 className="middle-image"
               />
               <div className="middle-image-overlay">
-                <p className="middle-image-name">Jane Doe</p>
+                <p className="middle-image-name">Silas .A</p>
                 <p className="middle-image-position">Founding Partner</p>
               </div>
             </div>
@@ -337,6 +343,11 @@ const Hero: React.FC = () => {
         </div>
       </section>
       <Herotwo />
+      <ServicesSection />
+      <RecentProjects />
+      <TeamSection />
+      <TestimonialsSection />
+      <ContactSection />
     </motion.div>
   );
 };

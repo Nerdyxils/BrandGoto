@@ -1,0 +1,190 @@
+/* Grid & card layout */
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+@media (min-width: 640px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Card appearance */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Icon & heading alignment */
+.top_card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.icon_image img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.p_text p {
+  font-size: 15px;
+  line-height: 22px;
+  color: #b0b0b0;
+}
+
+.items-start {
+    min-height: 120px;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+/* Typography styles */
+.items-start h4 {
+  font-size: 16px;
+  line-height: 1.3;
+  font-weight: 600;
+  color: #ffffff;
+}
+.items-start p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #cccccc;
+}
+
+/* Animate on view fallback (for non-Framer support) */
+.fadeInUp {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.highlight-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 4rem;
+}
+
+@media (min-width: 768px) {
+  .highlight-cards {
+    flex-direction: row;
+  }
+}
+
+
+/* Highlight cards section */
+.highlight-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 4rem;
+}
+
+@media (min-width: 768px) {
+  .highlight-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .highlight-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.highlight-card {
+  padding: 1.5rem;
+  min-height: 450px;
+  border-radius: 1rem;
+  color: #000;
+}
+
+.highlight-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+}
+
+.highlight-description {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.highlight-points {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inner_points {
+  background-color: #000;
+  color: #fff;
+  padding: 10px;
+  border-radius: 30px;
+}
+
+.out__inner {
+  padding: 20px;
+  border-radius: 30px;
+  /* position: absolute;
+  bottom: 50px; */
+  margin-top: 150px;
+}
+
+.pill-icon-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 14px;
+}
+
+/* Highlight card colors */
+.bg-yellow {
+  background-color: #DEE948;
+
+}
+
+.bg-purple {
+  background-color: #D0C6F0;
+
+}
+
+.bg-blue {
+  background-color: #D4DFFC;
+}
+
+.bg-lyellow {
+  background-color: #F2FF3ECC;
+}
+
+.bg-lpurple {
+  background-color: #D9CFFA;
+}
+
+.bg-lblue {
+  background-color: #C8D7FF;
+}
