@@ -5,8 +5,15 @@ import ProjectModal from './ProjectModal';
 import './RecentProjects.css';
 
 const RecentProjects: React.FC = () => {
+    type Project = {
+    id: number;
+    title: string;
+    img: string;
+    description: string;
+  };
+
   const [selectedTab, setSelectedTab] = useState<'recent' | 'all'>('recent');
-  const [activeProject, setActiveProject] = useState(null);
+  const [activeProject, setActiveProject] = useState<Project | null>(null);
 
   const recentProjects = [
     { id: 1, title: 'Prodex – Inventory & Product Management System (MERN Stack)', img: '/images/projectA.png', description: 'Built a comprehensive inventory and product management system using the MERN stack. The platform allows businesses to track stock levels, manage product listings, and generate reports. Developed an intuitive dashboard with role-based authentication, real-time data updates, and CRUD operations. Optimized for scalability and seamless user experience.' },

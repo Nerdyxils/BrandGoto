@@ -2,14 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { ArrowUpRight, BarChart2, Users, Rocket, ArrowUp } from 'lucide-react';
 import Navbar from './Navbar';
-import LogoSvg from '../assets/LogoSvg';
-import HeroImg from '/images/Founder.JPG';
-import ImgCo from '../assets/conversion.png'
-import ImgDi from '../assets/digital.png'
-import ImgCs from '../assets/clientS.png'
-import Arrowup from '../assets/ArrowUpRight.png'
-import BigArr from '../assets/bigarrow.png'
-import TinArr from '../assets/tinyarrow-dropdown.png'
+import ImgCo from '../assets/conversion.png';
+import ImgDi from '../assets/digital.png';
+import ImgCs from '../assets/clientS.png';
+import Arrowup from '../assets/ArrowUpRight.png';
+import BigArr from '../assets/bigarrow.png';
+import TinArr from '../assets/tinyarrow-dropdown.png';
 import './Hero.css';
 import Herotwo from './Herotwo';
 import ServicesSection from './ServicesSection';
@@ -58,6 +56,8 @@ const Hero: React.FC = () => {
     { label: 'Great Brand Strategy', subLabel: 'Not sure what your brand needs?', value: '101%' },
   ];
 
+  const HeroImg = '/images/Founder.JPG';
+  
   const textVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: (i: number) => ({

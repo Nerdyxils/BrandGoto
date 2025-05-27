@@ -74,13 +74,19 @@ const TestimonialSection: React.FC = () => {
 
   return (
     <section className="testimonial-section" ref={ref}>
-      <div className="testimonial-header">
-        <p className="section-subtitle">Testimonial</p>
-        <h2 className="section-title">
+      <motion.div
+        className="testimonial-header"
+        variants={variants}
+        initial="hidden"
+        animate={controls}
+      >
+        <motion.p className="section-subtitle" variants={variants}>Testimonial</motion.p>
+        <motion.h2 className="section-title" variants={variants}>
           <span className="orange">Love</span> <span className="teal">From</span> <span className="white">Clients</span>
-        </h2>
-        <p className="section-desc">What They're Saying</p>
-      </div>
+        </motion.h2>
+        <motion.p className="section-desc" variants={variants}>What They're Saying</motion.p>
+      </motion.div>
+
 
       <div className="testimonial-grid">
 {testimonials.map((t, i) => {
@@ -100,7 +106,7 @@ const TestimonialSection: React.FC = () => {
       </motion.div>
 
       <motion.div
-        className={`testimonial-card ${bgClass}`} // 👈 Shared background
+        className={`testimonial-card ${bgClass}`} 
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
