@@ -270,8 +270,22 @@ margin-bottom: 20px;
     padding: 1.5rem;
   }
 
+  .form-header h2 {
+    font-size: 36px;
+    font-weight: 400;
+    margin: 0 auto;
+  }
+
+  .form-header {
+    padding: 0;
+  }
+
+  .form-header p {
+    font-size: 14px;
+  }
+
   .form-image {
-    order: -1;
+    order: 1;
   }
 
   .footer-top {

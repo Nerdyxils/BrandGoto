@@ -113,4 +113,12 @@ svg path {
   h1 {
     font-size: 45px !important;
   }
+  h2 {
+    font-size: 36px !important;
+    font-weight: 400;
+    margin: 0 auto;
+  }
+  p {
+    font-size: 14px !important;
+  }
 }

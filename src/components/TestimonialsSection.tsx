@@ -56,10 +56,23 @@ const TestimonialSection: React.FC = () => {
     if (inView) controls.start('visible');
   }, [inView, controls]);
 
-  const variants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
-  };
+    const containerVariants = {
+      hidden: { opacity: 0 },
+      visible: {
+        opacity: 1,
+        transition: {
+          staggerChildren: 0.2,
+        },
+      },
+    };
+    const variants = {
+      hidden: { opacity: 0, y: 40 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.6, ease: 'easeOut' },
+      },
+    };
 
   const cardVariantsLeft = {
     hidden: { opacity: 0, x: -60 },
@@ -74,9 +87,9 @@ const TestimonialSection: React.FC = () => {
 
   return (
     <section className="testimonial-section" ref={ref}>
-      <motion.div
+     <motion.div
         className="testimonial-header"
-        variants={variants}
+        variants={containerVariants}
         initial="hidden"
         animate={controls}
       >
@@ -86,6 +99,7 @@ const TestimonialSection: React.FC = () => {
         </motion.h2>
         <motion.p className="section-desc" variants={variants}>What They're Saying</motion.p>
       </motion.div>
+
 
 
       <div className="testimonial-grid">

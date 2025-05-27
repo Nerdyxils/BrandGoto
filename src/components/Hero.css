@@ -519,4 +519,12 @@
   .cta-button {
     font-size: 14px;
   }
+
+  .cta-text {
+    margin-left: 5px;
+  }
+
+  .cta-role {
+    font-size: 10px;
+  }
 }
