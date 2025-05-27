@@ -215,8 +215,50 @@ button[type="submit"] {
   gap: 1rem;
 }
 .logo-social img {
-margin-bottom: 20px;
+  margin-bottom: 20px;
 }
+
+
+
+
+.logos-wrapper {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+.logos {
+  display: flex;
+  gap: 2rem;
+  min-width: 200%;
+}
+
+.logos img {
+  height: 40px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* Animate left to right */
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scrollLeft 18s linear infinite;
+}
+
+
+
+
+
+
+
 
 .socials a {
   margin: 30px 5px;
@@ -293,6 +335,11 @@ margin-bottom: 20px;
     gap: 2rem;
   }
 
+  .form-content {
+    order: 2;
+    padding: 0;
+  } 
+
   .signup_txt {
     font-size: 15px;
     color: #fff;
@@ -300,4 +347,12 @@ margin-bottom: 20px;
     max-width: 100%;
     margin: 0 auto;
 }
+
+  .logos img {
+    height: 30px;
+  }
+
+  .animate-scroll {
+    animation-duration: 25s;
+  }
 }

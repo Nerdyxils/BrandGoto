@@ -123,14 +123,22 @@ const ContactSection: React.FC = () => {
         <div className="partners">
           <div className="brand-partners">
             <p>PARTNERED BY THE WORLD’S TOP BRANDS</p>
-            <div className="logos">
-              <img src="/images/herlogo.png" alt="" />
-              <img src="/images/herlogo.png" alt="" />
-              <img src="/images/herlogo.png" alt="" />
-              <img src="/images/herlogo.png" alt="" />
+            <div className="logos-wrapper">
+              <div className="logos animate-scroll">
+                <img src="/images/herlogo.png" alt="Heritage" />
+                <img src="/images/herlogo.png" alt="Venom" />
+                <img src="/images/herlogo.png" alt="Asus" />
+                <img src="/images/herlogo.png" alt="Jayo" />
+                {/* duplicate for seamless loop */}
+                <img src="/images/herlogo.png" alt="Heritage duplicate" />
+                <img src="/images/herlogo.png" alt="Venom duplicate" />
+                <img src="/images/herlogo.png" alt="Asus duplicate" />
+                <img src="/images/herlogo.png" alt="Jayo duplicate" />
+              </div>
             </div>
           </div>
         </div>
+
 
         <div className="footer-top">
           <div className="logo-social">
