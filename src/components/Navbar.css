@@ -159,6 +159,20 @@
   
     .menu-toggle {
       display: block;
+      margin-right: 20px;
+    }
+
+    .navbar-container{
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 9999;
+      background: rgba(0, 0, 0, 0.9); /* Ensure it's visible */
+      padding: 1rem 1.5rem;
+      backdrop-filter: blur(10px); /* Optional for glassmorphism */
+      transition: background 0.3s ease;
+      height: 60px;
     }
   }
   

@@ -320,8 +320,8 @@
   }
 
   .middle-image-overlay {
-    bottom: 12px;
-    left: 12px;
+    bottom: 0px;
+    left: 0px;
     padding: 6px;
   }
 
@@ -380,7 +380,7 @@
   }
 
   .middle-image-container {
-    max-width: 270px; /* Slightly smaller image for tablet */
+    max-width: 270px; 
     height: 320px;
   }
 
@@ -526,6 +526,10 @@
 
   .cta-role {
     font-size: 10px;
+  }
+
+  .hero-bg{
+    padding-top: 80px;
   }
 }
 
