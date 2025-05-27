@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
-import { ArrowUpRight, BarChart2, Users, Rocket, ArrowUp } from 'lucide-react';
 import Navbar from './Navbar';
 import ImgCo from '../assets/conversion.png';
 import ImgDi from '../assets/digital.png';
@@ -57,7 +56,7 @@ const Hero: React.FC = () => {
   ];
 
   const HeroImg = '/images/Founder.JPG';
-  
+
   const textVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: (i: number) => ({
