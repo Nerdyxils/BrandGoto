@@ -92,19 +92,26 @@ const Herotwo: React.FC = () => {
           </motion.div>
         </div>
         <section className="features-section">
-          <div className="features-grid">
+          <motion.div 
+            className="features-grid"
+            variants={containerVariants}
+            initial="hidden"
+            animate={controls}
+            >
             {cardData.map((card, index) => (
-              <div key={index} className="feature-card">
+              <motion.div key={index} 
+                className="feature-card"   
+                variants={textVariants}
+                >
                 <div className="feature-image">
                   {card.image}
                 </div>
                 <p className="feature-title">{card.title}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </section>
       </section>
-
 
     </motion.div>
   );

@@ -92,6 +92,8 @@ const TestimonialSection: React.FC = () => {
         variants={containerVariants}
         initial="hidden"
         animate={controls}
+        exit={{ opacity: 0, y: 40 }}
+        transition={{ duration: 0.4 }}
       >
         <motion.p className="section-subtitle" variants={variants}>Testimonial</motion.p>
         <motion.h2 className="section-title" variants={variants}>
@@ -111,7 +113,7 @@ const TestimonialSection: React.FC = () => {
     <div className={`testimonial-row ${!isEven ? 'reverse-row' : ''}`} key={t.id}>
       <motion.div
         className={`logo-box ${bgClass}`}
-        initial="hidden"
+        initial='hidden'
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         variants={isEven ? cardVariantsRight : cardVariantsLeft}

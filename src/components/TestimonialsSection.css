@@ -153,7 +153,7 @@
   }
 
   .logo-box {
-    width: 100%;
+    /* width: 100%; */
     padding: 20px;
   }
 
@@ -181,5 +181,8 @@
   .testimonial-grid {
     scroll-snap-type: y mandatory;
     overflow-y: scroll;
+  }
+  .orange-overlay, .teal-overlay {
+    margin-top: 20px;
   }
 }
