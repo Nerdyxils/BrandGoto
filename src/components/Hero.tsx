@@ -12,7 +12,7 @@ import Herotwo from './Herotwo';
 import ServicesSection from './ServicesSection';
 import RecentProjects from './RecentProjects';
 import TeamSection from './TeamSection';
-import './ScrollSnap.css'; // 
+import './ScrollSnap.css';
 import TestimonialsSection from './TestimonialsSection';
 import ContactSection from './ContactSection';
 
@@ -20,28 +20,35 @@ const Hero: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    // Lock scroll when menu is open
     document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
-
-    // ESC key to close tray
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setIsMenuOpen(false);
     };
-
-    // Resize: auto-close if screen is wider than 768px
     const handleResize = () => {
       if (window.innerWidth > 768) setIsMenuOpen(false);
     };
-
     document.addEventListener('keydown', handleEsc);
     window.addEventListener('resize', handleResize);
-
     return () => {
       document.removeEventListener('keydown', handleEsc);
       window.removeEventListener('resize', handleResize);
       document.body.style.overflow = 'auto';
     };
   }, [isMenuOpen]);
+
+
+const [isScrolled, setIsScrolled] = useState(false);
+useEffect(() => {
+  const handleScroll = () => {
+    setIsScrolled(window.scrollY > 10);
+  };
+
+  window.addEventListener('scroll', handleScroll);
+  return () => window.removeEventListener('scroll', handleScroll);
+}, []);
+
+  const HeroImg = '/images/Founder.JPG';
+  const CSMimg = '/images/Image.png';
 
   const leftStats = [
     { icon: <img src={ImgCo} />, label: 'Conversion', value: '200%', change: '81%' },
@@ -55,181 +62,83 @@ const Hero: React.FC = () => {
     { label: 'Great Brand Strategy', subLabel: 'Not sure what your brand needs?', value: '101%' },
   ];
 
-  const HeroImg = '/images/Founder.JPG';
-
-  const textVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: 'easeInOut', delay: i * 0.2 },
-    }),
+  const heroContainerVariants = {
+    hidden: {},
+    visible: {
+      transition: { staggerChildren: 0.3, ease: 'easeInOut' }
+    }
   };
 
-  // Animation for Stats Cards
+  const textItemVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.7, ease: 'easeOut' }
+    }
+  };
+
   const leftControls = leftStats.map(() => useAnimation());
   const rightControls = rightStats.map(() => useAnimation());
 
   useEffect(() => {
     const animateStats = async () => {
+      await new Promise(resolve => setTimeout(resolve, 1500)); // Wait for hero text animations to finish
       while (true) {
-        // Phase 1: Left (2 up, 1 down), Right (1 up, 2 down)
         await Promise.all([
-          leftControls[0].start({
-            scale: 1.1,
-            background: '#1F2937', // Solid background when popped up
-            backdropFilter: 'none',
-            border: 'none',
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', // Small glow shadow when popped up
-            transition: { duration: 0.5 },
-          }),
-          leftControls[1].start({
-            scale: 1.1,
-            background: '#1F2937',
-            backdropFilter: 'none',
-            border: 'none',
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-            transition: { duration: 0.5 },
-          }),
-          leftControls[2].start({
-            scale: 0.9,
-            background: 'rgba(255, 255, 255, 0.1)', // Glassmorphism when popped down
-            backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
-            boxShadow: 'none',
-            transition: { duration: 0.5 },
-          }),
-          rightControls[0].start({
-            scale: 1.1,
-            background: '#1F2937',
-            backdropFilter: 'none',
-            border: 'none',
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-            transition: { duration: 0.5 },
-          }),
-          rightControls[1].start({
-            scale: 0.9,
-            background: 'rgba(255, 255, 255, 0.1)',
-            backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
-            boxShadow: 'none',
-            transition: { duration: 0.5 },
-          }),
-          rightControls[2].start({
-            scale: 0.9,
-            background: 'rgba(255, 255, 255, 0.1)',
-            backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
-            boxShadow: 'none',
-            transition: { duration: 0.5 },
-          }),
+          leftControls[0].start({ scale: 1.1, background: '#1F2937', transition: { duration: 0.5 } }),
+          leftControls[1].start({ scale: 1.1, background: '#1F2937', transition: { duration: 0.5 } }),
+          leftControls[2].start({ scale: 0.9, background: 'rgba(255,255,255,0.1)', transition: { duration: 0.5 } }),
+          rightControls[0].start({ scale: 1.1, background: '#1F2937', transition: { duration: 0.5 } }),
+          rightControls[1].start({ scale: 0.9, background: 'rgba(255,255,255,0.1)', transition: { duration: 0.5 } }),
+          rightControls[2].start({ scale: 0.9, background: 'rgba(255,255,255,0.1)', transition: { duration: 0.5 } }),
         ]);
-        await new Promise((resolve) => setTimeout(resolve, 2000)); // Wait 2s
-
-        // Phase 2: Left (1 up, 2 down), Right (2 up, 1 down)
+        await new Promise(r => setTimeout(r, 2000));
         await Promise.all([
-          leftControls[0].start({
-            scale: 0.9,
-            background: 'rgba(255, 255, 255, 0.1)',
-            backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
-            boxShadow: 'none',
-            transition: { duration: 0.5 },
-          }),
-          leftControls[1].start({
-            scale: 0.9,
-            background: 'rgba(255, 255, 255, 0.1)',
-            backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
-            boxShadow: 'none',
-            transition: { duration: 0.5 },
-          }),
-          leftControls[2].start({
-            scale: 1.1,
-            background: '#1F2937',
-            backdropFilter: 'none',
-            border: 'none',
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-            transition: { duration: 0.5 },
-          }),
-          rightControls[0].start({
-            scale: 0.9,
-            background: 'rgba(255, 255, 255, 0.1)',
-            backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
-            boxShadow: 'none',
-            transition: { duration: 0.5 },
-          }),
-          rightControls[1].start({
-            scale: 1.1,
-            background: '#1F2937',
-            backdropFilter: 'none',
-            border: 'none',
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-            transition: { duration: 0.5 },
-          }),
-          rightControls[2].start({
-            scale: 1.1,
-            background: '#1F2937',
-            backdropFilter: 'none',
-            border: 'none',
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-            transition: { duration: 0.5 },
-          }),
+          leftControls[0].start({ scale: 0.9, background: 'rgba(255,255,255,0.1)', transition: { duration: 0.5 } }),
+          leftControls[1].start({ scale: 0.9, background: 'rgba(255,255,255,0.1)', transition: { duration: 0.5 } }),
+          leftControls[2].start({ scale: 1.1, background: '#1F2937', transition: { duration: 0.5 } }),
+          rightControls[0].start({ scale: 0.9, background: 'rgba(255,255,255,0.1)', transition: { duration: 0.5 } }),
+          rightControls[1].start({ scale: 1.1, background: '#1F2937', transition: { duration: 0.5 } }),
+          rightControls[2].start({ scale: 1.1, background: '#1F2937', transition: { duration: 0.5 } }),
         ]);
-        await new Promise((resolve) => setTimeout(resolve, 2000)); // Wait 2s
+        await new Promise(r => setTimeout(r, 2000));
       }
     };
     animateStats();
-  }, [leftControls, rightControls]);
+  }, []);
 
   return (
+      <>
+      <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isScrolled={isScrolled}/>
     <motion.div
       className="main-content"
       animate={isMenuOpen ? { x: '-40vw' } : { x: 0 }}
       transition={{ type: 'tween', duration: 0.3 }}
     >
-      <section className="relative min-h-screen bg-black text-white px-4 sm:px-8 pt-6 pb-10 hero-bg">
+      <section className="relative min-h-screen bg-black text-white px-4 sm:px-8 pt-[90px] pb-10 hero-bg">
         <div className="container mx-auto">
-          <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
 
           {/* Hero Text */}
-          <div className="hero-txt text-center max-w-3xl mx-auto mb-16">
-            <motion.span
-              className="sm__txt text-sm sm:text-base text-[#CFF8FF] block mb-3"
-              variants={textVariants}
-              initial="hidden"
-              animate="visible"
-              custom={0}
-            >
+          <motion.div
+            className="hero-txt text-center max-w-3xl mx-auto mb-16"
+            variants={heroContainerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.span className="sm__txt block mb-3" variants={textItemVariants}>
               Built for all Brands
             </motion.span>
 
-            <motion.h1
-              className="hero-heading"
-              variants={textVariants}
-              initial="hidden"
-              animate="visible"
-              custom={1}
-            >
-              <span>Bold</span>
-              <span>Brands</span>
-              <span>Start</span>
-              <span>Here</span>
+            <motion.h1 className="hero-heading" variants={textItemVariants}>
+              <span>Bold</span><span>Brands</span><span>Start</span><span>Here</span>
             </motion.h1>
 
-            <motion.p
-              className="h__txt text-base sm:text-lg text-gray-300"
-              variants={textVariants}
-              initial="hidden"
-              animate="visible"
-              custom={2}
-            >
+            <motion.p className="h__txt text-base sm:text-lg text-gray-300" variants={textItemVariants}>
               We creatively make your brand standout, build beautiful websites, and launch your online presence with power.
             </motion.p>
-          </div>
+          </motion.div>
 
-          {/* Stats Section */}
           <div className="stats-container">
             {/* Left Cards */}
             <div className=" left-cards">
@@ -328,11 +237,11 @@ const Hero: React.FC = () => {
               transition={{ duration: 0.6, ease: "easeOut" }} // Smooth ease-out animation over 0.6s
             >
               <div className="cta-image-wrapper">
-                <img src={HeroImg} alt="Client Success Manager" className="cta-image" />
+                <img src={CSMimg} alt="Client Success Manager" className="cta-image" />
                 <span className="cta-online-indicator"></span>
               </div>
               <div className="cta-text">
-                <span className="cta-name">Jane Doe</span>
+                <span className="cta-name">Celine</span>
                 <br />
                 <span className="cta-role">Client Success Manager</span>
               </div>
@@ -341,13 +250,30 @@ const Hero: React.FC = () => {
           </div>
         </div>
       </section>
-      <Herotwo />
-      <ServicesSection />
-      <RecentProjects />
-      <TeamSection />
-      <TestimonialsSection />
-      <ContactSection />
+              <section id="about-us">
+                <Herotwo />
+              </section>
+
+              <section id="services">
+                <ServicesSection />
+              </section>
+
+              <section id="recent-projects">
+                <RecentProjects />
+              </section>
+
+              <section id="team">
+                <TeamSection />
+              </section>
+              <section id="success-stories">
+                <TestimonialsSection />
+              </section>
+
+              <section id="contact">
+                <ContactSection />
+              </section>
     </motion.div>
+    </>
   );
 };
 

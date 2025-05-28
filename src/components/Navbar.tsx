@@ -7,13 +7,22 @@ import './Navbar.css';
 interface NavbarProps {
   isMenuOpen: boolean;
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isScrolled: boolean;
 }
 
-const navLinks = ['About Us', 'Services', 'Success Stories'];
 
-const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen }) => {
+const navLinks = [
+  { label: 'About Us', id: 'about-us' },
+  { label: 'How we Help', id: 'services' },
+  { label: 'Things we Built', id: 'recent-projects' },
+  { label: 'Team', id: 'team' },
+  { label: 'Success Stories', id: 'success-stories' },
+];
+
+
+const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen, isScrolled }) => {
   return (
-    <header className="navbar-container">
+    <header className={`navbar-container ${isScrolled ? 'scrolled' : ''}`}>
       <div className="navbar-inner">
         {/* Logo */}
         <div className="w-1/5 navbar-logo">
@@ -24,18 +33,20 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen }) => {
         <nav className="w-3/5 navbar-links">
           {navLinks.map((link) => (
             <a
-              key={link}
-              href={`#${link.toLowerCase().replace(/\s+/g, '-')}`}
+              key={link.id}
+              href={`#${link.id}`}
               className="nav-link"
             >
-              {link}
+              {link.label}
             </a>
           ))}
         </nav>
 
         {/* CTA Button - Desktop only */}
         <div className="w-1/5 navbar-cta">
-          <button className="cta-btn">Book a Free Consultation</button>
+          <a href="#contact">
+            <button className="cta-btn">Book a Free Consultation</button>
+          </a>
         </div>
 
         {/* Hamburger Menu - Mobile only */}
@@ -46,56 +57,58 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen }) => {
 
       {/* Mobile Menu */}
       <AnimatePresence>
-  {isMenuOpen && (
-    <>
-      {/* Dimmed Background Overlay */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.3 }}
-        className="mobile-menu-backdrop"
-        onClick={() => setIsMenuOpen(false)}
-      />
+        {isMenuOpen && (
+          <>
+            {/* Overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="mobile-menu-backdrop"
+              onClick={() => setIsMenuOpen(false)}
+            />
 
-      {/* Slide-in Panel */}
-      <motion.div
-            initial={{ x: '100%', opacity: 0 }}
-            animate={{ x: '40vw', opacity: 1 }}
-            exit={{ x: '100%', opacity: 0 }}
-            transition={{ type: 'tween', duration: 0.3 }}
-            className="mobile-menu enhanced"
+            {/* Slide-in Panel */}
+            <motion.div
+              initial={{ x: '100%', opacity: 0 }}
+              animate={{ x: '30vw', opacity: 1 }}
+              exit={{ x: '100%', opacity: 0 }}
+              transition={{ type: 'tween', duration: 0.3 }}
+              className="mobile-menu enhanced"
             >
-            <div className="mobile-menu-header">
+              <div className="mobile-menu-header">
                 <button onClick={() => setIsMenuOpen(false)}>
-                <X size={28} color="#fff" />
+                  <X size={28} color="#fff" />
                 </button>
-            </div>
+              </div>
 
-            {/* Nav Items */}
-            <div className="mobile-menu-links">
+              {/* Nav Items */}
+              <div className="mobile-menu-links">
                 {navLinks.map((link) => (
-                <a
-                    key={link}
-                    href={`#${link.toLowerCase().replace(/\s+/g, '-')}`}
+                  <a
+                    key={link.id}
+                    href={`#${link.id}`}
                     className="mobile-nav-link"
                     onClick={() => setIsMenuOpen(false)}
-                >
-                    {link}
-                </a>
+                  >
+                    {link.label}
+                  </a>
                 ))}
-            </div>
+              </div>
 
-            {/* CTA - now sits directly under links */}
-            <div className="mobile-menu-cta">
-                <button className="cta-btn" onClick={() => setIsMenuOpen(false)}>
-                Book a Free Consultation
-                </button>
-            </div>
-        </motion.div>
-    </>
-  )}
-</AnimatePresence>
+              {/* CTA */}
+              <div className="mobile-menu-cta">
+                <a href="#contact" onClick={() => setIsMenuOpen(false)}>
+                  <button className="cta-btn">
+                    Book a Free Consultation
+                  </button>
+                </a>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </header>
   );
 };
