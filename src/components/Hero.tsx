@@ -51,16 +51,43 @@ useEffect(() => {
   const CSMimg = '/images/Image.png';
 
   const leftStats = [
-    { icon: <img src={ImgCo} />, label: 'Conversion', value: '200%', change: '81%' },
-    { icon: <img src={ImgDi} />, label: 'Digital Campaign', value: '20M+', change: '76%' },
-    { icon: <img src={ImgCs} />, label: 'Client Satisfaction', value: '156%', change: '79%' },
-  ];
+  {
+    icon: <img src={ImgCo} />,
+    label: 'Average Conversion Boost',
+    value: '320%',
+    change: '81%',
+  },
+  {
+    icon: <img src={ImgDi} />,
+    label: 'Digital Campaign Reach',
+    value: '32M+',
+    change: '76%',
+  },
+  {
+    icon: <img src={ImgCs} />,
+    label: 'Client Satisfaction Rate',
+    value: '99.2%',
+    change: '79%',
+  },
+];
 
-  const rightStats = [
-    { label: 'Customer Engagement', subLabel: 'High-converting strategy', value: '70%' },
-    { label: 'Business Email Setup', subLabel: 'Look legit with setting it up', value: '210%' },
-    { label: 'Great Brand Strategy', subLabel: 'Not sure what your brand needs?', value: '101%' },
-  ];
+const rightStats = [
+  {
+    label: 'Brand Visibility',
+    subLabel: 'From obscurity to standout',
+    value: '4x',
+  },
+  {
+    label: 'Revenue Growth Impact',
+    subLabel: 'After identity rebrands',
+    value: '+65%',
+  },
+  {
+    label: 'Projects Delivered On Time',
+    subLabel: 'Agile and reliable delivery',
+    value: '100%',
+  },
+];
 
   const heroContainerVariants = {
     hidden: {},

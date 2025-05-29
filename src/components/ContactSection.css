@@ -218,13 +218,11 @@ button[type="submit"] {
   margin-bottom: 20px;
 }
 
-
-
-
 .logos-wrapper {
   overflow: hidden;
-  width: 100%;
+  width: 50%;
   position: relative;
+  margin: 0 auto;
 }
 
 .logos {
@@ -252,13 +250,6 @@ button[type="submit"] {
 .animate-scroll {
   animation: scrollLeft 18s linear infinite;
 }
-
-
-
-
-
-
-
 
 .socials a {
   margin: 30px 5px;
@@ -346,6 +337,12 @@ button[type="submit"] {
     line-height: 30px;
     max-width: 100%;
     margin: 0 auto;
+}
+
+.logos-wrapper {
+  overflow: hidden;
+  width: 90%;
+  margin: 0 auto;
 }
 
   .logos img {

@@ -9,7 +9,7 @@ interface Props {
 
 const ProjectStats: React.FC<Props> = ({ selectedTab, setSelectedTab }) => {
 
-    const slideUpVariant = {
+const slideUpVariant = {
   hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,
@@ -65,9 +65,9 @@ const childFade = {
 
 
       <div className="stats">
-        <div><CountUp end={4} duration={2} />+<p>Projects Completed</p></div>
-        <div><CountUp end={73} duration={2} />%<p>Client Satisfaction Rate</p></div>
-        <div><CountUp end={2000000} duration={2} separator="," />+<p>Digital Campaign Reach</p></div>
+        <div><CountUp end={40} duration={2} />+<p>Projects Completed</p></div>
+        <div><CountUp end={99} duration={2} />%<p>Client Satisfaction Rate</p></div>
+        <div><CountUp end={32000000} duration={2} separator="," />+<p>Digital Campaign Reach</p></div>
       </div>
     </aside>
   );
