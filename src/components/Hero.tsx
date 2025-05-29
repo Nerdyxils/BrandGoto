@@ -47,7 +47,7 @@ useEffect(() => {
   return () => window.removeEventListener('scroll', handleScroll);
 }, []);
 
-  const HeroImg = '/public/images/hero_imgg.png';
+  const HeroImg = '/images/hero_imgg.png';
   const CSMimg = '/images/Image.png';
 
   const leftStats = [
