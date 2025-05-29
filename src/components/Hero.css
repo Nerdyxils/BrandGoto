@@ -157,7 +157,7 @@
   position: relative;
   width: 100%;
   max-width: 293px;
-  min-width: 250px; /* Prevent squashing on smaller screens */
+  min-width: 350px; /* Prevent squashing on smaller screens */
   height: 357px;
   margin: 0 auto; /* Center the image container */
 }

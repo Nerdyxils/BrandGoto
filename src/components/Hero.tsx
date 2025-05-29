@@ -47,7 +47,7 @@ useEffect(() => {
   return () => window.removeEventListener('scroll', handleScroll);
 }, []);
 
-  const HeroImg = '/images/Founder.JPG';
+  const HeroImg = '/public/images/hero_imgg.png';
   const CSMimg = '/images/Image.png';
 
   const leftStats = [
@@ -184,10 +184,10 @@ useEffect(() => {
                 alt="Profile"
                 className="middle-image"
               />
-              <div className="middle-image-overlay">
+              {/* <div className="middle-image-overlay">
                 <p className="middle-image-name">Silas .A</p>
                 <p className="middle-image-position">Founding Partner</p>
-              </div>
+              </div> */}
             </div>
 
             {/* Right Cards */}
