@@ -22,12 +22,42 @@ const ContactSection: React.FC = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // ✅ Updated Submit Handler
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    setShowToast(true);
-    setTimeout(() => setShowToast(false), 3500);
-    setFormData({ name: '', phone: '', email: '', services: [] });
+
+    const payload = {
+      email: formData.email,
+      attributes: {
+        FIRSTNAME: formData.name,
+        SMS: formData.phone,
+        SERVICES: formData.services.join(', ')
+      },
+      listIds: [2], // ⛳️ Replace with your actual Brevo list ID
+      updateEnabled: true
+    };
+
+    try {
+      const response = await fetch('http://localhost:5001/api/brevo/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'api-key': import.meta.env.VITE_BREVO_API_KEY // ✅ Uses .env
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (response.ok) {
+        setShowToast(true);
+        setTimeout(() => setShowToast(false), 3500);
+        setFormData({ name: '', phone: '', email: '', services: [] });
+      } else {
+        const error = await response.json();
+        console.error('❌ Brevo API Error:', error);
+      }
+    } catch (err) {
+      console.error('❌ Request Failed:', err);
+    }
   };
 
   const services = [
@@ -41,13 +71,13 @@ const ContactSection: React.FC = () => {
 
   return (
     <section className="contact-section"
-          style={{
-            backgroundImage: `url(${patternBg})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            position: 'relative',
-            overflow: 'hidden',
-        }}
+      style={{
+        backgroundImage: `url(${patternBg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
     >
       <AnimatePresence>
         {showToast && (

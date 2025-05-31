@@ -4,9 +4,9 @@ import './TeamSection.css';
 
 const teamMembers = [
   { name: 'Silas .A', role: 'Managing Partner', img: '/images/Founder.JPG' },
-  { name: 'Alex Chen', role: 'Developer', img: '/images/team2.jpg' },
-  { name: 'Sara Malik', role: 'Designer', img: '/images/team3.jpg' },
-  { name: 'Liam Patel', role: 'Strategist', img: '/images/team4.jpg' },
+  { name: 'Robert White', role: 'Full Stack Developer', img: '/images/Full-stack-developer.png' },
+  { name: 'Olha .K', role: 'Product Designer', img: '/images/designer.png' },
+  { name: 'Dmytro .K', role: 'Marketing Strategist', img: '/images/Marketing-Strategist.png' },
 ];
 
 const cardVariants = {
