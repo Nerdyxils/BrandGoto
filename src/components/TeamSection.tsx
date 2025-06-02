@@ -5,8 +5,8 @@ import './TeamSection.css';
 const teamMembers = [
   { name: 'Silas', role: 'Managing Partner & Project Manager', img: '/images/Founder.JPG' },
   { name: 'Robert', role: 'Full Stack Developer', img: '/images/Robert.png' },
-  { name: 'Olha', role: 'Product Designer', img: '/images/designer.png' },
-  { name: 'Dmytro', role: 'Marketing Strategist', img: '/images/Marketing-Strategist.png' },
+  { name: 'Olha', role: 'Product Designer', img: '/images/Olha.jpg' },
+  { name: 'Dmytro', role: 'Marketing Strategist', img: '/images/Dymtro.jpg' },
 ];
 
 const cardVariants = {
