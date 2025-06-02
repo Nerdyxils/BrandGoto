@@ -1,33 +1,49 @@
 const express = require('express');
 const router = express.Router();
-const axios = require('axios');
+const fetch = require('node-fetch');
 
 router.post('/contact', async (req, res) => {
-  const { name, email, phone, services } = req.body;
+    const { email, attributes, listIds } = req.body;
 
-  const payload = {
-    email,
-    attributes: {
-      FIRSTNAME: name,
-      SMS: phone,
-      SERVICES: services.join(', '),
-    },
-    listIds: [2], 
-    updateEnabled: true,
-  };
+    if (
+      !email ||
+      !attributes?.FIRSTNAME ||
+      !attributes?.SMS ||
+      !attributes?.SERVICES ||
+      !Array.isArray(listIds) ||
+      listIds.length === 0
+    ) {
+      console.log('⚠️ Missing fields:', req.body);
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
 
   try {
-    const response = await axios.post('https://api.brevo.com/v3/contacts', payload, {
+    const response = await fetch('https://api.brevo.com/v3/contacts', {
+      method: 'POST',
       headers: {
-        'api-key': process.env.BREVO_API_KEY,
         'Content-Type': 'application/json',
+        'api-key': process.env.BREVO_API_KEY
       },
+      body: JSON.stringify({
+        email,
+        attributes,
+        listIds,
+        updateEnabled: true
+      })
     });
 
-    res.status(200).json({ message: 'Contact added!', data: response.data });
-  } catch (error) {
-    console.error('❌ Brevo API error:', error.response?.data || error.message);
-    res.status(500).json({ error: 'Failed to add contact' });
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error('❌ Brevo API error:', data);
+      return res.status(500).json({ error: 'Failed to add contact' });
+    }
+
+    return res.status(200).json({ message: 'Contact added successfully', data });
+  } catch (err) {
+    console.error('❌ Request error:', err);
+    return res.status(500).json({ error: 'Server error' });
   }
 });
 

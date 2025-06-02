@@ -113,6 +113,13 @@
   margin-bottom: 1.5rem;
   line-height: 1.5;
 }
+
+.testimonial-text .test_img {
+  max-width: 10% !important;
+  height: auto; 
+  margin: 0 auto;
+}
+
 .author {
   display: flex;
   align-items: center;

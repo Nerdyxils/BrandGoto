@@ -5,12 +5,12 @@ import './TestimonialsSection.css';
 const testimonials = [
   {
     id: 1,
-    company: 'Heritage',
-    testimonial: 'Our startup was struggling to stand out in a crowded market. The team at Brandgoto crafted a bold, authentic brand identity that perfectly captured our eco-friendly mission. From logo to messaging, they made us unforgettable.',
-    name: 'Mayowa Peters',
-    title: 'Founder of Heritage Enterprises',
-    logo: '/images/herlogo.png',
-    avatar: '/images/Founder.JPG',
+    company: 'Higher Glyphs',
+    testimonial: 'BrandGoto has been an indispensable asset to my communications company for over three years, and I can say without hesitation that they are one of the most capable, reliable, and results-driven digital agency I’ve had the pleasure of working with.',
+    name: 'Shannon T',
+    title: 'CEO & Founder of Higher Glyphs',
+    logo: '/images/higherglyphs1.png',
+    avatar: '/images/shannon-travis-1.jpg',
     stats: [
       { value: '97%', label: 'Client Satisfaction' },
       { value: '43%', label: 'Customer engagement' },
@@ -129,7 +129,7 @@ const TestimonialSection: React.FC = () => {
         variants={isEven ? cardVariantsLeft : cardVariantsRight}
       >
         <div className="testimonial-text">
-          <img src={t.logo} alt={t.company} />
+          <img src={t.logo} alt={t.company} className='test_img' />
           <p>{t.testimonial}</p>
           <div className="author">
             <img src={t.avatar} alt={t.name} />

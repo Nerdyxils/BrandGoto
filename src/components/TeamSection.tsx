@@ -3,10 +3,10 @@ import { motion, useAnimation, useInView } from 'framer-motion';
 import './TeamSection.css';
 
 const teamMembers = [
-  { name: 'Silas .A', role: 'Managing Partner & Project Manager', img: '/images/Founder.JPG' },
-  { name: 'Robert .W', role: 'Full Stack Developer', img: '/images/Full-stack-developer.png' },
-  { name: 'Olha .K', role: 'Product Designer', img: '/images/designer.png' },
-  { name: 'Dmytro .K', role: 'Marketing Strategist', img: '/images/Marketing-Strategist.png' },
+  { name: 'Silas', role: 'Managing Partner & Project Manager', img: '/images/Founder.JPG' },
+  { name: 'Robert', role: 'Full Stack Developer', img: '/images/Robert.png' },
+  { name: 'Olha', role: 'Product Designer', img: '/images/designer.png' },
+  { name: 'Dmytro', role: 'Marketing Strategist', img: '/images/Marketing-Strategist.png' },
 ];
 
 const cardVariants = {

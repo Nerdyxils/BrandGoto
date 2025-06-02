@@ -22,43 +22,45 @@ const ContactSection: React.FC = () => {
     }
   };
 
+
   // ✅ Updated Submit Handler
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-    const payload = {
-      email: formData.email,
-      attributes: {
-        FIRSTNAME: formData.name,
-        SMS: formData.phone,
-        SERVICES: formData.services.join(', ')
-      },
-      listIds: [2], // ⛳️ Replace with your actual Brevo list ID
-      updateEnabled: true
-    };
-
-    try {
-      const response = await fetch('http://localhost:5001/api/brevo/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'api-key': import.meta.env.VITE_BREVO_API_KEY // ✅ Uses .env
-        },
-        body: JSON.stringify(payload)
-      });
-
-      if (response.ok) {
-        setShowToast(true);
-        setTimeout(() => setShowToast(false), 3500);
-        setFormData({ name: '', phone: '', email: '', services: [] });
-      } else {
-        const error = await response.json();
-        console.error('❌ Brevo API Error:', error);
-      }
-    } catch (err) {
-      console.error('❌ Request Failed:', err);
-    }
+  const payload = {
+    email: formData.email,
+    attributes: {
+      FIRSTNAME: formData.name,
+      SMS: formData.phone,
+      SERVICES: formData.services.join(', ')
+    },
+    listIds: [2],
+    updateEnabled: true
   };
+
+
+  try {
+    const response = await fetch('http://localhost:5001/api/brevo/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (response.ok) {
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3500);
+      setFormData({ name: '', phone: '', email: '', services: [] });
+    } else {
+      const error = await response.json();
+      console.error('❌ Brevo API Error:', error);
+    }
+  } catch (err) {
+    console.error('❌ Request Failed:', err);
+  }
+};
+
 
   const services = [
     'Website Design & Development',
@@ -155,12 +157,12 @@ const ContactSection: React.FC = () => {
             <p>PARTNERED BY THE WORLD’S TOP BRANDS</p>
             <div className="logos-wrapper">
               <div className="logos animate-scroll">
-                <img src="/images/herlogo.png" alt="Heritage" />
+                <img src="/images/higherglyphs1.png" alt="Higher Glyphs" className='logo-comp'/>
                 <img src="/images/herlogo.png" alt="Venom" />
                 <img src="/images/herlogo.png" alt="Asus" />
                 <img src="/images/herlogo.png" alt="Jayo" />
                 {/* duplicate for seamless loop */}
-                <img src="/images/herlogo.png" alt="Heritage duplicate" />
+                <img src="/images/higherglyphs1.png" alt="Higher Glyphs" className='logo-comp'/>
                 <img src="/images/herlogo.png" alt="Venom duplicate" />
                 <img src="/images/herlogo.png" alt="Asus duplicate" />
                 <img src="/images/herlogo.png" alt="Jayo duplicate" />

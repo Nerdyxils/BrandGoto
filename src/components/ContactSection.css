@@ -237,6 +237,12 @@ button[type="submit"] {
   flex-shrink: 0;
 }
 
+.logo-comp {
+  max-width: 10% !important;
+  height: auto;
+  margin: 0 auto;
+}
+
 /* Animate left to right */
 @keyframes scrollLeft {
   0% {
