@@ -57,9 +57,9 @@ const Herotwo: React.FC = () => {
     <motion.div className="herotwo-container">
       <section
         ref={ref} // Attach the ref to the section for viewport detection
-        className="relative min-h-screen bg-black text-white px-4 sm:px-8 pt-6 pb-10 herotwo-bg"
+        className="relative container bg-black text-white px-4 sm:px-8 pt-6 pb-10 herotwo-bg"
       >
-        <div className="container mx-auto">
+        <div className=" mx-auto">
           {/* Hero Text */}
           <motion.div
             className="hero-txt text-center max-w-3xl mx-auto mb-16"

@@ -1,65 +1,117 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ContactSection.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import patternBg from '../assets/Pattern.png';
 import LogoImg from '../assets/logo.svg';
 
+// Country codes (add more if needed)
+const countryCodes: Record<string, string> = {
+  US: '1',
+  CA: '1',
+  NG: '234',
+  GB: '44',
+  IN: '91',
+  DE: '49',
+  FR: '33',
+  // ...
+};
+
 const ContactSection: React.FC = () => {
-  const [formData, setFormData] = useState({ name: '', phone: '', email: '', services: [] as string[] });
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    services: [] as string[],
+    countryCode: '1',
+  });
   const [showToast, setShowToast] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
-    if (type === 'checkbox') {
-      setFormData((prev) => ({
-        ...prev,
-        services: checked
-          ? [...prev.services, value]
-          : prev.services.filter((s) => s !== value),
-      }));
-    } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
-    }
-  };
+  // Detect browser locale on mount
+  useEffect(() => {
+    const locale = navigator.language.split('-')[1] || 'US';
+    const code = countryCodes[locale.toUpperCase()] || '1';
+    setFormData((prev) => ({ ...prev, countryCode: code }));
+  }, []);
 
+const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const target = e.target as HTMLInputElement | HTMLSelectElement;
+  const { name, value } = target;
 
-  // ✅ Updated Submit Handler
- const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-
-  const payload = {
-    email: formData.email,
-    attributes: {
-      FIRSTNAME: formData.name,
-      SMS: formData.phone,
-      SERVICES: formData.services.join(', ')
-    },
-    listIds: [2],
-    updateEnabled: true
-  };
-
-
-  try {
-    const response = await fetch('http://localhost:5001/api/brevo/contact', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(payload)
-    });
-
-    if (response.ok) {
-      setShowToast(true);
-      setTimeout(() => setShowToast(false), 3500);
-      setFormData({ name: '', phone: '', email: '', services: [] });
-    } else {
-      const error = await response.json();
-      console.error('❌ Brevo API Error:', error);
-    }
-  } catch (err) {
-    console.error('❌ Request Failed:', err);
+  if (target.type === 'checkbox') {
+    const checked = (target as HTMLInputElement).checked;
+    setFormData((prev) => ({
+      ...prev,
+      services: checked
+        ? [...prev.services, value]
+        : prev.services.filter((s) => s !== value),
+    }));
+  } else {
+    setFormData((prev) => ({ ...prev, [name]: value }));
   }
 };
+
+const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
+
+  console.log("Submitting form with data:", formData); // 🔍 See what’s being sent
+
+  // Ensure iframe exists
+  let iframe = document.querySelector<HTMLIFrameElement>('iframe[name="invisibleFrame"]');
+  if (!iframe) {
+    iframe = document.createElement('iframe');
+    iframe.name = 'invisibleFrame';
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+  }
+
+  const hiddenForm = document.createElement('form');
+  hiddenForm.action =
+    'https://sibforms.com/serve/MUIFABIDxwvpr3sC65aqq09rTx091o7Qtrbpt8vNy4VU54I4y13FYzP6ZvVIbswIxumKjizwRONoj7OiHpz6et-QF62DGdmaQnOJB0qqcqzsnUONvvWo-1pWT2obhiO6Qqd_5zEdycigjq6IoXmjf6tBA5j9zVnwiJ2Xh7KcPtg95rPsqPRdcRhWjPaUQxyhOT_PRxIOdXcY34Jc';
+  hiddenForm.method = 'POST';
+  hiddenForm.target = 'invisibleFrame';
+  hiddenForm.style.display = 'none';
+
+  const addField = (name: string, value: string) => {
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = name;
+    input.value = value;
+    hiddenForm.appendChild(input);
+  };
+
+  addField('FIRSTNAME', formData.name);
+  addField('SMS', formData.phone);
+  addField('SMS__COUNTRY_CODE', formData.countryCode);
+  addField('EMAIL', formData.email);
+  formData.services.forEach((s) => addField('lists_29[]', s));
+  addField('locale', 'en');
+  addField('email_address_check', '');
+
+  document.body.appendChild(hiddenForm);
+
+  try {
+    hiddenForm.submit(); // 🔁 Should go to iframe, no redirect
+    console.log("✅ Brevo form submitted via hidden iframe");
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3500);
+    setFormData({
+      name: '',
+      phone: '',
+      email: '',
+      services: [],
+      countryCode: formData.countryCode, // retain auto-detected code
+    });
+  } catch (err) {
+    console.error("❌ Hidden form submit error:", err);
+  } finally {
+    setTimeout(() => {
+      document.body.removeChild(hiddenForm); // Clean up after a bit
+    }, 1000);
+  }
+};
+
+
+
 
 
   const services = [
@@ -72,15 +124,13 @@ const ContactSection: React.FC = () => {
   ];
 
   return (
-    <section className="contact-section"
-      style={{
-        backgroundImage: `url(${patternBg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
-    >
+    <section className="contact-section" style={{
+      backgroundImage: `url(${patternBg})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      position: 'relative',
+      overflow: 'hidden',
+    }}>
       <AnimatePresence>
         {showToast && (
           <motion.div
@@ -116,9 +166,23 @@ const ContactSection: React.FC = () => {
       >
         <div className="form-content">
           <h3>Sign up for a free Consultation</h3>
+          <iframe
+            name="invisibleFrame"
+            style={{ display: 'none' }}
+            title="Hidden Brevo Target"
+          />
           <form onSubmit={handleSubmit}>
             <input type="text" name="name" placeholder="Enter name" value={formData.name} onChange={handleChange} required />
-            <input type="text" name="phone" placeholder="Enter phone number" value={formData.phone} onChange={handleChange} required />
+            
+            <div className="phone-field">
+              <select className='phone_code' name="countryCode" value={formData.countryCode} onChange={handleChange}>
+                {Object.entries(countryCodes).map(([key, val]) => (
+                  <option key={key} value={val}>+{val} ({key})</option>
+                ))}
+              </select>
+              <input className='phone' type="text" name="phone" placeholder="Phone number" value={formData.phone} onChange={handleChange} required />
+            </div>
+
             <input type="email" name="email" placeholder="Enter email" value={formData.email} onChange={handleChange} required />
 
             <p className="services-title">What do you need help with?</p>

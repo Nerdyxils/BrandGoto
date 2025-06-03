@@ -143,7 +143,7 @@ const rightStats = [
       animate={isMenuOpen ? { x: '-40vw' } : { x: 0 }}
       transition={{ type: 'tween', duration: 0.3 }}
     >
-      <section className="relative min-h-screen bg-black text-white px-4 sm:px-8 pt-[90px] pb-10 hero-bg">
+      <section className="relative bg-black text-white px-4 sm:px-8 pt-[90px] pb-10 hero-bg">
         <div className="container mx-auto">
 
           {/* Hero Text */}
