@@ -66,7 +66,7 @@ const handleSubmit = (e: React.FormEvent) => {
 
   const hiddenForm = document.createElement('form');
   hiddenForm.action =
-    'https://sibforms.com/serve/MUIFABIDxwvpr3sC65aqq09rTx091o7Qtrbpt8vNy4VU54I4y13FYzP6ZvVIbswIxumKjizwRONoj7OiHpz6et-QF62DGdmaQnOJB0qqcqzsnUONvvWo-1pWT2obhiO6Qqd_5zEdycigjq6IoXmjf6tBA5j9zVnwiJ2Xh7KcPtg95rPsqPRdcRhWjPaUQxyhOT_PRxIOdXcY34Jc';
+    'https://hook.us2.make.com/ln3t91i9y3shyx5u6uryi8p93ebnkdpc';
   hiddenForm.method = 'POST';
   hiddenForm.target = 'invisibleFrame';
   hiddenForm.style.display = 'none';
