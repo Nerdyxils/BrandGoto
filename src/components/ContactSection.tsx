@@ -50,48 +50,51 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   }
 };
 
-const handleSubmit = (e: React.FormEvent) => {
+const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
 
-  console.log("Submitting form with data:", formData); // 🔍 See what’s being sent
+// Combine country code + phone into correct format
+  const cleanedPhone = formData.phone.replace(/\D/g, '');
+  const formattedPhone = `+${formData.countryCode}${cleanedPhone}`;
 
-  // Ensure iframe exists
-  let iframe = document.querySelector<HTMLIFrameElement>('iframe[name="invisibleFrame"]');
-  if (!iframe) {
-    iframe = document.createElement('iframe');
-    iframe.name = 'invisibleFrame';
-    iframe.style.display = 'none';
-    document.body.appendChild(iframe);
+  // Validate phone number
+  if (!cleanedPhone || cleanedPhone.length < 7 || cleanedPhone.length > 15) {
+    alert("Please enter a valid phone number (7-15 digits).");
+    return;
   }
 
-  const hiddenForm = document.createElement('form');
-  hiddenForm.action =
-    'https://hook.us2.make.com/ln3t91i9y3shyx5u6uryi8p93ebnkdpc';
-  hiddenForm.method = 'POST';
-  hiddenForm.target = 'invisibleFrame';
-  hiddenForm.style.display = 'none';
+  if (!/^\+\d+$/.test(formattedPhone)) {
+    alert("Invalid phone number format. It must start with '+' followed by digits only.");
+    return;
+  }
 
-  const addField = (name: string, value: string) => {
-    const input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = name;
-    input.value = value;
-    hiddenForm.appendChild(input);
+  // Prepare payload for Make.com webhook (no listIds)
+  const payload = {
+    email: formData.email, // Brevo expects lowercase 'email'
+    attributes: {
+      FIRSTNAME: formData.name,
+      SMS: formattedPhone,
+    },
+    services: formData.services, // Let Make handle how it's stored
+    // Removed listIds here
   };
 
-  addField('FIRSTNAME', formData.name);
-  addField('SMS', formData.phone);
-  addField('SMS__COUNTRY_CODE', formData.countryCode);
-  addField('EMAIL', formData.email);
-  formData.services.forEach((s) => addField('lists_29[]', s));
-  addField('locale', 'en');
-  addField('email_address_check', '');
-
-  document.body.appendChild(hiddenForm);
+  console.log("📦 Submitting form with data:", JSON.stringify(payload, null, 2)); // Pretty-print for debugging
 
   try {
-    hiddenForm.submit(); // 🔁 Should go to iframe, no redirect
-    console.log("✅ Brevo form submitted via hidden iframe");
+    const response = await fetch('https://hook.us2.make.com/ln3t91i9y3shyx5u6uryi8p93ebnkdpc', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Webhook request failed with status ${response.status}`);
+    }
+
+    console.log("✅ Form data submitted to Make.com webhook");
     setShowToast(true);
     setTimeout(() => setShowToast(false), 3500);
     setFormData({
@@ -99,20 +102,13 @@ const handleSubmit = (e: React.FormEvent) => {
       phone: '',
       email: '',
       services: [],
-      countryCode: formData.countryCode, // retain auto-detected code
+      countryCode: formData.countryCode,
     });
   } catch (err) {
-    console.error("❌ Hidden form submit error:", err);
-  } finally {
-    setTimeout(() => {
-      document.body.removeChild(hiddenForm); // Clean up after a bit
-    }, 1000);
+    console.error("❌ Form submission error:", err);
+    alert("There was an error submitting the form. Please try again later.");
   }
 };
-
-
-
-
 
   const services = [
     'Website Design & Development',

@@ -370,3 +370,9 @@ button[type="submit"] {
     animation-duration: 25s;
   }
 }
+@media (max-width: 508px) {
+  .phone {
+  width: 75%
+}
+}
+
