@@ -33,83 +33,151 @@ const ContactSection: React.FC = () => {
     setFormData((prev) => ({ ...prev, countryCode: code }));
   }, []);
 
-const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-  const target = e.target as HTMLInputElement | HTMLSelectElement;
-  const { name, value } = target;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const target = e.target as HTMLInputElement | HTMLSelectElement;
+    const { name, value } = target;
 
-  if (target.type === 'checkbox') {
-    const checked = (target as HTMLInputElement).checked;
-    setFormData((prev) => ({
-      ...prev,
-      services: checked
-        ? [...prev.services, value]
-        : prev.services.filter((s) => s !== value),
-    }));
-  } else {
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  }
-};
-
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-
-// Combine country code + phone into correct format
-  const cleanedPhone = formData.phone.replace(/\D/g, '');
-  const formattedPhone = `+${formData.countryCode}${cleanedPhone}`;
-
-  // Validate phone number
-  if (!cleanedPhone || cleanedPhone.length < 7 || cleanedPhone.length > 15) {
-    alert("Please enter a valid phone number (7-15 digits).");
-    return;
-  }
-
-  if (!/^\+\d+$/.test(formattedPhone)) {
-    alert("Invalid phone number format. It must start with '+' followed by digits only.");
-    return;
-  }
-
-  // Prepare payload for Make.com webhook (no listIds)
-  const payload = {
-    email: formData.email, // Brevo expects lowercase 'email'
-    attributes: {
-      FIRSTNAME: formData.name,
-      SMS: formattedPhone,
-    },
-    services: formData.services, // Let Make handle how it's stored
-    // Removed listIds here
+    if (target.type === 'checkbox') {
+      const checked = (target as HTMLInputElement).checked;
+      setFormData((prev) => ({
+        ...prev,
+        services: checked
+          ? [...prev.services, value]
+          : prev.services.filter((s) => s !== value),
+      }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
-  console.log("📦 Submitting form with data:", JSON.stringify(payload, null, 2)); // Pretty-print for debugging
+  // AI Intelligence Functions for Business Automation
+  const calculateComplexityScore = (services: string[]): number => {
+    const complexityMap: Record<string, number> = {
+      "Website Design & Development": 8,
+      "Digital Marketing": 6,
+      "Brand Identity & Logo Design": 4,
+      "Graphic Design": 3,
+      "Domain & Business Email Setup": 2,
+      "Creative Direction & Strategy": 7
+    };
+    return services.reduce((total, service) => total + (complexityMap[service] || 3), 0);
+  };
 
-  try {
-    const response = await fetch('https://hook.us2.make.com/ln3t91i9y3shyx5u6uryi8p93ebnkdpc', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
+  const calculateProjectValue = (services: string[]): number => {
+    const valueMap: Record<string, number> = {
+      "Website Design & Development": 5000,
+      "Digital Marketing": 2500,
+      "Brand Identity & Logo Design": 2000,
+      "Graphic Design": 1000,
+      "Domain & Business Email Setup": 500,
+      "Creative Direction & Strategy": 3000
+    };
+    return services.reduce((total, service) => total + (valueMap[service] || 1000), 0);
+  };
 
-    if (!response.ok) {
-      throw new Error(`Webhook request failed with status ${response.status}`);
+  const calculatePriorityLevel = (services: string[]): string => {
+    if (services.length >= 3) return "High";
+    if (services.includes("Website Design & Development")) return "High";
+    if (services.includes("Creative Direction & Strategy")) return "Medium";
+    return "Standard";
+  };
+
+  const getEmailTemplateId = (services: string[]): string => {
+    if (services.length >= 3) return "comprehensive_package";
+    if (services.includes("Website Design & Development")) return "website_focused";
+    if (services.includes("Brand Identity & Logo Design")) return "branding_focused";
+    if (services.includes("Digital Marketing")) return "marketing_focused";
+    return "general_inquiry";
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const cleanedPhone = formData.phone.replace(/\D/g, '');
+    const formattedPhone = `+${formData.countryCode}${cleanedPhone}`;
+
+    // Validate phone number
+    if (!cleanedPhone || cleanedPhone.length < 7 || cleanedPhone.length > 15) {
+      alert("Please enter a valid phone number (7-15 digits).");
+      return;
     }
 
-    console.log("✅ Form data submitted to Make.com webhook");
-    setShowToast(true);
-    setTimeout(() => setShowToast(false), 3500);
-    setFormData({
-      name: '',
-      phone: '',
-      email: '',
-      services: [],
-      countryCode: formData.countryCode,
-    });
-  } catch (err) {
-    console.error("❌ Form submission error:", err);
-    alert("There was an error submitting the form. Please try again later.");
-  }
-};
+    if (!/^\+\d+$/.test(formattedPhone)) {
+      alert("Invalid phone number format. It must start with '+' followed by digits only.");
+      return;
+    }
 
+    // Calculate intelligence data first
+    const complexityScore = calculateComplexityScore(formData.services);
+    const projectValue = calculateProjectValue(formData.services);
+    const priorityLevel = calculatePriorityLevel(formData.services);
+    const templateId = getEmailTemplateId(formData.services);
+
+    // Complete payload with all intelligence data for Make.com
+    const payload = {
+      // Standard contact fields
+      email: formData.email,
+      firstname: formData.name,
+      phone: formattedPhone,
+      
+      // Services data
+      services_selected: formData.services.join(';'),
+      services_count: formData.services.length,
+      primary_service: formData.services[0] || "General Inquiry",
+      
+      // Intelligence data (calculated values)
+      service_complexity_score: complexityScore,
+      estimated_project_value: projectValue,
+      priority_level: priorityLevel,
+      email_template_id: templateId,
+      page_url: window.location.href,
+      
+      // Lead metadata
+      lead_source: "BrandGoto Website",
+      consultation_status: "New Lead",
+      requires_consultation: formData.services.length > 1 ? "Yes" : "No",
+      automated_followup_enabled: "Yes",
+      form_timestamp: new Date().toISOString(),
+      
+      // Additional context
+      referrer: document.referrer || "Direct",
+      browser_info: navigator.userAgent.substring(0, 100)
+    };
+
+    console.log("📦 Submitting complete intelligence data:", JSON.stringify(payload, null, 2));
+
+    try {
+      const response = await fetch('https://hook.us2.make.com/2jhecx0f9v8buiu1so1pwk8jc73qi5h1', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Webhook request failed with status ${response.status}`);
+      }
+
+      console.log("✅ Intelligence form data submitted successfully");
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3500);
+      
+      // Reset form but preserve country code
+      setFormData({
+        name: '',
+        phone: '',
+        email: '',
+        services: [],
+        countryCode: formData.countryCode,
+      });
+    } catch (err) {
+      console.error("❌ Form submission error:", err);
+      alert("There was an error submitting the form. Please try again later.");
+    }
+  };
+
+  // Exact service names as they appear in HubSpot
   const services = [
     'Website Design & Development',
     'Digital Marketing',
@@ -136,7 +204,7 @@ const handleSubmit = async (e: React.FormEvent) => {
             exit={{ opacity: 0, y: 40 }}
             transition={{ duration: 0.4 }}
           >
-            🎉 Message sent! We’ll be in touch shortly.
+            🎉 Message sent! We'll be in touch shortly.
           </motion.div>
         )}
       </AnimatePresence>
@@ -147,11 +215,11 @@ const handleSubmit = async (e: React.FormEvent) => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <p className="section-pretitle">Let’s Make It Happen</p>
+        <p className="section-pretitle">Let's Make It Happen</p>
         <h2 className="section-title">
           <span className="orange">Start</span> <span className="teal">Conversation</span> with <span className="text-light-cyan">Us</span>
         </h2>
-        <p className="section-subtitle_txt">Have a project in mind? We’d love to hear about it.</p>
+        <p className="section-subtitle_txt">Have a project in mind? We'd love to hear about it.</p>
       </motion.div>
 
       <motion.div
@@ -181,7 +249,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 
             <input type="email" name="email" placeholder="Enter email" value={formData.email} onChange={handleChange} required />
 
-            <p className="services-title">What do you need help with?</p>
+            <p className="services-title">What do you need help with? (Select all that apply)</p>
             <div className="checkbox-grid">
               {services.map((service) => (
                 <label key={service}>
@@ -214,7 +282,7 @@ const handleSubmit = async (e: React.FormEvent) => {
       >
         <div className="partners">
           <div className="brand-partners">
-            <p>PARTNERED BY THE WORLD’S TOP BRANDS</p>
+            <p>PARTNERED BY THE WORLD'S TOP BRANDS</p>
             <div className="logos-wrapper">
               <div className="logos animate-scroll">
                 <img src="/images/higherglyphs1.png" alt="Higher Glyphs" className='logo-comp'/>
@@ -230,7 +298,6 @@ const handleSubmit = async (e: React.FormEvent) => {
             </div>
           </div>
         </div>
-
 
         <div className="footer-top">
           <div className="logo-social">
@@ -254,7 +321,7 @@ const handleSubmit = async (e: React.FormEvent) => {
               <button type="submit">→</button>
             </form>
             <p className="privacy">
-              I confirm that I have read <strong>Brandgoto’s Privacy Policy</strong> and agree with it.
+              I confirm that I have read <strong>Brandgoto's Privacy Policy</strong> and agree with it.
             </p>
           </div>
         </div>
