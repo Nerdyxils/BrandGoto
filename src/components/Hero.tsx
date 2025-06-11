@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useAnimation, useScroll, useTransform, useSpring } from 'framer-motion';
 import Navbar from './Navbar';
@@ -9,7 +8,7 @@ import Arrowup from '../assets/ArrowUpRight.png';
 import BigArr from '../assets/bigarrow.png';
 import TinArr from '../assets/tinyarrow-dropdown.png';
 import './Hero.css';
-import './EnhancedScrollEffects.css'; // NEW CSS FILE FOR SCROLL EFFECTS
+import './EnhancedScrollEffects.css';
 import Herotwo from './Herotwo';
 import ServicesSection from './ServicesSection';
 import RecentProjects from './RecentProjects';
@@ -20,53 +19,91 @@ import ContactSection from './ContactSection';
 const Hero: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   
   // SCROLL ANIMATION REFS AND HOOKS
   const heroRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"]
-  });
-  
-  // SMOOTH SPRING ANIMATIONS
-  const springConfig = { stiffness: 100, damping: 30, restDelta: 0.001 };
-  const smoothProgress = useSpring(scrollYProgress, springConfig);
-  
-  // GENTLE PARALLAX TRANSFORMS - REDUCED INTENSITY
-  const backgroundY = useTransform(smoothProgress, [0, 1], ["0%", "15%"]); // Reduced from 50%
-  const textY = useTransform(smoothProgress, [0, 1], ["0%", "-8%"]); // Reduced from -30%
-  const statsY = useTransform(smoothProgress, [0, 1], ["0%", "-5%"]); // Reduced from -20%
-  const scale = useTransform(smoothProgress, [0, 0.5, 1], [1, 1.01, 1.02]); // Much subtler
-  const opacity = useTransform(smoothProgress, [0, 0.8, 1], [1, 0.95, 0.8]); // Less dramatic
-  
-  // INDIVIDUAL ELEMENT TRANSFORMS - DESKTOP ONLY
-  const [isMobile, setIsMobile] = useState(false);
-  
+  // Check for mobile device
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+      const mobile = window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      setIsMobile(mobile);
     };
     
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // CONDITIONAL SCROLL SETUP - ONLY ON DESKTOP
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"]
+  });
   
-  const leftCardsX = useTransform(smoothProgress, [0, 1], 
+  // SPRING ANIMATIONS - DISABLED ON MOBILE
+  const springConfig = { stiffness: 100, damping: 30, restDelta: 0.001 };
+  const smoothProgress = useSpring(scrollYProgress, springConfig);
+  
+  // TRANSFORMS - DISABLED ON MOBILE
+  const backgroundY = useTransform(
+    smoothProgress, 
+    [0, 1], 
+    isMobile ? ["0%", "0%"] : ["0%", "15%"]
+  );
+  
+  const textY = useTransform(
+    smoothProgress, 
+    [0, 1], 
+    isMobile ? ["0%", "0%"] : ["0%", "-8%"]
+  );
+  
+  const statsY = useTransform(
+    smoothProgress, 
+    [0, 1], 
+    isMobile ? ["0%", "0%"] : ["0%", "-5%"]
+  );
+  
+  const scale = useTransform(
+    smoothProgress, 
+    [0, 0.5, 1], 
+    isMobile ? [1, 1, 1] : [1, 1.01, 1.02]
+  );
+  
+  const opacity = useTransform(
+    smoothProgress, 
+    [0, 0.8, 1], 
+    isMobile ? [1, 1, 1] : [1, 0.95, 0.8]
+  );
+  
+  // CARD ANIMATIONS - DISABLED ON MOBILE
+  const leftCardsX = useTransform(
+    smoothProgress, 
+    [0, 1], 
     isMobile ? ["0%", "0%"] : ["0%", "-100%"]
   );
-  const rightCardsX = useTransform(smoothProgress, [0, 1], 
+  
+  const rightCardsX = useTransform(
+    smoothProgress, 
+    [0, 1], 
     isMobile ? ["0%", "0%"] : ["0%", "100%"]
   );
-  const middleImageScale = useTransform(smoothProgress, [0, 1], 
+  
+  const middleImageScale = useTransform(
+    smoothProgress, 
+    [0, 1], 
     isMobile ? [1, 1] : [1, 1.2]
   );
-  const middleImageRotate = useTransform(smoothProgress, [0, 1], 
+  
+  const middleImageRotate = useTransform(
+    smoothProgress, 
+    [0, 1], 
     isMobile ? [0, 0] : [0, 5]
   );
 
+  // MENU AND SCROLL HANDLERS
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
     const handleEsc = (e: KeyboardEvent) => {
@@ -95,22 +132,23 @@ const Hero: React.FC = () => {
   const HeroImg = '/images/hero_imgg.png';
   const CSMimg = '/images/Image.png';
 
+  // OPTIMIZED STATS FOR ONE-STOP POSITIONING
   const leftStats = [
     {
       icon: <img src={ImgCo} />,
-      label: 'Average Conversion Boost',
-      value: '320%',
+      label: 'Complete Solutions Delivered',
+      value: '150+',
       change: '81%',
     },
     {
       icon: <img src={ImgDi} />,
-      label: 'Digital Campaign Reach',
-      value: '32M+',
+      label: 'Businesses Launched & Scaled',
+      value: '50+',
       change: '76%',
     },
     {
       icon: <img src={ImgCs} />,
-      label: 'Client Satisfaction Rate',
+      label: 'Founders Trust Us',
       value: '99.2%',
       change: '79%',
     },
@@ -118,18 +156,18 @@ const Hero: React.FC = () => {
 
   const rightStats = [
     {
-      label: 'Brand Visibility',
-      subLabel: 'From obscurity to standout',
-      value: '4x',
+      label: 'Faster Than Multiple Agencies',
+      subLabel: 'Complete solution speed',
+      value: '3x',
     },
     {
-      label: 'Revenue Growth Impact',
-      subLabel: 'After identity rebrands',
+      label: 'Average Business Growth',
+      subLabel: 'After complete rebrand',
       value: '+65%',
     },
     {
-      label: 'Projects Delivered On Time',
-      subLabel: 'Agile and reliable delivery',
+      label: 'End-to-End Success Rate',
+      subLabel: 'From idea to launch',
       value: '100%',
     },
   ];
@@ -137,48 +175,99 @@ const Hero: React.FC = () => {
   const heroContainerVariants = {
     hidden: {},
     visible: {
-      transition: { staggerChildren: 0.3, ease: 'easeInOut' }
+      transition: { 
+        staggerChildren: isMobile ? 0.1 : 0.3, 
+        ease: 'easeInOut' 
+      }
     }
   };
 
   const textItemVariants = {
-    hidden: { opacity: 0, y: 40 },
+    hidden: { opacity: 0, y: isMobile ? 20 : 40 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.7, ease: 'easeOut' }
+      transition: { 
+        duration: isMobile ? 0.4 : 0.7, 
+        ease: 'easeOut' 
+      }
     }
   };
 
+  // SIMPLIFIED STATS ANIMATION FOR MOBILE
   const leftControls = leftStats.map(() => useAnimation());
   const rightControls = rightStats.map(() => useAnimation());
 
   useEffect(() => {
-    const animateStats = async () => {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      while (true) {
-        await Promise.all([
-          leftControls[0].start({ scale: 1.1, background: '#1F2937', transition: { duration: 0.5 } }),
-          leftControls[1].start({ scale: 1.1, background: '#1F2937', transition: { duration: 0.5 } }),
-          leftControls[2].start({ scale: 0.9, background: 'rgba(255,255,255,0.1)', transition: { duration: 0.5 } }),
-          rightControls[0].start({ scale: 1.1, background: '#1F2937', transition: { duration: 0.5 } }),
-          rightControls[1].start({ scale: 0.9, background: 'rgba(255,255,255,0.1)', transition: { duration: 0.5 } }),
-          rightControls[2].start({ scale: 0.9, background: 'rgba(255,255,255,0.1)', transition: { duration: 0.5 } }),
-        ]);
-        await new Promise(r => setTimeout(r, 2000));
-        await Promise.all([
-          leftControls[0].start({ scale: 0.9, background: 'rgba(255,255,255,0.1)', transition: { duration: 0.5 } }),
-          leftControls[1].start({ scale: 0.9, background: 'rgba(255,255,255,0.1)', transition: { duration: 0.5 } }),
-          leftControls[2].start({ scale: 1.1, background: '#1F2937', transition: { duration: 0.5 } }),
-          rightControls[0].start({ scale: 0.9, background: 'rgba(255,255,255,0.1)', transition: { duration: 0.5 } }),
-          rightControls[1].start({ scale: 1.1, background: '#1F2937', transition: { duration: 0.5 } }),
-          rightControls[2].start({ scale: 1.1, background: '#1F2937', transition: { duration: 0.5 } }),
-        ]);
-        await new Promise(r => setTimeout(r, 2000));
+    if (isMobile) {
+      // Simplified animation for mobile
+      const animateStatsMobile = async () => {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        // Simple scale animation without complex transformations
+        leftControls.forEach((control, index) => {
+          control.start({
+            scale: 1,
+            background: index < 2 ? '#000000' : 'rgba(255, 255, 255, 0.1)',
+            transition: { duration: 0.3 }
+          });
+        });
+        
+        rightControls.forEach((control, index) => {
+          control.start({
+            scale: 1,
+            background: index === 0 ? '#000000' : 'rgba(255, 255, 255, 0.1)',
+            transition: { duration: 0.3 }
+          });
+        });
+      };
+      
+      animateStatsMobile();
+    } else {
+      // Full animation for desktop
+      const animateStats = async () => {
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        while (true) {
+          await Promise.all([
+            leftControls[0].start({ scale: 1.1, background: '#1F2937', transition: { duration: 0.5 } }),
+            leftControls[1].start({ scale: 1.1, background: '#1F2937', transition: { duration: 0.5 } }),
+            leftControls[2].start({ scale: 0.9, background: 'rgba(255,255,255,0.1)', transition: { duration: 0.5 } }),
+            rightControls[0].start({ scale: 1.1, background: '#1F2937', transition: { duration: 0.5 } }),
+            rightControls[1].start({ scale: 0.9, background: 'rgba(255,255,255,0.1)', transition: { duration: 0.5 } }),
+            rightControls[2].start({ scale: 0.9, background: 'rgba(255,255,255,0.1)', transition: { duration: 0.5 } }),
+          ]);
+          await new Promise(r => setTimeout(r, 2000));
+          await Promise.all([
+            leftControls[0].start({ scale: 0.9, background: 'rgba(255,255,255,0.1)', transition: { duration: 0.5 } }),
+            leftControls[1].start({ scale: 0.9, background: 'rgba(255,255,255,0.1)', transition: { duration: 0.5 } }),
+            leftControls[2].start({ scale: 1.1, background: '#1F2937', transition: { duration: 0.5 } }),
+            rightControls[0].start({ scale: 0.9, background: 'rgba(255,255,255,0.1)', transition: { duration: 0.5 } }),
+            rightControls[1].start({ scale: 1.1, background: '#1F2937', transition: { duration: 0.5 } }),
+            rightControls[2].start({ scale: 1.1, background: '#1F2937', transition: { duration: 0.5 } }),
+          ]);
+          await new Promise(r => setTimeout(r, 2000));
+        }
+      };
+      animateStats();
+    }
+  }, [isMobile]);
+
+  // SECTION ANIMATION VARIANTS - SIMPLIFIED FOR MOBILE
+  const sectionVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: isMobile ? 10 : 20 
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        duration: isMobile ? 0.4 : 0.6, 
+        ease: [0.25, 0.1, 0.25, 1],
+        type: "tween"
       }
-    };
-    animateStats();
-  }, []);
+    }
+  };
 
   return (
     <div ref={containerRef} className="scroll-container">
@@ -189,92 +278,99 @@ const Hero: React.FC = () => {
         animate={isMenuOpen ? { x: '-40vw' } : { x: 0 }}
         transition={{ type: 'tween', duration: 0.3 }}
       >
-        {/* ENHANCED HERO SECTION WITH SCROLL EFFECTS */}
+        {/* HERO SECTION - CONDITIONAL EFFECTS */}
         <motion.section 
           ref={heroRef}
-          className="hero-section relative text-white px-4 sm:px-8 pt-[90px] pb-10"
-          style={{
+          className={`hero-section relative text-white px-4 sm:px-8 pt-[90px] pb-10 ${isMobile ? 'mobile-hero' : ''}`}
+          style={!isMobile ? {
             scale,
             opacity
-          }}
+          } : {}}
         >
-          {/* PARALLAX BACKGROUND */}
+          {/* BACKGROUND - STATIC ON MOBILE */}
           <motion.div 
             className="hero-background"
-            style={{
+            style={!isMobile ? {
               y: backgroundY,
-            }}
+            } : {}}
           />
           
           <div className="container mx-auto relative z-10">
-            {/* PARALLAX HERO TEXT */}
+            {/* HERO TEXT - OPTIMIZED FOR ONE-STOP CONVERSION */}
             <motion.div
-              className="hero-txt text-center max-w-3xl mx-auto mb-16"
+              className="hero-txt text-center max-w-4xl mx-auto mb-16"
               variants={heroContainerVariants}
               initial="hidden"
               animate="visible"
-              style={{
+              style={!isMobile ? {
                 y: textY,
-              }}
+              } : {}}
             >
               <motion.span className="sm__txt block mb-3" variants={textItemVariants}>
-                Built for all Brands
+                Built for Founders & Growing Companies
               </motion.span>
 
               <motion.h1 className="hero-heading enhanced-heading" variants={textItemVariants}>
                 <motion.span
-                  initial={{ opacity: 0, y: 50, rotateX: -90 }}
+                  initial={{ opacity: 0, y: isMobile ? 20 : 50, rotateX: isMobile ? 0 : -90 }}
                   animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
+                  transition={{ duration: isMobile ? 0.4 : 0.8, delay: 0.2 }}
                 >
                   Bold
                 </motion.span>
                 <motion.span
-                  initial={{ opacity: 0, y: 50, rotateX: -90 }}
+                  initial={{ opacity: 0, y: isMobile ? 20 : 50, rotateX: isMobile ? 0 : -90 }}
                   animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
+                  transition={{ duration: isMobile ? 0.4 : 0.8, delay: 0.3 }}
                 >
                   Brands
                 </motion.span>
                 <motion.span
-                  initial={{ opacity: 0, y: 50, rotateX: -90 }}
+                  initial={{ opacity: 0, y: isMobile ? 20 : 50, rotateX: isMobile ? 0 : -90 }}
                   animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                  transition={{ duration: 0.8, delay: 0.6 }}
+                  transition={{ duration: isMobile ? 0.4 : 0.8, delay: 0.4 }}
                 >
                   Start
                 </motion.span>
                 <motion.span
-                  initial={{ opacity: 0, y: 50, rotateX: -90 }}
+                  initial={{ opacity: 0, y: isMobile ? 20 : 50, rotateX: isMobile ? 0 : -90 }}
                   animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                  transition={{ duration: 0.8, delay: 0.8 }}
+                  transition={{ duration: isMobile ? 0.4 : 0.8, delay: 0.5 }}
                 >
                   Here
                 </motion.span>
               </motion.h1>
 
-              <motion.p className="h__txt text-base sm:text-lg text-gray-300" variants={textItemVariants}>
-                We creatively make your brand standout, build beautiful websites, and launch your online presence with power.
+              <motion.p className="h__txt text-base sm:text-lg text-gray-300 max-w-2xl mx-auto" variants={textItemVariants}>
+                Your one-stop creative partner. Brand, website, marketing, and tech solutions that scale with your business.
               </motion.p>
+
+              {/* SOCIAL PROOF */}
+              <motion.div className="social-proof mt-4" variants={textItemVariants}>
+                <span className="proof-text text-sm text-gray-400">
+                  Trusted by 50+ founders from idea to $1M+
+                </span>
+              </motion.div>
             </motion.div>
 
-            {/* ENHANCED STATS CONTAINER WITH PARALLAX */}
+            {/* STATS CONTAINER - SIMPLIFIED ON MOBILE */}
             <motion.div 
-              className="stats-container enhanced-stats"
-              style={{
+              className={`stats-container ${isMobile ? 'mobile-stats' : 'enhanced-stats'}`}
+              style={!isMobile ? {
                 y: statsY,
-              }}
+              } : {}}
             >
-              {/* LEFT CARDS WITH SCROLL ANIMATION */}
+              {/* LEFT CARDS */}
               <motion.div 
                 className="left-cards"
-                style={{
+                style={!isMobile ? {
                   x: leftCardsX,
-                }}
+                } : {}}
               >
                 {leftStats.map((stat, index) => (
                   <motion.div
                     key={index}
-                    className="left-card enhanced-card"
+                    className={`left-card ${!isMobile ? 'enhanced-card' : 'mobile-card'}`}
                     style={{ maxHeight: '130px', width: '100%'}}
                     initial={{
                       scale: index < 2 ? 1.1 : 0.9,
@@ -284,10 +380,13 @@ const Hero: React.FC = () => {
                       boxShadow: index < 2 ? '0 4px 12px rgba(0, 0, 0, 0.1)' : 'none',
                     }}
                     animate={leftControls[index]}
-                    whileHover={{
+                    whileHover={!isMobile ? {
                       scale: 1.05,
                       rotateY: 5,
                       transition: { duration: 0.3 }
+                    } : {
+                      scale: 1.02,
+                      transition: { duration: 0.2 }
                     }}
                   >
                     <div className="left-card-content">
@@ -309,56 +408,61 @@ const Hero: React.FC = () => {
                 ))}
               </motion.div>
 
-              {/* MIDDLE IMAGE WITH ENHANCED EFFECTS */}
+              {/* MIDDLE IMAGE */}
               <motion.div 
                 className="middle-image-container"
-                style={{
+                style={!isMobile ? {
                   scale: middleImageScale,
                   rotateY: middleImageRotate,
-                }}
+                } : {}}
               >
                 <motion.img
                   src={HeroImg}
                   alt="Profile"
-                  className="middle-image enhanced-middle-image"
-                  whileHover={{
+                  className={`middle-image ${!isMobile ? 'enhanced-middle-image' : 'mobile-middle-image'}`}
+                  whileHover={!isMobile ? {
                     scale: 1.05,
                     rotateY: 10,
                     transition: { duration: 0.5 }
+                  } : {
+                    scale: 1.02,
+                    transition: { duration: 0.3 }
                   }}
                 />
-                <div className="floating-particles">
-                  {[...Array(6)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      className="particle"
-                      initial={{ opacity: 0 }}
-                      animate={{
-                        opacity: [0, 1, 0],
-                        y: [-20, -60, -100],
-                        x: [(i - 3) * 10, (i - 3) * 20, (i - 3) * 30],
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        delay: i * 0.5,
-                      }}
-                    />
-                  ))}
-                </div>
+                {!isMobile && (
+                  <div className="floating-particles">
+                    {[...Array(6)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        className="particle"
+                        initial={{ opacity: 0 }}
+                        animate={{
+                          opacity: [0, 1, 0],
+                          y: [-20, -60, -100],
+                          x: [(i - 3) * 10, (i - 3) * 20, (i - 3) * 30],
+                        }}
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          delay: i * 0.5,
+                        }}
+                      />
+                    ))}
+                  </div>
+                )}
               </motion.div>
 
-              {/* RIGHT CARDS WITH SCROLL ANIMATION */}
+              {/* RIGHT CARDS */}
               <motion.div 
                 className="right-cards"
-                style={{
+                style={!isMobile ? {
                   x: rightCardsX,
-                }}
+                } : {}}
               >
                 {rightStats.map((stat, index) => (
                   <motion.div
                     key={index}
-                    className="right-card enhanced-card"
+                    className={`right-card ${!isMobile ? 'enhanced-card' : 'mobile-card'}`}
                     style={{ maxHeight: '81px', maxWidth: '378px', width: '100%' }}
                     initial={{
                       scale: index === 0 ? 1.1 : 0.9,
@@ -368,13 +472,16 @@ const Hero: React.FC = () => {
                       boxShadow: index === 0 ? '0 4px 12px rgba(0, 0, 0, 0.1)' : 'none',
                     }}
                     animate={rightControls[index]}
-                    whileHover={{
+                    whileHover={!isMobile ? {
                       scale: 1.05,
                       rotateY: -5,
                       transition: { duration: 0.3 }
+                    } : {
+                      scale: 1.02,
+                      transition: { duration: 0.2 }
                     }}
                   >
-                    <div className="right-card-dot shadow-glow enhanced-dot" />
+                    <div className={`right-card-dot shadow-glow ${!isMobile ? 'enhanced-dot' : ''}`} />
                     <div className="right-card-content">
                       <div className="right-card-arrow-container">
                         <img src={BigArr} className="right-card-arrow" />
@@ -393,17 +500,20 @@ const Hero: React.FC = () => {
               </motion.div>
             </motion.div>
 
-            {/* ENHANCED CTA */}
+            {/* CTA - OPTIMIZED FOR CONVERSION */}
             <div className="cta-container">
               <motion.div
-                className="cta-box enhanced-cta"
-                initial={{ y: 50, opacity: 0 }}
+                className={`cta-box ${!isMobile ? 'enhanced-cta' : 'mobile-cta'}`}
+                initial={{ y: isMobile ? 20 : 50, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-                whileHover={{
+                transition={{ duration: isMobile ? 0.4 : 0.6, ease: "easeOut" }}
+                whileHover={!isMobile ? {
                   scale: 1.02,
                   boxShadow: "0 20px 40px rgba(247, 95, 11, 0.3)",
                   transition: { duration: 0.3 }
+                } : {
+                  scale: 1.01,
+                  transition: { duration: 0.2 }
                 }}
               >
                 <div className="cta-image-wrapper">
@@ -417,102 +527,73 @@ const Hero: React.FC = () => {
                 </div>
                 <motion.button 
                   className="cta-button"
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: isMobile ? 1.02 : 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  Book a Free Consultation
+                  Get Everything You Need
                 </motion.button>
               </motion.div>
             </div>
           </div>
         </motion.section>
 
-        {/* SMOOTH SECTIONS WITH GENTLE TRANSITIONS */}
+        {/* SECTIONS WITH MOBILE-FRIENDLY ANIMATIONS */}
         <motion.section 
           id="about-us"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ 
-            duration: 0.6, 
-            ease: [0.25, 0.1, 0.25, 1], // Custom smooth easing
-            type: "tween"
-          }}
-          viewport={{ once: true, margin: "-50px", amount: 0.3 }}
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-20px", amount: 0.2 }}
         >
           <Herotwo />
         </motion.section>
 
         <motion.section 
           id="services"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ 
-            duration: 0.6, 
-            ease: [0.25, 0.1, 0.25, 1],
-            type: "tween",
-            delay: 0.1
-          }}
-          viewport={{ once: true, margin: "-50px", amount: 0.3 }}
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-20px", amount: 0.2 }}
         >
           <ServicesSection />
         </motion.section>
 
         <motion.section 
           id="recent-projects"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ 
-            duration: 0.6, 
-            ease: [0.25, 0.1, 0.25, 1],
-            type: "tween",
-            delay: 0.1
-          }}
-          viewport={{ once: true, margin: "-50px", amount: 0.3 }}
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-20px", amount: 0.2 }}
         >
           <RecentProjects />
         </motion.section>
 
         <motion.section 
           id="team"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ 
-            duration: 0.6, 
-            ease: [0.25, 0.1, 0.25, 1],
-            type: "tween",
-            delay: 0.1
-          }}
-          viewport={{ once: true, margin: "-50px", amount: 0.3 }}
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-20px", amount: 0.2 }}
         >
           <TeamSection />
         </motion.section>
 
         <motion.section 
           id="success-stories"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ 
-            duration: 0.6, 
-            ease: [0.25, 0.1, 0.25, 1],
-            type: "tween",
-            delay: 0.1
-          }}
-          viewport={{ once: true, margin: "-50px", amount: 0.3 }}
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-20px", amount: 0.2 }}
         >
           <TestimonialsSection />
         </motion.section>
 
         <motion.section 
           id="contact"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ 
-            duration: 0.6, 
-            ease: [0.25, 0.1, 0.25, 1],
-            type: "tween",
-            delay: 0.1
-          }}
-          viewport={{ once: true, margin: "-50px", amount: 0.3 }}
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-20px", amount: 0.2 }}
         >
           <ContactSection />
         </motion.section>

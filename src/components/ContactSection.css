@@ -93,13 +93,44 @@
   color: white;
 }
 
+/* ========== FIXED PHONE FIELD LAYOUT ========== */
+.phone-field {
+  display: flex;
+  gap: 0.5rem; /* Space between country code and phone input */
+  width: 100%;
+}
+
 .phone_code {
-  margin-right: 5px;
-  width: 15%;
+  flex: 0 0 30%; /* Fixed 30% width, no grow/shrink */
+  min-width: 80px; /* Minimum width for small screens */
+  padding: 0.75rem 0.5rem; /* Adjusted padding for better fit */
+  border: none;
+  background: rgba(255,255,255,0.07);
+  border-radius: 6px;
+  color: white;
+  font-size: 14px; /* Slightly smaller font for country codes */
 }
 
 .phone {
-  width: 80%
+  flex: 1; /* Takes remaining space (approximately 70%) */
+  padding: 0.75rem;
+  border: none;
+  background: rgba(255,255,255,0.07);
+  border-radius: 6px;
+  color: white;
+}
+
+/* Focus states for phone inputs */
+.phone_code:focus,
+.phone:focus {
+  outline: none;
+  background: rgba(255,255,255,0.15);
+  box-shadow: 0 0 5px rgba(255,255,255,0.3);
+}
+
+/* Placeholder styling */
+.phone::placeholder {
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .form-content input:focus {
@@ -231,41 +262,46 @@ button[type="submit"] {
 
 .logos-wrapper {
   overflow: hidden;
-  width: 50%;
+  width: 100%; /* Full width on desktop */
   position: relative;
   margin: 0 auto;
+  max-width: 800px; /* Limit maximum width */
 }
 
 .logos {
   display: flex;
   gap: 2rem;
-  min-width: 200%;
+  min-width: calc(120px * 8 + 2rem * 7); /* Calculate based on logo width + gaps */
+  animation: scrollLeft 20s linear infinite;
 }
 
 .logos img {
   height: 40px;
+  width: 120px;
   object-fit: contain;
   flex-shrink: 0;
 }
 
 .logo-comp {
-  max-width: 10% !important;
-  height: auto;
+  width: 120px; /* Fixed width instead of percentage */
+  height: 40px; /* Fixed height */
+  object-fit: contain;
   margin: 0 auto;
+  flex-shrink: 0; /* Prevent shrinking */
 }
 
-/* Animate left to right */
+/* Animate left to right - Fixed for mobile */
 @keyframes scrollLeft {
   0% {
-    transform: translateX(0%);
+    transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(calc(-120px * 4 - 2rem * 3)); /* Move by exactly 4 logos + gaps */
   }
 }
 
 .animate-scroll {
-  animation: scrollLeft 18s linear infinite;
+  animation: scrollLeft 15s linear infinite;
 }
 
 .socials a {
@@ -313,7 +349,7 @@ button[type="submit"] {
   box-shadow: 0 5px 20px rgba(0,0,0,0.4);
 }
 
-
+/* ========== MOBILE RESPONSIVENESS ========== */
 @media (max-width: 768px) {
   .contact-wrapper {
     flex-direction: column-reverse;
@@ -354,25 +390,186 @@ button[type="submit"] {
     line-height: 30px;
     max-width: 100%;
     margin: 0 auto;
-}
+  }
 
-.logos-wrapper {
-  overflow: hidden;
-  width: 90%;
-  margin: 0 auto;
-}
+  .logos-wrapper {
+    overflow: hidden;
+    width: 100%; /* Full width on mobile */
+    margin: 0 auto;
+    max-width: 400px; /* Smaller max width on mobile */
+  }
+
+  .logos {
+    gap: 1.5rem; /* Smaller gap on mobile */
+    min-width: calc(100px * 8 + 1.5rem * 7); /* Recalculate for mobile */
+  }
 
   .logos img {
     height: 30px;
+    width: 100px; /* Smaller width on mobile */
+  }
+
+  .logo-comp {
+    width: 100px; /* Smaller width on mobile */
+    height: 30px;
+  }
+
+  /* Mobile animation - slower and more controlled */
+  @keyframes scrollLeftMobile {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-100px * 4 - 1.5rem * 3)); /* Mobile calculation */
+    }
   }
 
   .animate-scroll {
-    animation-duration: 25s;
+    animation: scrollLeftMobile 12s linear infinite;
+  }
+
+  /* ========== MOBILE PHONE FIELD ADJUSTMENTS ========== */
+  .phone-field {
+    gap: 0.375rem; /* Slightly smaller gap on mobile */
+  }
+
+  .phone_code {
+    flex: 0 0 28%; /* Slightly smaller on mobile */
+    min-width: 70px;
+    padding: 0.75rem 0.375rem; /* Reduced horizontal padding */
+    font-size: 13px; /* Smaller font on mobile */
+  }
+
+  .phone {
+    padding: 0.75rem 0.5rem; /* Consistent padding */
   }
 }
-@media (max-width: 508px) {
+
+/* ========== SMALL MOBILE SCREENS ========== */
+@media (max-width: 480px) {
+  /* Logo animation adjustments for small mobile */
+  .logos-wrapper {
+    max-width: 300px; /* Even smaller on tiny screens */
+  }
+
+  .logos {
+    gap: 1rem; /* Smaller gap */
+    min-width: calc(80px * 8 + 1rem * 7);
+  }
+
+  .logos img {
+    height: 25px;
+    width: 80px;
+  }
+
+  .logo-comp {
+    width: 80px;
+    height: 25px;
+  }
+
+  /* Extra small mobile animation */
+  @keyframes scrollLeftSmall {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-80px * 4 - 1rem * 3));
+    }
+  }
+
+  .animate-scroll {
+    animation: scrollLeftSmall 10s linear infinite;
+  }
+
+  .phone-field {
+    gap: 0.25rem; /* Even smaller gap on very small screens */
+  }
+
+  .phone_code {
+    flex: 0 0 25%; /* 25% width on very small screens */
+    min-width: 65px;
+    padding: 0.75rem 0.25rem;
+    font-size: 12px;
+  }
+
   .phone {
-  width: 75%
-}
+    padding: 0.75rem 0.5rem;
+    font-size: 14px;
+  }
+
+  /* Adjust form content padding on very small screens */
+  .form-content {
+    padding: 1rem;
+  }
+
+  .contact-wrapper {
+    padding: 1rem;
+  }
 }
 
+/* ========== LARGE SCREENS ========== */
+@media (min-width: 1200px) {
+  /* Logo animation for large screens */
+  .logos-wrapper {
+    max-width: 1000px; /* Larger on big screens */
+  }
+
+  .logos {
+    gap: 2.5rem; /* Bigger gap */
+    min-width: calc(140px * 8 + 2.5rem * 7);
+  }
+
+  .logos img {
+    height: 45px;
+    width: 140px;
+  }
+
+  .logo-comp {
+    width: 140px;
+    height: 45px;
+  }
+
+  /* Large screen animation */
+  @keyframes scrollLeftLarge {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-140px * 4 - 2.5rem * 3));
+    }
+  }
+
+  .animate-scroll {
+    animation: scrollLeftLarge 18s linear infinite;
+  }
+
+  .phone_code {
+    flex: 0 0 25%; /* Smaller percentage on large screens */
+    font-size: 15px;
+  }
+  
+  .phone {
+    font-size: 15px;
+  }
+}
+
+/* ========== ACCESSIBILITY IMPROVEMENTS ========== */
+.phone_code:focus-visible,
+.phone:focus-visible {
+  outline: 2px solid #F75F0B;
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .phone_code,
+  .phone {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  .phone_code:focus,
+  .phone:focus {
+    border-color: #F75F0B;
+    background: rgba(255, 255, 255, 0.2);
+  }
+}

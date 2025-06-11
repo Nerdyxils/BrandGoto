@@ -1,7 +1,6 @@
 .team-section {
   background: black;
   color: white;
-  /* padding: 3rem 1rem; */
   text-align: center;
   overflow: hidden;
 }
@@ -38,16 +37,17 @@
   text-align: left;
 }
 
-/* Team Grid */
+/* ========== RESPONSIVE TEAM GRID ========== */
 .team-grid {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  gap: 1.5rem;
+  gap: 1rem; /* Reduced from 1.5rem for mobile */
   margin-top: 2rem;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
 }
 
+/* ========== OPTIMIZED TEAM CARDS ========== */
 .team-card {
   background: #1a1a1a;
   border-radius: 12px;
@@ -55,6 +55,9 @@
   transition: transform 0.4s ease, box-shadow 0.4s ease;
   scroll-snap-align: start;
   min-width: 280px;
+  /* Ensure consistent aspect ratio */
+  display: flex;
+  flex-direction: column;
 }
 
 .team-card:hover {
@@ -62,23 +65,28 @@
   box-shadow: 0 10px 30px rgba(247, 95, 11, 0.4);
 }
 
-/* Image Area */
+/* ========== OPTIMIZED IMAGE AREA ========== */
 .team-image-wrapper {
   width: 100%;
-  height: 280px;
+  /* Mobile: Reduced height for more compact cards */
+  height: 220px;
   position: relative;
   overflow: hidden;
+  flex-shrink: 0; /* Prevent image area from shrinking */
 }
 
 .team-image {
   width: 100%;
   height: 100%;
+  /* Object-fit contain to show full headshots without cropping */
+  object-fit: contain;
+  object-position: center;
   background-color: #000;
   border: #1a1a1a 2px solid;
   transition: transform 0.4s ease;
+  /* Ensure consistent display */
+  display: block;
 }
-
-
 
 .team-card:hover .team-image {
   transform: scale(1.05);
@@ -89,21 +97,28 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 60%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  height: 40%; /* Reduced overlay for better image visibility */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+  pointer-events: none;
 }
 
-/* Info */
+/* ========== OPTIMIZED INFO SECTION ========== */
 .team-info {
-  padding: 1rem;
+  /* Reduced padding for more compact mobile cards */
+  padding: 0.75rem 1rem;
   text-align: center;
+  flex-grow: 1; /* Allow info section to take remaining space */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem; /* Consistent spacing */
 }
 
 .team-name {
   font-size: 1.1rem;
   font-weight: 600;
   color: white;
-  margin-bottom: 0.3rem;
+  margin: 0; /* Remove default margins */
 }
 
 .team-role {
@@ -112,6 +127,7 @@
   font-weight: 500;
   color: white;
   letter-spacing: 1px;
+  margin: 0; /* Remove default margins */
 }
 
 .badge {
@@ -123,28 +139,105 @@
   color: black;
 }
 
-/* Responsive Grid */
+/* ========== RESPONSIVE BREAKPOINTS ========== */
+
+/* Small Mobile (up to 480px) - Extra compact */
+@media (max-width: 480px) {
+  .team-grid {
+    gap: 0.75rem; /* Even tighter spacing on small screens */
+  }
+  
+  .team-image-wrapper {
+    height: 200px; /* Smaller height for very small screens */
+  }
+  
+  .team-info {
+    padding: 0.5rem 0.75rem; /* More compact padding */
+  }
+  
+  .team-name {
+    font-size: 1rem; /* Slightly smaller text */
+  }
+  
+  .badge {
+    font-size: 0.7rem; /* Slightly smaller badge */
+    padding: 3px 8px;
+  }
+}
+
+/* Tablet (640px and up) - 2 columns */
 @media (min-width: 640px) {
   .team-grid {
     grid-template-columns: repeat(2, 1fr);
-    scroll-snap-type: x mandatory;
+    gap: 1.25rem; /* Slightly larger gap for tablets */
+    scroll-snap-type: none;
     overflow-x: hidden;
+  }
+  
+  .team-image-wrapper {
+    height: 240px; /* Slightly taller for tablets */
+  }
+  
+  .team-info {
+    padding: 1rem; /* Standard padding for tablets */
   }
 }
 
+/* Large Tablet/Small Desktop (768px and up) */
+@media (min-width: 768px) {
+  .team-image-wrapper {
+    height: 260px; /* Better proportions for larger screens */
+  }
+  
+  .team-grid {
+    gap: 1.5rem; /* More comfortable spacing */
+  }
+}
+
+/* Desktop (1024px and up) - Still 2 columns */
 @media (min-width: 1024px) {
   .team-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem; /* Generous spacing for desktop */
+  }
+  
+  .team-image-wrapper {
+    height: 280px; /* Original height for desktop */
+  }
+  
+  .team-info {
+    padding: 1.25rem; /* More padding for desktop */
   }
 }
 
+/* Large Desktop (1280px and up) - 4 columns */
 @media (min-width: 1280px) {
   .team-grid {
     grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem; /* Balanced spacing for 4-column layout */
+  }
+  
+  .team-image-wrapper {
+    height: 260px; /* Optimized for 4-column layout */
+  }
+  
+  .team-info {
+    padding: 1rem; /* Balanced padding for 4 columns */
   }
 }
 
-/* Fallback animation if motion fails */
+/* Extra Large Desktop (1536px and up) */
+@media (min-width: 1536px) {
+  .team-grid {
+    gap: 2rem; /* Generous spacing for very large screens */
+  }
+  
+  .team-image-wrapper {
+    height: 280px; /* Full height for large displays */
+  }
+}
+
+/* ========== FALLBACK ANIMATIONS ========== */
 .team-card {
   opacity: 0;
   transform: translateY(30px);
@@ -161,4 +254,40 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* ========== ACCESSIBILITY & PERFORMANCE ========== */
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .team-card {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  
+  .team-card:hover {
+    transform: none;
+  }
+  
+  .team-card:hover .team-image {
+    transform: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .team-card {
+    border: 2px solid white;
+  }
+  
+  .badge {
+    border: 1px solid black;
+  }
+}
+
+/* Focus styles for accessibility */
+.team-card:focus-visible {
+  outline: 2px solid #f75f0b;
+  outline-offset: 2px;
 }

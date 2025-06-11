@@ -49,7 +49,7 @@ const childFade = {
                 <span className="orange">Work</span> That <span className="teal">Speaks</span> for <span className="white">Itself</span>
             </motion.h2>
 
-            <motion.p className="section-desc" variants={childFade}>
+            <motion.p className="p-section-desc" variants={childFade}>
                 Check out some of our favorite builds—from bold brands to sleek websites.
             </motion.p>
 

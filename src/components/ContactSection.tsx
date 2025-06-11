@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './ContactSection.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import patternBg from '../assets/Pattern.png';
 import LogoImg from '../assets/logo.svg';
 
-// Country codes (add more if needed)
+// Country codes
 const countryCodes: Record<string, string> = {
   US: '1',
   CA: '1',
@@ -13,20 +13,145 @@ const countryCodes: Record<string, string> = {
   IN: '91',
   DE: '49',
   FR: '33',
-  // ...
+  AU: '61',
+  NZ: '64',
+  ZA: '27',
+  JP: '81',
+  KR: '82',
+  CN: '86',
+  BR: '55',
+  MX: '52',
+  ES: '34',
+  IT: '39',
+  NL: '31',
+  SE: '46',
+  NO: '47',
+  DK: '45',
+  FI: '358',
+  PL: '48',
+  RU: '7',
 };
 
+interface FormData {
+  name: string;
+  phone: string;
+  email: string;
+  services: string[];
+  countryCode: string;
+}
+
+interface LogoData {
+  src: string;
+  alt: string;
+}
+
 const ContactSection: React.FC = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     phone: '',
     email: '',
-    services: [] as string[],
+    services: [],
     countryCode: '1',
   });
-  const [newsletterEmail, setNewsletterEmail] = useState('');
-  const [showToast, setShowToast] = useState(false);
-  const [showNewsletterToast, setShowNewsletterToast] = useState(false);
+  const [newsletterEmail, setNewsletterEmail] = useState<string>('');
+  const [showToast, setShowToast] = useState<boolean>(false);
+  const [showNewsletterToast, setShowNewsletterToast] = useState<boolean>(false);
+
+  // FINAL LOGO ANIMATION FIX - CONTROLLED APPROACH
+  const [screenWidth, setScreenWidth] = useState<number>(0);
+  const logosRef = useRef<HTMLDivElement>(null);
+  const animationRef = useRef<number>(1);
+
+  // Logo data
+  const logos: LogoData[] = [
+    { src: "/images/higherglyphs1.png", alt: "Higher Glyphs" },
+    { src: "/images/smt.webp", alt: "SMT" },
+    { src: "/images/Neuralabs.png", alt: "Neuralabs" },
+    { src: "/images/herlogo.png", alt: "Jayo" }
+  ];
+
+  // Calculate exact dimensions based on screen size
+  const getLogoDimensions = (width: number) => {
+    if (width <= 480) {
+      return {
+        logoWidth: 60,
+        logoHeight: 20,
+        gap: 12,
+        containerMaxWidth: 280,
+        animationSpeed: 20, // Much slower on mobile
+      };
+    } else if (width <= 768) {
+      return {
+        logoWidth: 80,
+        logoHeight: 25,
+        gap: 16,
+        containerMaxWidth: 350,
+        animationSpeed: 15,
+      };
+    } else if (width <= 1200) {
+      return {
+        logoWidth: 100,
+        logoHeight: 30,
+        gap: 20,
+        containerMaxWidth: 500,
+        animationSpeed: 12,
+      };
+    } else {
+      return {
+        logoWidth: 120,
+        logoHeight: 35,
+        gap: 24,
+        containerMaxWidth: 700,
+        animationSpeed: 10,
+      };
+    }
+  };
+
+  // MANUAL ANIMATION CONTROL - NO CSS ANIMATIONS
+  useEffect(() => {
+    const updateScreenWidth = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    updateScreenWidth();
+    window.addEventListener('resize', updateScreenWidth);
+    return () => window.removeEventListener('resize', updateScreenWidth);
+  }, []);
+
+  // Manual animation using requestAnimationFrame
+  useEffect(() => {
+    if (!logosRef.current) return;
+
+    const dimensions = getLogoDimensions(screenWidth);
+    const totalLogoWidth = dimensions.logoWidth * 4 + dimensions.gap * 3; // 4 logos + 3 gaps
+    let translateX = 0;
+    let startTime: number;
+
+    const animate = (currentTime: number) => {
+      if (!startTime) startTime = currentTime;
+      const elapsed = currentTime - startTime;
+      
+      // Calculate progress (0 to 1)
+      const progress = (elapsed % (dimensions.animationSpeed * 1000)) / (dimensions.animationSpeed * 1000);
+      
+      // Calculate translateX position
+      translateX = -progress * totalLogoWidth;
+      
+      if (logosRef.current) {
+        logosRef.current.style.transform = `translateX(${translateX}px)`;
+      }
+      
+      animationRef.current = requestAnimationFrame(animate);
+    };
+
+    animationRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [screenWidth]);
 
   // Detect browser locale on mount
   useEffect(() => {
@@ -92,7 +217,7 @@ const ContactSection: React.FC = () => {
     return "general_inquiry";
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const cleanedPhone = formData.phone.replace(/\D/g, '');
@@ -117,31 +242,22 @@ const ContactSection: React.FC = () => {
 
     // Complete payload with all intelligence data for Make.com
     const payload = {
-      // Standard contact fields
       email: formData.email,
       firstname: formData.name,
       phone: formattedPhone,
-      
-      // Services data
       services_selected: formData.services.join(';'),
       services_count: formData.services.length,
       primary_service: formData.services[0] || "General Inquiry",
-      
-      // Intelligence data (calculated values)
       service_complexity_score: complexityScore,
       estimated_project_value: projectValue,
       priority_level: priorityLevel,
       email_template_id: templateId,
       page_url: window.location.href,
-      
-      // Lead metadata
       lead_source: "BrandGoto Website",
       consultation_status: "New Lead",
       requires_consultation: formData.services.length > 1 ? "Yes" : "No",
       automated_followup_enabled: "Yes",
       form_timestamp: new Date().toISOString(),
-      
-      // Additional context
       referrer: document.referrer || "Direct",
       browser_info: navigator.userAgent.substring(0, 100)
     };
@@ -165,7 +281,6 @@ const ContactSection: React.FC = () => {
       setShowToast(true);
       setTimeout(() => setShowToast(false), 3500);
       
-      // Reset form but preserve country code
       setFormData({
         name: '',
         phone: '',
@@ -179,17 +294,14 @@ const ContactSection: React.FC = () => {
     }
   };
 
-  // Newsletter signup handler - Simple email list collection
-  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Validate email
     if (!newsletterEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newsletterEmail)) {
       alert("Please enter a valid email address.");
       return;
     }
 
-    // Simple newsletter payload - just for list building
     const newsletterPayload = {
       email: newsletterEmail,
       lead_source: "BrandGoto Newsletter Signup",
@@ -197,13 +309,11 @@ const ContactSection: React.FC = () => {
       signup_timestamp: new Date().toISOString(),
       list_name: "BrandGoto Newsletter List",
       opt_in_status: "Subscribed",
-      // No automation flags - just save to list
     };
 
     console.log("📧 Saving email to newsletter list:", JSON.stringify(newsletterPayload, null, 2));
 
     try {
-      // Use separate webhook for newsletter (no AI automation)
       const response = await fetch('https://hook.us2.make.com/mfai8q73ni4yxbqribo1oaglmbfw01q8', {
         method: 'POST',
         headers: {
@@ -220,7 +330,6 @@ const ContactSection: React.FC = () => {
       setShowNewsletterToast(true);
       setTimeout(() => setShowNewsletterToast(false), 3500);
       
-      // Reset newsletter email
       setNewsletterEmail('');
     } catch (err) {
       console.error("❌ Newsletter signup error:", err);
@@ -228,8 +337,7 @@ const ContactSection: React.FC = () => {
     }
   };
 
-  // Exact service names as they appear in HubSpot
-  const services = [
+  const services: string[] = [
     'Website Design & Development',
     'Digital Marketing',
     'Brand Identity & Logo Design',
@@ -237,6 +345,29 @@ const ContactSection: React.FC = () => {
     'Domain & Business Email Setup',
     'Creative Direction & Strategy',
   ];
+
+  // Get current dimensions for rendering
+  const dimensions = getLogoDimensions(screenWidth || window.innerWidth);
+
+  // Render logos with exact calculated dimensions
+  const renderLogos = () => {
+    const doubledLogos = [...logos, ...logos];
+    
+    return doubledLogos.map((logo, index) => (
+      <img
+        key={`${logo.alt}-${index}`}
+        src={logo.src}
+        alt={logo.alt}
+        style={{
+          width: `${dimensions.logoWidth}px`,
+          height: `${dimensions.logoHeight}px`,
+          objectFit: 'contain' as const,
+          flexShrink: 0,
+        }}
+        loading="lazy"
+      />
+    ));
+  };
 
   return (
     <section className="contact-section" style={{
@@ -246,6 +377,7 @@ const ContactSection: React.FC = () => {
       position: 'relative',
       overflow: 'hidden',
     }}>
+      
       <AnimatePresence>
         {showToast && (
           <motion.div
@@ -299,18 +431,45 @@ const ContactSection: React.FC = () => {
             title="Hidden Brevo Target"
           />
           <form onSubmit={handleSubmit}>
-            <input type="text" name="name" placeholder="Enter name" value={formData.name} onChange={handleChange} required />
+            <input 
+              type="text" 
+              name="name" 
+              placeholder="Enter name" 
+              value={formData.name} 
+              onChange={handleChange} 
+              required 
+            />
             
             <div className="phone-field">
-              <select className='phone_code' name="countryCode" value={formData.countryCode} onChange={handleChange}>
+              <select 
+                className='phone_code' 
+                name="countryCode" 
+                value={formData.countryCode} 
+                onChange={handleChange}
+              >
                 {Object.entries(countryCodes).map(([key, val]) => (
                   <option key={key} value={val}>+{val} ({key})</option>
                 ))}
               </select>
-              <input className='phone' type="text" name="phone" placeholder="Phone number" value={formData.phone} onChange={handleChange} required />
+              <input 
+                className='phone' 
+                type="text" 
+                name="phone" 
+                placeholder="Phone number" 
+                value={formData.phone} 
+                onChange={handleChange} 
+                required 
+              />
             </div>
 
-            <input type="email" name="email" placeholder="Enter email" value={formData.email} onChange={handleChange} required />
+            <input 
+              type="email" 
+              name="email" 
+              placeholder="Enter email" 
+              value={formData.email} 
+              onChange={handleChange} 
+              required 
+            />
 
             <p className="services-title">What do you need help with? (Select all that apply)</p>
             <div className="checkbox-grid">
@@ -343,20 +502,47 @@ const ContactSection: React.FC = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
+        {/* FINAL LOGO ANIMATION - COMPLETELY CONTROLLED */}
         <div className="partners">
           <div className="brand-partners">
-            <p>PARTNERED BY THE WORLD'S TOP BRANDS</p>
-            <div className="logos-wrapper">
-              <div className="logos animate-scroll">
-                <img src="/images/higherglyphs1.png" alt="Higher Glyphs" className='logo-comp'/>
-                <img src="/images/smt.webp" alt="SMT" className='logo-comp' />
-                <img src="/images/Neuralabs.png" alt="Neuralabs" className='logo-comp' />
-                <img src="/images/herlogo.png" alt="Jayo" className='logo-comp' />
-                {/* duplicate for seamless loop */}
-                <img src="/images/higherglyphs1.png" alt="Higher Glyphs" className='logo-comp'/>
-                <img src="/images/smt.webp" alt="SMT duplicate" className='logo-comp' />
-                <img src="/images/Neuralabs.png" alt="Neuralabs duplicate" className='logo-comp' />
-                <img src="/images/herlogo.png" alt="Jayo duplicate" className='logo-comp'/>
+            <p style={{ 
+              fontWeight: 600, 
+              marginBottom: '2rem', 
+              color: 'white', 
+              textAlign: 'center' 
+            }}>
+              PARTNERED BY THE WORLD'S TOP BRANDS
+            </p>
+            <div style={{
+              overflow: 'hidden',
+              width: '100%',
+              maxWidth: `${dimensions.containerMaxWidth}px`,
+              margin: '0 auto',
+              position: 'relative',
+            }}>
+              <div 
+                ref={logosRef}
+                style={{
+                  display: 'flex',
+                  gap: `${dimensions.gap}px`,
+                  width: 'max-content',
+                  willChange: 'transform',
+                }}
+                onMouseEnter={() => {
+                  if (animationRef.current) {
+                    cancelAnimationFrame(animationRef.current);
+                  }
+                }}
+                onMouseLeave={() => {
+                  // Restart animation on mouse leave
+                  if (!logosRef.current) return;
+                  const animate = (currentTime: number) => {
+                    // Resume animation logic here
+                  };
+                  animationRef.current = requestAnimationFrame(animate);
+                }}
+              >
+                {renderLogos()}
               </div>
             </div>
           </div>
@@ -366,9 +552,15 @@ const ContactSection: React.FC = () => {
           <div className="logo-social">
             <img src={LogoImg} alt="BrandGoto Logo" />
             <div className="socials">
-              <a href="https://x.com/Brand_goto" target="_blank"><i className="fab fa-x-twitter"></i></a>
-              <a href="#" target="_blank"><i className="fab fa-linkedin-in"></i></a>
-              <a href="https://www.instagram.com/brand_goto/" target="_blank"><i className="fab fa-instagram"></i></a>
+              <a href="https://x.com/Brand_goto" target="_blank" rel="noopener noreferrer">
+                <i className="fab fa-x-twitter"></i>
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer">
+                <i className="fab fa-linkedin-in"></i>
+              </a>
+              <a href="https://www.instagram.com/brand_goto/" target="_blank" rel="noopener noreferrer">
+                <i className="fab fa-instagram"></i>
+              </a>
             </div>
             <p className='copy_w'>© Copyright 2025, All Rights Reserved.</p>
           </div>
