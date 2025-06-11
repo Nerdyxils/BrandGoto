@@ -3,7 +3,7 @@ import { motion, useAnimation, useInView } from 'framer-motion';
 import './TeamSection.css';
 
 const teamMembers = [
-  { name: 'Silas', role: 'Managing Partner & Project Manager', img: '/images/Founder.JPG' },
+  { name: 'Silas', role: 'Founder & Project Lead', img: '/images/Founder.JPG' },
   { name: 'Robert', role: 'Full Stack Developer', img: '/images/Robert.png' },
   { name: 'Olha', role: 'Product Designer', img: '/images/Olha.jpg' },
   { name: 'Dmytro', role: 'Marketing Strategist', img: '/images/Dymtro.jpg' },
