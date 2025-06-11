@@ -349,14 +349,14 @@ const ContactSection: React.FC = () => {
             <div className="logos-wrapper">
               <div className="logos animate-scroll">
                 <img src="/images/higherglyphs1.png" alt="Higher Glyphs" className='logo-comp'/>
-                <img src="/images/herlogo.png" alt="Venom" />
-                <img src="/images/herlogo.png" alt="Asus" />
-                <img src="/images/herlogo.png" alt="Jayo" />
+                <img src="/images/smt.webp" alt="SMT" className='logo-comp' />
+                <img src="/images/Neuralabs.png" alt="Neuralabs" className='logo-comp' />
+                <img src="/images/herlogo.png" alt="Jayo" className='logo-comp' />
                 {/* duplicate for seamless loop */}
                 <img src="/images/higherglyphs1.png" alt="Higher Glyphs" className='logo-comp'/>
-                <img src="/images/herlogo.png" alt="Venom duplicate" />
-                <img src="/images/herlogo.png" alt="Asus duplicate" />
-                <img src="/images/herlogo.png" alt="Jayo duplicate" />
+                <img src="/images/smt.webp" alt="SMT duplicate" className='logo-comp' />
+                <img src="/images/Neuralabs.png" alt="Neuralabs duplicate" className='logo-comp' />
+                <img src="/images/herlogo.png" alt="Jayo duplicate" className='logo-comp'/>
               </div>
             </div>
           </div>
