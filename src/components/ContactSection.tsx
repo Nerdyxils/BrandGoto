@@ -24,7 +24,9 @@ const ContactSection: React.FC = () => {
     services: [] as string[],
     countryCode: '1',
   });
+  const [newsletterEmail, setNewsletterEmail] = useState('');
   const [showToast, setShowToast] = useState(false);
+  const [showNewsletterToast, setShowNewsletterToast] = useState(false);
 
   // Detect browser locale on mount
   useEffect(() => {
@@ -177,6 +179,55 @@ const ContactSection: React.FC = () => {
     }
   };
 
+  // Newsletter signup handler - Simple email list collection
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Validate email
+    if (!newsletterEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newsletterEmail)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+
+    // Simple newsletter payload - just for list building
+    const newsletterPayload = {
+      email: newsletterEmail,
+      lead_source: "BrandGoto Newsletter Signup",
+      subscription_type: "Newsletter",
+      signup_timestamp: new Date().toISOString(),
+      list_name: "BrandGoto Newsletter List",
+      opt_in_status: "Subscribed",
+      // No automation flags - just save to list
+    };
+
+    console.log("📧 Saving email to newsletter list:", JSON.stringify(newsletterPayload, null, 2));
+
+    try {
+      // Use separate webhook for newsletter (no AI automation)
+      const response = await fetch('https://hook.us2.make.com/mfai8q73ni4yxbqribo1oaglmbfw01q8', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newsletterPayload),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Newsletter signup failed with status ${response.status}`);
+      }
+
+      console.log("✅ Email saved to newsletter list successfully");
+      setShowNewsletterToast(true);
+      setTimeout(() => setShowNewsletterToast(false), 3500);
+      
+      // Reset newsletter email
+      setNewsletterEmail('');
+    } catch (err) {
+      console.error("❌ Newsletter signup error:", err);
+      alert("There was an error subscribing to the newsletter. Please try again later.");
+    }
+  };
+
   // Exact service names as they appear in HubSpot
   const services = [
     'Website Design & Development',
@@ -205,6 +256,18 @@ const ContactSection: React.FC = () => {
             transition={{ duration: 0.4 }}
           >
             🎉 Message sent! We'll be in touch shortly.
+          </motion.div>
+        )}
+        {showNewsletterToast && (
+          <motion.div
+            className="form-toast newsletter-toast"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 40 }}
+            transition={{ duration: 0.4 }}
+            style={{ backgroundColor: '#023942', color: '#CFF8FF' }}
+          >
+            📧 Successfully subscribed to our newsletter!
           </motion.div>
         )}
       </AnimatePresence>
@@ -312,16 +375,22 @@ const ContactSection: React.FC = () => {
           </div>
 
           <div className="signup_txt">
-            <p>Signup to get access to Brandgoto updates. We will notify you about releases and industry news.</p>
+            <p>Stay updated with BrandGoto insights, industry trends, and exclusive creative resources. Join our community of bold brands.</p>
           </div>
 
           <div className="newsletter">
-            <form>
-              <input type="email" placeholder="What's your e-mail?" required />
+            <form onSubmit={handleNewsletterSubmit}>
+              <input 
+                type="email" 
+                placeholder="What's your e-mail?" 
+                value={newsletterEmail}
+                onChange={(e) => setNewsletterEmail(e.target.value)}
+                required 
+              />
               <button type="submit">→</button>
             </form>
             <p className="privacy">
-              I confirm that I have read <strong>Brandgoto's Privacy Policy</strong> and agree with it.
+              I confirm that I have read <strong>BrandGoto's Privacy Policy</strong> and agree to receive marketing communications.
             </p>
           </div>
         </div>
