@@ -366,10 +366,9 @@ const ContactSection: React.FC = () => {
           <div className="logo-social">
             <img src={LogoImg} alt="BrandGoto Logo" />
             <div className="socials">
-              <a href="#"><i className="fab fa-x-twitter"></i></a>
-              <a href="#"><i className="fab fa-linkedin-in"></i></a>
-              <a href="#"><i className="fab fa-instagram"></i></a>
-              <a href="#"><i className="fab fa-facebook-f"></i></a>
+              <a href="https://x.com/Brand_goto" target="_blank"><i className="fab fa-x-twitter"></i></a>
+              <a href="#" target="_blank"><i className="fab fa-linkedin-in"></i></a>
+              <a href="https://www.instagram.com/brand_goto/" target="_blank"><i className="fab fa-instagram"></i></a>
             </div>
             <p className='copy_w'>© Copyright 2025, All Rights Reserved.</p>
           </div>
