@@ -369,6 +369,32 @@ const ContactSection: React.FC = () => {
     ));
   };
 
+  // Animation restart function for mouse leave event
+  const restartAnimation = () => {
+    if (!logosRef.current) return;
+    
+    const dimensions = getLogoDimensions(screenWidth);
+    const totalLogoWidth = dimensions.logoWidth * 4 + dimensions.gap * 3;
+    let translateX = 0;
+    let startTime: number;
+
+    const animate = (currentTime: number) => {
+      if (!startTime) startTime = currentTime;
+      const elapsed = currentTime - startTime;
+      
+      const progress = (elapsed % (dimensions.animationSpeed * 1000)) / (dimensions.animationSpeed * 1000);
+      translateX = -progress * totalLogoWidth;
+      
+      if (logosRef.current) {
+        logosRef.current.style.transform = `translateX(${translateX}px)`;
+      }
+      
+      animationRef.current = requestAnimationFrame(animate);
+    };
+    
+    animationRef.current = requestAnimationFrame(animate);
+  };
+
   return (
     <section className="contact-section" style={{
       backgroundImage: `url(${patternBg})`,
@@ -533,14 +559,7 @@ const ContactSection: React.FC = () => {
                     cancelAnimationFrame(animationRef.current);
                   }
                 }}
-                onMouseLeave={() => {
-                  // Restart animation on mouse leave
-                  if (!logosRef.current) return;
-                  const animate = (currentTime: number) => {
-                    // Resume animation logic here
-                  };
-                  animationRef.current = requestAnimationFrame(animate);
-                }}
+                onMouseLeave={restartAnimation}
               >
                 {renderLogos()}
               </div>
