@@ -18,19 +18,6 @@ import ContactSection from './ContactSection';
 const Hero: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  
-  // Check for mobile device
-  useEffect(() => {
-    const checkMobile = () => {
-      const mobile = window.innerWidth <= 768;
-      setIsMobile(mobile);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
   
   // MENU AND SCROLL HANDLERS
   useEffect(() => {
@@ -245,17 +232,14 @@ const Hero: React.FC = () => {
     animateStats();
   }, [leftControls, rightControls]);
 
-  // MOBILE-OPTIMIZED SECTION ANIMATION - INSTANT ON MOBILE
+  // SIMPLIFIED MOBILE-FRIENDLY SECTION ANIMATION
   const sectionVariants = {
-    hidden: { 
-      opacity: isMobile ? 1 : 0, 
-      y: isMobile ? 0 : 30 
-    },
+    hidden: { opacity: 0, y: 15 },
     visible: { 
       opacity: 1, 
       y: 0,
       transition: { 
-        duration: isMobile ? 0 : 0.6, 
+        duration: 0.4, 
         ease: "easeOut"
       }
     }
@@ -436,63 +420,63 @@ const Hero: React.FC = () => {
           </div>
         </section>
 
-        {/* SECTIONS - MOBILE-OPTIMIZED: NO ANIMATION ON MOBILE */}
+        {/* SECTIONS - SIMPLIFIED SMOOTH SCROLL-IN */}
         <motion.section 
           id="about-us"
-          variants={isMobile ? undefined : sectionVariants}
-          initial={isMobile ? undefined : "hidden"}
-          whileInView={isMobile ? undefined : "visible"}
-          viewport={isMobile ? undefined : { once: true, amount: 0.1 }}
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
         >
           <Herotwo />
         </motion.section>
 
         <motion.section 
           id="services"
-          variants={isMobile ? undefined : sectionVariants}
-          initial={isMobile ? undefined : "hidden"}
-          whileInView={isMobile ? undefined : "visible"}
-          viewport={isMobile ? undefined : { once: true, amount: 0.1 }}
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
         >
           <ServicesSection />
         </motion.section>
 
         <motion.section 
           id="recent-projects"
-          variants={isMobile ? undefined : sectionVariants}
-          initial={isMobile ? undefined : "hidden"}
-          whileInView={isMobile ? undefined : "visible"}
-          viewport={isMobile ? undefined : { once: true, amount: 0.1 }}
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
         >
           <RecentProjects />
         </motion.section>
 
         <motion.section 
           id="team"
-          variants={isMobile ? undefined : sectionVariants}
-          initial={isMobile ? undefined : "hidden"}
-          whileInView={isMobile ? undefined : "visible"}
-          viewport={isMobile ? undefined : { once: true, amount: 0.1 }}
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
         >
           <TeamSection />
         </motion.section>
 
         <motion.section 
           id="success-stories"
-          variants={isMobile ? undefined : sectionVariants}
-          initial={isMobile ? undefined : "hidden"}
-          whileInView={isMobile ? undefined : "visible"}
-          viewport={isMobile ? undefined : { once: true, amount: 0.1 }}
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
         >
           <TestimonialsSection />
         </motion.section>
 
         <motion.section 
           id="contact"
-          variants={isMobile ? undefined : sectionVariants}
-          initial={isMobile ? undefined : "hidden"}
-          whileInView={isMobile ? undefined : "visible"}
-          viewport={isMobile ? undefined : { once: true, amount: 0.1 }}
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
         >
           <ContactSection />
         </motion.section>
