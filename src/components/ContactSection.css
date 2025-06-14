@@ -393,7 +393,7 @@ button[type="submit"] {
   }
 
   .logos-wrapper {
-    overflow: hidden;
+    overflow: hidden !important;
     width: 100%; /* Full width on mobile */
     margin: 0 auto;
     max-width: 400px; /* Smaller max width on mobile */
@@ -401,16 +401,16 @@ button[type="submit"] {
 
   .logos {
     gap: 1.5rem; /* Smaller gap on mobile */
-    min-width: calc(100px * 8 + 1.5rem * 7); /* Recalculate for mobile */
+    min-width: 250px;
   }
 
   .logos img {
     height: 30px;
-    width: 100px; /* Smaller width on mobile */
+    width: 200px;
   }
 
   .logo-comp {
-    width: 100px; /* Smaller width on mobile */
+    width: 200px !important; /* Smaller width on mobile */
     height: 30px;
   }
 
