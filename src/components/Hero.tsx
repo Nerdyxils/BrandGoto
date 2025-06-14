@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import Navbar from './Navbar';
 import ImgCo from '../assets/conversion.png';
@@ -109,31 +109,128 @@ const Hero: React.FC = () => {
   const leftControls = leftStats.map(() => useAnimation());
   const rightControls = rightStats.map(() => useAnimation());
 
-  // SIMPLE STATS ANIMATION - REMOVED COMPLEX LOOPS
+  // ORIGINAL ALTERNATING CARD ANIMATIONS - RESTORED
   useEffect(() => {
     const animateStats = async () => {
       await new Promise(resolve => setTimeout(resolve, 1500));
       
-      // Simple one-time animation instead of infinite loops
-      leftControls.forEach((control, index) => {
-        control.start({
-          scale: index < 2 ? 1.05 : 1,
-          background: index < 2 ? '#000000' : 'rgba(255, 255, 255, 0.1)',
-          transition: { duration: 0.5, ease: "easeOut" }
-        });
-      });
-      
-      rightControls.forEach((control, index) => {
-        control.start({
-          scale: index === 0 ? 1.05 : 1,
-          background: index === 0 ? '#000000' : 'rgba(255, 255, 255, 0.1)',
-          transition: { duration: 0.5, ease: "easeOut" }
-        });
-      });
+      // Infinite alternating animation loop like original
+      while (true) {
+        // First pattern - some cards pop in
+        await Promise.all([
+          leftControls[0].start({ 
+            scale: 1.1, 
+            background: '#000000',
+            transition: { duration: 0.5, ease: "easeOut" }
+          }),
+          leftControls[1].start({ 
+            scale: 1.1, 
+            background: '#000000',
+            transition: { duration: 0.5, ease: "easeOut" }
+          }),
+          leftControls[2].start({ 
+            scale: 0.9, 
+            background: 'rgba(255,255,255,0.1)',
+            transition: { duration: 0.5, ease: "easeOut" }
+          }),
+          rightControls[0].start({ 
+            scale: 1.1, 
+            background: '#000000',
+            transition: { duration: 0.5, ease: "easeOut" }
+          }),
+          rightControls[1].start({ 
+            scale: 0.9, 
+            background: 'rgba(255,255,255,0.1)',
+            transition: { duration: 0.5, ease: "easeOut" }
+          }),
+          rightControls[2].start({ 
+            scale: 0.9, 
+            background: 'rgba(255,255,255,0.1)',
+            transition: { duration: 0.5, ease: "easeOut" }
+          }),
+        ]);
+        
+        // Random wait between 1.5-3 seconds
+        await new Promise(r => setTimeout(r, 1500 + Math.random() * 1500));
+        
+        // Second pattern - different cards pop in
+        await Promise.all([
+          leftControls[0].start({ 
+            scale: 0.9, 
+            background: 'rgba(255,255,255,0.1)',
+            transition: { duration: 0.5, ease: "easeOut" }
+          }),
+          leftControls[1].start({ 
+            scale: 0.9, 
+            background: 'rgba(255,255,255,0.1)',
+            transition: { duration: 0.5, ease: "easeOut" }
+          }),
+          leftControls[2].start({ 
+            scale: 1.1, 
+            background: '#000000',
+            transition: { duration: 0.5, ease: "easeOut" }
+          }),
+          rightControls[0].start({ 
+            scale: 0.9, 
+            background: 'rgba(255,255,255,0.1)',
+            transition: { duration: 0.5, ease: "easeOut" }
+          }),
+          rightControls[1].start({ 
+            scale: 1.1, 
+            background: '#000000',
+            transition: { duration: 0.5, ease: "easeOut" }
+          }),
+          rightControls[2].start({ 
+            scale: 1.1, 
+            background: '#000000',
+            transition: { duration: 0.5, ease: "easeOut" }
+          }),
+        ]);
+        
+        // Random wait between 1.5-3 seconds
+        await new Promise(r => setTimeout(r, 1500 + Math.random() * 1500));
+        
+        // Third pattern - mix it up
+        await Promise.all([
+          leftControls[0].start({ 
+            scale: 1.1, 
+            background: '#000000',
+            transition: { duration: 0.5, ease: "easeOut" }
+          }),
+          leftControls[1].start({ 
+            scale: 0.9, 
+            background: 'rgba(255,255,255,0.1)',
+            transition: { duration: 0.5, ease: "easeOut" }
+          }),
+          leftControls[2].start({ 
+            scale: 1.1, 
+            background: '#000000',
+            transition: { duration: 0.5, ease: "easeOut" }
+          }),
+          rightControls[0].start({ 
+            scale: 1.1, 
+            background: '#000000',
+            transition: { duration: 0.5, ease: "easeOut" }
+          }),
+          rightControls[1].start({ 
+            scale: 0.9, 
+            background: 'rgba(255,255,255,0.1)',
+            transition: { duration: 0.5, ease: "easeOut" }
+          }),
+          rightControls[2].start({ 
+            scale: 0.9, 
+            background: 'rgba(255,255,255,0.1)',
+            transition: { duration: 0.5, ease: "easeOut" }
+          }),
+        ]);
+        
+        // Random wait between 1.5-3 seconds
+        await new Promise(r => setTimeout(r, 1500 + Math.random() * 1500));
+      }
     };
     
     animateStats();
-  }, []);
+  }, [leftControls, rightControls]);
 
   // SIMPLE SECTION ANIMATION - NO COMPLEX VIEWPORT CALCULATIONS
   const sectionVariants = {
