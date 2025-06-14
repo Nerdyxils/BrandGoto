@@ -1,10 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, type ChangeEvent } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle, ArrowRight, Clock, Users, Target, Zap, Star, Calendar } from 'lucide-react';
-import {Navbar} from '../components/navbar';
+import { CheckCircle, ArrowRight, Clock, Users, Target, Zap, Star, Calendar, type LucideIcon } from 'lucide-react';
+// import Navbar  from '../components/navbar';
 
-const BusinessAssessmentLanding = () => {
-  const [formData, setFormData] = useState({
+// Types for form data
+interface FormData {
+  name: string;
+  email: string;
+  business: string;
+  stage: string;
+  priority: string;
+  timeline: string;
+  budget: string;
+  phone: string;
+  challenges: string;
+}
+
+// Types for form errors
+interface FormErrors {
+  [key: string]: string;
+}
+
+// Types for value proposition items
+interface ValuePropItem {
+  icon: LucideIcon;
+  title: string;
+  value: string;
+}
+
+// Types for option items
+interface OptionItem {
+  value: string;
+  label: string;
+  desc: string;
+}
+
+const BusinessAssessmentLanding: React.FC = () => {
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     business: '',
@@ -16,11 +48,11 @@ const BusinessAssessmentLanding = () => {
     challenges: ''
   });
   
-  const [currentStep, setCurrentStep] = useState(1);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [errors, setErrors] = useState({});
+  const [currentStep, setCurrentStep] = useState<number>(1);
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const [errors, setErrors] = useState<FormErrors>({});
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -36,8 +68,8 @@ const BusinessAssessmentLanding = () => {
     }
   };
 
-  const validateStep = (step) => {
-    const newErrors = {};
+  const validateStep = (step: number): boolean => {
+    const newErrors: FormErrors = {};
     
     switch(step) {
       case 1:
@@ -62,17 +94,17 @@ const BusinessAssessmentLanding = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const nextStep = () => {
+  const nextStep = (): void => {
     if (validateStep(currentStep)) {
       setCurrentStep(prev => Math.min(prev + 1, 4));
     }
   };
 
-  const prevStep = () => {
+  const prevStep = (): void => {
     setCurrentStep(prev => Math.max(prev - 1, 1));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (): void => {
     if (validateStep(3)) {
       console.log('Assessment submitted:', formData);
       setIsSubmitted(true);
@@ -104,10 +136,43 @@ const BusinessAssessmentLanding = () => {
     }
   };
 
+  const valuePropositions: ValuePropItem[] = [
+    { icon: Target, title: "Brand & Market Analysis", value: "$500" },
+    { icon: Zap, title: "Tech Stack Optimization", value: "$300" },
+    { icon: Users, title: "Growth Strategy Plan", value: "$200" }
+  ];
+
+  const businessStages: OptionItem[] = [
+    { value: 'idea', label: 'Just an Idea', desc: 'Concept stage, need everything' },
+    { value: 'early', label: 'Early Stage', desc: 'Basic setup, need growth' },
+    { value: 'growing', label: 'Growing Business', desc: 'Some traction, scaling up' },
+    { value: 'established', label: 'Established', desc: 'Profitable, optimizing' }
+  ];
+
+  const priorities: OptionItem[] = [
+    { value: 'brand', label: 'Complete Brand Identity', desc: 'Logo, colors, brand guidelines' },
+    { value: 'website', label: 'Professional Website', desc: 'Modern, converting website' },
+    { value: 'marketing', label: 'Marketing & Growth', desc: 'Digital marketing strategy' },
+    { value: 'everything', label: 'Complete Business Package', desc: 'Brand + Website + Marketing + Tech' }
+  ];
+
+  const timelines: OptionItem[] = [
+    { value: 'asap', label: 'ASAP', desc: 'Need to launch quickly' },
+    { value: '1-3months', label: '1-3 Months', desc: 'Ready to start soon' },
+    { value: '3-6months', label: '3-6 Months', desc: 'Planning ahead' },
+    { value: 'exploring', label: 'Just Exploring', desc: 'Gathering information' }
+  ];
+
+  const budgets: OptionItem[] = [
+    { value: 'under-5k', label: 'Under $5,000', desc: 'Startup budget' },
+    { value: '5k-15k', label: '$5,000 - $15,000', desc: 'Professional package' },
+    { value: '15k-30k', label: '$15,000 - $30,000', desc: 'Premium solution' },
+    { value: 'over-30k', label: '$30,000+', desc: 'Enterprise level' }
+  ];
+
   if (isSubmitted) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 flex items-center justify-center p-4">
-        <Navbar />
         <motion.div 
           className="text-center max-w-md"
           initial={{ scale: 0.8, opacity: 0 }}
@@ -163,11 +228,7 @@ const BusinessAssessmentLanding = () => {
             variants={itemVariants}
             className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto mb-12"
           >
-            {[
-              { icon: Target, title: "Brand & Market Analysis", value: "$500" },
-              { icon: Zap, title: "Tech Stack Optimization", value: "$300" },
-              { icon: Users, title: "Growth Strategy Plan", value: "$200" }
-            ].map((item, index) => (
+            {valuePropositions.map((item, index) => (
               <div key={index} className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6 text-center">
                 <item.icon className="w-8 h-8 text-orange-500 mx-auto mb-3" />
                 <h3 className="text-white font-semibold mb-2">{item.title}</h3>
@@ -261,12 +322,7 @@ const BusinessAssessmentLanding = () => {
                 <div>
                   <label className="block text-gray-300 font-medium mb-3">What stage is your business? *</label>
                   <div className="grid md:grid-cols-2 gap-3">
-                    {[
-                      { value: 'idea', label: 'Just an Idea', desc: 'Concept stage, need everything' },
-                      { value: 'early', label: 'Early Stage', desc: 'Basic setup, need growth' },
-                      { value: 'growing', label: 'Growing Business', desc: 'Some traction, scaling up' },
-                      { value: 'established', label: 'Established', desc: 'Profitable, optimizing' }
-                    ].map((option) => (
+                    {businessStages.map((option) => (
                       <label key={option.value} className="cursor-pointer">
                         <input
                           type="radio"
@@ -293,12 +349,7 @@ const BusinessAssessmentLanding = () => {
                 <div>
                   <label className="block text-gray-300 font-medium mb-3">What do you need most urgently? *</label>
                   <div className="space-y-3">
-                    {[
-                      { value: 'brand', label: 'Complete Brand Identity', desc: 'Logo, colors, brand guidelines' },
-                      { value: 'website', label: 'Professional Website', desc: 'Modern, converting website' },
-                      { value: 'marketing', label: 'Marketing & Growth', desc: 'Digital marketing strategy' },
-                      { value: 'everything', label: 'Complete Business Package', desc: 'Brand + Website + Marketing + Tech' }
-                    ].map((option) => (
+                    {priorities.map((option) => (
                       <label key={option.value} className="cursor-pointer block">
                         <input
                           type="radio"
@@ -331,12 +382,7 @@ const BusinessAssessmentLanding = () => {
                 <div>
                   <label className="block text-gray-300 font-medium mb-3">What's your timeline? *</label>
                   <div className="grid md:grid-cols-2 gap-3">
-                    {[
-                      { value: 'asap', label: 'ASAP', desc: 'Need to launch quickly' },
-                      { value: '1-3months', label: '1-3 Months', desc: 'Ready to start soon' },
-                      { value: '3-6months', label: '3-6 Months', desc: 'Planning ahead' },
-                      { value: 'exploring', label: 'Just Exploring', desc: 'Gathering information' }
-                    ].map((option) => (
+                    {timelines.map((option) => (
                       <label key={option.value} className="cursor-pointer">
                         <input
                           type="radio"
@@ -363,12 +409,7 @@ const BusinessAssessmentLanding = () => {
                 <div>
                   <label className="block text-gray-300 font-medium mb-3">Investment Range *</label>
                   <div className="space-y-3">
-                    {[
-                      { value: 'under-5k', label: 'Under $5,000', desc: 'Startup budget' },
-                      { value: '5k-15k', label: '$5,000 - $15,000', desc: 'Professional package' },
-                      { value: '15k-30k', label: '$15,000 - $30,000', desc: 'Premium solution' },
-                      { value: 'over-30k', label: '$30,000+', desc: 'Enterprise level' }
-                    ].map((option) => (
+                    {budgets.map((option) => (
                       <label key={option.value} className="cursor-pointer block">
                         <input
                           type="radio"
@@ -398,7 +439,7 @@ const BusinessAssessmentLanding = () => {
                     name="challenges"
                     value={formData.challenges}
                     onChange={handleInputChange}
-                    rows="3"
+                    rows={3}
                     className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-orange-500 transition-colors resize-none"
                     placeholder="What's your biggest business challenge right now?"
                   />
