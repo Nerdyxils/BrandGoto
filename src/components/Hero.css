@@ -560,8 +560,8 @@ body {
 
 /* Second Column: Name and Role */
 .cta-text {
-  display: flex;
-  flex-direction: column;
+  display: block;
+  /* flex-direction: column; */
   justify-content: center;
   gap: 0px;
 }
@@ -631,5 +631,9 @@ body {
 
   .cta-text {
     margin-left: 3px;
+  }
+  .cta-online-indicator {
+    top: -2px;
+    right: 0px;
   }
 }
