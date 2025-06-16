@@ -5,9 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:qr": "vite --config vite.qr.config.ts",
     "build": "tsc -b && vite build",
-    "build:qr": "tsc -b && vite build --config vite.qr.config.ts",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
