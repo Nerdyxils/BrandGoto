@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import ProjectStats from './ProjectStats';
 import ProjectGrid from './ProjectGrid';
 import ProjectModal from './ProjectModal';
