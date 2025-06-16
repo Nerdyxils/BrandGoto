@@ -6,44 +6,13 @@
 [build.environment]
   NODE_VERSION = "18"
 
-# ✅ COUNTRY-BASED DOMAIN REDIRECTS (MUST BE FIRST)
-# Canadian visitors: brandgoto.com → brandgoto.ca
-[[redirects]]
-  from = "https://brandgoto.com/*"
-  to = "https://brandgoto.ca/:splat"
-  status = 301
-  force = true
-  conditions = {Country = ["CA"]}
-
-# Non-Canadian visitors: brandgoto.ca → brandgoto.com  
-[[redirects]]
-  from = "https://brandgoto.ca/*"
-  to = "https://brandgoto.com/:splat"
-  status = 301
-  force = true
-  conditions = {Country = ["!CA"]}
-
-# ✅ FORCE HTTPS (BEFORE SPA ROUTING)
-[[redirects]]
-  from = "http://brandgoto.com/*"
-  to = "https://brandgoto.com/:splat"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "http://brandgoto.ca/*"
-  to = "https://brandgoto.ca/:splat"
-  status = 301
-  force = true
-
-# ✅ SPA ROUTING (LAST - CATCH ALL)
-# Handle client-side routing for React app
+# ONLY SPA ROUTING - NO COUNTRY REDIRECTS
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
-# ✅ SECURITY HEADERS
+# SECURITY HEADERS ONLY
 [[headers]]
   for = "/*"
   [headers.values]
@@ -52,25 +21,3 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Content-Security-Policy = "default-src 'self' https: 'unsafe-inline' 'unsafe-eval'; img-src 'self' https: data:; font-src 'self' https: data:;"
-
-# ✅ CACHE CONTROL FOR ASSETS
-[[headers]]
-  for = "/assets/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/*.js"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/*.css"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-# ✅ SHORT CACHE FOR HTML
-[[headers]]
-  for = "/*.html"
-  [headers.values]
-    Cache-Control = "public, max-age=3600"
