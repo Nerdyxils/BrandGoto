@@ -14,43 +14,30 @@
   force = false
   conditions = {Path = ["/about-us", "/services", "/recent-projects", "/team", "/success-stories", "/contact"]}
 
-# Handle country-based redirects
+# Handle country-based redirects (only for non-www domains)
 [[redirects]]
-  from = "/*"
+  from = "https://brandgoto.ca/*"
   to = "https://www.brandgoto.ca/:splat"
-  status = 302
+  status = 301
   force = true
   conditions = {Country = ["CA"]}
 
-[[redirects]]
-  from = "/*"
-  to = "https://www.brandgoto.com/:splat"
-  status = 302
-  force = true
-  conditions = {Country = ["!CA"]}
-
-# Force HTTPS
-[[redirects]]
-  from = "http://www.brandgoto.com/*"
-  to = "https://www.brandgoto.com/:splat"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "http://www.brandgoto.ca/*"
-  to = "https://www.brandgoto.ca/:splat"
-  status = 301
-  force = true
-
-# Handle direct domain access
 [[redirects]]
   from = "https://brandgoto.com/*"
   to = "https://www.brandgoto.com/:splat"
   status = 301
   force = true
+  conditions = {Country = ["!CA"]}
+
+# Force HTTPS (only for non-www domains)
+[[redirects]]
+  from = "http://brandgoto.com/*"
+  to = "https://www.brandgoto.com/:splat"
+  status = 301
+  force = true
 
 [[redirects]]
-  from = "https://brandgoto.ca/*"
+  from = "http://brandgoto.ca/*"
   to = "https://www.brandgoto.ca/:splat"
   status = 301
   force = true
