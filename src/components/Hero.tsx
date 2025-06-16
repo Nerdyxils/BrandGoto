@@ -14,6 +14,7 @@ import RecentProjects from './RecentProjects';
 import TeamSection from './TeamSection';
 import TestimonialsSection from './TestimonialsSection';
 import ContactSection from './ContactSection';
+import ScrollToTop from './ScrollToTop';
 
 const Hero: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -248,7 +249,7 @@ const Hero: React.FC = () => {
   return (
     <div className="scroll-container">
       <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isScrolled={isScrolled}/>
-      
+      <ScrollToTop />
       <motion.div
         className="main-content"
         animate={isMenuOpen ? { x: '-40vw' } : { x: 0 }}
@@ -407,13 +408,24 @@ const Hero: React.FC = () => {
                   <span className="cta-name">Celine</span>
                   <span className="cta-role">Client Success Manager</span>
                 </div>
-                <motion.button 
+                <motion.a 
+                  href="#contact"
                   className="cta-button"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    // Track CTA click
+                    if (typeof window !== 'undefined' && window.gtag) {
+                      window.gtag('event', 'click', {
+                        'event_category': 'cta',
+                        'event_label': 'contact_form',
+                        'value': 1
+                      });
+                    }
+                  }}
                 >
                   Get Everything You Need
-                </motion.button>
+                </motion.a>
               </motion.div>
             </motion.div>
           </div>
