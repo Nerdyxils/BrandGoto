@@ -1,0 +1,20 @@
+# Redirect based on country
+# Redirect Canadian users to .ca domain
+/ca/*  https://www.brandgoto.ca/:splat  302  Country=CA
+/*     https://www.brandgoto.com/:splat 302  Country=!CA
+
+# Handle direct domain access
+https://brandgoto.com/*  https://www.brandgoto.com/:splat  301
+https://brandgoto.ca/*   https://www.brandgoto.ca/:splat   301
+
+# Force HTTPS
+http://www.brandgoto.com/*  https://www.brandgoto.com/:splat  301
+http://www.brandgoto.ca/*   https://www.brandgoto.ca/:splat   301
+
+# Handle root domain redirects
+https://brandgoto.com/  https://www.brandgoto.com/  301
+https://brandgoto.ca/   https://www.brandgoto.ca/   301
+
+# Handle www to non-www redirects (optional, choose one approach)
+# www.brandgoto.com/*  https://brandgoto.com/:splat  301
+# www.brandgoto.ca/*   https://brandgoto.ca/:splat   301 

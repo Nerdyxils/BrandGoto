@@ -1,13 +1,5 @@
 /* Global nav container */
-/* .navbar-container {
-    width: 100%;
-    color: #fff;
-    padding: 16px;
-    position: relative;
-    z-index: 50;
-  } */
   
-  /* Navbar.css */
 .navbar-container {
   position: absolute;
   top: 0;
@@ -30,13 +22,16 @@
   align-items: center;
   justify-content: space-between;
   min-height: 70px;
-  padding: 0 1rem;
+  /* padding: 0 1rem; */
 }
 
+svg.close-menu-btn {
+  /* background-color: #2FA0B5 !important; */
+  padding: 0 !important;
+  stroke: #2FA0B5 !important;
+}
 
-  /* Logo styling */
   .logoImg {
-    /* width: 100%; */
     max-width: 65px;
     height: 65px;
   }

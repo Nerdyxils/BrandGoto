@@ -405,7 +405,6 @@ const Hero: React.FC = () => {
                 </div>
                 <div className="cta-text">
                   <span className="cta-name">Celine</span>
-                  <br />
                   <span className="cta-role">Client Success Manager</span>
                 </div>
                 <motion.button 

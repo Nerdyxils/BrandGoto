@@ -79,7 +79,22 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen, isScrolled }
             >
               <div className="mobile-menu-header">
                 <button onClick={() => setIsMenuOpen(false)}>
-                  <X size={28} color="#fff" />
+                  <svg 
+                    width="24" 
+                    height="24" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="close-menu-btn"
+                  >
+                    <path 
+                      d="M18 6L6 18M6 6L18 18" 
+                      stroke="#fff" 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </button>
               </div>
 

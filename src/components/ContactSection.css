@@ -336,8 +336,8 @@ button[type="submit"] {
 
 .form-toast {
   position: fixed;
-  bottom: 2rem;
-  left: 50%;
+  bottom: 50rem;
+  left: 35%;
   transform: translateX(-50%);
   background: rgba(29, 29, 29, 0.95);
   color: #fff;
@@ -345,8 +345,14 @@ button[type="submit"] {
   border-radius: 8px;
   font-weight: 500;
   font-size: 14px;
+  min-width: 280px;
   z-index: 9999;
   box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+}
+
+.form-toast.newsletter-toast {
+  bottom: 10rem;
+  left: 35%;
 }
 
 /* ========== MOBILE RESPONSIVENESS ========== */
@@ -504,6 +510,17 @@ button[type="submit"] {
 
   .contact-wrapper {
     padding: 1rem;
+  }
+
+  .form-toast {
+    position: fixed;
+    bottom: 70rem;
+    left: 10%;
+  }
+
+  .form-toast.newsletter-toast {
+    bottom: 10rem;
+    left: 10%;
   }
 }
 
