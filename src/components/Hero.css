@@ -593,7 +593,7 @@ body {
     font-weight: bold;
     border: none;
     border-radius: 9999px;
-    text-decoration: none;
+    text-decoration: none !important;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
