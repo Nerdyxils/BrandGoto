@@ -6,22 +6,8 @@
 [build.environment]
   NODE_VERSION = "18"
 
-# Handle SPA routing for main site
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  force = false
-  conditions = {Path = ["/about-us", "/services", "/recent-projects", "/team", "/success-stories", "/contact"]}
-
-# Country-based domain switching (primary domain is brandgoto.com)
-[[redirects]]
-  from = "https://brandgoto.ca/*"
-  to = "https://brandgoto.com/:splat"
-  status = 301
-  force = true
-  conditions = {Country = ["!CA"]}
-
+# ✅ COUNTRY-BASED DOMAIN REDIRECTS (MUST BE FIRST)
+# Canadian visitors: brandgoto.com → brandgoto.ca
 [[redirects]]
   from = "https://brandgoto.com/*"
   to = "https://brandgoto.ca/:splat"
@@ -29,7 +15,15 @@
   force = true
   conditions = {Country = ["CA"]}
 
-# Force HTTPS
+# Non-Canadian visitors: brandgoto.ca → brandgoto.com  
+[[redirects]]
+  from = "https://brandgoto.ca/*"
+  to = "https://brandgoto.com/:splat"
+  status = 301
+  force = true
+  conditions = {Country = ["!CA"]}
+
+# ✅ FORCE HTTPS (BEFORE SPA ROUTING)
 [[redirects]]
   from = "http://brandgoto.com/*"
   to = "https://brandgoto.com/:splat"
@@ -42,7 +36,14 @@
   status = 301
   force = true
 
-# Cache control headers
+# ✅ SPA ROUTING (LAST - CATCH ALL)
+# Handle client-side routing for React app
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# ✅ SECURITY HEADERS
 [[headers]]
   for = "/*"
   [headers.values]
@@ -51,4 +52,25 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Content-Security-Policy = "default-src 'self' https: 'unsafe-inline' 'unsafe-eval'; img-src 'self' https: data:; font-src 'self' https: data:;"
-    Cache-Control = "public, max-age=31536000, immutable" 
+
+# ✅ CACHE CONTROL FOR ASSETS
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# ✅ SHORT CACHE FOR HTML
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
