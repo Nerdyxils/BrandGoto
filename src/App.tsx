@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Preloader from './components/Preloader';
 import Hero from './components/Hero';
-import BusinessAssessmentLanding from './complete-business-assessment/business-assessment.tsx';
+// import BusinessAssessmentLanding from './complete-business-assessment/business-assessment.tsx';
 
 const App: React.FC = () => {
   const [isPreloaderComplete, setIsPreloaderComplete] = useState(false);
@@ -14,7 +14,7 @@ const App: React.FC = () => {
         <Router>
           <Routes>
             <Route path="/" element={<Hero />} />
-            <Route path="/complete-business-assessment" element={<BusinessAssessmentLanding />} />
+            {/* <Route path="/complete-business-assessment" element={<BusinessAssessmentLanding />} /> */}
           </Routes>
         </Router>
       )}
