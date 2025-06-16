@@ -14,20 +14,20 @@
   force = false
   conditions = {Path = ["/about-us", "/services", "/recent-projects", "/team", "/success-stories", "/contact"]}
 
-# Country-based domain switching
-[[redirects]]
-  from = "https://brandgoto.com/*"
-  to = "https://brandgoto.ca/:splat"
-  status = 301
-  force = true
-  conditions = {Country = ["CA"]}
-
+# Country-based domain switching (primary domain is brandgoto.com)
 [[redirects]]
   from = "https://brandgoto.ca/*"
   to = "https://brandgoto.com/:splat"
   status = 301
   force = true
   conditions = {Country = ["!CA"]}
+
+[[redirects]]
+  from = "https://brandgoto.com/*"
+  to = "https://brandgoto.ca/:splat"
+  status = 301
+  force = true
+  conditions = {Country = ["CA"]}
 
 # Force HTTPS
 [[redirects]]
