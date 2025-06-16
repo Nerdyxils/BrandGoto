@@ -26,7 +26,7 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen, isScrolled }
       <div className="navbar-inner">
         {/* Logo */}
         <div className="w-1/5 navbar-logo">
-          <img src={Logo} alt="Logo" className="logoImg" />
+          <img src={Logo} alt="BrandGoto Official Logo" className="logoImg" />
         </div>
 
         {/* Nav Items - Desktop only */}

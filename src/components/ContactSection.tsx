@@ -569,7 +569,7 @@ const ContactSection: React.FC = () => {
 
         <div className="footer-top">
           <div className="logo-social">
-            <img src={LogoImg} alt="BrandGoto Logo" />
+            <img src={LogoImg} alt="BrandGoto Official Logo" />
             <div className="socials">
               <a href="https://x.com/Brand_goto" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-x-twitter"></i>
