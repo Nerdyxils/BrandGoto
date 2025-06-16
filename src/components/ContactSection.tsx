@@ -574,7 +574,7 @@ const ContactSection: React.FC = () => {
               <a href="https://x.com/Brand_goto" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-x-twitter"></i>
               </a>
-              <a href="#" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.linkedin.com/company/brandgoto/" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-linkedin-in"></i>
               </a>
               <a href="https://www.instagram.com/brand_goto/" target="_blank" rel="noopener noreferrer">
