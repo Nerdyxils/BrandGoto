@@ -1,0 +1,16 @@
+[
+  {
+    "id": "brandgoto-main-0",
+    "content": "<div style=\"text-align: center; padding: 50px; font-family: Arial, sans-serif;\"> <h1>BrandGoto - Creative Digital Agency</h1> <p>We create bold brands and innovative digital experiences. </p> <p>Please enable JavaScript to view our portfolio and services. </p> </div>.",
+    "url": "https://brandgoto.com",
+    "title": "BrandGoto Main - Chunk 1",
+    "source": "BrandGoto Main"
+  },
+  {
+    "id": "smartlaunch-0",
+    "content": "<div style=\"text-align: center; padding: 50px; font-family: 'Poppins', sans-serif; background: #023942; color: white;\"> <h1>SmartLaunch by BrandGoto</h1> <p>Your done-for-you launch system: branding, website, and AI automation. </p> <p>Please enable JavaScript to view our launch packages. </p> </div>.",
+    "url": "https://smartlaunch.brandgoto.com",
+    "title": "SmartLaunch - Chunk 1",
+    "source": "SmartLaunch"
+  }
+]

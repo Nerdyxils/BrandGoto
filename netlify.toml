@@ -1,0 +1,32 @@
+[build]
+  command = "rm -rf node_modules package-lock.json nextjs-chatbot && npm install && npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+  secrets_scan_enabled = false
+  secrets_scan_omit_paths = ["**/*"]
+  secrets_scan_omit_keys = ["**"]
+
+[build.environment]
+  NODE_VERSION = "18"
+  SECRETS_SCAN_ENABLED = "false"
+  # Environment variables are set in Netlify dashboard
+  # OPENAI_API_KEY = "set in dashboard"
+  # OPENAI_MODEL = "set in dashboard" 
+  # EMBEDDINGS_MODEL = "set in dashboard"
+  # MAKE_WEBHOOK_URL = "set in dashboard"
+
+# ONLY SPA ROUTING - NO SERVER-SIDE REDIRECTS
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# SECURITY HEADERS
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Content-Security-Policy = "default-src 'self' https: 'unsafe-inline' 'unsafe-eval'; img-src 'self' https: data:; font-src 'self' https: data:; connect-src 'self' https://api.openai.com https://api.hubapi.com https://www.google-analytics.com https://www.googletagmanager.com https://ip-api.com;"

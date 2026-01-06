@@ -1,0 +1,60 @@
+/* ========== SECTION-TO-SECTION SPACING ONLY ========== */
+
+/* Consistent spacing between sections */
+section {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Add consistent spacing between sections */
+section + section {
+  margin-top: 4rem;
+}
+
+/* Responsive section spacing */
+@media (min-width: 640px) {
+  section + section {
+    margin-top: 5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  section + section {
+    margin-top: 6rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  section + section {
+    margin-top: 7rem;
+  }
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 640px) {
+  section + section {
+    margin-top: 3rem;
+  }
+}
+
+/* Hero section special spacing (first section) */
+.hero-section {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Contact section special spacing (last section) */
+.contact-section {
+  margin-bottom: 0;
+}
+
+/* Remove any conflicting padding/margin from section containers */
+.section-standard {
+  padding: 0;
+  margin: 0;
+}
+
+.section-container {
+  padding: 0;
+  margin: 0;
+}

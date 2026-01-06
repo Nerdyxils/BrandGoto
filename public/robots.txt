@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Allow favicon and important assets
+Allow: /favicon.ico
+Allow: /images/favicon-*.png
+Allow: /images/apple-touch-icon.png
+Allow: /images/android-chrome-*.png
+Allow: /site.webmanifest
+Allow: /browserconfig.xml
+
+# Sitemap
+Sitemap: https://www.brandgoto.com/sitemap.xml
+Sitemap: https://www.brandgoto.ca/sitemap.xml

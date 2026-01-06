@@ -1,0 +1,18 @@
+# Ignore directories that contain secrets or are not needed for deployment
+nextjs-chatbot/
+node_modules/
+dist/
+*.log
+.env*
+.env.local
+.env.example
+
+# Ignore development files
+*.md
+README.md
+EMAILJS_SETUP.md
+server.cjs
+eslint.config.js
+
+# Ignore TypeScript config files that might contain secrets
+tsconfig.*.json

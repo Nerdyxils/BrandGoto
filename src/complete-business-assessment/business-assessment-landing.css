@@ -1,0 +1,566 @@
+/* Business Assessment Landing Page Styles */
+
+/* Base Styles */
+.business-assessment {
+font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0F1419 0%, #000000 50%, #0F1419 100%);
+  color: #ffffff;
+  line-height: 1.6;
+}
+
+/* Container */
+.ba-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Header Section */
+.ba-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.ba-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #FF6B35 0%, #DC2626 100%);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.ba-main-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.ba-title-gradient {
+  background: linear-gradient(135deg, #FF6B35 0%, #DC2626 50%, #EC4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+}
+
+.ba-subtitle {
+  font-size: 1.25rem;
+  color: #D1D5DB;
+  max-width: 42rem;
+  margin: 0 auto 2rem;
+}
+
+/* Value Propositions Grid */
+.ba-value-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  max-width: 64rem;
+  margin: 0 auto 3rem;
+}
+
+.ba-value-card {
+  background: rgba(31, 41, 55, 0.5);
+  backdrop-filter: blur(8px);
+  border: 1px solid #374151;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.ba-value-card:hover {
+  background: rgba(31, 41, 55, 0.7);
+  border-color: #FF6B35;
+  transform: translateY(-2px);
+}
+
+.ba-value-icon {
+  width: 2rem;
+  height: 2rem;
+  color: #FF6B35;
+  margin: 0 auto 0.75rem;
+}
+
+.ba-value-title {
+  color: white;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.ba-value-price {
+  color: #FF6B35;
+  font-weight: 700;
+}
+
+/* Form Container */
+.ba-form-container {
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+/* Progress Bar */
+.ba-progress-container {
+  margin-bottom: 2rem;
+}
+
+.ba-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.ba-progress-text {
+  color: #9CA3AF;
+  font-size: 0.875rem;
+}
+
+.ba-progress-bar {
+  width: 100%;
+  background-color: #374151;
+  border-radius: 9999px;
+  height: 0.5rem;
+  overflow: hidden;
+}
+
+.ba-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #FF6B35 0%, #DC2626 100%);
+  border-radius: 9999px;
+  transition: width 0.5s ease;
+}
+
+/* Form Card */
+.ba-form-card {
+  background: rgba(31, 41, 55, 0.3);
+  backdrop-filter: blur(8px);
+  border: 1px solid #374151;
+  border-radius: 1rem;
+  padding: 2rem;
+}
+
+/* Form Steps */
+.ba-step {
+  margin-bottom: 1.5rem;
+}
+
+.ba-step-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1.5rem;
+}
+
+/* Form Groups */
+.ba-form-group {
+  margin-bottom: 1.5rem;
+}
+
+.ba-label {
+  display: block;
+  color: #D1D5DB;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.ba-input {
+  width: 100%;
+  background: rgba(55, 65, 81, 0.5);
+  border: 1px solid #4B5563;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  color: white;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.ba-input:focus {
+  outline: none;
+  border-color: #FF6B35;
+  background: rgba(55, 65, 81, 0.7);
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+.ba-input.error {
+  border-color: #EF4444;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.ba-input::placeholder {
+  color: #9CA3AF;
+}
+
+.ba-textarea {
+  width: 100%;
+  background: rgba(55, 65, 81, 0.5);
+  border: 1px solid #4B5563;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  color: white;
+  font-size: 1rem;
+  resize: none;
+  transition: all 0.3s ease;
+}
+
+.ba-textarea:focus {
+  outline: none;
+  border-color: #FF6B35;
+  background: rgba(55, 65, 81, 0.7);
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+/* Error Messages */
+.ba-error {
+  color: #EF4444;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+/* Radio Button Groups */
+.ba-radio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.75rem;
+}
+
+.ba-radio-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ba-radio-label {
+  cursor: pointer;
+  display: block;
+}
+
+.ba-radio-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ba-radio-card {
+  padding: 1rem;
+  border: 1px solid #4B5563;
+  border-radius: 0.5rem;
+  background: rgba(55, 65, 81, 0.3);
+  transition: all 0.3s ease;
+}
+
+.ba-radio-card:hover {
+  border-color: #6B7280;
+  background: rgba(55, 65, 81, 0.4);
+}
+
+.ba-radio-card.selected {
+  border-color: #FF6B35;
+  background: rgba(255, 107, 53, 0.1);
+}
+
+.ba-radio-title {
+  color: white;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.ba-radio-desc {
+  color: #9CA3AF;
+  font-size: 0.875rem;
+}
+
+/* Navigation Buttons */
+.ba-nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #374151;
+}
+
+.ba-btn {
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ba-btn-prev {
+  background: transparent;
+  color: #9CA3AF;
+  border: none;
+}
+
+.ba-btn-prev:hover {
+  color: white;
+}
+
+.ba-btn-next {
+  background: linear-gradient(135deg, #FF6B35 0%, #DC2626 100%);
+  color: white;
+}
+
+.ba-btn-next:hover {
+  background: linear-gradient(135deg, #EA580C 0%, #B91C1C 100%);
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+}
+
+.ba-btn-submit {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  color: white;
+}
+
+.ba-btn-submit:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+}
+
+/* Testimonial Section */
+.ba-testimonial {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.ba-stars {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.ba-star {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #F59E0B;
+  fill: currentColor;
+}
+
+.ba-testimonial-text {
+  color: #9CA3AF;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+
+.ba-features {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  color: #6B7280;
+  font-size: 0.875rem;
+  flex-wrap: wrap;
+}
+
+.ba-feature {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ba-feature-icon {
+  width: 1rem;
+  height: 1rem;
+  color: #20B2AA;
+}
+
+/* Success State */
+.ba-success {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0F1419 0%, #000000 50%, #0F1419 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.ba-success-content {
+  text-align: center;
+  max-width: 28rem;
+}
+
+.ba-success-icon {
+  width: 4rem;
+  height: 4rem;
+  background: #10B981;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.ba-success-icon svg {
+  width: 2rem;
+  height: 2rem;
+  color: white;
+}
+
+.ba-success-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.ba-success-text {
+  color: #D1D5DB;
+  margin-bottom: 1.5rem;
+}
+
+.ba-spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid #FF6B35;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .ba-main-title {
+    font-size: 2rem;
+  }
+  
+  .ba-subtitle {
+    font-size: 1.125rem;
+  }
+  
+  .ba-value-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .ba-radio-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .ba-features {
+    gap: 1rem;
+  }
+  
+  .ba-form-card {
+    padding: 1.5rem;
+  }
+  
+  .ba-container {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ba-main-title {
+    font-size: 1.75rem;
+  }
+  
+  .ba-nav-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .ba-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .ba-features {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+/* Animation Classes */
+.ba-fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.ba-slide-up {
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Focus and accessibility */
+.ba-input:focus,
+.ba-textarea:focus,
+.ba-radio-card:focus-within {
+  outline: 2px solid #FF6B35;
+  outline-offset: 2px;
+}
+
+.ba-btn:focus {
+  outline: 2px solid #FF6B35;
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .ba-form-card {
+    border: 2px solid #6B7280;
+  }
+  
+  .ba-input,
+  .ba-textarea {
+    border: 2px solid #9CA3AF;
+  }
+  
+  .ba-radio-card {
+    border: 2px solid #9CA3AF;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .ba-btn,
+  .ba-input,
+  .ba-textarea,
+  .ba-radio-card,
+  .ba-progress-fill {
+    transition: none;
+  }
+  
+  .ba-spinner {
+    animation: none;
+  }
+}
