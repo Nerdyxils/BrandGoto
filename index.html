@@ -59,8 +59,12 @@
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     
     <!-- ✅ Preload Critical Hero Image -->
-    <link rel="preload" as="image" href="/images/hero_imgg.png" fetchpriority="high">
-    <link rel="preload" as="image" href="/images/Image.png" fetchpriority="high">
+    <link rel="preload" as="image" href="/images/hero_imgg.png" fetchpriority="high" width="600" height="600">
+    <link rel="preload" as="image" href="/images/Image.png" fetchpriority="high" width="500" height="500">
+    
+    <!-- ✅ Prefetch DNS for external resources -->
+    <link rel="dns-prefetch" href="https://api.openai.com">
+    <link rel="dns-prefetch" href="https://api.hubapi.com">
     
     <!-- ✅ DNS Prefetch for Performance -->
     <link rel="dns-prefetch" href="//www.google-analytics.com">

@@ -76,10 +76,14 @@ export default function ChatbotWidget() {
 
   useEffect(() => {
     if (viewportRef.current) {
-      // Smooth scroll to bottom when new messages arrive
-      viewportRef.current.scrollTo({
-        top: viewportRef.current.scrollHeight,
-        behavior: 'smooth'
+      // Use requestAnimationFrame to avoid forced reflow
+      requestAnimationFrame(() => {
+        if (viewportRef.current) {
+          viewportRef.current.scrollTo({
+            top: viewportRef.current.scrollHeight,
+            behavior: 'smooth'
+          });
+        }
       });
     }
   }, [messages, isOpen]);

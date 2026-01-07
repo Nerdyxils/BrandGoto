@@ -113,10 +113,21 @@ const Footer: React.FC = () => {
     if (!logosRef.current) return;
 
     const container = logosRef.current;
-    const totalWidth = container.scrollWidth / 2; // Half because we duplicated
+    // Cache scrollWidth to avoid forced reflow - read once in requestAnimationFrame
+    let totalWidth = 0;
+    requestAnimationFrame(() => {
+      if (container) {
+        totalWidth = container.scrollWidth / 2; // Half because we duplicated
+      }
+    });
+    
     let currentPosition = 0;
 
     const step = () => {
+      // Only read scrollWidth if not cached yet
+      if (totalWidth === 0 && container) {
+        totalWidth = container.scrollWidth / 2;
+      }
       currentPosition -= dimensions.animationSpeed / 60; // 60fps
       if (currentPosition <= -totalWidth) {
         currentPosition = 0;
