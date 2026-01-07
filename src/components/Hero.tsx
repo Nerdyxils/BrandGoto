@@ -15,8 +15,11 @@ import RecentProjects from './RecentProjects';
 import PlatformCTA from './PlatformCTA';
 import FounderSection from './FounderSection';
 import TestimonialsSection from './TestimonialsSection';
-import ContactSection from './ContactSection';
 import ScrollToTop from './ScrollToTop';
+import { lazy, Suspense } from 'react';
+
+// Lazy load below-the-fold ContactSection to reduce initial bundle
+const ContactSection = lazy(() => import('./ContactSection'));
 
 const Hero: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -376,7 +379,9 @@ const Hero: React.FC = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
         >
-          <ContactSection />
+          <Suspense fallback={<div style={{ minHeight: '400px' }} />}>
+            <ContactSection />
+          </Suspense>
         </motion.section>
       </motion.div>
     </div>

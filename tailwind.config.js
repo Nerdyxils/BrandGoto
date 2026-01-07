@@ -5,4 +5,9 @@ export default {
     extend: {},
   },
   plugins: [],
+  // Purge unused CSS in production
+  purge: {
+    enabled: process.env.NODE_ENV === 'production',
+    content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  },
 };

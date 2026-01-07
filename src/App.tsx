@@ -1,37 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Preloader from './components/Preloader';
 import Hero from './components/Hero';
-import AboutUs from './pages/AboutUs';
-import HowWeHelp from './pages/HowWeHelp';
-import ThingsWeBuilt from './pages/ThingsWeBuilt';
-import SuccessStories from './pages/SuccessStories';
-import BookConsultation from './pages/BookConsultation';
-import PrivacyPolicy from './pages/PrivacyPolicy';
-import CountryRedirect from './components/CountryRedirect';
-import ChatbotWidget from './components/ChatbotWidget';
+
+// Lazy load non-critical components to reduce initial bundle size
+const AboutUs = lazy(() => import('./pages/AboutUs'));
+const HowWeHelp = lazy(() => import('./pages/HowWeHelp'));
+const ThingsWeBuilt = lazy(() => import('./pages/ThingsWeBuilt'));
+const SuccessStories = lazy(() => import('./pages/SuccessStories'));
+const BookConsultation = lazy(() => import('./pages/BookConsultation'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const CountryRedirect = lazy(() => import('./components/CountryRedirect'));
+const ChatbotWidget = lazy(() => import('./components/ChatbotWidget'));
 
 const App: React.FC = () => {
   const [isPreloaderComplete, setIsPreloaderComplete] = useState(false);
 
   return (
     <div className="min-h-screen bg-gray-900 body">
-      <CountryRedirect />
+      <Suspense fallback={null}>
+        <CountryRedirect />
+      </Suspense>
       {!isPreloaderComplete && <Preloader onComplete={() => setIsPreloaderComplete(true)} />}
       {isPreloaderComplete && (
         <Router>
-          <Routes>
-            <Route path="/" element={<Hero />} />
-            <Route path="/about-us" element={<AboutUs />} />
-            <Route path="/how-we-help" element={<HowWeHelp />} />
-            <Route path="/things-we-built" element={<ThingsWeBuilt />} />
-            <Route path="/success-stories" element={<SuccessStories />} />
-            <Route path="/book-consultation" element={<BookConsultation />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          </Routes>
+          <Suspense fallback={<div className="min-h-screen bg-gray-900" />}>
+            <Routes>
+              <Route path="/" element={<Hero />} />
+              <Route path="/about-us" element={<AboutUs />} />
+              <Route path="/how-we-help" element={<HowWeHelp />} />
+              <Route path="/things-we-built" element={<ThingsWeBuilt />} />
+              <Route path="/success-stories" element={<SuccessStories />} />
+              <Route path="/book-consultation" element={<BookConsultation />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            </Routes>
+          </Suspense>
         </Router>
       )}
-      <ChatbotWidget />
+      <Suspense fallback={null}>
+        <ChatbotWidget />
+      </Suspense>
     </div>
   );
 };

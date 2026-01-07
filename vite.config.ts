@@ -30,6 +30,7 @@ export default defineConfig({
   build: {
     sourcemap: true, // Enable source maps for production debugging
     minify: 'esbuild', // Use esbuild for faster minification
+    cssCodeSplit: true, // Split CSS into separate chunks
     rollupOptions: {
       output: {
         manualChunks: (id) => {
@@ -50,6 +51,13 @@ export default defineConfig({
             // Split other large vendor chunks
             return 'vendor';
           }
+          // Split large component files
+          if (id.includes('ChatbotWidget')) {
+            return 'chatbot';
+          }
+          if (id.includes('ContactSection')) {
+            return 'contact';
+          }
         },
         sourcemapIgnoreList: (sourcePath) => {
           // Ignore source maps from node_modules to prevent errors
@@ -69,6 +77,8 @@ export default defineConfig({
     treeshake: {
       moduleSideEffects: false,
     },
+    // Optimize asset handling
+    assetsInlineLimit: 4096, // Inline small assets as base64
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'react-router-dom', 'framer-motion'],

@@ -58,6 +58,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     
+    <!-- ✅ Preload font file to reduce FOUT -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/poppins/v20/pxiEyp8kv8JHgFVrJJfecg.woff2" as="font" type="font/woff2" crossorigin>
+    
     <!-- ✅ Preload Critical Hero Image -->
     <link rel="preload" as="image" href="/images/hero_imgg.png" fetchpriority="high" width="600" height="600">
     <link rel="preload" as="image" href="/images/Image.png" fetchpriority="high" width="500" height="500">
@@ -70,15 +73,12 @@
     <link rel="dns-prefetch" href="//www.google-analytics.com">
     <link rel="dns-prefetch" href="//www.googletagmanager.com">
 
-    <!-- ✅ Font Awesome with Proper Integrity - Load asynchronously -->
+    <!-- ✅ Font Awesome - Load asynchronously with better fallback -->
     <link
-      rel="stylesheet"
+      rel="preload"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-      integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw=="
-      crossorigin="anonymous" 
-      referrerpolicy="no-referrer"
-      media="print"
-      onload="this.media='all'"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
     <noscript>
       <link
@@ -92,6 +92,14 @@
 
     <!-- ✅ Preload Critical Resources for React/Vite -->
     <link rel="modulepreload" href="/src/main.tsx" />
+    
+    <!-- ✅ Inline critical CSS to reduce render blocking -->
+    <style>
+      /* Critical above-the-fold styles */
+      body { margin: 0; font-family: 'Poppins', sans-serif; background-color: #000000; color: #ffffff; }
+      #root { min-height: 100vh; }
+      .navbar-container { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(0, 0, 0, 0.9); }
+    </style>
 
     <!-- ✅ Enhanced Multilingual SEO -->
     <link rel="alternate" hreflang="en-us" href="https://www.brandgoto.com/" />
