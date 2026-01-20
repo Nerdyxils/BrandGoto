@@ -6,7 +6,7 @@ const filterSourceMapErrors = () => {
   return {
     name: 'filter-sourcemap-errors',
     enforce: 'pre' as const,
-    configureServer(server) {
+    configureServer(_server: unknown) {
       // Intercept and filter source map errors
       const originalError = console.error
       console.error = (...args: any[]) => {
@@ -32,33 +32,10 @@ export default defineConfig({
     minify: 'esbuild', // Use esbuild for faster minification
     cssCodeSplit: true, // Split CSS into separate chunks
     rollupOptions: {
+      treeshake: {
+        moduleSideEffects: false,
+      },
       output: {
-        manualChunks: (id) => {
-          // More aggressive code splitting to reduce bundle size
-          if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
-              return 'react-vendor';
-            }
-            if (id.includes('framer-motion')) {
-              return 'framer-motion';
-            }
-            if (id.includes('swiper')) {
-              return 'swiper';
-            }
-            if (id.includes('lucide-react')) {
-              return 'lucide-icons';
-            }
-            // Split other large vendor chunks
-            return 'vendor';
-          }
-          // Split large component files
-          if (id.includes('ChatbotWidget')) {
-            return 'chatbot';
-          }
-          if (id.includes('ContactSection')) {
-            return 'contact';
-          }
-        },
         sourcemapIgnoreList: (sourcePath) => {
           // Ignore source maps from node_modules to prevent errors
           return sourcePath.includes('node_modules')
@@ -73,10 +50,6 @@ export default defineConfig({
       },
     },
     chunkSizeWarningLimit: 1000,
-    // Tree shake unused exports
-    treeshake: {
-      moduleSideEffects: false,
-    },
     // Optimize asset handling
     assetsInlineLimit: 4096, // Inline small assets as base64
   },

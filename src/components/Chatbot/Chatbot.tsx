@@ -8,7 +8,6 @@ import {
   detectSmartLaunchIntent 
 } from './chatLogic';
 import { MessageCircle, Send, X } from 'lucide-react';
-import emailjs from '@emailjs/browser';
 
 type ChatMessage = {
   id: string;
@@ -230,14 +229,13 @@ export default function Chatbot() {
       return;
     }
     try {
-      const templateParams = {
-        from_name: liveAgentForm.name,
-        from_email: liveAgentForm.email,
-        to_email: 'silas@brandgoto.com',
-        message: `Live Agent Request from ${liveAgentForm.name} (${liveAgentForm.email})`,
-      };
       // Note: Replace with actual EmailJS keys if needed
-      // await emailjs.send('service_id', 'template_id', templateParams, 'public_key');
+      // await emailjs.send('service_id', 'template_id', {
+      //   from_name: liveAgentForm.name,
+      //   from_email: liveAgentForm.email,
+      //   to_email: 'silas@brandgoto.com',
+      //   message: `Live Agent Request from ${liveAgentForm.name} (${liveAgentForm.email})`,
+      // }, 'public_key');
       appendAssistant('Perfect! I\'ve sent your request to Silas. He will reach out shortly.');
       setShowLiveAgent(false);
       setLiveAgentForm({ name: '', email: '' });
@@ -385,7 +383,7 @@ export default function Chatbot() {
                 <input type="email" placeholder="Email address" value={quickEmail} onChange={(e) => setQuickEmail(e.target.value)} />
                 <div className="lead-actions">
                   <button type="button" onClick={() => setShowEmailCapture(false)}>Cancel</button>
-                  <button type="submit">Send</button>
+                  <button type="button" onClick={() => submitQuickEmail()}>Send</button>
                 </div>
               </div>
             </div>
@@ -399,7 +397,7 @@ export default function Chatbot() {
                 <input type="email" placeholder="Your email" value={liveAgentForm.email} onChange={(e) => setLiveAgentForm({ ...liveAgentForm, email: e.target.value })} />
                 <div className="lead-actions">
                   <button type="button" onClick={() => setShowLiveAgent(false)}>Cancel</button>
-                  <button type="submit">Connect</button>
+                  <button type="button" onClick={() => submitLiveAgent()}>Connect</button>
                 </div>
               </div>
             </div>
