@@ -92,11 +92,11 @@ const BookConsultation: React.FC = () => {
   }, []);
 
   const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 1, y: 12 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
     }
   };
 
@@ -280,21 +280,21 @@ const BookConsultation: React.FC = () => {
       <ScrollToTop />
       <motion.div
         className="main-content"
-        animate={isMenuOpen ? { x: '-40vw' } : { x: 0 }}
-        transition={{ type: 'tween', duration: 0.3 }}
+         
+         
       >
         {/* Hero Section */}
-        <section className="hero-section">
+        <section className="hero-section section-standard">
           <div className="hero-background" />
           
           <div className="container">
             <motion.div
-              className="hero-txt"
+              className="section-header"
               variants={staggerContainer}
               initial="hidden"
               animate="visible"
             >
-              <motion.span className="sm__txt" variants={fadeInUp}>
+              <motion.span className="section-subtitle" variants={fadeInUp}>
                 Book a Free Consultation
               </motion.span>
 
@@ -305,7 +305,7 @@ const BookConsultation: React.FC = () => {
                 <span>Amazing</span>
               </motion.h1>
 
-              <motion.p className="h__txt" variants={fadeInUp}>
+              <motion.p className="section-description" variants={fadeInUp}>
                 Tell us about your project and we'll come prepared with ideas, strategy, and a clear roadmap to success!
               </motion.p>
             </motion.div>

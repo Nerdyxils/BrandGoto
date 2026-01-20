@@ -28,9 +28,9 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
       >
         <motion.div
           className="modal-content"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 1, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
+          exit={{ opacity: 1, y: 12 }}
           transition={{ duration: 0.3 }}
           onClick={(e) => e.stopPropagation()}
         >

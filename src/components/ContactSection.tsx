@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './ContactSection.css';
-import './SectionSpacing.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import patternBg from '../assets/Pattern.png';
 import LogoImg from '../assets/logo.svg';
@@ -460,11 +459,11 @@ const ContactSection: React.FC = () => {
   };
 
   const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 1, y: 12 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
     }
   };
 
@@ -488,9 +487,9 @@ const ContactSection: React.FC = () => {
         {showNewsletterToast && (
           <motion.div
             className="form-toast newsletter-toast"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 1, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
+            exit={{ opacity: 1, y: 12 }}
             transition={{ duration: 0.3 }}
             style={{ backgroundColor: '#023942', color: '#CFF8FF' }}
           >
@@ -501,14 +500,14 @@ const ContactSection: React.FC = () => {
 
 
       <motion.div
-        className="hero-txt text-center max-w-4xl mx-auto mb-16"
+        className="section-header"
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true }}
+        viewport={{ once: true, amount: 0.2 }}
       >
         <motion.span
-          className="sm__txt text-sm sm:text-base text-[#CFF8FF] block mb-3"
+          className="section-subtitle"
           variants={fadeInUp}
         >
           Let's Make It Happen
@@ -525,7 +524,7 @@ const ContactSection: React.FC = () => {
         </motion.h1>
 
         <motion.p
-          className="h__txt text-base sm:text-lg text-gray-300 max-w-2xl mx-auto"
+          className="section-description"
           variants={fadeInUp}
         >
           Have a project in mind? We'd love to hear about it.
@@ -537,7 +536,7 @@ const ContactSection: React.FC = () => {
         variants={fadeInUp}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true }}
+        viewport={{ once: true, amount: 0.2 }}
       >
         <div className="form-content">
           <h3>Sign up for a free Consultation</h3>
@@ -625,7 +624,7 @@ const ContactSection: React.FC = () => {
         variants={fadeInUp}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true }}
+        viewport={{ once: true, amount: 0.2 }}
       >
         {/* FINAL LOGO ANIMATION - COMPLETELY CONTROLLED */}
         <div className="partners">

@@ -39,11 +39,11 @@ const SuccessStories: React.FC = () => {
   }, []);
 
   const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 1, y: 12 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
     }
   };
 
@@ -60,21 +60,21 @@ const SuccessStories: React.FC = () => {
       <ScrollToTop />
       <motion.div
         className="main-content"
-        animate={isMenuOpen ? { x: '-40vw' } : { x: 0 }}
-        transition={{ type: 'tween', duration: 0.3 }}
+         
+         
       >
         {/* Hero Section */}
-        <section className="hero-section">
+        <section className="hero-section section-standard">
           <div className="hero-background" />
           
           <div className="container">
             <motion.div
-              className="hero-txt"
+              className="section-header"
               variants={staggerContainer}
               initial="hidden"
               animate="visible"
             >
-              <motion.span className="sm__txt" variants={fadeInUp}>
+              <motion.span className="section-subtitle" variants={fadeInUp}>
                 Success Stories
               </motion.span>
 
@@ -86,7 +86,7 @@ const SuccessStories: React.FC = () => {
                 <span>Clients</span>
               </motion.h1>
 
-              <motion.p className="h__txt" variants={fadeInUp}>
+              <motion.p className="section-description" variants={fadeInUp}>
                 See how we've helped founders and growing companies achieve their goals and scale their businesses.
               </motion.p>
             </motion.div>
@@ -94,26 +94,28 @@ const SuccessStories: React.FC = () => {
         </section>
 
         {/* Testimonials Section */}
-        <section className="section-black">
+        <section className="section-standard">
           <div className="container">
             <TestimonialsSection />
           </div>
         </section>
 
         {/* Case Studies Section */}
-        <section className="section-black">
+        <section className="section-standard">
           <div className="container">
             <motion.div
               className="content-wrapper"
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.2 }}
             >
-              <motion.h2 className="herotwo-heading" variants={fadeInUp}>
-                <span>Case</span>
-                <span>Studies</span>
-              </motion.h2>
+              <motion.div className="section-header">
+                <motion.h2 className="herotwo-heading" variants={fadeInUp}>
+                  <span>Case</span>
+                  <span>Studies</span>
+                </motion.h2>
+              </motion.div>
               
               <div className="case-studies-grid">
                 <motion.div className="case-study-card" variants={fadeInUp}>
@@ -189,14 +191,14 @@ const SuccessStories: React.FC = () => {
         </section>
 
         {/* Results Section */}
-        <section className="section-black">
+        <section className="section-standard">
           <div className="container">
             <motion.div
               className="stats-grid"
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.2 }}
             >
               <motion.div className="premium-stat-card glass-card orange-glow card-hover" variants={fadeInUp}>
                 <span className="premium-stat-number stat-gradient-orange">300%</span>

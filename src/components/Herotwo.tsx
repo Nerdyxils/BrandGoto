@@ -4,24 +4,23 @@ import Imgcon from '../assets/Brand-conversion.png.png';
 import Imgcor from '../assets/Brand-core.png.png';
 import Imgdat from '../assets/Brand-data.png.png';
 import './Herotwo.css';
-import './SectionSpacing.css';
 
 const Herotwo: React.FC = () => {
   const ref = useRef(null);
 
   const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 1, y: 12 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
     }
   };
 
   const staggerContainer = {
     hidden: {},
     visible: {
-      transition: { staggerChildren: 0.1 }
+      transition: { staggerChildren: 0.1, delayChildren: 0.1 }
     }
   };
 
@@ -44,19 +43,19 @@ const Herotwo: React.FC = () => {
     <motion.div className="herotwo-container">
       <section
         ref={ref}
-        className="relative container bg-black text-white px-4 sm:px-8 pt-6 pb-10 herotwo-bg"
+        className="relative bg-black text-white px-4 sm:px-8 pt-6 pb-10 herotwo-bg"
       >
-        <div className=" mx-auto">
+        <div className="mx-auto">
           {/* Hero Text */}
           <motion.div
-            className="hero-txt text-center max-w-3xl mx-auto mb-16"
+            className="section-header"
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.2 }}
           >
             <motion.span
-              className="sm__txt text-sm sm:text-base text-[#CFF8FF] block mb-3"
+              className="section-subtitle"
               variants={fadeInUp}
             >
               First impressions matter more than ever
@@ -72,7 +71,7 @@ const Herotwo: React.FC = () => {
             </motion.h2>
 
             <motion.p
-              className="h__txt text-base sm:text-lg text-gray-300"
+              className="section-description"
               variants={fadeInUp}
             >
               Your brand deserves the spotlight — we make sure it steals the show online.
@@ -85,7 +84,7 @@ const Herotwo: React.FC = () => {
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.2 }}
             >
             {cardData.map((card, index) => (
               <motion.div key={index} 

@@ -45,7 +45,7 @@
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 5rem 0;
+  @apply py-16 px-4 sm:py-20 sm:px-8 lg:py-28;
   position: relative;
   z-index: 1;
 }

@@ -3,6 +3,8 @@
   color: white;
   text-align: center;
   overflow: hidden;
+  @apply py-16 px-4 sm:py-20 sm:px-8 lg:py-28;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .team-subtitle {

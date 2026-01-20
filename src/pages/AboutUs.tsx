@@ -38,11 +38,11 @@ const AboutUs: React.FC = () => {
   }, []);
 
   const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 1, y: 12 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
     }
   };
 
@@ -59,21 +59,21 @@ const AboutUs: React.FC = () => {
       <ScrollToTop />
       <motion.div
         className="main-content"
-        animate={isMenuOpen ? { x: '-40vw' } : { x: 0 }}
-        transition={{ type: 'tween', duration: 0.3 }}
+         
+         
       >
         {/* Hero Section */}
-        <section className="hero-section">
+        <section className="hero-section section-standard">
           <div className="hero-background" />
           
           <div className="container">
             <motion.div
-              className="hero-txt"
+              className="section-header"
               variants={staggerContainer}
               initial="hidden"
               animate="visible"
             >
-              <motion.span className="sm__txt" variants={fadeInUp}>
+              <motion.span className="section-subtitle" variants={fadeInUp}>
                 About BrandGoto
               </motion.span>
 
@@ -87,51 +87,53 @@ const AboutUs: React.FC = () => {
                 <span>Growth</span>
               </motion.h1>
 
-              <motion.p className="h__txt" variants={fadeInUp}>
-                We're a creative-meets-tech studio based in Ontario, helping founders and growing companies build brands, websites, and smart automations that scale with confidence.
+              <motion.p className="section-description" variants={fadeInUp}>
+                The Technical Growth Partner for Founders. Brandgoto is a Global Technical Studio that deploys high-end branding, performance web, and AI-driven operations for US-based startups.
               </motion.p>
             </motion.div>
           </div>
         </section>
 
         {/* Story Section */}
-        <section className="section-black">
+        <section className="section-standard">
           <div className="container">
             <motion.div
               className="content-wrapper"
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.2 }}
             >
-              <motion.h2 className="herotwo-heading text-center" variants={fadeInUp}>
-                <span>Our</span>
-                <span>Story</span>
-              </motion.h2>
+              <motion.div className="section-header">
+                <motion.h2 className="herotwo-heading" variants={fadeInUp}>
+                  <span>Our</span>
+                  <span>Story</span>
+                </motion.h2>
+              </motion.div>
               
-              <motion.div className="story-grid" variants={fadeInUp}>
-                <div className="story-content">
-                  <p className="h__txt">
-                    BrandGoto started with a simple belief: great design and smart technology should work together to drive real business results. We've seen too many companies struggle with disconnected creative and tech solutions that don't scale.
+              <motion.div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mt-12" variants={fadeInUp}>
+                <div className="text-left space-y-6">
+                  <p className="text-gray-400 text-lg leading-relaxed">
+                    Brandgoto was built to bridge the gap between strategic brand positioning and technical execution. We saw too many founders struggling with disconnected agencies—so we built a studio that handles it all under one roof.
                   </p>
-                  <p className="h__txt">
-                    Our work is clean, efficient, and conversion-focused—built to launch quickly and grow smoothly. We focus on the fundamentals that matter: clear messaging, fast websites, and systems that work.
+                  <p className="text-gray-400 text-lg leading-relaxed">
+                    Our model is built for speed: US-aligned strategy meets European engineering excellence. This allows us to ship high-performance infrastructure at a pace that keeps startups ahead of their technical debt and ready for their next round.
                   </p>
                 </div>
-                <div className="info-card">
-                  <h3 className="sm__txt">Why We're Different</h3>
-                  <ul className="feature-list">
-                    <li className="h__txt">
-                      <span className="arrow">→</span>
-                      Complete solutions, not just design or just code
+                <div className="bg-[#111] p-8 rounded-xl border border-white/10">
+                  <h3 className="section-subtitle mb-6">Why We're Different</h3>
+                  <ul className="space-y-4">
+                    <li className="flex items-start gap-3 text-gray-300">
+                      <span className="text-[#F75F0B] font-bold">→</span>
+                      <span>Complete solutions, not just design or just code</span>
                     </li>
-                    <li className="h__txt">
-                      <span className="arrow">→</span>
-                      Built for speed and scalability from day one
+                    <li className="flex items-start gap-3 text-gray-300">
+                      <span className="text-[#F75F0B] font-bold">→</span>
+                      <span>Built for speed and scalability from day one</span>
                     </li>
-                    <li className="h__txt">
-                      <span className="arrow">→</span>
-                      Focus on results, not just aesthetics
+                    <li className="flex items-start gap-3 text-gray-300">
+                      <span className="text-[#F75F0B] font-bold">→</span>
+                      <span>Focus on results, not just aesthetics</span>
                     </li>
                   </ul>
                 </div>
@@ -141,47 +143,49 @@ const AboutUs: React.FC = () => {
         </section>
 
         {/* Values Section */}
-        <section className="section-black">
+        <section className="section-standard">
           <div className="container">
             <motion.div
               className="content-wrapper"
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.2 }}
             >
-              <motion.h2 className="herotwo-heading" variants={fadeInUp}>
-                <span>Our</span>
-                <span>Values</span>
-              </motion.h2>
+              <motion.div className="section-header">
+                <motion.h2 className="herotwo-heading" variants={fadeInUp}>
+                  <span>Our</span>
+                  <span>Values</span>
+                </motion.h2>
+              </motion.div>
               
-              <div className="values-grid">
-                <motion.div className="value-card" variants={fadeInUp}>
-                  <div className="value-icon">
-                    <i className="fas fa-chart-line"></i>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+                <motion.div className="bg-[#111] p-8 rounded-xl border border-white/10 hover:border-[#F75F0B] transition-all group" variants={fadeInUp}>
+                  <div className="w-16 h-16 bg-[#F75F0B] rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform mx-auto">
+                    <i className="fas fa-chart-line text-white text-2xl"></i>
                   </div>
-                  <h3 className="sm__txt">Results-Driven</h3>
-                  <p className="h__txt">
+                  <h3 className="text-xl font-bold text-white mb-4">Results-Driven</h3>
+                  <p className="text-gray-400 leading-relaxed text-center">
                     Every design decision and line of code serves a business purpose. We measure success by growth, not just aesthetics.
                   </p>
                 </motion.div>
                 
-                <motion.div className="value-card" variants={fadeInUp}>
-                  <div className="value-icon">
-                    <i className="fas fa-tachometer-alt"></i>
+                <motion.div className="bg-[#111] p-8 rounded-xl border border-white/10 hover:border-[#F75F0B] transition-all group" variants={fadeInUp}>
+                  <div className="w-16 h-16 bg-[#F75F0B] rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform mx-auto">
+                    <i className="fas fa-tachometer-alt text-white text-2xl"></i>
                   </div>
-                  <h3 className="sm__txt">Speed & Efficiency</h3>
-                  <p className="h__txt">
+                  <h3 className="text-xl font-bold text-white mb-4">Speed & Efficiency</h3>
+                  <p className="text-gray-400 leading-relaxed text-center">
                     We build fast, launch quickly, and optimize continuously. Time to market matters as much as quality.
                   </p>
                 </motion.div>
                 
-                <motion.div className="value-card" variants={fadeInUp}>
-                  <div className="value-icon">
-                    <i className="fas fa-users"></i>
+                <motion.div className="bg-[#111] p-8 rounded-xl border border-white/10 hover:border-[#F75F0B] transition-all group" variants={fadeInUp}>
+                  <div className="w-16 h-16 bg-[#F75F0B] rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform mx-auto">
+                    <i className="fas fa-users text-white text-2xl"></i>
                   </div>
-                  <h3 className="sm__txt">Partnership</h3>
-                  <p className="h__txt">
+                  <h3 className="text-xl font-bold text-white mb-4">Partnership</h3>
+                  <p className="text-gray-400 leading-relaxed text-center">
                     We work as an extension of your team, not just a vendor. Your success is our success.
                   </p>
                 </motion.div>
@@ -191,28 +195,28 @@ const AboutUs: React.FC = () => {
         </section>
 
         {/* Stats Section */}
-        <section className="section-black">
+        <section className="section-standard">
           <div className="container">
             <motion.div
-              className="stats-grid"
+              className="grid grid-cols-1 sm:grid-cols-3 gap-8"
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.2 }}
             >
-              <motion.div className="premium-stat-card glass-card orange-glow card-hover" variants={fadeInUp}>
-                <span className="premium-stat-number stat-gradient-orange">150+</span>
-                <span className="premium-stat-label">Complete Solutions Delivered</span>
+              <motion.div className="bg-[#111] p-10 border border-white/10 rounded-xl text-center group hover:border-[#F75F0B] transition-all" variants={fadeInUp}>
+                <span className="text-5xl font-extrabold text-[#F75F0B] block mb-2 group-hover:scale-105 transition-transform">150+</span>
+                <span className="text-gray-400 font-bold uppercase tracking-widest text-sm">Complete Solutions</span>
               </motion.div>
               
-              <motion.div className="premium-stat-card glass-card teal-glow card-hover" variants={fadeInUp}>
-                <span className="premium-stat-number stat-gradient-teal">3x</span>
-                <span className="premium-stat-label">Faster Than Multiple Agencies</span>
+              <motion.div className="bg-[#111] p-10 border border-white/10 rounded-xl text-center group hover:border-[#2FA0B5] transition-all" variants={fadeInUp}>
+                <span className="text-5xl font-extrabold text-[#2FA0B5] block mb-2 group-hover:scale-105 transition-transform">3x</span>
+                <span className="text-gray-400 font-bold uppercase tracking-widest text-sm">Faster Delivery</span>
               </motion.div>
               
-              <motion.div className="premium-stat-card glass-card white-glow card-hover" variants={fadeInUp}>
-                <span className="premium-stat-number stat-gradient-white">100%</span>
-                <span className="premium-stat-label">End-to-End Success Rate</span>
+              <motion.div className="bg-[#111] p-10 border border-white/10 rounded-xl text-center group hover:border-white transition-all" variants={fadeInUp}>
+                <span className="text-5xl font-extrabold text-white block mb-2 group-hover:scale-105 transition-transform">100%</span>
+                <span className="text-gray-400 font-bold uppercase tracking-widest text-sm">Success Rate</span>
               </motion.div>
             </motion.div>
           </div>

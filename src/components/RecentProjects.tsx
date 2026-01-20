@@ -4,7 +4,6 @@ import ProjectStats from './ProjectStats';
 import ProjectCarousel from './ProjectCarousel';
 import ProjectModal from './ProjectModal';
 import './RecentProjects.css';
-import './SectionSpacing.css';
 
 const RecentProjects: React.FC = () => {
   const scrollToTop = () => {
@@ -84,7 +83,7 @@ const RecentProjects: React.FC = () => {
   ];
 
   return (
-    <section className="recent-projects">
+    <section className="recent-projects section-standard">
       <div className="recent-projects-vertical">
         {/* Intro and Stats at the top */}
         <ProjectStats />

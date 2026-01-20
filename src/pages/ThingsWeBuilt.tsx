@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import ScrollToTop from '../components/ScrollToTop';
 import Footer from '../components/Footer';
+import ProjectCarousel from '../components/ProjectCarousel';
 import '../components/Hero.css';
 import '../components/Herotwo.css';
 import '../components/RecentProjects.css';
@@ -38,11 +39,11 @@ const ThingsWeBuilt: React.FC = () => {
   }, []);
 
   const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 1, y: 12 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
     }
   };
 
@@ -50,20 +51,6 @@ const ThingsWeBuilt: React.FC = () => {
     hidden: {},
     visible: {
       transition: { staggerChildren: 0.1 }
-    }
-  };
-
-  const scrollToLeft = () => {
-    const swiper = document.querySelector('.project-swiper');
-    if (swiper) {
-      swiper.scrollBy({ left: -400, behavior: 'smooth' });
-    }
-  };
-
-  const scrollToRight = () => {
-    const swiper = document.querySelector('.project-swiper');
-    if (swiper) {
-      swiper.scrollBy({ left: 400, behavior: 'smooth' });
     }
   };
 
@@ -124,27 +111,38 @@ const ThingsWeBuilt: React.FC = () => {
     }
   ];
 
+  const carouselProjects = projects.map((project) => ({
+    id: project.id,
+    title: project.title,
+    img: project.image,
+    description: project.description,
+  }));
+
+  const handleProjectClick = () => {
+    // Case studies carousel is visual only on this page.
+  };
+
   return (
     <div className="scroll-container">
       <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isScrolled={isScrolled} />
       <ScrollToTop />
       <motion.div
         className="main-content"
-        animate={isMenuOpen ? { x: '-40vw' } : { x: 0 }}
-        transition={{ type: 'tween', duration: 0.3 }}
+         
+         
       >
         {/* Hero Section */}
-        <section className="hero-section">
+        <section className="hero-section section-standard">
           <div className="hero-background" />
           
           <div className="container">
             <motion.div
-              className="hero-txt"
+              className="section-header"
               variants={staggerContainer}
               initial="hidden"
               animate="visible"
             >
-              <motion.span className="sm__txt" variants={fadeInUp}>
+              <motion.span className="section-subtitle" variants={fadeInUp}>
                 Things We Built
               </motion.span>
 
@@ -156,7 +154,7 @@ const ThingsWeBuilt: React.FC = () => {
                 <span>Itself</span>
               </motion.h1>
 
-              <motion.p className="h__txt" variants={fadeInUp}>
+              <motion.p className="section-description" variants={fadeInUp}>
                 Check out some of our favorite builds—from bold brands to sleek websites and powerful applications.
               </motion.p>
             </motion.div>
@@ -164,83 +162,41 @@ const ThingsWeBuilt: React.FC = () => {
         </section>
 
         {/* Projects Carousel */}
-        <section className="section-black">
+        <section className="section-standard">
           <div className="container">
             <motion.div
-              className="text-center mb-8"
+              className="section-header"
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.2 }}
             >
               <motion.h2 className="herotwo-heading" variants={fadeInUp}>
                 <span>Recent</span>
                 <span>Projects</span>
               </motion.h2>
-              <motion.p className="h__txt max-w-2xl mx-auto mt-4" variants={fadeInUp}>
+              <motion.p className="section-description" variants={fadeInUp}>
                 A showcase of our latest work—from web applications to stunning websites
               </motion.p>
             </motion.div>
             
-            <motion.div
-              className="project-carousel-container carousel-dark"
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              <button 
-                className="carousel-nav-button prev"
-                onClick={scrollToLeft}
-                aria-label="Scroll left"
-              >
-                ←
-              </button>
-              
-              <div className="project-swiper">
-                {projects.map((project) => (
-                  <motion.div
-                    key={project.id}
-                    className="carousel-project-card"
-                    variants={fadeInUp}
-                    whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
-                  >
-                    <img 
-                      src={project.image} 
-                      alt={project.title} 
-                      className="carousel-project-img"
-                      loading="lazy"
-                    />
-                    <h3 className="carousel-project-title">
-                      {project.title}
-                    </h3>
-                    <div className="carousel-project-category">
-                      {project.category} • {project.tech}
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-              
-              <button 
-                className="carousel-nav-button next"
-                onClick={scrollToRight}
-                aria-label="Scroll right"
-              >
-                →
-              </button>
-            </motion.div>
+            <ProjectCarousel
+              projects={carouselProjects}
+              onCardClick={handleProjectClick as any}
+              theme="dark"
+            />
           </div>
         </section>
 
         {/* Stats Section */}
-        <section className="section-black">
+        <section className="section-standard">
           <div className="container">
             <motion.div
               className="stats-grid"
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.2 }}
             >
               <motion.div className="premium-stat-card glass-card orange-glow card-hover" variants={fadeInUp}>
                 <span className="premium-stat-number stat-gradient-orange">150+</span>

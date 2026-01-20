@@ -2,7 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import './PlatformCTA.css';
 import './Herotwo.css';
-import './SectionSpacing.css';
 
 // TypeScript JSX fix
 declare global {
@@ -15,18 +14,18 @@ declare global {
 
 const PlatformCTA: React.FC = () => {
   const fadeInUp = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 1, y: 12 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
     }
   };
 
   const staggerContainer = {
     hidden: {},
     visible: {
-      transition: { staggerChildren: 0.2 }
+      transition: { staggerChildren: 0.1, delayChildren: 0.1 }
     }
   };
 
@@ -38,15 +37,18 @@ const PlatformCTA: React.FC = () => {
   };
 
   return (
-    <section className="platform-cta-section">
-      <div className="container mx-auto px-4 py-16">
+    <section className="platform-cta-section section-standard">
+      <div className="container mx-auto px-4">
         <motion.div
-          className="text-center mb-12"
+          className="section-header"
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.2 }}
         >
+          <motion.span className="section-subtitle" variants={fadeInUp}>
+            Tech Platforms
+          </motion.span>
           <motion.h2 className="herotwo-heading" variants={fadeInUp}>
             <span>Scale</span>
             <span>Your</span>
@@ -56,7 +58,7 @@ const PlatformCTA: React.FC = () => {
             <span>Tech</span>
             <span>Platforms</span>
           </motion.h2>
-          <p className="h__txt">
+          <p className="section-description">
             Beyond creative services, we offer powerful platforms to accelerate your growth
           </p>
         </motion.div>
@@ -66,7 +68,7 @@ const PlatformCTA: React.FC = () => {
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.2 }}
         >
           {/* Outsource Platform Card */}
           <motion.div
@@ -177,7 +179,7 @@ const PlatformCTA: React.FC = () => {
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.2 }}
         >
           <div className="bottom-cta-content">
             <h3 className="bottom-cta-title">Ready to Scale?</h3>

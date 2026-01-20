@@ -1,9 +1,10 @@
 .recent-projects {
-  background: linear-gradient(85deg, #333333, #000000, #333333);
+  background: black;
   color: white;
-  padding: 4rem 1rem;
+  @apply py-16 px-4 sm:py-20 sm:px-8 lg:py-28;
   overflow: hidden;
   position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .projects-layout {
@@ -604,6 +605,33 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+@media (max-width: 1024px) {
+  .project-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    transform: none !important;
+    gap: 1rem;
+  }
+  
+  .project-card {
+    transform: none !important;
+    height: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .project-grid {
+    grid-template-columns: 1fr !important;
+    transform: none !important;
+    gap: 1rem;
+  }
+  
+  .project-card {
+    transform: none !important;
+    height: 200px;
+    min-width: auto;
+  }
 }
 
 @media (max-width: 900px) {

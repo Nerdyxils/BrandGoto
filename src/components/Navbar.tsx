@@ -12,10 +12,10 @@ interface NavbarProps {
 }
 
 const navLinks = [
+  { label: 'Launchpad', path: '/launchpad' },
+  { label: 'Engineering', path: '/engineering' },
+  { label: 'Case Studies', path: '/things-we-built' },
   { label: 'About Us', path: '/about-us' },
-  { label: 'How We Help', path: '/how-we-help' },
-  { label: 'Things We Built', path: '/things-we-built' },
-  { label: 'Success Stories', path: '/success-stories' },
 ];
 
 const homeLink = { label: 'Home', path: '/' };

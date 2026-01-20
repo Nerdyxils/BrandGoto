@@ -44,11 +44,11 @@ const HowWeHelp: React.FC = () => {
   }, []);
 
   const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 1, y: 12 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
     }
   };
 
@@ -104,21 +104,21 @@ const HowWeHelp: React.FC = () => {
       <ScrollToTop />
       <motion.div
         className="main-content"
-        animate={isMenuOpen ? { x: '-40vw' } : { x: 0 }}
-        transition={{ type: 'tween', duration: 0.3 }}
+         
+         
       >
         {/* Hero Section */}
-        <section className="hero-section">
+        <section className="hero-section section-standard">
           <div className="hero-background" />
           
           <div className="container">
             <motion.div
-              className="hero-txt"
+              className="section-header"
               variants={staggerContainer}
               initial="hidden"
               animate="visible"
             >
-              <motion.span className="sm__txt" variants={fadeInUp}>
+              <motion.span className="section-subtitle" variants={fadeInUp}>
                 How We Help
               </motion.span>
 
@@ -132,7 +132,7 @@ const HowWeHelp: React.FC = () => {
                 <span>Solutions</span>
               </motion.h1>
 
-              <motion.p className="h__txt" variants={fadeInUp}>
+              <motion.p className="section-description" variants={fadeInUp}>
                 Your one-stop creative partner. From startup idea to scaling business—we handle the creative and tech so you can focus on growth.
               </motion.p>
             </motion.div>
@@ -294,132 +294,72 @@ const HowWeHelp: React.FC = () => {
         </section>
 
         {/* Process Section */}
-        <section className="section-black">
+        <section className="section-standard">
           <div className="container">
             <motion.div
               className="content-wrapper"
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.2 }}
             >
-              <motion.div className="text-center mb-8" variants={fadeInUp}>
+              <motion.div className="section-header" variants={fadeInUp}>
                 <motion.h2 className="herotwo-heading" variants={fadeInUp}>
                   <span>Our</span>
                   <span>Process</span>
                 </motion.h2>
-                <motion.p className="h__txt max-w-2xl mx-auto mt-4" variants={fadeInUp}>
+                <motion.p className="section-description" variants={fadeInUp}>
                   A proven methodology that transforms ideas into successful digital solutions
                 </motion.p>
               </motion.div>
               
-              <div className="fancy-process-grid">
-                <motion.div className="fancy-process-step" variants={fadeInUp}>
-                  <div className="process-step-header">
-                    <div className="step-number-circle">
-                      <span className="step-number">01</span>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
+                {[
+                  {
+                    step: '01',
+                    title: 'Discovery & Research',
+                    desc: 'We dive deep into your business, goals, and audience to understand what success looks like.',
+                    features: ['Market Analysis', 'Goal Setting', 'Competitor Audit']
+                  },
+                  {
+                    step: '02',
+                    title: 'Strategy & Planning',
+                    desc: 'We create a clear roadmap and strategy that aligns with your business objectives.',
+                    features: ['Project Scope', 'Timeline Planning', 'Success Metrics']
+                  },
+                  {
+                    step: '03',
+                    title: 'Engineering & Build',
+                    desc: 'We bring your vision to life with clean design and solid technology.',
+                    features: ['UI/UX Design', 'Full-Stack Dev', 'Rapid Iteration']
+                  },
+                  {
+                    step: '04',
+                    title: 'Launch & Scaling',
+                    desc: 'We launch with confidence and continue optimizing for growth.',
+                    features: ['Global Launch', 'Analytics Audit', 'Post-Launch Ops']
+                  }
+                ].map((item, i) => (
+                  <motion.div 
+                    key={i} 
+                    className="bg-[#111] p-8 rounded-xl border border-white/10 hover:border-[#F75F0B] transition-all group"
+                    variants={fadeInUp}
+                  >
+                    <div className="w-12 h-12 bg-[#F75F0B] rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                      <span className="text-white font-bold text-lg">{item.step}</span>
                     </div>
-                    <div className="step-connector"></div>
-                  </div>
-                  <div className="process-content">
-                    <h3 className="process-title">Discovery & Research</h3>
-                    <p className="process-description">We dive deep into your business, goals, and audience to understand what success looks like. This includes competitor analysis, market research, and defining your unique value proposition.</p>
-                    <div className="process-features">
-                      <div className="process-feature">
-                        <span className="feature-icon">🔍</span>
-                        <span>Market Analysis</span>
-                      </div>
-                      <div className="process-feature">
-                        <span className="feature-icon">🎯</span>
-                        <span>Goal Setting</span>
-                      </div>
-                      <div className="process-feature">
-                        <span className="feature-icon">📊</span>
-                        <span>Competitor Research</span>
-                      </div>
+                    <h3 className="text-xl font-bold text-white mb-4 uppercase tracking-tight">{item.title}</h3>
+                    <p className="text-gray-400 text-sm leading-relaxed mb-6">{item.desc}</p>
+                    <div className="space-y-2 border-t border-white/5 pt-4">
+                      {item.features.map((f, idx) => (
+                        <div key={idx} className="flex items-center gap-2 text-xs text-gray-500 font-medium uppercase tracking-wider">
+                          <span className="w-1 h-1 bg-[#F75F0B] rounded-full"></span>
+                          {f}
+                        </div>
+                      ))}
                     </div>
-                  </div>
-                </motion.div>
-                
-                <motion.div className="fancy-process-step" variants={fadeInUp}>
-                  <div className="process-step-header">
-                    <div className="step-number-circle">
-                      <span className="step-number">02</span>
-                    </div>
-                    <div className="step-connector"></div>
-                  </div>
-                  <div className="process-content">
-                    <h3 className="process-title">Strategy & Planning</h3>
-                    <p className="process-description">We create a clear roadmap and strategy that aligns with your business objectives. This phase includes defining project scope, timelines, and success metrics to ensure we deliver exactly what you need.</p>
-                    <div className="process-features">
-                      <div className="process-feature">
-                        <span className="feature-icon">📋</span>
-                        <span>Project Scope</span>
-                      </div>
-                      <div className="process-feature">
-                        <span className="feature-icon">⏱️</span>
-                        <span>Timeline Planning</span>
-                      </div>
-                      <div className="process-feature">
-                        <span className="feature-icon">📈</span>
-                        <span>Success Metrics</span>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-                
-                <motion.div className="fancy-process-step" variants={fadeInUp}>
-                  <div className="process-step-header">
-                    <div className="step-number-circle">
-                      <span className="step-number">03</span>
-                    </div>
-                    <div className="step-connector"></div>
-                  </div>
-                  <div className="process-content">
-                    <h3 className="process-title">Design & Development</h3>
-                    <p className="process-description">We bring your vision to life with clean design and solid technology. Our team works collaboratively to create solutions that are both beautiful and functional, with regular check-ins to ensure we're on track.</p>
-                    <div className="process-features">
-                      <div className="process-feature">
-                        <span className="feature-icon">🎨</span>
-                        <span>UI/UX Design</span>
-                      </div>
-                      <div className="process-feature">
-                        <span className="feature-icon">💻</span>
-                        <span>Development</span>
-                      </div>
-                      <div className="process-feature">
-                        <span className="feature-icon">🔄</span>
-                        <span>Iteration</span>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-                
-                <motion.div className="fancy-process-step" variants={fadeInUp}>
-                  <div className="process-step-header">
-                    <div className="step-number-circle">
-                      <span className="step-number">04</span>
-                    </div>
-                  </div>
-                  <div className="process-content">
-                    <h3 className="process-title">Launch & Growth</h3>
-                    <p className="process-description">We launch with confidence and continue optimizing for growth. Post-launch, we provide ongoing support, analytics monitoring, and optimization recommendations to help your business scale.</p>
-                    <div className="process-features">
-                      <div className="process-feature">
-                        <span className="feature-icon">🚀</span>
-                        <span>Launch</span>
-                      </div>
-                      <div className="process-feature">
-                        <span className="feature-icon">📊</span>
-                        <span>Analytics</span>
-                      </div>
-                      <div className="process-feature">
-                        <span className="feature-icon">📈</span>
-                        <span>Optimization</span>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
+                  </motion.div>
+                ))}
               </div>
             </motion.div>
           </div>

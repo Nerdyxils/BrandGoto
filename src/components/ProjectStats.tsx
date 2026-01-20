@@ -33,11 +33,11 @@ const ProjectStats: React.FC = () => {
   const ref = useRef(null);
 
   const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 1, y: 12 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
     }
   };
 
@@ -52,19 +52,19 @@ const ProjectStats: React.FC = () => {
     <motion.div className="project-stats-container">
       <section
         ref={ref}
-        className="relative bg-black text-white px-4 sm:px-8 pt-6 pb-10 project-stats-section"
+        className="relative bg-black text-white section-standard project-stats-section"
       >
         <div className="container mx-auto">
           {/* Hero Text */}
           <motion.div
-            className="hero-txt text-center max-w-4xl mx-auto mb-16"
+            className="section-header"
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.2 }}
           >
             <motion.span
-              className="sm__txt text-sm sm:text-base text-[#CFF8FF] block mb-3"
+              className="section-subtitle"
               variants={fadeInUp}
             >
               Things We've Built
@@ -79,7 +79,7 @@ const ProjectStats: React.FC = () => {
             </motion.h2>
 
             <motion.p
-              className="h__txt text-base sm:text-lg text-gray-300 max-w-2xl mx-auto"
+              className="section-description"
               variants={fadeInUp}
             >
               Check out some of our favorite builds—from bold brands to sleek websites.
@@ -92,7 +92,7 @@ const ProjectStats: React.FC = () => {
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.2 }}
           >
             {statData.map((stat) => (
               <motion.div

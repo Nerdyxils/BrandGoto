@@ -8,14 +8,14 @@ import Arrowup from '../assets/ArrowUpRight.png';
 import BigArr from '../assets/bigarrow.png';
 import TinArr from '../assets/tinyarrow-dropdown.png';
 import './Hero.css';
-import './SectionSpacing.css';
 import Herotwo from './Herotwo';
 import ServicesSection from './ServicesSection';
 import RecentProjects from './RecentProjects';
-import PlatformCTA from './PlatformCTA';
 import FounderSection from './FounderSection';
 import TestimonialsSection from './TestimonialsSection';
+import Footer from './Footer';
 import ScrollToTop from './ScrollToTop';
+import TechTicker from './TechTicker';
 import { lazy, Suspense } from 'react';
 
 // Lazy load below-the-fold ContactSection to reduce initial bundle
@@ -25,22 +25,9 @@ const Hero: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   
-  // MENU AND SCROLL HANDLERS
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setIsMenuOpen(false);
-    };
-    const handleResize = () => {
-      if (window.innerWidth > 768) setIsMenuOpen(false);
-    };
-    document.addEventListener('keydown', handleEsc);
-    window.addEventListener('resize', handleResize);
-    return () => {
-      document.removeEventListener('keydown', handleEsc);
-      window.removeEventListener('resize', handleResize);
-      document.body.style.overflow = 'auto';
-    };
+    return () => { document.body.style.overflow = 'auto'; };
   }, [isMenuOpen]);
 
   useEffect(() => {
@@ -94,45 +81,41 @@ const Hero: React.FC = () => {
     },
   ];
 
-  // SIMPLIFIED ANIMATION VARIANTS
+  // PREMIUM ANIMATION VARIANTS
   const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 1, y: 12 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
     }
   };
 
   const staggerContainer = {
     hidden: {},
     visible: {
-      transition: { staggerChildren: 0.1 }
+      transition: { staggerChildren: 0.1, delayChildren: 0.2 }
     }
   };
 
-  // SIMPLIFIED SECTION ANIMATION
+  // PREMIUM SECTION ANIMATION
   const sectionVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 1, y: 12 },
     visible: { 
       opacity: 1, 
       y: 0,
       transition: { 
-        duration: 0.5, 
-        ease: "easeOut"
+        duration: 0.8, 
+        ease: [0.16, 1, 0.3, 1]
       }
     }
   };
 
   return (
-    <div className="scroll-container">
+    <div className="scroll-container bg-black">
       <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isScrolled={isScrolled}/>
       <ScrollToTop />
-      <motion.div
-        className="main-content"
-        animate={isMenuOpen ? { x: '-40vw' } : { x: 0 }}
-        transition={{ type: 'tween', duration: 0.3 }}
-      >
+      <div className="main-content">
         {/* HERO SECTION - ORIGINAL STRUCTURE */}
         <section className="hero-section landing-hero relative text-white px-4 sm:px-8 pt-[90px] pb-10">
           {/* BACKGROUND - KEEPING YOUR ORIGINAL BACKGROUND */}
@@ -147,18 +130,19 @@ const Hero: React.FC = () => {
               animate="visible"
             >
               <motion.span className="sm__txt block mb-3" variants={fadeInUp}>
-                Built for Founders & Growing Companies
+                The Technical Growth Partner for Founders
               </motion.span>
 
               <motion.h1 className="hero-heading" variants={staggerContainer}>
-                <motion.span variants={fadeInUp}>Bold</motion.span>
-                <motion.span variants={fadeInUp}>Brands</motion.span>
+                <motion.span variants={fadeInUp} className="orange">Bold</motion.span>
+                <motion.span variants={fadeInUp} className="teal">Brands</motion.span>
                 <motion.span variants={fadeInUp}>Start</motion.span>
+                <motion.span variants={fadeInUp}>(and Scale)</motion.span>
                 <motion.span variants={fadeInUp}>Here</motion.span>
               </motion.h1>
 
               <motion.p className="h__txt text-base sm:text-lg text-gray-300 max-w-2xl mx-auto" variants={fadeInUp}>
-                Your one-stop creative partner. Brand, website, marketing, and tech solutions that scale with your business.
+                We deploy high-end branding, performance web, and AI-driven operations that turn early-stage ideas into investor-ready infrastructure.
               </motion.p>
 
               {/* SOCIAL PROOF - KEEPING YOUR ORIGINAL CLASSES */}
@@ -182,7 +166,6 @@ const Hero: React.FC = () => {
                   <motion.div
                     key={index}
                     className="left-card"
-                    style={{ maxHeight: '130px', width: '100%'}}
                     variants={fadeInUp}
                     whileHover={{ 
                       scale: 1.02,
@@ -233,7 +216,6 @@ const Hero: React.FC = () => {
                   <motion.div
                     key={index}
                     className="right-card"
-                    style={{ maxHeight: '81px', maxWidth: '378px', width: '100%' }}
                     variants={fadeInUp}
                     whileHover={{ 
                       scale: 1.02,
@@ -288,25 +270,35 @@ const Hero: React.FC = () => {
                   <span className="cta-name">Celine</span>
                   <span className="cta-role">Client Success Manager</span>
                 </div>
-                <motion.a 
-                  href="/book-consultation"
-                  className="cta-button"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => {
-                    // Track CTA click
-                    if (typeof window !== 'undefined' && window.gtag) {
-                      window.gtag('event', 'click', {
-                        'event_category': 'cta',
-                        'event_label': 'contact_form',
-                        'value': 1
-                      });
-                    }
-                  }}
-                >
-                  Get Everything You Need
-                </motion.a>
+                <div className="cta-buttons-wrapper">
+                  <motion.a 
+                    href="/launchpad"
+                    className="cta-button"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    Start your 14-Day Launchpad
+                  </motion.a>
+                  <motion.a 
+                    href="/engineering"
+                    className="cta-button"
+                    style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    Explore Engineering Retainers
+                  </motion.a>
+                </div>
               </motion.div>
+            </motion.div>
+
+            {/* TECH STACK TICKER */}
+            <motion.div
+              variants={fadeInUp}
+              initial="hidden"
+              animate="visible"
+            >
+              <TechTicker />
             </motion.div>
           </div>
         </section>
@@ -317,7 +309,7 @@ const Hero: React.FC = () => {
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: true, amount: 0.2 }}
         >
           <Herotwo />
         </motion.section>
@@ -327,9 +319,66 @@ const Hero: React.FC = () => {
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: true, amount: 0.2 }}
         >
           <ServicesSection />
+        </motion.section>
+
+        <motion.section
+          id="ai-systems"
+          className="section-standard"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          <div className="container mx-auto">
+            <motion.div className="section-header" variants={fadeInUp}>
+              <motion.span className="section-subtitle">AI Systems</motion.span>
+              <motion.h2 className="herotwo-heading">
+                <span>AI</span>
+                <span>Integrations</span>
+                <span>That</span>
+                <span>Drive</span>
+                <span>Scale</span>
+              </motion.h2>
+              <motion.p className="section-description">
+                We design and deploy practical AI systems that remove manual friction and compound growth across your business.
+              </motion.p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+              {[
+                {
+                  icon: 'fas fa-robot',
+                  title: 'AI Assistants',
+                  desc: 'Custom LLM assistants trained on your data to handle support, sales, and internal ops.',
+                },
+                {
+                  icon: 'fas fa-cogs',
+                  title: 'Workflow Automation',
+                  desc: 'Automate repetitive tasks across CRM, email, and ops so your team stays focused on growth.',
+                },
+                {
+                  icon: 'fas fa-chart-line',
+                  title: 'Intelligent Insights',
+                  desc: 'AI-powered analytics and reporting to surface the signals that matter most.',
+                },
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  className="bg-[#111] p-8 rounded-xl border border-white/10 hover:border-[#F75F0B] transition-all"
+                  variants={fadeInUp}
+                >
+                  <div className="mb-6">
+                    <i className={`${item.icon} text-3xl text-[#F75F0B]`} aria-hidden="true" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-4 uppercase tracking-tight">{item.title}</h3>
+                  <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </motion.section>
 
         <motion.section 
@@ -337,19 +386,9 @@ const Hero: React.FC = () => {
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: true, amount: 0.2 }}
         >
           <RecentProjects />
-        </motion.section>
-
-        <motion.section 
-          id="platforms"
-          variants={sectionVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-        >
-          <PlatformCTA />
         </motion.section>
 
         <motion.section 
@@ -357,9 +396,83 @@ const Hero: React.FC = () => {
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: true, amount: 0.2 }}
         >
           <FounderSection />
+        </motion.section>
+
+        <motion.section 
+          id="process"
+          className="section-standard"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          <div className="container mx-auto">
+            <motion.div className="section-header" variants={fadeInUp}>
+              <motion.span className="section-subtitle">Our Methodology</motion.span>
+              <motion.h2 className="herotwo-heading">
+                <span>The</span>
+                <span>Path</span>
+                <span>to</span>
+                <span>Digital</span>
+                <span>Excellence</span>
+              </motion.h2>
+              <motion.p className="section-description">
+                A proven four-stage process that transforms early-stage ideas into investor-ready infrastructure.
+              </motion.p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
+              {[
+                {
+                  step: '01',
+                  title: 'Discovery & Research',
+                  desc: 'We dive deep into your business, goals, and audience to understand what success looks like.',
+                  features: ['Market Analysis', 'Goal Setting', 'Competitor Audit']
+                },
+                {
+                  step: '02',
+                  title: 'Strategy & Planning',
+                  desc: 'We create a clear roadmap and strategy that aligns with your business objectives.',
+                  features: ['Project Scope', 'Timeline Planning', 'Success Metrics']
+                },
+                {
+                  step: '03',
+                  title: 'Engineering & Build',
+                  desc: 'We bring your vision to life with clean design and solid technology.',
+                  features: ['UI/UX Design', 'Full-Stack Dev', 'Rapid Iteration']
+                },
+                {
+                  step: '04',
+                  title: 'Launch & Scaling',
+                  desc: 'We launch with confidence and continue optimizing for growth.',
+                  features: ['Global Launch', 'Analytics Audit', 'Post-Launch Ops']
+                }
+              ].map((item, i) => (
+                <motion.div 
+                  key={i} 
+                  className="bg-[#111] p-8 rounded-xl border border-white/10 hover:border-[#F75F0B] transition-all group"
+                  variants={fadeInUp}
+                >
+                  <div className="w-12 h-12 bg-[#F75F0B] rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <span className="text-white font-bold text-lg">{item.step}</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-4 uppercase tracking-tight">{item.title}</h3>
+                  <p className="text-gray-400 text-sm leading-relaxed mb-6">{item.desc}</p>
+                  <div className="space-y-2 border-t border-white/5 pt-4">
+                    {item.features.map((f, idx) => (
+                      <div key={idx} className="flex items-center gap-2 text-xs text-gray-500 font-medium uppercase tracking-wider">
+                        <span className="w-1 h-1 bg-[#F75F0B] rounded-full"></span>
+                        {f}
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </motion.section>
 
         <motion.section 
@@ -367,7 +480,7 @@ const Hero: React.FC = () => {
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: true, amount: 0.2 }}
         >
           <TestimonialsSection />
         </motion.section>
@@ -377,13 +490,15 @@ const Hero: React.FC = () => {
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: true, amount: 0.2 }}
         >
           <Suspense fallback={<div style={{ minHeight: '400px' }} />}>
             <ContactSection />
           </Suspense>
         </motion.section>
-      </motion.div>
+
+        <Footer />
+      </div>
     </div>
   );
 };

@@ -17,11 +17,11 @@ interface Project {
 }
 
 const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 1, y: 12 },
   visible: { 
     opacity: 1, 
     y: 0,
-    transition: { duration: 0.6, ease: "easeOut" }
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
   }
 };
 
@@ -79,7 +79,7 @@ const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ projects, onCardClick
               variants={fadeInUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.2 }}
               whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
               onClick={e => onCardClick(project, e.currentTarget)}
               tabIndex={0}

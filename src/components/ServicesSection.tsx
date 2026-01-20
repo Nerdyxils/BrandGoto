@@ -10,7 +10,6 @@ import Imgbi from '../assets/BIdentity.png';
 import Imgmk from '../assets/Frame-icons.png';
 // You'll need a mobile app icon - suggest adding: import ImgApp from '../assets/MobileApp.png';
 import './ServicesSection.css';
-import './SectionSpacing.css';
 
 const ServicesSection: React.FC = () => {
   const ref = useRef(null);
@@ -20,18 +19,18 @@ const ServicesSection: React.FC = () => {
   };
 
   const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 1, y: 12 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
     }
   };
 
   const staggerContainer = {
     hidden: {},
     visible: {
-      transition: { staggerChildren: 0.1 }
+      transition: { staggerChildren: 0.1, delayChildren: 0.1 }
     }
   };
 
@@ -39,7 +38,7 @@ const ServicesSection: React.FC = () => {
     {
       icon: <img src={Imgwd} alt='Website Design & Development' />,
       title: 'Website Design & Development',
-      description: 'Websites that convert. Clean, fast, mobile-first.',
+      description: 'Websites that convert. Clean, fast, mobile-first with AI-ready infrastructure.',
     },
     {
       icon: <img src={Imgwd} alt='Mobile App Development' />, // Replace with ImgApp when you add the icon
@@ -59,7 +58,7 @@ const ServicesSection: React.FC = () => {
     {
       icon: <img src={Imgdigm} alt='Digital Marketing & Growth' />,
       title: 'Digital Marketing & Growth',
-      description: 'Marketing that actually gets results.',
+      description: 'Marketing that actually gets results with AI-assisted targeting and optimization.',
     },
     {
       icon: <img src={Imggd} alt='Graphic Design & Visual Content' />,
@@ -69,7 +68,12 @@ const ServicesSection: React.FC = () => {
     {
       icon: <img src={Imgdm} alt='Technical Setup & Infrastructure' />,
       title: 'Technical Setup & Infrastructure',
-      description: 'All the techy stuff handled for you.',
+      description: 'All the techy stuff handled for you, including AI integrations and automation.',
+    },
+    {
+      icon: <img src={Imgmk} alt='AI Integrations & Systems' />,
+      title: 'AI Integrations & Systems',
+      description: 'LLM-powered workflows, AI assistants, and automation that remove manual friction.',
     },
   ];
 
@@ -77,19 +81,19 @@ const ServicesSection: React.FC = () => {
     <motion.div className="services-container">
       <section
         ref={ref}
-        className="relative min-h-screen bg-black text-white px-4 sm:px-8 pt-6 pb-10 services_sec"
+        className="relative bg-black text-white section-standard services_sec"
       >
         <div className="container mx-auto">
           {/* Hero Text */}
           <motion.div
-            className="hero-txt text-center max-w-4xl mx-auto mb-16"
+            className="section-header"
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.2 }}
           >
             <motion.span
-              className="sm__txt text-sm sm:text-base text-[#CFF8FF] block mb-3"
+              className="section-subtitle"
               variants={fadeInUp}
             >
               Complete Digital Solutions
@@ -107,10 +111,10 @@ const ServicesSection: React.FC = () => {
             </motion.h2>
 
             <motion.p
-              className="h__txt text-base sm:text-lg text-gray-300 max-w-2xl mx-auto"
+              className="section-description"
               variants={fadeInUp}
             >
-              Your one-stop creative partner. From startup idea to scaling business—we handle the creative and tech so you can focus on growth.
+              Your one-stop creative partner. From startup idea to scaling business—we handle the creative, tech, and AI systems so you can focus on growth.
             </motion.p>
           </motion.div>
 
@@ -119,7 +123,7 @@ const ServicesSection: React.FC = () => {
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.2 }}
           >
             {services.map((service, index) => (
               <motion.div
@@ -151,7 +155,7 @@ const ServicesSection: React.FC = () => {
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.2 }}
           >
             {[
               {
@@ -205,23 +209,23 @@ const ServicesSection: React.FC = () => {
 
           {/* CTA Buttons */}
           <motion.div
-            className="cta-buttons-container text-center mt-16"
+            className="cta-buttons-container"
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.2 }}
           >
             <motion.div
-              className="flex flex-row gap-4 justify-center items-center"
+              className="flex justify-center items-center"
               variants={fadeInUp}
             >
-              <Link to="/book-consultation" onClick={scrollToTop}>
-                <button className="cta-btn-primary">
+              <Link to="/book-consultation" onClick={scrollToTop} className="w-full sm:w-auto">
+                <button className="cta-btn-primary w-full">
                   Let's Build Something Amazing
                 </button>
               </Link>
-              <Link to="/how-we-help" onClick={scrollToTop}>
-                <button className="cta-btn-secondary">
+              <Link to="/how-we-help" onClick={scrollToTop} className="w-full sm:w-auto">
+                <button className="cta-btn-secondary w-full">
                   See What We Can Do
                 </button>
               </Link>

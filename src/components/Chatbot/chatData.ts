@@ -1,7 +1,13 @@
-import type { KnowledgeItem } from './retriever';
+// Comprehensive knowledge base and FAQ for BrandGoto
 
-// Comprehensive knowledge base for BrandGoto - Complete website information
-// Keep each item small (2-6 sentences) and focused on a single topic.
+export type KnowledgeItem = {
+  id: string;
+  title: string;
+  text: string;
+  tags?: string[];
+  url?: string;
+};
+
 export const knowledgeBase: KnowledgeItem[] = [
   // === SERVICES ===
   {
@@ -94,27 +100,6 @@ export const knowledgeBase: KnowledgeItem[] = [
       'Silas is the Founder & Lead Developer at BrandGoto, a full-stack developer and creative strategist with a passion for building brands that scale. He combines technical expertise with strategic vision to lead our team.',
     tags: ['silas', 'founder', 'lead developer', 'full-stack', 'strategist', 'leadership'],
   },
-  {
-    id: 'team-robert',
-    title: 'BrandGoto Team - Robert (Senior Developer)',
-    text:
-      'Robert is our Senior Full Stack Developer with expertise in modern web technologies including React, Node.js, Python, and Database Design. He builds fast, scalable applications that users love.',
-    tags: ['robert', 'senior developer', 'react', 'nodejs', 'python', 'database'],
-  },
-  {
-    id: 'team-olha',
-    title: 'BrandGoto Team - Olha (Product Designer)',
-    text:
-      'Olha is our Senior Product Designer focused on creating intuitive, beautiful interfaces that drive user engagement and conversion. Her expertise includes UI/UX Design, Prototyping, User Research, and Design Systems.',
-    tags: ['olha', 'product designer', 'ui/ux', 'prototyping', 'user research', 'design systems'],
-  },
-  {
-    id: 'team-dmytro',
-    title: 'BrandGoto Team - Dmytro (Marketing Strategist)',
-    text:
-      'Dmytro is our Marketing Strategist, a growth-focused marketer who understands how to build campaigns that convert and scale businesses. His skills include Digital Marketing, Growth Strategy, Analytics, and Content Strategy.',
-    tags: ['dmytro', 'marketing strategist', 'growth', 'digital marketing', 'analytics', 'content strategy'],
-  },
 
   // === PROJECTS ===
   {
@@ -144,15 +129,6 @@ export const knowledgeBase: KnowledgeItem[] = [
     text:
       'Jayo is a fully functional, high-performance ReactJS website for a forward-thinking tech consulting firm based in the USA. Built with ReactJS, NextJS, Tailwind, and Framer Motion for smooth interactions.',
     tags: ['jayo', 'tech consulting', 'reactjs', 'nextjs', 'tailwind', 'framer motion', 'consulting'],
-  },
-
-  // === CASE STUDIES ===
-  {
-    id: 'case-nexora',
-    title: 'BrandGoto Case Study - Nexora Digital Transformation',
-    text:
-      'Nexora underwent complete digital transformation including brand identity redesign, website development, and marketing strategy. The results: 300% increase in leads and 65% improvement in conversion rates.',
-    tags: ['nexora', 'digital transformation', 'brand redesign', 'website development', 'marketing strategy', 'results'],
   },
 
   // === CONTACT INFO ===
@@ -204,15 +180,19 @@ export const knowledgeBase: KnowledgeItem[] = [
       'Explore our portfolio to see examples of our work across branding, web design, app development, and digital marketing. Our case studies showcase the results we deliver for businesses like yours.',
     tags: ['portfolio', 'case studies', 'examples', 'work', 'results', 'things we built'],
   },
-
-  // === GENERAL ===
-  {
-    id: 'fallback',
-    title: 'BrandGoto General Information',
-    text:
-      "BrandGoto is a creative digital agency specializing in brand identity, web design, app development, digital marketing, and AI automation. We help businesses create bold digital experiences that drive growth and success.",
-    tags: ['general', 'overview', 'agency', 'services', 'creative', 'digital', 'growth'],
-  },
 ];
 
-
+export const faq: Array<{ q: string; a: string }> = [
+  {
+    q: 'What services do you offer?',
+    a: 'We provide branding, web design & development, and AI automation (SmartLaunch) tailored to your growth goals.'
+  },
+  {
+    q: 'How do I get started?',
+    a: 'Schedule a call to discuss your goals and we will propose a clear path and timeline.'
+  },
+  {
+    q: 'What is SmartLaunch?',
+    a: 'SmartLaunch is our startup-focused AI automation package suite, covering lead capture, CRM workflows, and AI assistants.'
+  },
+];

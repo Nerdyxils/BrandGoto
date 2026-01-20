@@ -8,32 +8,32 @@ section {
 
 /* Add consistent spacing between sections */
 section + section {
-  margin-top: 4rem;
+  margin-top: 0;
 }
 
-/* Responsive section spacing */
+/* Responsive section spacing - minimal gaps */
 @media (min-width: 640px) {
   section + section {
-    margin-top: 5rem;
+    margin-top: 0;
   }
 }
 
 @media (min-width: 1024px) {
   section + section {
-    margin-top: 6rem;
+    margin-top: 0;
   }
 }
 
 @media (min-width: 1280px) {
   section + section {
-    margin-top: 7rem;
+    margin-top: 0;
   }
 }
 
 /* Mobile-specific adjustments */
 @media (max-width: 640px) {
   section + section {
-    margin-top: 3rem;
+    margin-top: 0;
   }
 }
 

@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './TestimonialsSection.css';
-import './SectionSpacing.css';
 
 interface Stat {
   value: string;
@@ -153,8 +152,8 @@ const TestimonialSection: React.FC = () => {
       aria-label="Client testimonials"
     >
       {/* Header */}
-      <div className="hero-txt text-center max-w-4xl mx-auto mb-16">
-        <span className="sm__txt text-sm sm:text-base text-[#CFF8FF] block mb-3">
+      <div className="section-header">
+        <span className="section-subtitle">
           Testimonials
         </span>
 
@@ -164,7 +163,7 @@ const TestimonialSection: React.FC = () => {
           <span>Clients</span>
         </h1>
 
-        <p className="h__txt text-base sm:text-lg text-gray-300 max-w-2xl mx-auto">
+        <p className="section-description">
           What They're Saying About Our Work
         </p>
       </div>
