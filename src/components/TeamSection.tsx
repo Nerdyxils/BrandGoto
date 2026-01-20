@@ -3,10 +3,10 @@ import { motion } from 'framer-motion';
 import './TeamSection.css';
 
 const teamMembers = [
-  { name: 'Silas', role: 'Founder & Project Lead', img: '/images/Founder.JPG' },
-  { name: 'Robert', role: 'Full Stack Developer', img: '/images/Robert.png' },
-  { name: 'Olha', role: 'Product Designer', img: '/images/Olha.jpg' },
-  { name: 'Dmytro', role: 'Marketing Strategist', img: '/images/Dymtro.jpg' },
+  { name: 'Silas', role: 'Founder & Project Lead', img: '/images/Founder.webp' },
+  { name: 'Robert', role: 'Full Stack Developer', img: '/images/Robert.webp' },
+  { name: 'Olha', role: 'Product Designer', img: '/images/Olha.webp' },
+  { name: 'Dmytro', role: 'Marketing Strategist', img: '/images/Dymtro.webp' },
 ];
 
 const fadeInUp = {
@@ -44,7 +44,7 @@ const TeamSection: React.FC = () => {
             <span className="orange">Meet</span> the <span className="teal">Team</span>
           </motion.h2>
           <motion.p className="team-description" variants={fadeInUp}>
-            Creative Minds. Tech Hearts. We're a small but mighty team of creatives and tech enthusiasts based in Canada,
+            Creative Minds. Tech Hearts. We're a small but mighty remote-first team of creatives and tech enthusiasts serving founders globally,
             passionate about helping brands stand out. Whether you're just starting out or looking to refresh your look, we
             bring strategy, design, and a whole lot of heart into everything we do.
           </motion.p>

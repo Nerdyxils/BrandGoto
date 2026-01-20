@@ -3,7 +3,9 @@ import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import ScrollToTop from '../components/ScrollToTop';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 import '../components/Hero.css';
+import { seoConfig } from '../seo/seoConfig';
 
 const PrivacyPolicy: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -53,6 +55,7 @@ const PrivacyPolicy: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-900">
+      <SEO {...seoConfig.privacyPolicy} />
       <Navbar 
         isMenuOpen={isMenuOpen} 
         setIsMenuOpen={setIsMenuOpen} 
@@ -87,7 +90,7 @@ const PrivacyPolicy: React.FC = () => {
                   BrandGoto ("we," "our," "us") respects your privacy and is committed to protecting the personal information you share with us. This Privacy Policy explains how we collect, use, disclose, and safeguard information when you interact with our website, services, and communications.
                 </p>
                 <p>
-                  By using our services, you consent to the practices described in this Privacy Policy, which complies with applicable Canadian privacy laws, including the Personal Information Protection and Electronic Documents Act (PIPEDA) and, where applicable, Ontario privacy legislation.
+                  By using our services, you consent to the practices described in this Privacy Policy, which complies with applicable privacy laws in the United States and other jurisdictions where we operate.
                 </p>
               </div>
 
@@ -191,7 +194,7 @@ const PrivacyPolicy: React.FC = () => {
               <div>
                 <h2 className="text-2xl font-semibold text-white mb-4">9. International Data Transfers</h2>
                 <p>
-                  If we transfer personal information outside Canada (for example, to U.S.-based cloud providers), we ensure that appropriate safeguards are in place to protect your information in compliance with Canadian law.
+                  If we transfer personal information across borders (for example, to U.S.-based cloud providers), we ensure appropriate safeguards are in place to protect your information in compliance with applicable law.
                 </p>
               </div>
 
@@ -199,14 +202,14 @@ const PrivacyPolicy: React.FC = () => {
               <div>
                 <h2 className="text-2xl font-semibold text-white mb-4">10. Your Rights</h2>
                 <p className="mb-4">
-                  As a client or website user in Canada, you have the right to:
+                  As a client or website user, you have the right to:
                 </p>
                 <ul className="list-disc pl-6 space-y-2 mb-4">
                   <li>Access the personal information we hold about you.</li>
                   <li>Request corrections to inaccurate or incomplete information.</li>
                   <li>Withdraw consent for certain uses of your data.</li>
                   <li>Request deletion of your data, subject to legal/contractual limits.</li>
-                  <li>File a complaint with the Office of the Privacy Commissioner of Canada (OPC) if you believe your rights have been violated.</li>
+                  <li>File a complaint with the appropriate data protection authority if you believe your rights have been violated.</li>
                 </ul>
               </div>
 
@@ -241,7 +244,7 @@ const PrivacyPolicy: React.FC = () => {
                     <strong>Phone:</strong> <a href="tel:+16479377031" className="text-blue-400 hover:text-blue-300">+1 (647) 937 7031</a>
                   </p>
                   <p>
-                    <strong>Address:</strong> London, Ontario, Canada
+                    <strong>Address:</strong> Remote-First | Global
                   </p>
                 </div>
               </div>

@@ -4,9 +4,11 @@ import Navbar from '../components/Navbar';
 import ScrollToTop from '../components/ScrollToTop';
 import Footer from '../components/Footer';
 import ConfirmationModal from '../components/ConfirmationModal';
+import SEO from '../components/SEO';
 import '../components/Hero.css';
 import '../components/Herotwo.css';
 import '../components/ContactSection.css';
+import { seoConfig } from '../seo/seoConfig';
 
 const BookConsultation: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -276,6 +278,7 @@ const BookConsultation: React.FC = () => {
 
   return (
     <div className="scroll-container">
+      <SEO {...seoConfig.bookConsultation} />
       <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isScrolled={isScrolled} />
       <ScrollToTop />
       <motion.div

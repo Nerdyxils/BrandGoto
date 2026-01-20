@@ -3,8 +3,10 @@ import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import ScrollToTop from '../components/ScrollToTop';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 import '../components/Hero.css';
 import '../components/Herotwo.css';
+import { seoConfig } from '../seo/seoConfig';
 import '../components/RecentProjects.css';
 
 const AboutUs: React.FC = () => {
@@ -55,6 +57,7 @@ const AboutUs: React.FC = () => {
 
   return (
     <div className="scroll-container">
+      <SEO {...seoConfig.aboutUs} />
       <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isScrolled={isScrolled} />
       <ScrollToTop />
       <motion.div

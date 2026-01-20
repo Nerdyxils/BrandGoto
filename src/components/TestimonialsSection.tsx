@@ -26,8 +26,8 @@ const testimonials: Testimonial[] = [
     testimonial: 'BrandGoto has been an indispensable asset to my communications company for over three years, and I can say without hesitation that they are one of the most capable, reliable, and results-driven digital agency I\'ve had the pleasure of working with.',
     name: 'Shannon T',
     title: 'CEO & Founder of Higher Glyphs',
-    logo: '/images/higherglyphs1.png',
-    avatar: '/images/shannon-travis-1.jpg',
+    logo: '/images/higherglyphs1.webp',
+    avatar: '/images/shannon-travis-1.webp',
     stats: [
       { value: '97%', label: 'Client Satisfaction', numericValue: 97 },
       { value: '43%', label: 'Customer engagement', numericValue: 43 },
@@ -40,8 +40,8 @@ const testimonials: Testimonial[] = [
     testimonial: 'Working with BrandGoto was a game-changer. They didn\'t just design our website — they helped us clarify our vision, streamline our messaging, and launch with confidence. Our leads tripled within the first month!',
     name: 'Sarah L',
     title: 'Marketing Director at Nexora',
-    logo: '/images/Nexora.png',
-    avatar: '/images/SarahL.PNG',
+    logo: '/images/Nexora.webp',
+    avatar: '/images/SarahL.webp',
     stats: [
       { value: '94%', label: 'Client Satisfaction', numericValue: 94 },
       { value: '60%', label: 'Customer engagement', numericValue: 60 },
@@ -54,8 +54,8 @@ const testimonials: Testimonial[] = [
     testimonial: 'From branding to web development, the BrandGoto team exceeded our expectations. Their attention to detail and creative direction gave our brand a whole new identity. Couldn\'t recommend them more.',
     name: 'David K',
     title: 'Co-founder of NeuraForm Labs',
-    logo: '/images/Neuralabs.png',
-    avatar: '/images/DavidK.PNG',
+    logo: '/images/Neuralabs.webp',
+    avatar: '/images/DavidK.webp',
     stats: [
       { value: '97%', label: 'Client Satisfaction', numericValue: 97 },
       { value: '43%', label: 'Customer engagement', numericValue: 43 },

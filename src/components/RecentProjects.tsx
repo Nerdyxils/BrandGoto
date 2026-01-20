@@ -47,37 +47,37 @@ const RecentProjects: React.FC = () => {
     { 
       id: 1, 
       title: 'Prodex – Inventory & Product Management System (MERN Stack)', 
-      img: '/images/projectA.png', 
+      img: '/images/projectA.webp', 
       description: 'Built a comprehensive inventory and product management system using the MERN stack. The platform allows businesses to track stock levels, manage product listings, and generate reports. Developed an intuitive dashboard with role-based authentication, real-time data updates, and CRUD operations. Optimized for scalability and seamless user experience.' 
     },
     { 
       id: 2, 
       title: 'CoinVers (React, Python, Django, Restful APIs)', 
-      img: '/images/projectB.png', 
+      img: '/images/projectB.webp', 
       description: 'Developed a cryptocurrency tracking and analytics platform using React for the frontend and Django with Django REST Framework for the backend. Implemented real-time price updates, interactive charts, user authentication, and portfolio tracking. Integrated third-party APIs for fetching live cryptocurrency data and built a scalable architecture for high-performance data handling.' 
     },
     { 
       id: 3, 
       title: "Dala (React + Next.js paired with GSAP's ScrollTrigger)", 
-      img: '/images/Dala.png', 
+      img: '/images/Dala.webp', 
       description: 'Developed a fancy landing page with fancy smooth scroll.' 
     },
     { 
       id: 4, 
       title: 'Jayo - ReactJs, NextJs, Tailwind, Framer Motion', 
-      img: '/images/projectE.png', 
+      img: '/images/projectE.webp', 
       description: 'We proudly delivered a fully functional, high-performance ReactJS website for JAYO, a forward-thinking tech consulting firm based in the USA.' 
     },
     { 
       id: 5, 
       title: 'Multi-featured Shopping site (Vue, Django)', 
-      img: '/images/projectF.png', 
+      img: '/images/projectF.webp', 
       description: 'Developed a modern e-commerce platform using Vue.js for the frontend and Django for the backend. The platform included user authentication, product catalog management, a shopping cart, and secure payment integration. I optimized the frontend for performance and responsiveness while implementing a scalable Django REST API for seamless data flow. Additionally, I integrated third-party services for payment processing and order tracking, ensuring a smooth user experience.' 
     },
     { 
       id: 8, 
       title: 'BizWorld (WordPress)', 
-      img: '/images/projectG.png', 
+      img: '/images/projectG.webp', 
       description: 'Designed and developed a dynamic business news and blog website using WordPress. Implemented a custom theme with optimized performance, SEO-friendly architecture, and a responsive design. Integrated third-party plugins for analytics, social media sharing, and newsletter subscriptions. Ensured smooth content management with a customized WordPress admin panel.' 
     }
   ];

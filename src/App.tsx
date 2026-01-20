@@ -11,15 +11,11 @@ const BookConsultation = lazy(() => import('./pages/BookConsultation'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const Launchpad = lazy(() => import('./pages/Launchpad'));
 const Engineering = lazy(() => import('./pages/Engineering'));
-const CountryRedirect = lazy(() => import('./components/CountryRedirect'));
 const ChatbotWidget = lazy(() => import('./components/Chatbot/Chatbot'));
 
 const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-black body">
-      <Suspense fallback={null}>
-        <CountryRedirect />
-      </Suspense>
       <Router>
         <Suspense fallback={<div className="min-h-screen bg-gray-900" />}>
           <Routes>

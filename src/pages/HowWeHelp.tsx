@@ -3,15 +3,17 @@ import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import ScrollToTop from '../components/ScrollToTop';
 import Footer from '../components/Footer';
-import Imgwd from '../assets/WebDev.png';
-import Imgbi from '../assets/BIdentity.png';
-import Imgdigm from '../assets/DigitalM.png';
-import Imggd from '../assets/Graph.png';
-import Imgdm from '../assets/Domain.png';
-import Imgmk from '../assets/Frame-icons.png';
+import SEO from '../components/SEO';
+import Imgwd from '../assets/WebDev.webp';
+import Imgbi from '../assets/BIdentity.webp';
+import Imgdigm from '../assets/DigitalM.webp';
+import Imggd from '../assets/Graph.webp';
+import Imgdm from '../assets/Domain.webp';
+import Imgmk from '../assets/Frame-icons.webp';
 import '../components/Hero.css';
 import '../components/Herotwo.css';
 import '../components/ServicesSection.css';
+import { seoConfig } from '../seo/seoConfig';
 
 const HowWeHelp: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -100,6 +102,7 @@ const HowWeHelp: React.FC = () => {
 
   return (
     <div className="scroll-container">
+      <SEO {...seoConfig.howWeHelp} />
       <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isScrolled={isScrolled} />
       <ScrollToTop />
       <motion.div

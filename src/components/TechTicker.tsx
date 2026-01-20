@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import './TechTicker.css';
 
 const techStack = [
@@ -20,24 +19,14 @@ const TechTicker: React.FC = () => {
   return (
     <div className="tech-ticker-container">
       <div className="tech-ticker-wrapper">
-        <motion.div
-          className="tech-ticker-track"
-          animate={{
-            x: ['0%', '-50%'],
-          }}
-          transition={{
-            duration: 30,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-        >
+        <div className="tech-ticker-track" aria-hidden="true">
           {duplicatedTech.map((tech, index) => (
             <div key={`${tech.name}-${index}`} className="tech-ticker-item">
               <i className={`${tech.iconClass} tech-icon`} aria-hidden="true" />
               <span className="tech-name">{tech.name}</span>
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </div>
   );

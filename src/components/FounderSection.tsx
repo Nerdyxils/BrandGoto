@@ -46,7 +46,7 @@ const FounderSection: React.FC = () => {
             <motion.blockquote className="founder-quote" variants={fadeInUp}>
               <span className="quote-mark">"</span>
               <p className="quote-text">
-                Creative Minds. Tech Hearts. We're a small but mighty team of creatives and tech enthusiasts based in Canada,
+                Creative Minds. Tech Hearts. We're a small but mighty remote-first team of creatives and tech enthusiasts serving founders globally,
                 passionate about helping brands stand out. Whether you're just starting out or looking to refresh your look, we
                 bring strategy, design, and a whole lot of heart into everything we do.
               </p>
@@ -64,7 +64,7 @@ const FounderSection: React.FC = () => {
           >
             <div className="founder-image-wrapper">
               <img 
-                src="/images/Founder.JPG" 
+                src="/images/Founder.webp" 
                 alt="Silas - Founder & Full Stack Developer" 
                 className="founder-image"
                 loading="lazy"

@@ -74,15 +74,15 @@ export const knowledgeBase: KnowledgeItem[] = [
     id: 'company-overview',
     title: 'BrandGoto Company Overview',
     text:
-      'BrandGoto is a creative digital agency founded in 2023 with the slogan "Bold Brands. Digital Excellence." We specialize in brand identity, web design, UI/UX, and innovative tech solutions for startups and enterprises, operating from Toronto and New York.',
+      'BrandGoto is a remote-first technical growth studio founded in 2023 with the slogan "Bold Brands. Digital Excellence." We specialize in brand identity, web design, UI/UX, and AI-driven tech solutions for startups and enterprises serving the US and global markets.',
     tags: ['company', 'overview', 'founded', 'slogan', 'creative agency', 'digital agency'],
   },
   {
     id: 'company-locations',
-    title: 'BrandGoto Locations - Toronto & New York',
+    title: 'BrandGoto Locations - Remote-First, Global',
     text:
-      'BrandGoto operates from offices in Toronto, Ontario and New York, serving clients across North America and globally. Our dual-location presence allows us to serve both Canadian and US markets with local expertise and understanding.',
-    tags: ['toronto', 'new york', 'locations', 'canada', 'usa', 'offices', 'north america'],
+      'BrandGoto is a remote-first studio serving clients across the United States and globally. Our distributed team model lets us partner with founders anywhere.',
+    tags: ['remote-first', 'united states', 'global', 'locations', 'usa', 'offices', 'startup partner'],
   },
   {
     id: 'company-expertise',
@@ -136,8 +136,8 @@ export const knowledgeBase: KnowledgeItem[] = [
     id: 'contact-info',
     title: 'BrandGoto Contact Information',
     text:
-      'Contact BrandGoto at +1-647-937-7031 for customer service. We serve CA-ON and US-NY regions, available in English and French. Our offices are located in Toronto, Ontario and New York, serving clients across North America.',
-    tags: ['contact', 'phone', '647-937-7031', 'customer service', 'toronto', 'new york', 'support'],
+      'Contact BrandGoto at +1-647-937-7031 for customer service. We serve the United States and global regions, available in English. Our team operates remote-first to support founders worldwide.',
+    tags: ['contact', 'phone', '647-937-7031', 'customer service', 'united states', 'global', 'support'],
   },
 
   // === SOCIAL MEDIA ===

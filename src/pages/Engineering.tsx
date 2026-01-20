@@ -5,8 +5,12 @@ import Navbar from '../components/Navbar';
 import ScrollToTop from '../components/ScrollToTop';
 import Footer from '../components/Footer';
 import TechTicker from '../components/TechTicker';
+import SEO from '../components/SEO';
+import Breadcrumbs from '../components/Breadcrumbs';
 import '../components/Hero.css';
 import '../components/Herotwo.css';
+import '../components/Breadcrumbs.css';
+import { seoConfig } from '../seo/seoConfig';
 
 const Engineering: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -74,7 +78,9 @@ const Engineering: React.FC = () => {
 
   return (
     <div className="scroll-container bg-black">
+      <SEO {...seoConfig.engineering} />
       <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isScrolled={isScrolled} />
+      <Breadcrumbs />
       <ScrollToTop />
       <div className="main-content">
         {/* Hero Section */}
@@ -87,16 +93,19 @@ const Engineering: React.FC = () => {
               initial="visible"
               animate="visible"
             >
+              <h1 className="sr-only">
+                Fractional CTO & High-End Engineering Studio | Brandgoto
+              </h1>
               <motion.span className="section-subtitle" variants={fadeInUp}>
                 High-Performance Engineering
               </motion.span>
-              <motion.h1 className="herotwo-heading" variants={fadeInUp}>
+              <motion.h2 className="herotwo-heading" variants={fadeInUp}>
                 <span>For</span>
                 <span>Growing</span>
                 <span>Teams</span>
-              </motion.h1>
+              </motion.h2>
               <motion.p className="section-description" variants={fadeInUp}>
-                US-aligned Strategy. European Engineering Excellence. The Lead Architect + Engineering Team model that scales with your business.
+                Venture-backed startup partner delivering Fractional CTO Services, AI-Ops and Workflow Automation, and a Lead Architect + Engineering Team model that scales.
               </motion.p>
             </motion.div>
           </div>
@@ -127,7 +136,7 @@ const Engineering: React.FC = () => {
                   {
                     icon: <i className="fas fa-user-tie text-4xl text-[#F75F0B]"></i>,
                     title: 'Fractional CTO',
-                    desc: 'Strategic technical roadmapping and architecture. Get senior-level technical leadership without the full-time cost.',
+                    desc: 'Fractional CTO Services with strategic roadmapping and architecture—senior leadership without full-time overhead.',
                     features: ['Technical Strategy', 'Architecture Design', 'Team Leadership']
                   },
                   {
@@ -139,7 +148,7 @@ const Engineering: React.FC = () => {
                   {
                     icon: <i className="fas fa-robot text-4xl text-[#F75F0B]"></i>,
                     title: 'AI Operations',
-                    desc: 'Deploying LLM-powered workflows to automate manual friction. Transform your operations with intelligent automation.',
+                    desc: 'AI-Ops and workflow automation using LLM systems to remove manual friction and accelerate execution.',
                     features: ['LLM Integration', 'Workflow Automation', 'AI-Powered Solutions']
                   }
                 ].map((item, i) => (

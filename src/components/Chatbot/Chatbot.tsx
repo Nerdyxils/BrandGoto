@@ -305,7 +305,7 @@ export default function Chatbot() {
             </div>
             <div className="agent-chip">
               <div className="avatar small">
-                <img src="/images/Image.png" alt="Celine" className="avatar-img" />
+                <img src="/images/Image.webp" alt="Celine" className="avatar-img" />
                 <div className="status-dot online" />
               </div>
               <div className="agent-text">
@@ -321,7 +321,7 @@ export default function Chatbot() {
                 <div className={`msg ${m.role}`}>
                   {m.role === 'assistant' && (
                     <div className="avatar">
-                      <img src="/images/Image.png" alt="Celine" className="avatar-img" />
+                      <img src="/images/Image.webp" alt="Celine" className="avatar-img" />
                       <div className="status-dot online" />
                     </div>
                   )}

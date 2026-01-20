@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
-import Imgcon from '../assets/Brand-conversion.png.png';
-import Imgcor from '../assets/Brand-core.png.png';
-import Imgdat from '../assets/Brand-data.png.png';
+import Imgcon from '../assets/Brand-conversion.png.webp';
+import Imgcor from '../assets/Brand-core.png.webp';
+import Imgdat from '../assets/Brand-data.png.webp';
 import './Herotwo.css';
 
 const Herotwo: React.FC = () => {

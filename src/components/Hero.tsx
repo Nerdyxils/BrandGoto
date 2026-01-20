@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from './Navbar';
-import ImgCo from '../assets/conversion.png';
-import ImgDi from '../assets/digital.png';
-import ImgCs from '../assets/clientS.png';
-import Arrowup from '../assets/ArrowUpRight.png';
-import BigArr from '../assets/bigarrow.png';
-import TinArr from '../assets/tinyarrow-dropdown.png';
+import SEO from './SEO';
+import ImgCo from '../assets/conversion.webp';
+import ImgDi from '../assets/digital.webp';
+import ImgCs from '../assets/clientS.webp';
+import Arrowup from '../assets/ArrowUpRight.webp';
+import BigArr from '../assets/bigarrow.webp';
+import TinArr from '../assets/tinyarrow-dropdown.webp';
 import './Hero.css';
 import Herotwo from './Herotwo';
 import ServicesSection from './ServicesSection';
@@ -17,6 +18,7 @@ import Footer from './Footer';
 import ScrollToTop from './ScrollToTop';
 import TechTicker from './TechTicker';
 import { lazy, Suspense } from 'react';
+import { seoConfig } from '../seo/seoConfig';
 
 // Lazy load below-the-fold ContactSection to reduce initial bundle
 const ContactSection = lazy(() => import('./ContactSection'));
@@ -38,25 +40,25 @@ const Hero: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const HeroImg = '/images/hero_imgg.png';
-  const CSMimg = '/images/Image.png';
+  const HeroImg = '/images/hero_imgg.webp';
+  const CSMimg = '/images/Image.webp';
 
   // STATS DATA - KEEPING YOUR ORIGINAL DATA
   const leftStats = [
     {
-      icon: <img src={ImgCo} alt="" loading="lazy" decoding="async" />,
+      icon: <img src={ImgCo} alt="Brandgoto startup growth metrics icon" loading="lazy" decoding="async" />,
       label: 'Complete Solutions Delivered',
       value: '150+',
       change: '81%',
     },
     {
-      icon: <img src={ImgDi} alt="" loading="lazy" decoding="async" />,
+      icon: <img src={ImgDi} alt="Brandgoto venture-scale performance icon" loading="lazy" decoding="async" />,
       label: 'Businesses Launched & Scaled',
       value: '50+',
       change: '76%',
     },
     {
-      icon: <img src={ImgCs} alt="" loading="lazy" decoding="async" />,
+      icon: <img src={ImgCs} alt="Brandgoto client success icon for startups" loading="lazy" decoding="async" />,
       label: 'Founders Trust Us',
       value: '99.2%',
       change: '79%',
@@ -113,6 +115,7 @@ const Hero: React.FC = () => {
 
   return (
     <div className="scroll-container bg-black">
+      <SEO {...seoConfig.home} />
       <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isScrolled={isScrolled}/>
       <ScrollToTop />
       <div className="main-content">
@@ -129,17 +132,20 @@ const Hero: React.FC = () => {
               initial="hidden"
               animate="visible"
             >
+              <h1 className="sr-only">
+                Brandgoto | Technical Growth Partner & Startup GTM Infrastructure
+              </h1>
               <motion.span className="sm__txt block mb-3" variants={fadeInUp}>
                 The Technical Growth Partner for Founders
               </motion.span>
 
-              <motion.h1 className="hero-heading" variants={staggerContainer}>
+              <motion.h2 className="hero-heading" variants={staggerContainer}>
                 <motion.span variants={fadeInUp} className="orange">Bold</motion.span>
                 <motion.span variants={fadeInUp} className="teal">Brands</motion.span>
                 <motion.span variants={fadeInUp}>Start</motion.span>
                 <motion.span variants={fadeInUp}>(and Scale)</motion.span>
                 <motion.span variants={fadeInUp}>Here</motion.span>
-              </motion.h1>
+              </motion.h2>
 
               <motion.p className="h__txt text-base sm:text-lg text-gray-300 max-w-2xl mx-auto" variants={fadeInUp}>
                 We deploy high-end branding, performance web, and AI-driven operations that turn early-stage ideas into investor-ready infrastructure.
@@ -198,7 +204,7 @@ const Hero: React.FC = () => {
               >
                 <motion.img
                   src={HeroImg}
-                  alt="Profile"
+                  alt="Brandgoto technical growth partner profile"
                   className="middle-image"
                   loading="eager"
                   fetchPriority="high"
@@ -225,7 +231,7 @@ const Hero: React.FC = () => {
                     <div className="right-card-dot shadow-glow" />
                     <div className="right-card-content">
                       <div className="right-card-arrow-container">
-                        <img src={BigArr} className="right-card-arrow" alt="" loading="lazy" decoding="async" />
+                        <img src={BigArr} className="right-card-arrow" alt="Growth metrics arrow indicator" loading="lazy" decoding="async" />
                       </div>
                       <div className="right-card-texts">
                         <p className="right-card-label">{stat.label}</p>
@@ -233,7 +239,7 @@ const Hero: React.FC = () => {
                       </div>
                       <div className="right-card-change">
                         <span>{stat.value}</span>
-                        <img src={TinArr} alt="" loading="lazy" decoding="async" />
+                        <img src={TinArr} alt="Performance trend indicator" loading="lazy" decoding="async" />
                       </div>
                     </div>
                   </motion.div>

@@ -5,8 +5,12 @@ import Navbar from '../components/Navbar';
 import ScrollToTop from '../components/ScrollToTop';
 import Footer from '../components/Footer';
 import TechTicker from '../components/TechTicker';
+import SEO from '../components/SEO';
+import Breadcrumbs from '../components/Breadcrumbs';
 import '../components/Hero.css';
 import '../components/Herotwo.css';
+import '../components/Breadcrumbs.css';
+import { seoConfig } from '../seo/seoConfig';
 
 const Launchpad: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -62,7 +66,9 @@ const Launchpad: React.FC = () => {
 
   return (
     <div className="scroll-container bg-black">
+      <SEO {...seoConfig.launchpad} />
       <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isScrolled={isScrolled} />
+      <Breadcrumbs />
       <ScrollToTop />
       <div className="main-content">
         {/* Hero Section */}
@@ -75,17 +81,20 @@ const Launchpad: React.FC = () => {
               initial="visible"
               animate="visible"
             >
+              <h1 className="sr-only">
+                14-Day GTM Launchpad | Investor-Ready Brand & Web for Startups
+              </h1>
               <motion.span className="section-subtitle" variants={fadeInUp}>
                 The 14-Day GTM Launchpad
               </motion.span>
-              <motion.h1 className="herotwo-heading" variants={fadeInUp}>
+              <motion.h2 className="herotwo-heading" variants={fadeInUp}>
                 <span>From</span>
                 <span>Idea</span>
                 <span>to</span>
                 <span>Investor-Ready</span>
-              </motion.h1>
+              </motion.h2>
               <motion.p className="section-description" variants={fadeInUp}>
-                A complete transformation in 14 days. High-end branding, performance web, and AI-driven operations that turn early-stage ideas into investor-ready infrastructure.
+                A complete transformation in 14 days. GTM (Go-to-Market) Infrastructure with investor-ready branding, performance Webflow and Next.js development, and AI-Ops and workflow automation.
               </motion.p>
             </motion.div>
           </div>
@@ -115,19 +124,19 @@ const Launchpad: React.FC = () => {
                   {
                     icon: <i className="fas fa-paint-brush text-4xl text-[#F75F0B]"></i>,
                     title: 'High-End Brand Identity',
-                    desc: 'Strategic positioning and visual systems that make your brand unforgettable.',
+                    desc: 'Investor-Ready Branding that positions you for venture-backed growth.',
                     features: ['Logo Design', 'Brand Guidelines', 'Visual Identity System']
                   },
                   {
                     icon: <i className="fas fa-code text-4xl text-[#2FA0B5]"></i>,
                     title: 'Performance Web',
-                    desc: 'Conversion-optimized sites on Webflow/Next.js built for speed and results.',
+                    desc: 'Performance Webflow and Next.js Development built for speed and venture-scale growth.',
                     features: ['Mobile-First Design', 'SEO Optimization', 'Fast Load Times']
                   },
                   {
                     icon: <i className="fas fa-layer-group text-4xl text-[#F75F0B]"></i>,
                     title: 'Growth Stack',
-                    desc: 'Automated lead capture and CRM integration to scale your operations.',
+                    desc: 'AI-Ops and workflow automation for lead capture, CRM, and scaling operations.',
                     features: ['Lead Forms', 'CRM Setup', 'Analytics Integration']
                   }
                 ].map((item, i) => (

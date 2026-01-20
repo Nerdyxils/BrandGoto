@@ -4,9 +4,11 @@ import Navbar from '../components/Navbar';
 import ScrollToTop from '../components/ScrollToTop';
 import Footer from '../components/Footer';
 import TestimonialsSection from '../components/TestimonialsSection';
+import SEO from '../components/SEO';
 import '../components/Hero.css';
 import '../components/Herotwo.css';
 import '../components/TestimonialsSection.css';
+import { seoConfig } from '../seo/seoConfig';
 
 const SuccessStories: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -56,6 +58,7 @@ const SuccessStories: React.FC = () => {
 
   return (
     <div className="scroll-container">
+      <SEO {...seoConfig.successStories} />
       <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isScrolled={isScrolled} />
       <ScrollToTop />
       <motion.div
@@ -121,7 +124,7 @@ const SuccessStories: React.FC = () => {
                 <motion.div className="case-study-card" variants={fadeInUp}>
                   <div className="case-study-content">
                     <div className="case-study-header">
-                      <img src="/images/Nexora.png" alt="Nexora Logo" className="company-logo" />
+                      <img src="/images/Nexora.webp" alt="Nexora Logo" className="company-logo" />
                       <h3 className="sm__txt">Nexora - Digital Transformation</h3>
                     </div>
                     <p className="h__txt">
@@ -155,7 +158,7 @@ const SuccessStories: React.FC = () => {
                 <motion.div className="case-study-card" variants={fadeInUp}>
                   <div className="case-study-content">
                     <div className="case-study-header">
-                      <img src="/images/Neuralabs.png" alt="NeuraForm Labs Logo" className="company-logo" />
+                      <img src="/images/Neuralabs.webp" alt="NeuraForm Labs Logo" className="company-logo" />
                       <h3 className="sm__txt">NeuraForm Labs - Brand Evolution</h3>
                     </div>
                     <p className="h__txt">

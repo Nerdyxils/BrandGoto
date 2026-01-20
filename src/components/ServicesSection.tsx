@@ -1,14 +1,14 @@
 import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import Imgwd from '../assets/WebDev.png';
-import Imgdm from '../assets/Domain.png';
-import Imgdigm from '../assets/DigitalM.png';
-import Imggd from '../assets/Graph.png';
-import Imgcd from '../assets/Creative.png';
-import Imgbi from '../assets/BIdentity.png';
-import Imgmk from '../assets/Frame-icons.png';
-// You'll need a mobile app icon - suggest adding: import ImgApp from '../assets/MobileApp.png';
+import Imgwd from '../assets/WebDev.webp';
+import Imgdm from '../assets/Domain.webp';
+import Imgdigm from '../assets/DigitalM.webp';
+import Imggd from '../assets/Graph.webp';
+import Imgcd from '../assets/Creative.webp';
+import Imgbi from '../assets/BIdentity.webp';
+import Imgmk from '../assets/Frame-icons.webp';
+// You'll need a mobile app icon - suggest adding: import ImgApp from '../assets/MobileApp.webp';
 import './ServicesSection.css';
 
 const ServicesSection: React.FC = () => {
@@ -115,6 +115,18 @@ const ServicesSection: React.FC = () => {
               variants={fadeInUp}
             >
               Your one-stop creative partner. From startup idea to scaling business—we handle the creative, tech, and AI systems so you can focus on growth.
+            </motion.p>
+
+            <motion.p className="text-sm text-gray-400 mt-4" variants={fadeInUp}>
+              Explore our GTM (Go-to-Market) Infrastructure on the{' '}
+              <Link to="/launchpad" onClick={scrollToTop} className="text-[#F75F0B] hover:text-[#ff8555] underline">
+                14-Day Launchpad
+              </Link>{' '}
+              and scale with{' '}
+              <Link to="/engineering" onClick={scrollToTop} className="text-[#2FA0B5] hover:text-[#3fb8d0] underline">
+                Fractional CTO Services
+              </Link>
+              .
             </motion.p>
           </motion.div>
 

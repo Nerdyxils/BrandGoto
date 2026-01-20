@@ -4,7 +4,7 @@
   @apply py-16 px-4 sm:py-20 sm:px-8 lg:py-28;
   padding-bottom: 0;
   font-family: 'Poppins', sans-serif;
-  background-image: url('../assets/Pattern.png');
+  background-image: url('../assets/Pattern.webp');
   background-size: cover;
   background-position: center;
   position: relative;

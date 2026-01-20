@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './ContactSection.css';
 import { motion, AnimatePresence } from 'framer-motion';
-import patternBg from '../assets/Pattern.png';
+import patternBg from '../assets/Pattern.webp';
 import LogoImg from '../assets/logo.svg';
 import ConfirmationModal from './ConfirmationModal';
 
@@ -66,10 +66,10 @@ const ContactSection: React.FC = () => {
 
   // Logo data
   const logos: LogoData[] = [
-    { src: "/images/higherglyphs1.png", alt: "Higher Glyphs" },
+    { src: "/images/higherglyphs1.webp", alt: "Higher Glyphs" },
     { src: "/images/smt.webp", alt: "SMT" },
-    { src: "/images/Neuralabs.png", alt: "Neuralabs" },
-    { src: "/images/herlogo.png", alt: "Jayo" }
+    { src: "/images/Neuralabs.webp", alt: "Neuralabs" },
+    { src: "/images/herlogo.webp", alt: "Jayo" }
   ];
 
   // Calculate exact dimensions based on screen size
@@ -615,7 +615,7 @@ const ContactSection: React.FC = () => {
         />
 
         <div className="form-image">
-          <img src="/images/client.png" alt="Happy Client" />
+          <img src="/images/client.webp" alt="Happy Client" />
         </div>
       </motion.div>
 

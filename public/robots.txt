@@ -11,4 +11,3 @@ Allow: /browserconfig.xml
 
 # Sitemap
 Sitemap: https://www.brandgoto.com/sitemap.xml
-Sitemap: https://www.brandgoto.ca/sitemap.xml

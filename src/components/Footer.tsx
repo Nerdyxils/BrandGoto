@@ -17,10 +17,10 @@ const Footer: React.FC = () => {
 
   // Logo data
   const logos: LogoData[] = [
-    { src: "/images/higherglyphs1.png", alt: "Higher Glyphs" },
+    { src: "/images/higherglyphs1.webp", alt: "Higher Glyphs" },
     { src: "/images/smt.webp", alt: "SMT" },
-    { src: "/images/Neuralabs.png", alt: "Neuralabs" },
-    { src: "/images/herlogo.png", alt: "Jayo" }
+    { src: "/images/Neuralabs.webp", alt: "Neuralabs" },
+    { src: "/images/herlogo.webp", alt: "Jayo" }
   ];
 
   // Calculate exact dimensions based on screen size

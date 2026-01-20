@@ -4,9 +4,11 @@ import Navbar from '../components/Navbar';
 import ScrollToTop from '../components/ScrollToTop';
 import Footer from '../components/Footer';
 import ProjectCarousel from '../components/ProjectCarousel';
+import SEO from '../components/SEO';
 import '../components/Hero.css';
 import '../components/Herotwo.css';
 import '../components/RecentProjects.css';
+import { seoConfig } from '../seo/seoConfig';
 
 const ThingsWeBuilt: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -60,7 +62,7 @@ const ThingsWeBuilt: React.FC = () => {
       title: 'Prodex – Inventory & Product Management System',
       category: 'Web Application',
       tech: 'MERN Stack',
-      image: '/images/projectA.png',
+      image: '/images/projectA.webp',
       description: 'Built a comprehensive inventory and product management system using the MERN stack. The platform allows businesses to track stock levels, manage product listings, and generate reports.',
       features: ['Role-based authentication', 'Real-time data updates', 'CRUD operations', 'Scalable architecture']
     },
@@ -69,7 +71,7 @@ const ThingsWeBuilt: React.FC = () => {
       title: 'CoinVers – Cryptocurrency Tracking Platform',
       category: 'Web Application',
       tech: 'React, Python, Django',
-      image: '/images/projectB.png',
+      image: '/images/projectB.webp',
       description: 'Developed a cryptocurrency tracking and analytics platform using React for the frontend and Django with Django REST Framework for the backend.',
       features: ['Real-time price updates', 'Interactive charts', 'Portfolio tracking', 'Third-party API integration']
     },
@@ -78,7 +80,7 @@ const ThingsWeBuilt: React.FC = () => {
       title: 'Dala – Fancy Landing Page',
       category: 'Website',
       tech: 'React + Next.js, GSAP',
-      image: '/images/Dala.png',
+      image: '/images/Dala.webp',
       description: 'Developed a fancy landing page with smooth scroll animations and modern design elements.',
       features: ['Smooth scroll animations', 'Modern design', 'Performance optimized', 'Responsive layout']
     },
@@ -87,7 +89,7 @@ const ThingsWeBuilt: React.FC = () => {
       title: 'Jayo – Tech Consulting Website',
       category: 'Website',
       tech: 'ReactJS, NextJs, Tailwind',
-      image: '/images/projectE.png',
+      image: '/images/projectE.webp',
       description: 'We proudly delivered a fully functional, high-performance ReactJS website for JAYO, a forward-thinking tech consulting firm based in the USA.',
       features: ['High performance', 'Modern UI/UX', 'SEO optimized', 'Fast loading']
     },
@@ -96,7 +98,7 @@ const ThingsWeBuilt: React.FC = () => {
       title: 'Multi-featured Shopping Site',
       category: 'E-commerce',
       tech: 'Vue, Django',
-      image: '/images/projectF.png',
+      image: '/images/projectF.webp',
       description: 'Developed a modern e-commerce platform using Vue.js for the frontend and Django for the backend.',
       features: ['User authentication', 'Shopping cart', 'Payment integration', 'Order tracking']
     },
@@ -105,7 +107,7 @@ const ThingsWeBuilt: React.FC = () => {
       title: 'BizWorld – Business News Website',
       category: 'Content Platform',
       tech: 'WordPress',
-      image: '/images/projectG.png',
+      image: '/images/projectG.webp',
       description: 'Designed and developed a dynamic business news and blog website using WordPress.',
       features: ['Custom theme', 'SEO optimized', 'Content management', 'Newsletter integration']
     }
@@ -124,6 +126,7 @@ const ThingsWeBuilt: React.FC = () => {
 
   return (
     <div className="scroll-container">
+      <SEO {...seoConfig.thingsWeBuilt} />
       <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isScrolled={isScrolled} />
       <ScrollToTop />
       <motion.div
