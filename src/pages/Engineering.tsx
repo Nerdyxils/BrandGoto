@@ -6,10 +6,8 @@ import ScrollToTop from '../components/ScrollToTop';
 import Footer from '../components/Footer';
 import TechTicker from '../components/TechTicker';
 import SEO from '../components/SEO';
-import Breadcrumbs from '../components/Breadcrumbs';
 import '../components/Hero.css';
 import '../components/Herotwo.css';
-import '../components/Breadcrumbs.css';
 import { seoConfig } from '../seo/seoConfig';
 
 const Engineering: React.FC = () => {
@@ -80,7 +78,6 @@ const Engineering: React.FC = () => {
     <div className="scroll-container bg-black">
       <SEO {...seoConfig.engineering} />
       <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isScrolled={isScrolled} />
-      <Breadcrumbs />
       <ScrollToTop />
       <div className="main-content">
         {/* Hero Section */}
