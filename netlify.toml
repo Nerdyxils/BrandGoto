@@ -7,7 +7,7 @@
   secrets_scan_omit_keys = ["**"]
 
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "20.19.0"
   SECRETS_SCAN_ENABLED = "false"
   # Environment variables are set in Netlify dashboard
   # OPENAI_API_KEY = "set in dashboard"
