@@ -478,6 +478,9 @@
   align-items: center;
   flex-wrap: wrap;
   justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .cta-button {
@@ -490,8 +493,23 @@
   text-decoration: none;
   font-size: clamp(0.875rem, 2vw, 1rem);
   white-space: nowrap;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  box-sizing: border-box;
+  overflow: hidden;
+  min-width: 0;
+  max-width: 100%;
+  line-height: 1.2;
+  position: relative;
+  width: auto;
+}
+
+.cta-button,
+.cta-button * {
+  text-align: center;
+  vertical-align: middle;
 }
 
 .cta-button:hover {
@@ -591,5 +609,13 @@
     padding: 1rem 1.5rem;
     font-size: 0.95rem;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    overflow: hidden;
+    white-space: normal; /* Allow wrapping on mobile if needed */
+    word-wrap: break-word;
+    hyphens: auto;
   }
 }
