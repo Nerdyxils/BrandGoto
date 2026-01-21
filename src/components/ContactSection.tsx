@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './ContactSection.css';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import patternBg from '../assets/Pattern.webp';
 import ConfirmationModal from './ConfirmationModal';
 
