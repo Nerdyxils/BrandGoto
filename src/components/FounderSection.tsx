@@ -40,19 +40,17 @@ const FounderSection: React.FC = () => {
               About Us
             </motion.p>
             <motion.h2 className="founder-title" variants={fadeInUp}>
-              <span className="orange">Meet</span> the <span className="teal">Team</span>
+              <span className="orange">Meet</span> the <span className="teal">Technical Architect</span>
             </motion.h2>
             
             <motion.blockquote className="founder-quote" variants={fadeInUp}>
               <span className="quote-mark">"</span>
               <p className="quote-text">
-                Creative Minds. Tech Hearts. We're a small but mighty remote-first team of creatives and tech enthusiasts serving founders globally,
-                passionate about helping brands stand out. Whether you're just starting out or looking to refresh your look, we
-                bring strategy, design, and a whole lot of heart into everything we do.
+                Creative Minds. Technical Infrastructure. We are an elite, remote-first studio of architects and engineers serving venture-backed founders globally. We bridge the gap between visionary brand strategy and high-performance technical execution. Whether you are preparing for a seed round or scaling to Series A, we deploy the infrastructure that turns early-stage ideas into investor-ready assets.
               </p>
               <footer className="quote-author">
                 <strong>Silas</strong>
-                <span>Founder & Full Stack Developer</span>
+                <span>Founding Partner & Lead Architect</span>
               </footer>
             </motion.blockquote>
           </motion.div>
@@ -65,7 +63,7 @@ const FounderSection: React.FC = () => {
             <div className="founder-image-wrapper">
               <img 
                 src="/images/Founder.webp" 
-                alt="Silas - Founder & Full Stack Developer" 
+                alt="Silas - Founding Partner & Lead Architect" 
                 className="founder-image"
                 loading="lazy"
                 decoding="async"
