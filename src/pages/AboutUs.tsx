@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import ScrollToTop from '../components/ScrollToTop';
 import Footer from '../components/Footer';
@@ -90,14 +91,91 @@ const AboutUs: React.FC = () => {
                 <span>Growth</span>
               </motion.h1>
 
-              <motion.p className="section-description" variants={fadeInUp}>
-                The Technical Growth Partner for Founders. Brandgoto is a Global Technical Studio that deploys high-end branding, performance web, and AI-driven operations for US-based startups.
+              <motion.p className="section-description text-lg" variants={fadeInUp}>
+                We bridge the gap between visionary brand strategy and high-performance technical execution for North American founders.
               </motion.p>
             </motion.div>
           </div>
         </section>
 
-        {/* Story Section */}
+        {/* Global Engine Section */}
+        <section className="section-standard bg-[#0a0a0a]">
+          <div className="container">
+            <motion.div
+              className="content-wrapper"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
+              <motion.div className="section-header mb-12">
+                <motion.h2 className="herotwo-heading" variants={fadeInUp}>
+                  <span>The</span>
+                  <span>Global</span>
+                  <span>Engine</span>
+                </motion.h2>
+              </motion.div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Strategy Column */}
+                <motion.div className="bg-[#111] p-8 rounded-xl border border-[#F75F0B]" variants={fadeInUp}>
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-12 h-12 bg-[#F75F0B] rounded-lg flex items-center justify-center">
+                      <i className="fas fa-chess text-white text-xl" aria-hidden="true"></i>
+                    </div>
+                    <h3 className="text-2xl font-bold text-white">US-Aligned Strategy & Architecture</h3>
+                  </div>
+                  <p className="text-gray-300 leading-relaxed mb-4">
+                    Our Lead Architect ensures every line of code serves a business growth goal. We don't build features—we build infrastructure that compounds value.
+                  </p>
+                  <ul className="space-y-3 mt-6">
+                    <li className="flex items-start gap-3 text-gray-300">
+                      <i className="fas fa-check text-[#F75F0B] mt-1" aria-hidden="true"></i>
+                      <span>Strategic technical roadmapping</span>
+                    </li>
+                    <li className="flex items-start gap-3 text-gray-300">
+                      <i className="fas fa-check text-[#F75F0B] mt-1" aria-hidden="true"></i>
+                      <span>Business-aligned architecture decisions</span>
+                    </li>
+                    <li className="flex items-start gap-3 text-gray-300">
+                      <i className="fas fa-check text-[#F75F0B] mt-1" aria-hidden="true"></i>
+                      <span>Investor-ready technical documentation</span>
+                    </li>
+                  </ul>
+                </motion.div>
+
+                {/* Execution Column */}
+                <motion.div className="bg-[#111] p-8 rounded-xl border border-[#2FA0B5]" variants={fadeInUp}>
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-12 h-12 bg-[#2FA0B5] rounded-lg flex items-center justify-center">
+                      <i className="fas fa-cogs text-white text-xl" aria-hidden="true"></i>
+                    </div>
+                    <h3 className="text-2xl font-bold text-white">European Engineering Excellence</h3>
+                  </div>
+                  <p className="text-gray-300 leading-relaxed mb-4">
+                    An elite engineering team providing high-speed, 24/7 delivery cycles. We ship faster than traditional agencies while maintaining enterprise-grade quality.
+                  </p>
+                  <ul className="space-y-3 mt-6">
+                    <li className="flex items-start gap-3 text-gray-300">
+                      <i className="fas fa-check text-[#2FA0B5] mt-1" aria-hidden="true"></i>
+                      <span>24/7 development cycles</span>
+                    </li>
+                    <li className="flex items-start gap-3 text-gray-300">
+                      <i className="fas fa-check text-[#2FA0B5] mt-1" aria-hidden="true"></i>
+                      <span>Enterprise-grade code quality</span>
+                    </li>
+                    <li className="flex items-start gap-3 text-gray-300">
+                      <i className="fas fa-check text-[#2FA0B5] mt-1" aria-hidden="true"></i>
+                      <span>Rapid iteration and deployment</span>
+                    </li>
+                  </ul>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Founder Spotlight */}
         <section className="section-standard">
           <div className="container">
             <motion.div
@@ -107,40 +185,121 @@ const AboutUs: React.FC = () => {
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
             >
-              <motion.div className="section-header">
+              <motion.div className="section-header mb-12">
                 <motion.h2 className="herotwo-heading" variants={fadeInUp}>
-                  <span>Our</span>
-                  <span>Story</span>
+                  <span>The</span>
+                  <span>Technical</span>
+                  <span>Architect</span>
                 </motion.h2>
               </motion.div>
               
-              <motion.div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mt-12" variants={fadeInUp}>
-                <div className="text-left space-y-6">
-                  <p className="text-gray-400 text-lg leading-relaxed">
-                    Brandgoto was built to bridge the gap between strategic brand positioning and technical execution. We saw too many founders struggling with disconnected agencies—so we built a studio that handles it all under one roof.
-                  </p>
-                  <p className="text-gray-400 text-lg leading-relaxed">
-                    Our model is built for speed: US-aligned strategy meets European engineering excellence. This allows us to ship high-performance infrastructure at a pace that keeps startups ahead of their technical debt and ready for their next round.
-                  </p>
+              <motion.div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center" variants={fadeInUp}>
+                <div className="space-y-6">
+                  <div className="bg-[#111] p-6 rounded-xl border border-white/10">
+                    <h3 className="text-xl font-bold text-white mb-4">Silas — From Lone Wolf to Studio Lead</h3>
+                    <p className="text-gray-300 leading-relaxed mb-4">
+                      The transition from solo developer to studio founder wasn't just about scaling—it was about eliminating technical debt for startups at scale.
+                    </p>
+                    <p className="text-gray-300 leading-relaxed">
+                      With a track record of <span className="text-[#F75F0B] font-semibold">150+ solutions delivered</span>, the mission is clear: bridge the gap between visionary strategy and bulletproof execution.
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="bg-[#111] p-4 rounded-lg border border-white/10 text-center">
+                      <div className="text-3xl font-bold text-[#F75F0B] mb-2">150+</div>
+                      <div className="text-sm text-gray-400 uppercase tracking-wider">Solutions</div>
+                    </div>
+                    <div className="bg-[#111] p-4 rounded-lg border border-white/10 text-center">
+                      <div className="text-3xl font-bold text-[#2FA0B5] mb-2">100%</div>
+                      <div className="text-sm text-gray-400 uppercase tracking-wider">Zero Debt</div>
+                    </div>
+                  </div>
                 </div>
-                <div className="bg-[#111] p-8 rounded-xl border border-white/10">
-                  <h3 className="section-subtitle mb-6">Why We're Different</h3>
-                  <ul className="space-y-4">
-                    <li className="flex items-start gap-3 text-gray-300">
-                      <span className="text-[#F75F0B] font-bold">→</span>
-                      <span>Complete solutions, not just design or just code</span>
-                    </li>
-                    <li className="flex items-start gap-3 text-gray-300">
-                      <span className="text-[#F75F0B] font-bold">→</span>
-                      <span>Built for speed and scalability from day one</span>
-                    </li>
-                    <li className="flex items-start gap-3 text-gray-300">
-                      <span className="text-[#F75F0B] font-bold">→</span>
-                      <span>Focus on results, not just aesthetics</span>
-                    </li>
-                  </ul>
+                <div className="bg-[#111] p-8 rounded-xl border border-[#2FA0B5]">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-16 h-16 bg-[#2FA0B5] rounded-lg flex items-center justify-center">
+                      <i className="fas fa-user-tie text-white text-2xl" aria-hidden="true"></i>
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-bold text-white">Technical Architect</h4>
+                      <p className="text-gray-400 text-sm">Founder & Full Stack Developer</p>
+                    </div>
+                  </div>
+                  <p className="text-gray-300 leading-relaxed">
+                    Every architecture decision is made with one question: <span className="text-white font-semibold">"Does this serve the business goal?"</span> Not just code—strategic infrastructure.
+                  </p>
                 </div>
               </motion.div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Process Timeline */}
+        <section className="section-standard bg-[#0a0a0a]">
+          <div className="container">
+            <motion.div
+              className="content-wrapper"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
+              <motion.div className="section-header mb-12">
+                <motion.h2 className="herotwo-heading" variants={fadeInUp}>
+                  <span>Our</span>
+                  <span>Process</span>
+                </motion.h2>
+              </motion.div>
+              
+              <div className="max-w-3xl mx-auto space-y-8">
+                {[
+                  {
+                    step: '01',
+                    title: 'Architecture',
+                    desc: 'Mapping the GTM infrastructure. We analyze your business goals, technical requirements, and growth trajectory to design a scalable architecture that eliminates future technical debt.',
+                    icon: 'fa-sitemap',
+                    color: '#F75F0B'
+                  },
+                  {
+                    step: '02',
+                    title: 'Engineering',
+                    desc: 'High-velocity building with Next.js/Webflow. Our European engineering team delivers enterprise-grade code at startup speed—3x faster than traditional agencies.',
+                    icon: 'fa-code',
+                    color: '#2FA0B5'
+                  },
+                  {
+                    step: '03',
+                    title: 'Automation',
+                    desc: 'Deploying the AI-Ops layer for scale. We integrate custom AI workflows, CRM automation, and intelligent systems that remove manual friction and compound growth.',
+                    icon: 'fa-robot',
+                    color: '#F75F0B'
+                  }
+                ].map((item, i) => (
+                  <motion.div
+                    key={i}
+                    className="flex gap-6 items-start"
+                    variants={fadeInUp}
+                  >
+                    <div className="flex-shrink-0">
+                      <div className="w-16 h-16 bg-[#111] border border-white/10 rounded-lg flex items-center justify-center">
+                        <span className="text-2xl font-bold" style={{ color: item.color }}>{item.step}</span>
+                      </div>
+                      {i < 2 && (
+                        <div className="w-px h-16 bg-white/10 mx-auto mt-2"></div>
+                      )}
+                    </div>
+                    <div className="flex-1 bg-[#111] p-6 rounded-xl border border-white/10">
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${item.color}20` }}>
+                          <i className={`fas ${item.icon}`} style={{ color: item.color }} aria-hidden="true"></i>
+                        </div>
+                        <h3 className="text-xl font-bold text-white">{item.title}</h3>
+                      </div>
+                      <p className="text-gray-300 leading-relaxed">{item.desc}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </motion.div>
           </div>
         </section>
@@ -197,29 +356,77 @@ const AboutUs: React.FC = () => {
           </div>
         </section>
 
-        {/* Stats Section */}
-        <section className="section-standard">
+        {/* Studio Stats Banner */}
+        <section className="section-standard bg-[#0a0a0a] border-t border-b border-white/10">
           <div className="container">
             <motion.div
-              className="grid grid-cols-1 sm:grid-cols-3 gap-8"
+              className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 py-8"
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
             >
-              <motion.div className="bg-[#111] p-10 border border-white/10 rounded-xl text-center group hover:border-[#F75F0B] transition-all" variants={fadeInUp}>
-                <span className="text-5xl font-extrabold text-[#F75F0B] block mb-2 group-hover:scale-105 transition-transform">150+</span>
-                <span className="text-gray-400 font-bold uppercase tracking-widest text-sm">Complete Solutions</span>
+              <motion.div className="text-center" variants={fadeInUp}>
+                <div className="text-3xl md:text-4xl font-bold text-[#F75F0B] mb-2">150+</div>
+                <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Solutions Delivered</div>
               </motion.div>
               
-              <motion.div className="bg-[#111] p-10 border border-white/10 rounded-xl text-center group hover:border-[#2FA0B5] transition-all" variants={fadeInUp}>
-                <span className="text-5xl font-extrabold text-[#2FA0B5] block mb-2 group-hover:scale-105 transition-transform">3x</span>
-                <span className="text-gray-400 font-bold uppercase tracking-widest text-sm">Faster Delivery</span>
+              <motion.div className="text-center" variants={fadeInUp}>
+                <div className="text-3xl md:text-4xl font-bold text-[#2FA0B5] mb-2">3x</div>
+                <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Faster Delivery</div>
               </motion.div>
               
-              <motion.div className="bg-[#111] p-10 border border-white/10 rounded-xl text-center group hover:border-white transition-all" variants={fadeInUp}>
-                <span className="text-5xl font-extrabold text-white block mb-2 group-hover:scale-105 transition-transform">100%</span>
-                <span className="text-gray-400 font-bold uppercase tracking-widest text-sm">Success Rate</span>
+              <motion.div className="text-center" variants={fadeInUp}>
+                <div className="text-3xl md:text-4xl font-bold text-white mb-2">100%</div>
+                <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Success Rate</div>
+              </motion.div>
+              
+              <motion.div className="text-center" variants={fadeInUp}>
+                <div className="text-3xl md:text-4xl font-bold text-[#F75F0B] mb-2">24/7</div>
+                <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Global Engineering</div>
+              </motion.div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Sophisticated CTAs */}
+        <section className="section-standard">
+          <div className="container">
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
+              <motion.div
+                className="bg-[#111] p-8 rounded-xl border border-[#F75F0B] text-center hover:bg-[#F75F0B]/5 transition-all"
+                variants={fadeInUp}
+              >
+                <i className="fas fa-rocket text-4xl text-[#F75F0B] mb-4" aria-hidden="true"></i>
+                <h3 className="text-xl font-bold text-white mb-3">Start Your 14-Day Sprint</h3>
+                <p className="text-gray-400 mb-6 text-sm">From idea to investor-ready infrastructure in 14 days.</p>
+                <Link
+                  to="/launchpad"
+                  className="inline-block bg-[#F75F0B] text-white px-8 py-3 rounded-lg font-bold hover:bg-[#ff8555] transition-all"
+                >
+                  View Launchpad
+                </Link>
+              </motion.div>
+
+              <motion.div
+                className="bg-[#111] p-8 rounded-xl border border-[#2FA0B5] text-center hover:bg-[#2FA0B5]/5 transition-all"
+                variants={fadeInUp}
+              >
+                <i className="fas fa-code-branch text-4xl text-[#2FA0B5] mb-4" aria-hidden="true"></i>
+                <h3 className="text-xl font-bold text-white mb-3">Discuss Technical Architecture</h3>
+                <p className="text-gray-400 mb-6 text-sm">Fractional CTO services and high-performance engineering.</p>
+                <Link
+                  to="/engineering"
+                  className="inline-block bg-[#2FA0B5] text-white px-8 py-3 rounded-lg font-bold hover:bg-[#3bb0c5] transition-all"
+                >
+                  View Engineering
+                </Link>
               </motion.div>
             </motion.div>
           </div>

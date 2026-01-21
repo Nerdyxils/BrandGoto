@@ -309,6 +309,96 @@ const Hero: React.FC = () => {
           </div>
         </section>
 
+        {/* EMPATHY & PAIN BLOCK */}
+        <motion.section 
+          className="section-standard bg-[#0a0a0a]"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          <div className="container mx-auto">
+            <motion.div className="section-header text-center mb-12" variants={fadeInUp}>
+              <motion.h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+                Execution is Draining Your Growth.
+              </motion.h2>
+            </motion.div>
+
+            {/* Stats Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              {[
+                { value: '80%', label: 'Time spent on admin' },
+                { value: '90%', label: 'Tasks that don\'t scale' },
+                { value: '95%', label: 'Manual processes' },
+              ].map((stat, i) => (
+                <motion.div
+                  key={i}
+                  className="bg-[#111] p-6 border border-white/10 text-center"
+                  variants={fadeInUp}
+                >
+                  <div className="text-4xl font-bold text-[#F75F0B] mb-2">{stat.value}</div>
+                  <div className="text-gray-400 text-sm uppercase tracking-wider">{stat.label}</div>
+                </motion.div>
+              ))}
+            </div>
+
+            <motion.p className="text-center text-gray-300 text-lg max-w-2xl mx-auto mb-12" variants={fadeInUp}>
+              Most founders spend 80% of their time on tasks that don't scale. You're doing what AI should be doing.
+            </motion.p>
+
+            {/* Comparison Table */}
+            <motion.div className="comparison-table" variants={fadeInUp}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Traditional Agency */}
+                <div className="bg-[#111] p-6 border border-white/10">
+                  <h3 className="text-xl font-bold text-white mb-4 uppercase">Traditional Agency</h3>
+                  <ul className="space-y-3">
+                    <li className="flex items-start gap-2 text-gray-400">
+                      <i className="fas fa-times text-[#F75F0B] mt-1" aria-hidden="true"></i>
+                      <span>Months of development</span>
+                    </li>
+                    <li className="flex items-start gap-2 text-gray-400">
+                      <i className="fas fa-times text-[#F75F0B] mt-1" aria-hidden="true"></i>
+                      <span>Multiple agencies</span>
+                    </li>
+                    <li className="flex items-start gap-2 text-gray-400">
+                      <i className="fas fa-times text-[#F75F0B] mt-1" aria-hidden="true"></i>
+                      <span>Manual processes</span>
+                    </li>
+                    <li className="flex items-start gap-2 text-gray-400">
+                      <i className="fas fa-times text-[#F75F0B] mt-1" aria-hidden="true"></i>
+                      <span>Hidden costs</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Brandgoto Studio */}
+                <div className="bg-[#111] p-6 border border-[#2FA0B5]">
+                  <h3 className="text-xl font-bold text-white mb-4 uppercase">Brandgoto Studio</h3>
+                  <ul className="space-y-3">
+                    <li className="flex items-start gap-2 text-white">
+                      <i className="fas fa-check text-[#2FA0B5] mt-1" aria-hidden="true"></i>
+                      <span>14-day strategic sprints</span>
+                    </li>
+                    <li className="flex items-start gap-2 text-white">
+                      <i className="fas fa-check text-[#2FA0B5] mt-1" aria-hidden="true"></i>
+                      <span>Unified technical partner</span>
+                    </li>
+                    <li className="flex items-start gap-2 text-white">
+                      <i className="fas fa-check text-[#2FA0B5] mt-1" aria-hidden="true"></i>
+                      <span>AI-automated workflows</span>
+                    </li>
+                    <li className="flex items-start gap-2 text-white">
+                      <i className="fas fa-check text-[#2FA0B5] mt-1" aria-hidden="true"></i>
+                      <span>Fixed USD pricing</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </motion.section>
+
         {/* SECTIONS - SIMPLIFIED SMOOTH SCROLL-IN */}
         <motion.section 
           id="about-us"
@@ -384,6 +474,91 @@ const Hero: React.FC = () => {
                 </motion.div>
               ))}
             </div>
+
+            {/* Technical Walkthrough */}
+            <motion.div
+              className="mt-20"
+              variants={fadeInUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
+              <motion.div className="section-header mb-12" variants={fadeInUp}>
+                <motion.span className="section-subtitle">Technical Walkthrough</motion.span>
+                <motion.h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                  See It In Action
+                </motion.h3>
+                <motion.p className="section-description">
+                  Watch how our AI Lead Workflow transforms form submissions into personalized, strategic responses in seconds.
+                </motion.p>
+              </motion.div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-8">
+                {/* Video Container (60%) */}
+                <div className="video-container">
+                  <div className="video-wrapper">
+                    <iframe
+                      src="https://www.youtube.com/embed/_-w6CPPE7Qs"
+                      title="AI Lead Workflow Technical Walkthrough"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="video-iframe"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+
+                {/* System Logic Map (40%) */}
+                <div className="system-logic-container">
+                  <h4 className="system-logic-title">System Logic</h4>
+                  <div className="system-logic-steps">
+                    {[
+                      {
+                        icon: 'fa fa-wpforms',
+                        label: 'Form Filled',
+                        desc: 'Customer submits contact form',
+                      },
+                      {
+                        icon: 'fa fa-bolt',
+                        label: 'Trigger',
+                        desc: 'Make.com activates the workflow',
+                      },
+                      {
+                        icon: 'fab fa-hubspot',
+                        label: 'CRM Sync',
+                        desc: 'Lead created in HubSpot',
+                      },
+                      {
+                        icon: 'fa fa-robot',
+                        label: 'AI Personalization',
+                        desc: 'GPT-4o generates a strategic response',
+                      },
+                      {
+                        icon: 'fa fa-paper-plane',
+                        label: 'Automated Send',
+                        desc: 'Personalized email is delivered instantly',
+                      },
+                      {
+                        icon: 'fa fa-bell',
+                        label: 'Lead Alert',
+                        desc: 'The team is notified for high-touch follow-up',
+                      },
+                    ].map((step, index) => (
+                      <div key={index} className="system-logic-step">
+                        <div className="step-icon-wrapper">
+                          <i className={step.icon} aria-hidden="true" />
+                        </div>
+                        <div className="step-content">
+                          <span className="step-label">{step.label}</span>
+                          <span className="step-desc">{step.desc}</span>
+                        </div>
+                        {index < 5 && <div className="step-connector" />}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </motion.section>
 

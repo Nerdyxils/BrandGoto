@@ -22,14 +22,13 @@
 .card-hover {
   background: #131313;
   border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
+  border-radius: 0;
   padding: 1.5rem;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: border-color 0.3s ease;
 }
 
 .card-hover:hover {
   border-color: #F75F0B;
-  transform: translateY(-5px);
 }
 
 .top_card {
@@ -62,7 +61,7 @@
 
 .highlight-card {
   padding: 2.5rem;
-  border-radius: 16px;
+  border-radius: 12px;
   color: #000;
   display: flex;
   flex-direction: column;
@@ -72,23 +71,25 @@
 
 .highlight-title {
   font-size: 1.5rem;
-  font-weight: 800;
+  font-weight: 700;
   margin-bottom: 1rem;
   text-transform: uppercase;
   letter-spacing: -0.02em;
+  color: #000;
 }
 
 .highlight-description {
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.6;
   margin-bottom: 2rem;
-  opacity: 0.8;
+  color: #000;
+  font-weight: 400;
 }
 
 .out__inner {
   background: rgba(0, 0, 0, 0.05);
   padding: 1.5rem;
-  border-radius: 12px;
+  border-radius: 8px;
   margin-top: auto;
 }
 
@@ -97,6 +98,19 @@
   color: #fff;
   padding: 1rem;
   border-radius: 8px;
+  border: 1px solid;
+}
+
+.inner_points.border-lime-dark {
+  border-color: #b8c03a;
+}
+
+.inner_points.border-purple-dark {
+  border-color: #a896c4;
+}
+
+.inner_points.border-blue-dark {
+  border-color: #a8b8e8;
 }
 
 .highlight-points {
@@ -111,8 +125,14 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  font-size: 0.85rem;
-  font-weight: 600;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+.pill-icon-wrapper i {
+  font-size: 0.875rem;
+  flex-shrink: 0;
 }
 
 /* CTA BUTTONS SECTION */
@@ -184,10 +204,12 @@
   }
 }
 
-/* Highlight card colors */
-.bg-yellow { background-color: #DEE948; }
-.bg-purple { background-color: #D0C6F0; }
-.bg-blue   { background-color: #D4DFFC; }
-.bg-lyellow { background-color: #f2ff3e; }
-.bg-lpurple { background-color: #d9cffa; }
-.bg-lblue   { background-color: #c8d7ff; }
+/* Highlight card colors - Lime, Lavender, Sky Blue */
+.bg-yellow { background-color: #DEE948; } /* Lime */
+.bg-purple { background-color: #D0C6F0; } /* Lavender */
+.bg-blue   { background-color: #D4DFFC; } /* Sky Blue */
+
+/* Border colors for inner black cards - darker versions of backgrounds */
+.border-lime-dark { border-color: #b8c03a; }
+.border-purple-dark { border-color: #a896c4; }
+.border-blue-dark { border-color: #a8b8e8; }

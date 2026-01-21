@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import './ContactSection.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import patternBg from '../assets/Pattern.webp';
-import LogoImg from '../assets/logo.svg';
 import ConfirmationModal from './ConfirmationModal';
 
 // Country codes
@@ -618,91 +617,6 @@ const ContactSection: React.FC = () => {
           <img src="/images/client.webp" alt="Happy Client" />
         </div>
       </motion.div>
-
-      <motion.footer
-        className="footer"
-        variants={fadeInUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-      >
-        {/* FINAL LOGO ANIMATION - COMPLETELY CONTROLLED */}
-        <div className="partners">
-          <div className="brand-partners">
-            <p style={{ 
-              fontWeight: 600, 
-              marginBottom: '2rem', 
-              color: 'white', 
-              textAlign: 'center' 
-            }}>
-              PARTNERED BY THE WORLD'S TOP BRANDS
-            </p>
-            <div style={{
-              overflow: 'hidden',
-              width: '100%',
-              maxWidth: `${dimensions.containerMaxWidth}px`,
-              margin: '0 auto',
-              position: 'relative',
-            }}>
-              <div 
-                ref={logosRef}
-                style={{
-                  display: 'flex',
-                  gap: `${dimensions.gap}px`,
-                  width: 'max-content',
-                  willChange: 'transform',
-                }}
-                onMouseEnter={() => {
-                  if (animationRef.current) {
-                    cancelAnimationFrame(animationRef.current);
-                  }
-                }}
-                onMouseLeave={restartAnimation}
-              >
-                {renderLogos()}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="footer-top">
-          <div className="logo-social">
-            <img src={LogoImg} alt="BrandGoto Official Logo" />
-            <div className="socials">
-              <a href="https://x.com/Brand_goto" target="_blank" rel="noopener noreferrer">
-                <i className="fab fa-x-twitter"></i>
-              </a>
-              <a href="https://www.linkedin.com/company/brandgoto/" target="_blank" rel="noopener noreferrer">
-                <i className="fab fa-linkedin-in"></i>
-              </a>
-              <a href="https://www.instagram.com/brand_goto/" target="_blank" rel="noopener noreferrer">
-                <i className="fab fa-instagram"></i>
-              </a>
-            </div>
-            <p className='copy_w'>© Copyright 2025, All Rights Reserved.</p>
-          </div>
-
-          <div className="signup_txt">
-            <p>Stay updated with BrandGoto insights, industry trends, and exclusive creative resources. Join our community of bold brands.</p>
-          </div>
-
-          <div className="newsletter">
-            <form onSubmit={handleNewsletterSubmit}>
-              <input 
-                type="email" 
-                placeholder="What's your e-mail?" 
-                value={newsletterEmail}
-                onChange={(e) => setNewsletterEmail(e.target.value)}
-                required 
-              />
-              <button type="submit">→</button>
-            </form>
-            <p className="privacy">
-              I confirm that I have read <strong>BrandGoto's Privacy Policy</strong> and agree to receive marketing communications.
-            </p>
-          </div>
-        </div>
-      </motion.footer>
     </section>
   );
 };

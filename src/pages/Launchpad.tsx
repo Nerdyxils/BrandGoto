@@ -6,8 +6,10 @@ import ScrollToTop from '../components/ScrollToTop';
 import Footer from '../components/Footer';
 import TechTicker from '../components/TechTicker';
 import SEO from '../components/SEO';
+import FAQ, { FAQItem } from '../components/FAQ';
 import '../components/Hero.css';
 import '../components/Herotwo.css';
+import '../components/FAQ.css';
 import { seoConfig } from '../seo/seoConfig';
 
 const Launchpad: React.FC = () => {
@@ -60,6 +62,21 @@ const Launchpad: React.FC = () => {
     { day: 'Days 4-7', title: 'Brand Identity & Design', desc: 'Complete brand identity system including logo, color palette, typography, and visual guidelines that reflect your vision.' },
     { day: 'Days 8-11', title: 'Performance Web Build', desc: 'Conversion-optimized website built on Webflow or Next.js with seamless user experience and mobile-first design.' },
     { day: 'Days 12-14', title: 'Launch & Growth Stack', desc: 'Deploy your site, integrate lead capture systems, CRM setup, and analytics. You\'re ready to scale.' },
+  ];
+
+  const faqItems: FAQItem[] = [
+    {
+      question: 'How can you really launch a brand and site in 14 days?',
+      answer: 'We utilize a high-velocity sprint methodology developed for venture-backed startups. By focusing on "Investor-Ready" essentials and eliminating agency bloat, we move from strategy to live deployment in exactly two weeks.',
+    },
+    {
+      question: 'What exactly is "Investor-Ready" GTM Infrastructure?',
+      answer: 'It is a unified brand identity, a high-performance web presence (Webflow/Next.js), and a core growth stack (CRM/Automation) that proves to investors your startup is built on a scalable foundation.',
+    },
+    {
+      question: 'Is the $7,500 USD price fixed?',
+      answer: 'Yes. Our 14-Day Launchpad is a productized service with a fixed investment to give founders price certainty and rapid results without hidden fees.',
+    },
   ];
 
   return (
@@ -160,6 +177,40 @@ const Launchpad: React.FC = () => {
           </div>
         </section>
 
+        {/* Founder Pain List */}
+        <section className="section-standard">
+          <div className="container">
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
+              <motion.div className="section-header mb-8" variants={fadeInUp}>
+                <motion.h3 className="text-2xl md:text-3xl font-bold text-white mb-6">
+                  Sound Familiar?
+                </motion.h3>
+              </motion.div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {[
+                  { icon: 'fa-tasks', text: 'You\'re buried in repetitive tasks' },
+                  { icon: 'fa-palette', text: 'Your "brand" is just a Canva logo' },
+                  { icon: 'fa-chart-line', text: 'Your website doesn\'t convert' },
+                ].map((pain, i) => (
+                  <motion.div
+                    key={i}
+                    className="bg-[#111] p-6 border border-white/10 flex items-center gap-4"
+                    variants={fadeInUp}
+                  >
+                    <i className={`fas ${pain.icon} text-2xl text-[#F75F0B]`} aria-hidden="true"></i>
+                    <p className="text-white font-medium">{pain.text}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
         {/* Timeline */}
         <section className="section-standard bg-[#0a0a0a]">
           <div className="container">
@@ -200,25 +251,167 @@ const Launchpad: React.FC = () => {
           </div>
         </section>
 
-        {/* Pricing CTA */}
+        {/* FAQ Section */}
         <section className="section-standard">
           <div className="container">
             <motion.div
-              className="bg-[#111] border border-[#F75F0B] rounded-2xl p-12 text-center"
-              variants={fadeInUp}
-              initial="visible"
+              variants={staggerContainer}
+              initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
             >
-              <h2 className="text-4xl font-bold text-white mb-4">Investment starts at $7,500 USD</h2>
-              <p className="text-gray-400 mb-8 text-lg">
-                Ready to transform your idea into investor-ready infrastructure?
+              <FAQ
+                items={faqItems}
+                subtitle="Common Questions"
+                title="Frequently Asked Questions"
+              />
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Social Proof Banner */}
+        <section className="section-standard bg-[#0a0a0a]">
+          <div className="container">
+            <motion.div
+              className="text-center py-6 border-t border-b border-[#F75F0B]/30"
+              variants={fadeInUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
+              <p className="text-white text-lg font-semibold">
+                Join <span className="text-[#F75F0B]">50+ founders</span> who've already automated their way to success.
               </p>
-              <Link to="/book-consultation">
-                <button className="bg-[#F75F0B] text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-[#ff8555] transition-all">
-                  Start Your 14-Day Launchpad
-                </button>
-              </Link>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* 3-Tier Pricing */}
+        <section className="section-standard">
+          <div className="container">
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
+              <motion.div className="section-header text-center mb-12" variants={fadeInUp}>
+                <motion.h2 className="herotwo-heading">
+                  <span>Choose</span>
+                  <span>Your</span>
+                  <span>Launchpad</span>
+                </motion.h2>
+                <motion.p className="section-description">
+                  Fixed USD pricing. No hidden fees. Rapid delivery.
+                </motion.p>
+              </motion.div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* Professional Tier */}
+                <motion.div
+                  className="bg-[#111] p-8 border border-white/10 flex flex-col"
+                  variants={fadeInUp}
+                >
+                  <h3 className="text-2xl font-bold text-white mb-2">Professional</h3>
+                  <div className="text-4xl font-bold text-[#F75F0B] mb-4">$3,500 <span className="text-lg text-gray-400">USD</span></div>
+                  <p className="text-gray-400 text-sm mb-6">7-Day Delivery</p>
+                  <ul className="space-y-3 mb-8 flex-grow">
+                    <li className="flex items-start gap-2 text-gray-300">
+                      <i className="fas fa-check text-[#2FA0B5] mt-1" aria-hidden="true"></i>
+                      <span>Logo + Brand Guide</span>
+                    </li>
+                    <li className="flex items-start gap-2 text-gray-300">
+                      <i className="fas fa-check text-[#2FA0B5] mt-1" aria-hidden="true"></i>
+                      <span>1-page site</span>
+                    </li>
+                    <li className="flex items-start gap-2 text-gray-300">
+                      <i className="fas fa-check text-[#2FA0B5] mt-1" aria-hidden="true"></i>
+                      <span>1 AI Lead Workflow</span>
+                    </li>
+                  </ul>
+                  <Link to="/book-consultation">
+                    <button className="w-full bg-[#111] border border-[#F75F0B] text-white px-6 py-3 rounded-lg font-bold hover:bg-[#F75F0B] transition-all">
+                      Get Started
+                    </button>
+                  </Link>
+                </motion.div>
+
+                {/* Growth Tier */}
+                <motion.div
+                  className="bg-[#111] p-8 border border-[#F75F0B] flex flex-col relative"
+                  variants={fadeInUp}
+                >
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-[#F75F0B] text-white px-4 py-1 text-sm font-bold uppercase">
+                    Most Popular
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2">Growth</h3>
+                  <div className="text-4xl font-bold text-[#F75F0B] mb-4">$5,500 <span className="text-lg text-gray-400">USD</span></div>
+                  <p className="text-gray-400 text-sm mb-6">14-Day Delivery</p>
+                  <ul className="space-y-3 mb-8 flex-grow">
+                    <li className="flex items-start gap-2 text-white">
+                      <i className="fas fa-check text-[#2FA0B5] mt-1" aria-hidden="true"></i>
+                      <span>Full Brand Suite</span>
+                    </li>
+                    <li className="flex items-start gap-2 text-white">
+                      <i className="fas fa-check text-[#2FA0B5] mt-1" aria-hidden="true"></i>
+                      <span>5-page site</span>
+                    </li>
+                    <li className="flex items-start gap-2 text-white">
+                      <i className="fas fa-check text-[#2FA0B5] mt-1" aria-hidden="true"></i>
+                      <span>2 AI Workflows</span>
+                    </li>
+                    <li className="flex items-start gap-2 text-white">
+                      <i className="fas fa-check text-[#2FA0B5] mt-1" aria-hidden="true"></i>
+                      <span>HubSpot CRM setup</span>
+                    </li>
+                  </ul>
+                  <Link to="/book-consultation">
+                    <button className="w-full bg-[#F75F0B] text-white px-6 py-3 rounded-lg font-bold hover:bg-[#ff8555] transition-all">
+                      Get Started
+                    </button>
+                  </Link>
+                </motion.div>
+
+                {/* Ultimate/VC Tier */}
+                <motion.div
+                  className="bg-[#111] p-8 border border-[#2FA0B5] flex flex-col relative"
+                  variants={fadeInUp}
+                >
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-[#2FA0B5]/80 text-white px-3 py-1 text-xs font-medium uppercase tracking-wider">
+                    Recommended
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2">Ultimate</h3>
+                  <div className="text-4xl font-bold text-[#2FA0B5] mb-4">$8,500 <span className="text-lg text-gray-400">USD</span></div>
+                  <p className="text-gray-400 text-sm mb-6">21-Day Delivery</p>
+                  <ul className="space-y-3 mb-8 flex-grow">
+                    <li className="flex items-start gap-2 text-gray-300">
+                      <i className="fas fa-check text-[#2FA0B5] mt-1" aria-hidden="true"></i>
+                      <span>Everything in Growth</span>
+                    </li>
+                    <li className="flex items-start gap-2 text-gray-300">
+                      <i className="fas fa-check text-[#2FA0B5] mt-1" aria-hidden="true"></i>
+                      <span>Booking system</span>
+                    </li>
+                    <li className="flex items-start gap-2 text-gray-300">
+                      <i className="fas fa-check text-[#2FA0B5] mt-1" aria-hidden="true"></i>
+                      <span>GPT-trained email responder</span>
+                    </li>
+                    <li className="flex items-start gap-2 text-gray-300">
+                      <i className="fas fa-check text-[#2FA0B5] mt-1" aria-hidden="true"></i>
+                      <span>Content automation</span>
+                    </li>
+                    <li className="flex items-start gap-2 text-gray-300">
+                      <i className="fas fa-check text-[#2FA0B5] mt-1" aria-hidden="true"></i>
+                      <span>Launch Success Partner</span>
+                    </li>
+                  </ul>
+                  <Link to="/book-consultation">
+                    <button className="w-full bg-[#111] border border-[#2FA0B5] text-white px-6 py-3 rounded-lg font-bold hover:bg-[#2FA0B5] transition-all">
+                      Get Started
+                    </button>
+                  </Link>
+                </motion.div>
+              </div>
             </motion.div>
           </div>
         </section>

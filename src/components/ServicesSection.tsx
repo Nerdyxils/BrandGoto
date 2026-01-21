@@ -171,44 +171,47 @@ const ServicesSection: React.FC = () => {
           >
             {[
               {
-                title: 'Partnership Excellence',
+                title: 'Strategic Alignment',
                 description:
-                  'True collaboration with proactive communication and creative solutions that exceed expectations.',
-                points: ['Dedicated Project Management', 'Regular Strategy Sessions', 'Transparent Progress Tracking'],
+                  'Deep collaboration focused on technical architecture and creative solutions that exceed venture-scale expectations.',
+                points: ['Asynchronous Lead Management', 'Architecture Roadmapping', 'Real-Time Deployment Tracking'],
                 color: 'bg-yellow',
-                ocolor: 'bg-lyellow',
+                borderColor: 'border-lime-dark',
+                iconColor: '#F75F0B',
               },
               {
-                title: 'Technical Foundation',
+                title: 'Technical Architecture',
                 description:
-                  'Rock-solid foundation with domain setup, hosting, and all the technical stuff handled.',
-                points: ['Professional Email & Domain', 'Secure Hosting & Performance', 'Ongoing Technical Support'],
+                  'A rock-solid foundation with investor-ready infrastructure, secure deployment, and all technical debt eliminated.',
+                points: ['Enterprise Domain Governance', 'Hardened Cloud Infrastructure', 'System Integrity & Scaling'],
                 color: 'bg-purple',
-                ocolor: 'bg-lpurple',
+                borderColor: 'border-purple-dark',
+                iconColor: '#2FA0B5',
               },
               {
-                title: 'Growth Partnership',
+                title: 'Performance Engineering',
                 description:
-                  'Scale smarter with data-driven strategies and continuous optimization for ongoing growth.',
-                points: ['Performance Analytics', 'Continuous Optimization', 'Strategic Growth Planning'],
+                  'Scale smarter with predictive data strategies and iterative conversion tuning for sustainable, ongoing growth.',
+                points: ['Predictive Data Modeling', 'Iterative Conversion Tuning', 'Venture-Scale Growth Strategy'],
                 color: 'bg-blue',
-                ocolor: 'bg-lblue',
+                borderColor: 'border-blue-dark',
+                iconColor: '#F75F0B',
               },
             ].map((card, i) => (
               <motion.div
                 key={i}
-                className={`highlight-card ${card.color} card-hover`}
+                className={`highlight-card ${card.color}`}
                 variants={fadeInUp}
                 whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
               >
                 <h3 className="highlight-title">{card.title}</h3>
                 <p className="highlight-description">{card.description}</p>
-                <div className={`out__inner ${card.ocolor}`}>
-                  <div className="inner_points">
+                <div className="out__inner">
+                  <div className={`inner_points ${card.borderColor}`}>
                     <ul className="highlight-points">
                       {card.points.map((point, idx) => (
                         <li key={idx} className="pill-icon-wrapper">
-                          <img src={Imgmk} alt="✓" className="w-4 h-4" />
+                          <i className="fas fa-check" style={{ color: card.iconColor }} aria-hidden="true"></i>
                           {point}
                         </li>
                       ))}
