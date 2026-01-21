@@ -36,7 +36,9 @@ interface FormData {
   name: string;
   phone: string;
   email: string;
+  companyWebsite: string;
   services: string[];
+  budget: string;
   countryCode: string;
 }
 
@@ -45,12 +47,18 @@ interface LogoData {
   alt: string;
 }
 
-const ContactSection: React.FC = () => {
+interface ContactSectionProps {
+  formSource?: string;
+}
+
+const ContactSection: React.FC<ContactSectionProps> = ({ formSource }) => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
     phone: '',
     email: '',
+    companyWebsite: '',
     services: [],
+    budget: '',
     countryCode: '1',
   });
   const [newsletterEmail, setNewsletterEmail] = useState<string>('');
@@ -181,40 +189,48 @@ const ContactSection: React.FC = () => {
   // AI Intelligence Functions for Business Automation
   const calculateComplexityScore = (services: string[]): number => {
     const complexityMap: Record<string, number> = {
-      "Website Design & Development": 8,
-      "Digital Marketing": 6,
-      "Brand Identity & Logo Design": 4,
-      "Graphic Design": 3,
-      "Domain & Business Email Setup": 2,
-      "Creative Direction & Strategy": 7
+      "GTM Infrastructure (14-Day Launchpad)": 10,
+      "Investor-Ready Brand Identity": 8,
+      "Performance Web Engineering": 9,
+      "AI Operations & Automation Audit": 7,
+      "Fractional CTO & Strategic Support": 9
     };
-    return services.reduce((total, service) => total + (complexityMap[service] || 3), 0);
+    return services.reduce((total, service) => total + (complexityMap[service] || 5), 0);
   };
 
-  const calculateProjectValue = (services: string[]): number => {
+  const calculateProjectValue = (services: string[], budget: string): number => {
+    // Use budget if available, otherwise calculate from services
+    if (budget) {
+      if (budget.includes('$10,000+')) return 10000;
+      if (budget.includes('$5,500 - $8,500')) return 7000;
+      if (budget.includes('$3,500 - $5,500')) return 4500;
+    }
+    
     const valueMap: Record<string, number> = {
-      "Website Design & Development": 5000,
-      "Digital Marketing": 2500,
-      "Brand Identity & Logo Design": 2000,
-      "Graphic Design": 1000,
-      "Domain & Business Email Setup": 500,
-      "Creative Direction & Strategy": 3000
+      "GTM Infrastructure (14-Day Launchpad)": 5500,
+      "Investor-Ready Brand Identity": 3500,
+      "Performance Web Engineering": 8500,
+      "AI Operations & Automation Audit": 5000,
+      "Fractional CTO & Strategic Support": 10000
     };
-    return services.reduce((total, service) => total + (valueMap[service] || 1000), 0);
+    return services.reduce((total, service) => total + (valueMap[service] || 5000), 0);
   };
 
   const calculatePriorityLevel = (services: string[]): string => {
     if (services.length >= 3) return "High";
-    if (services.includes("Website Design & Development")) return "High";
-    if (services.includes("Creative Direction & Strategy")) return "Medium";
-    return "Standard";
+    if (services.includes("GTM Infrastructure (14-Day Launchpad)")) return "High";
+    if (services.includes("Fractional CTO & Strategic Support")) return "High";
+    if (services.includes("Performance Web Engineering")) return "High";
+    return "Medium";
   };
 
   const getEmailTemplateId = (services: string[]): string => {
     if (services.length >= 3) return "comprehensive_package";
-    if (services.includes("Website Design & Development")) return "website_focused";
-    if (services.includes("Brand Identity & Logo Design")) return "branding_focused";
-    if (services.includes("Digital Marketing")) return "marketing_focused";
+    if (services.includes("GTM Infrastructure (14-Day Launchpad)")) return "launchpad_focused";
+    if (services.includes("Investor-Ready Brand Identity")) return "branding_focused";
+    if (services.includes("Performance Web Engineering")) return "engineering_focused";
+    if (services.includes("AI Operations & Automation Audit")) return "ai_ops_focused";
+    if (services.includes("Fractional CTO & Strategic Support")) return "cto_focused";
     return "general_inquiry";
   };
 
@@ -247,6 +263,12 @@ const ContactSection: React.FC = () => {
       return;
     }
 
+    if (!formData.companyWebsite || !formData.companyWebsite.trim()) {
+      alert("Please enter your company website or LinkedIn profile.");
+      setIsSubmitting(false);
+      return;
+    }
+
     // Validate phone number
     if (!cleanedPhone || cleanedPhone.length < 7 || cleanedPhone.length > 15) {
       alert("Please enter a valid phone number (7-15 digits).");
@@ -262,23 +284,32 @@ const ContactSection: React.FC = () => {
 
     // Calculate intelligence data first
     const complexityScore = calculateComplexityScore(formData.services);
-    const projectValue = calculateProjectValue(formData.services);
+    const projectValue = calculateProjectValue(formData.services, formData.budget);
     const priorityLevel = calculatePriorityLevel(formData.services);
     const templateId = getEmailTemplateId(formData.services);
+
+    // Determine form source
+    const detectedFormSource = formSource || 
+      (window.location.pathname.includes('/launchpad') ? 'launchpad_footer' :
+       window.location.pathname.includes('/engineering') ? 'engineering_footer' :
+       window.location.pathname === '/' ? 'homepage_hero' : 'other');
 
     // Complete payload with all intelligence data for Make.com
     const payload = {
       email: formData.email,
       firstname: formData.name,
       phone: formattedPhone,
+      company_website: formData.companyWebsite,
       services_selected: formData.services.join(';'),
       services_count: formData.services.length,
       primary_service: formData.services[0] || "General Inquiry",
+      budget_range: formData.budget || "Not specified",
       service_complexity_score: complexityScore,
       estimated_project_value: projectValue,
       priority_level: priorityLevel,
       email_template_id: templateId,
       page_url: window.location.href,
+      form_source: detectedFormSource,
       lead_source: "BrandGoto Website",
       consultation_status: "New Lead",
       requires_consultation: formData.services.length > 1 ? "Yes" : "No",
@@ -321,7 +352,9 @@ const ContactSection: React.FC = () => {
             name: '',
             phone: '',
             email: '',
+            companyWebsite: '',
             services: [],
+            budget: '',
             countryCode: formData.countryCode,
           });
         }, 1000);
@@ -343,7 +376,9 @@ const ContactSection: React.FC = () => {
             name: '',
             phone: '',
             email: '',
+            companyWebsite: '',
             services: [],
+            budget: '',
             countryCode: formData.countryCode,
           });
         }, 1000);
@@ -400,12 +435,18 @@ const ContactSection: React.FC = () => {
   };
 
   const services: string[] = [
-    'Website Design & Development',
-    'Digital Marketing',
-    'Brand Identity & Logo Design',
-    'Graphic Design',
-    'Domain & Business Email Setup',
-    'Creative Direction & Strategy',
+    'GTM Infrastructure (14-Day Launchpad)',
+    'Investor-Ready Brand Identity',
+    'Performance Web Engineering',
+    'AI Operations & Automation Audit',
+    'Fractional CTO & Strategic Support',
+  ];
+
+  const budgetOptions = [
+    '$3,500 - $5,500',
+    '$5,500 - $8,500',
+    '$10,000+',
+    'Not sure yet',
   ];
 
   // Get current dimensions for rendering
@@ -538,7 +579,7 @@ const ContactSection: React.FC = () => {
         viewport={{ once: true, amount: 0.2 }}
       >
         <div className="form-content">
-          <h3>Sign up for a free Consultation</h3>
+          <h3>Request Strategic Audit</h3>
           <form onSubmit={handleSubmit}>
             <input 
               type="text" 
@@ -580,6 +621,15 @@ const ContactSection: React.FC = () => {
               required 
             />
 
+            <input 
+              type="text" 
+              name="companyWebsite" 
+              placeholder="Company Website / LinkedIn" 
+              value={formData.companyWebsite} 
+              onChange={handleChange} 
+              required 
+            />
+
             <p className="services-title">What do you need help with? (Select all that apply)</p>
             <div className="checkbox-grid">
               {services.map((service) => (
@@ -596,8 +646,23 @@ const ContactSection: React.FC = () => {
               ))}
             </div>
 
+            <div className="budget-field">
+              <label htmlFor="budget">Investment Range (USD)</label>
+              <select 
+                id="budget"
+                name="budget" 
+                value={formData.budget} 
+                onChange={handleChange}
+              >
+                <option value="">Select budget range</option>
+                {budgetOptions.map((option) => (
+                  <option key={option} value={option}>{option}</option>
+                ))}
+              </select>
+            </div>
+
             <button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? 'Submitting...' : 'Sign up'}
+              {isSubmitting ? 'Submitting...' : 'Request Strategic Audit'}
             </button>
           </form>
         </div>

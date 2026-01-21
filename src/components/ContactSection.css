@@ -103,7 +103,7 @@
 .form-content input[type="tel"],
 .form-content select{
   padding: 0.75rem;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255,255,255,0.07);
   border-radius: 6px;
   color: white;
@@ -120,7 +120,7 @@
   flex: 0 0 30%; /* Fixed 30% width, no grow/shrink */
   min-width: 80px; /* Minimum width for small screens */
   padding: 0.75rem 0.5rem; /* Adjusted padding for better fit */
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255,255,255,0.07);
   border-radius: 6px;
   color: white;
@@ -130,7 +130,7 @@
 .phone {
   flex: 1; /* Takes remaining space (approximately 70%) */
   padding: 0.75rem;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255,255,255,0.07);
   border-radius: 6px;
   color: white;
@@ -141,7 +141,7 @@
 .phone:focus {
   outline: none;
   background: rgba(255,255,255,0.15);
-  box-shadow: 0 0 5px rgba(255,255,255,0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 /* Placeholder styling */
@@ -152,7 +152,7 @@
 .form-content input:focus {
   outline: none;
   background: rgba(255,255,255,0.15);
-  box-shadow: 0 0 5px rgba(255,255,255,0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .services-title {
@@ -175,6 +175,39 @@
   gap: 0.4rem;
   font-weight: 400;
   color: #A0A6A7;
+}
+
+.budget-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.budget-field label {
+  font-size: 16px;
+  font-weight: 500;
+  color: #ACBCC0;
+}
+
+.budget-field select {
+  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 6px;
+  color: white;
+  font-size: 14px;
+}
+
+.budget-field select:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.budget-field select option {
+  background: #1a1a1a;
+  color: white;
 }
 
 button[type="submit"] {

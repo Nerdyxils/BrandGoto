@@ -416,6 +416,33 @@ const Launchpad: React.FC = () => {
           </div>
         </section>
 
+        {/* CTA */}
+        <section className="section-standard">
+          <div className="container">
+            <motion.div
+              className="bg-[#111] border border-[#F75F0B] rounded-2xl p-12 text-center"
+              variants={fadeInUp}
+              initial="visible"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
+              <h2 className="text-4xl font-bold text-white mb-4">Ready to Launch Your Startup?</h2>
+              <p className="text-gray-400 mb-8 text-lg">
+                Book a strategic audit to discuss your 14-day GTM infrastructure needs.
+              </p>
+              <a 
+                href="https://calendar.app.google/bkuV5B26kSURz2jbA" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <button className="bg-[#F75F0B] text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-[#ff8555] transition-all">
+                  Book a Strategic Audit
+                </button>
+              </a>
+            </motion.div>
+          </div>
+        </section>
+
         <Footer />
       </div>
     </div>

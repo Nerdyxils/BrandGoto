@@ -368,11 +368,15 @@ const Engineering: React.FC = () => {
               <p className="text-gray-400 mb-8 text-lg">
                 Let's discuss how our Fractional CTO and Studio Retainers can accelerate your growth.
               </p>
-              <Link to="/book-consultation">
+              <a 
+                href="https://calendar.app.google/bkuV5B26kSURz2jbA" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
                 <button className="bg-[#2FA0B5] text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-[#3fb8d0] transition-all">
-                  Explore Engineering Retainers
+                  Book a Strategic Audit
                 </button>
-              </Link>
+              </a>
             </motion.div>
           </div>
         </section>

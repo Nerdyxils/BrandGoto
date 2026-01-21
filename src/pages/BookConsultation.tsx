@@ -45,13 +45,17 @@ const BookConsultation: React.FC = () => {
     name: string;
     phone: string;
     email: string;
+    companyWebsite: string;
     services: string[];
+    budget: string;
     countryCode: string;
   }>({
     name: '',
     phone: '',
     email: '',
+    companyWebsite: '',
     services: [],
+    budget: '',
     countryCode: '1',
   });
 
@@ -59,12 +63,18 @@ const BookConsultation: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const services: string[] = [
-    'Website Design & Development',
-    'Digital Marketing',
-    'Brand Identity & Logo Design',
-    'Graphic Design',
-    'Domain & Business Email Setup',
-    'Creative Direction & Strategy',
+    'GTM Infrastructure (14-Day Launchpad)',
+    'Investor-Ready Brand Identity',
+    'Performance Web Engineering',
+    'AI Operations & Automation Audit',
+    'Fractional CTO & Strategic Support',
+  ];
+
+  const budgetOptions = [
+    '$3,500 - $5,500',
+    '$5,500 - $8,500',
+    '$10,000+',
+    'Not sure yet',
   ];
   
   // MENU AND SCROLL HANDLERS
@@ -112,40 +122,48 @@ const BookConsultation: React.FC = () => {
   // AI Intelligence Functions for Business Automation
   const calculateComplexityScore = (services: string[]): number => {
     const complexityMap: Record<string, number> = {
-      "Website Design & Development": 8,
-      "Digital Marketing": 6,
-      "Brand Identity & Logo Design": 4,
-      "Graphic Design": 3,
-      "Domain & Business Email Setup": 2,
-      "Creative Direction & Strategy": 7
+      "GTM Infrastructure (14-Day Launchpad)": 10,
+      "Investor-Ready Brand Identity": 8,
+      "Performance Web Engineering": 9,
+      "AI Operations & Automation Audit": 7,
+      "Fractional CTO & Strategic Support": 9
     };
-    return services.reduce((total, service) => total + (complexityMap[service] || 3), 0);
+    return services.reduce((total, service) => total + (complexityMap[service] || 5), 0);
   };
 
-  const calculateProjectValue = (services: string[]): number => {
+  const calculateProjectValue = (services: string[], budget: string): number => {
+    // Use budget if available, otherwise calculate from services
+    if (budget) {
+      if (budget.includes('$10,000+')) return 10000;
+      if (budget.includes('$5,500 - $8,500')) return 7000;
+      if (budget.includes('$3,500 - $5,500')) return 4500;
+    }
+    
     const valueMap: Record<string, number> = {
-      "Website Design & Development": 5000,
-      "Digital Marketing": 2500,
-      "Brand Identity & Logo Design": 2000,
-      "Graphic Design": 1000,
-      "Domain & Business Email Setup": 500,
-      "Creative Direction & Strategy": 3000
+      "GTM Infrastructure (14-Day Launchpad)": 5500,
+      "Investor-Ready Brand Identity": 3500,
+      "Performance Web Engineering": 8500,
+      "AI Operations & Automation Audit": 5000,
+      "Fractional CTO & Strategic Support": 10000
     };
-    return services.reduce((total, service) => total + (valueMap[service] || 1000), 0);
+    return services.reduce((total, service) => total + (valueMap[service] || 5000), 0);
   };
 
   const calculatePriorityLevel = (services: string[]): string => {
     if (services.length >= 3) return "High";
-    if (services.includes("Website Design & Development")) return "High";
-    if (services.includes("Creative Direction & Strategy")) return "Medium";
-    return "Standard";
+    if (services.includes("GTM Infrastructure (14-Day Launchpad)")) return "High";
+    if (services.includes("Fractional CTO & Strategic Support")) return "High";
+    if (services.includes("Performance Web Engineering")) return "High";
+    return "Medium";
   };
 
   const getEmailTemplateId = (services: string[]): string => {
     if (services.length >= 3) return "comprehensive_package";
-    if (services.includes("Website Design & Development")) return "website_focused";
-    if (services.includes("Brand Identity & Logo Design")) return "branding_focused";
-    if (services.includes("Digital Marketing")) return "marketing_focused";
+    if (services.includes("GTM Infrastructure (14-Day Launchpad)")) return "launchpad_focused";
+    if (services.includes("Investor-Ready Brand Identity")) return "branding_focused";
+    if (services.includes("Performance Web Engineering")) return "engineering_focused";
+    if (services.includes("AI Operations & Automation Audit")) return "ai_ops_focused";
+    if (services.includes("Fractional CTO & Strategic Support")) return "cto_focused";
     return "general_inquiry";
   };
 
@@ -158,6 +176,31 @@ const BookConsultation: React.FC = () => {
 
     const cleanedPhone = formData.phone.replace(/\D/g, '');
     const formattedPhone = `+${formData.countryCode}${cleanedPhone}`;
+
+    // Validate required fields
+    if (!formData.name || !formData.name.trim()) {
+      alert("Please enter your name.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (!formData.email || !formData.email.trim()) {
+      alert("Please enter your email address.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      alert("Please enter a valid email address.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (!formData.companyWebsite || !formData.companyWebsite.trim()) {
+      alert("Please enter your company website or LinkedIn profile.");
+      setIsSubmitting(false);
+      return;
+    }
 
     // Validate phone number
     if (!cleanedPhone || cleanedPhone.length < 7 || cleanedPhone.length > 15) {
@@ -174,23 +217,29 @@ const BookConsultation: React.FC = () => {
 
     // Calculate intelligence data first
     const complexityScore = calculateComplexityScore(formData.services);
-    const projectValue = calculateProjectValue(formData.services);
+    const projectValue = calculateProjectValue(formData.services, formData.budget);
     const priorityLevel = calculatePriorityLevel(formData.services);
     const templateId = getEmailTemplateId(formData.services);
+
+    // Determine form source
+    const formSource = 'book_consultation_page';
 
     // Complete payload with all intelligence data for Make.com
     const payload = {
       email: formData.email,
       firstname: formData.name,
       phone: formattedPhone,
+      company_website: formData.companyWebsite,
       services_selected: formData.services.join(';'),
       services_count: formData.services.length,
       primary_service: formData.services[0] || "General Inquiry",
+      budget_range: formData.budget || "Not specified",
       service_complexity_score: complexityScore,
       estimated_project_value: projectValue,
       priority_level: priorityLevel,
       email_template_id: templateId,
       page_url: window.location.href,
+      form_source: formSource,
       lead_source: "BrandGoto Website - Book Consultation",
       consultation_status: "New Lead",
       requires_consultation: formData.services.length > 1 ? "Yes" : "No",
@@ -229,7 +278,9 @@ const BookConsultation: React.FC = () => {
           name: '',
           phone: '',
           email: '',
+          companyWebsite: '',
           services: [],
+          budget: '',
           countryCode: formData.countryCode,
         });
       } else {
@@ -247,7 +298,9 @@ const BookConsultation: React.FC = () => {
           name: '',
           phone: '',
           email: '',
+          companyWebsite: '',
           services: [],
+          budget: '',
           countryCode: formData.countryCode,
         });
       }
@@ -495,6 +548,22 @@ const BookConsultation: React.FC = () => {
                     </div>
 
                     <div className="form-field-group">
+                      <div className="input-wrapper">
+                        <input 
+                          type="text" 
+                          name="companyWebsite" 
+                          placeholder="Company Website / LinkedIn" 
+                          value={formData.companyWebsite} 
+                          onChange={handleChange} 
+                          required 
+                        />
+                        <div className="input-icon">
+                          <i className="fas fa-globe"></i>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="form-field-group">
                       <label className="services-label">What do you need help with?</label>
                       <div className="services-grid-form">
                         {services.map((service) => (
@@ -513,6 +582,26 @@ const BookConsultation: React.FC = () => {
                       </div>
                     </div>
 
+                    <div className="form-field-group">
+                      <label className="services-label">Investment Range (USD)</label>
+                      <div className="input-wrapper">
+                        <select 
+                          name="budget" 
+                          value={formData.budget} 
+                          onChange={handleChange}
+                          className="budget-select"
+                        >
+                          <option value="">Select budget range</option>
+                          {budgetOptions.map((option) => (
+                            <option key={option} value={option}>{option}</option>
+                          ))}
+                        </select>
+                        <div className="input-icon">
+                          <i className="fas fa-dollar-sign"></i>
+                        </div>
+                      </div>
+                    </div>
+
                     <motion.button 
                       type="submit"
                       className="submit-btn"
@@ -520,7 +609,7 @@ const BookConsultation: React.FC = () => {
                       whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
                       whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
                     >
-                      <span>{isSubmitting ? 'Submitting...' : 'Start Your Project'}</span>
+                      <span>{isSubmitting ? 'Submitting...' : 'Request Strategic Audit'}</span>
                       <div className="btn-icon">
                         <i className="fas fa-arrow-right"></i>
                       </div>
@@ -730,22 +819,6 @@ const styles = `
     overflow: hidden;
   }
 
-  .form-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(247, 95, 11, 0.1), rgba(47, 160, 181, 0.1));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: -1;
-  }
-
-  .form-card:hover::before {
-    opacity: 1;
-  }
 
   .form-header {
     text-align: center;
@@ -803,7 +876,32 @@ const styles = `
     outline: none;
     border-color: #F75F0B;
     background: rgba(255, 255, 255, 0.12);
-    box-shadow: 0 0 0 3px rgba(247, 95, 11, 0.1);
+    border-width: 1px;
+  }
+
+  .budget-select {
+    width: 100%;
+    padding: 1rem 1rem 1rem 3rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    color: #ffffff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    appearance: none;
+    cursor: pointer;
+  }
+
+  .budget-select:focus {
+    outline: none;
+    border-color: #F75F0B;
+    background: rgba(255, 255, 255, 0.12);
+    border-width: 1px;
+  }
+
+  .budget-select option {
+    background: #1a1a1a;
+    color: white;
   }
 
   .input-wrapper input::placeholder {
@@ -860,7 +958,7 @@ const styles = `
     outline: none;
     border-color: #F75F0B;
     background: rgba(255, 255, 255, 0.12);
-    box-shadow: 0 0 0 3px rgba(247, 95, 11, 0.1);
+    border-width: 1px;
   }
 
   .services-label {
@@ -937,36 +1035,19 @@ const styles = `
     gap: 0.5rem;
     width: 100%;
     padding: 1.25rem;
-    background: linear-gradient(135deg, #F75F0B, #E0540A);
-    border: none;
+    background: #F75F0B;
+    border: 1px solid #F75F0B;
     border-radius: 12px;
     color: #ffffff;
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .submit-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s ease;
-  }
-
-  .submit-btn:hover::before {
-    left: 100%;
   }
 
   .submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(247, 95, 11, 0.3);
+    background: #ff8555;
+    border-color: #ff8555;
   }
 
   .btn-icon {
@@ -991,10 +1072,10 @@ const styles = `
     color: white;
     padding: 1rem 2rem;
     border-radius: 8px;
+    border: 1px solid #F75F0B;
     font-weight: 500;
     font-size: 1rem;
     z-index: 1000;
-    box-shadow: 0 8px 24px rgba(247, 95, 11, 0.4);
     text-align: center;
     max-width: 450px;
   }
