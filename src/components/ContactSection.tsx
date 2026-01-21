@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ContactSection.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import patternBg from '../assets/Pattern.webp';
@@ -42,11 +42,6 @@ interface FormData {
   countryCode: string;
 }
 
-interface LogoData {
-  src: string;
-  alt: string;
-}
-
 interface ContactSectionProps {
   formSource?: string;
 }
@@ -61,106 +56,8 @@ const ContactSection: React.FC<ContactSectionProps> = ({ formSource }) => {
     budget: '',
     countryCode: '1',
   });
-  const [newsletterEmail, setNewsletterEmail] = useState<string>('');
-  const [showNewsletterToast, setShowNewsletterToast] = useState<boolean>(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-
-  // FINAL LOGO ANIMATION FIX - CONTROLLED APPROACH
-  const [screenWidth, setScreenWidth] = useState<number>(0);
-  const logosRef = useRef<HTMLDivElement>(null);
-  const animationRef = useRef<number>(1);
-
-  // Logo data
-  const logos: LogoData[] = [
-    { src: "/images/higherglyphs1.webp", alt: "Higher Glyphs" },
-    { src: "/images/smt.webp", alt: "SMT" },
-    { src: "/images/Neuralabs.webp", alt: "Neuralabs" },
-    { src: "/images/herlogo.webp", alt: "Jayo" }
-  ];
-
-  // Calculate exact dimensions based on screen size
-  const getLogoDimensions = (width: number) => {
-    if (width <= 480) {
-      return {
-        logoWidth: 60,
-        logoHeight: 20,
-        gap: 12,
-        containerMaxWidth: 280,
-        animationSpeed: 20, // Much slower on mobile
-      };
-    } else if (width <= 768) {
-      return {
-        logoWidth: 80,
-        logoHeight: 25,
-        gap: 16,
-        containerMaxWidth: 350,
-        animationSpeed: 15,
-      };
-    } else if (width <= 1200) {
-      return {
-        logoWidth: 100,
-        logoHeight: 30,
-        gap: 20,
-        containerMaxWidth: 500,
-        animationSpeed: 12,
-      };
-    } else {
-      return {
-        logoWidth: 120,
-        logoHeight: 35,
-        gap: 24,
-        containerMaxWidth: 700,
-        animationSpeed: 10,
-      };
-    }
-  };
-
-  // MANUAL ANIMATION CONTROL - NO CSS ANIMATIONS
-  useEffect(() => {
-    const updateScreenWidth = () => {
-      setScreenWidth(window.innerWidth);
-    };
-
-    updateScreenWidth();
-    window.addEventListener('resize', updateScreenWidth);
-    return () => window.removeEventListener('resize', updateScreenWidth);
-  }, []);
-
-  // Manual animation using requestAnimationFrame
-  useEffect(() => {
-    if (!logosRef.current) return;
-
-    const dimensions = getLogoDimensions(screenWidth);
-    const totalLogoWidth = dimensions.logoWidth * 4 + dimensions.gap * 3; // 4 logos + 3 gaps
-    let translateX = 0;
-    let startTime: number;
-
-    const animate = (currentTime: number) => {
-      if (!startTime) startTime = currentTime;
-      const elapsed = currentTime - startTime;
-      
-      // Calculate progress (0 to 1)
-      const progress = (elapsed % (dimensions.animationSpeed * 1000)) / (dimensions.animationSpeed * 1000);
-      
-      // Calculate translateX position
-      translateX = -progress * totalLogoWidth;
-      
-      if (logosRef.current) {
-        logosRef.current.style.transform = `translateX(${translateX}px)`;
-      }
-      
-      animationRef.current = requestAnimationFrame(animate);
-    };
-
-    animationRef.current = requestAnimationFrame(animate);
-
-    return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
-  }, [screenWidth]);
 
   // Detect browser locale on mount
   useEffect(() => {
@@ -391,48 +288,6 @@ const ContactSection: React.FC<ContactSectionProps> = ({ formSource }) => {
     }
   };
 
-  const handleNewsletterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (!newsletterEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newsletterEmail)) {
-      alert("Please enter a valid email address.");
-      return;
-    }
-
-    const newsletterPayload = {
-      email: newsletterEmail,
-      lead_source: "BrandGoto Newsletter Signup",
-      subscription_type: "Newsletter",
-      signup_timestamp: new Date().toISOString(),
-      list_name: "BrandGoto Newsletter List",
-      opt_in_status: "Subscribed",
-    };
-
-    console.log("📧 Saving email to newsletter list:", JSON.stringify(newsletterPayload, null, 2));
-
-    try {
-      const response = await fetch(import.meta.env.VITE_NEWSLETTER_WEBHOOK_URL || 'https://hook.us2.make.com/mfai8q73ni4yxbqribo1oaglmbfw01q8', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newsletterPayload),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Newsletter signup failed with status ${response.status}`);
-      }
-
-      console.log("✅ Email saved to newsletter list successfully");
-      setShowNewsletterToast(true);
-      setTimeout(() => setShowNewsletterToast(false), 3500);
-      
-      setNewsletterEmail('');
-    } catch (err) {
-      console.error("❌ Newsletter signup error:", err);
-      alert("There was an error subscribing to the newsletter. Please try again later.");
-    }
-  };
 
   const services: string[] = [
     'GTM Infrastructure (14-Day Launchpad)',
@@ -449,54 +304,6 @@ const ContactSection: React.FC<ContactSectionProps> = ({ formSource }) => {
     'Not sure yet',
   ];
 
-  // Get current dimensions for rendering
-  const dimensions = getLogoDimensions(screenWidth || window.innerWidth);
-
-  // Render logos with exact calculated dimensions
-  const renderLogos = () => {
-    const doubledLogos = [...logos, ...logos];
-    
-    return doubledLogos.map((logo, index) => (
-      <img
-        key={`${logo.alt}-${index}`}
-        src={logo.src}
-        alt={logo.alt}
-        style={{
-          width: `${dimensions.logoWidth}px`,
-          height: `${dimensions.logoHeight}px`,
-          objectFit: 'contain' as const,
-          flexShrink: 0,
-        }}
-        loading="lazy"
-      />
-    ));
-  };
-
-  // Animation restart function for mouse leave event
-  const restartAnimation = () => {
-    if (!logosRef.current) return;
-    
-    const dimensions = getLogoDimensions(screenWidth);
-    const totalLogoWidth = dimensions.logoWidth * 4 + dimensions.gap * 3;
-    let translateX = 0;
-    let startTime: number;
-
-    const animate = (currentTime: number) => {
-      if (!startTime) startTime = currentTime;
-      const elapsed = currentTime - startTime;
-      
-      const progress = (elapsed % (dimensions.animationSpeed * 1000)) / (dimensions.animationSpeed * 1000);
-      translateX = -progress * totalLogoWidth;
-      
-      if (logosRef.current) {
-        logosRef.current.style.transform = `translateX(${translateX}px)`;
-      }
-      
-      animationRef.current = requestAnimationFrame(animate);
-    };
-    
-    animationRef.current = requestAnimationFrame(animate);
-  };
 
   const fadeInUp = {
     hidden: { opacity: 1, y: 12 },
@@ -522,21 +329,6 @@ const ContactSection: React.FC<ContactSectionProps> = ({ formSource }) => {
       position: 'relative',
       overflow: 'hidden',
     }}>
-      
-      <AnimatePresence>
-        {showNewsletterToast && (
-          <motion.div
-            className="form-toast newsletter-toast"
-            initial={{ opacity: 1, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 1, y: 12 }}
-            transition={{ duration: 0.3 }}
-            style={{ backgroundColor: '#023942', color: '#CFF8FF' }}
-          >
-            📧 Successfully subscribed to our newsletter!
-          </motion.div>
-        )}
-      </AnimatePresence>
 
 
       <motion.div

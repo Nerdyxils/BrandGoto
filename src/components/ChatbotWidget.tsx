@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './ChatbotWidget.css';
-import { retrieveRelevantSnippets } from '../chat/retriever';
-import { faq } from '../chat/faq';
+import { retrieveRelevantSnippets } from './Chatbot/chatLogic';
+import { faq, KnowledgeItem } from './Chatbot/chatData';
 import { MessageCircle, Send, X } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
@@ -157,7 +157,7 @@ export default function ChatbotWidget() {
 
     // Mini FAQ entrypoint
     if (/^faq$/i.test(text) || /help|questions|common questions/i.test(text)) {
-      const labels = faq.map(f => f.q).slice(0, 5);
+      const labels = faq.map((f: { q: string; a: string }) => f.q).slice(0, 5);
       appendAssistant('Here are a few common questions:', { suggestions: labels, actions: [
         { label: 'Schedule a Call', type: 'schedule', url: CALENDLY_URL },
       ]});
@@ -165,7 +165,7 @@ export default function ChatbotWidget() {
     }
 
     // If user clicked a FAQ item, answer locally
-    const matchedFaq = faq.find(f => f.q.toLowerCase() === text.toLowerCase());
+    const matchedFaq = faq.find((f: { q: string; a: string }) => f.q.toLowerCase() === text.toLowerCase());
     if (matchedFaq) {
       appendAssistant(matchedFaq.a, { actions: [
         { label: 'Schedule a Call', type: 'schedule', url: CALENDLY_URL },
@@ -230,7 +230,7 @@ export default function ChatbotWidget() {
           throw new Error('OpenAI API key not configured. Please set VITE_OPENAI_API_KEY in your .env file (Vite requires VITE_ prefix for frontend access)');
         }
 
-        const contextText = snippets.map((c, i) => `# Snippet ${i + 1}${c.title ? `: ${c.title}` : ''}\n${c.text}`).join('\n\n');
+        const contextText = snippets.map((c: KnowledgeItem, i: number) => `# Snippet ${i + 1}${c.title ? `: ${c.title}` : ''}\n${c.text}`).join('\n\n');
         const systemPreamble = `You are Celine, BrandGoto's AI assistant. You help visitors understand our services and guide them to the right solutions.
 
 BrandGoto offers comprehensive creative digital services:

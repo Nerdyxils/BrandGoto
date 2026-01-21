@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import ScrollToTop from '../components/ScrollToTop';
 import Footer from '../components/Footer';
