@@ -45,6 +45,12 @@ const RecentProjects: React.FC = () => {
 
   const recentProjects = [
     { 
+      id: 9, 
+      title: 'OddLogic – High-Performance Predictive Engine',
+      img: '/images/oddlogic.png',
+      description: 'How we architected a high-performance predictive engine for OddLogic. We designed a resilient data architecture for real-time sports feeds, mapped system logic for prediction orchestration, and deployed venture-scale infrastructure capable of handling high-traffic demand without performance degradation.'
+    },
+    { 
       id: 1, 
       title: 'Prodex – Inventory & Product Management System (MERN Stack)', 
       img: '/images/projectA.webp', 

@@ -337,6 +337,72 @@ const ThingsWeBuilt: React.FC = () => {
           </div>
         </section>
 
+        {/* Technical Case Study - OddLogic */}
+        <section className="section-standard">
+          <div className="container">
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
+              <motion.div className="section-header mb-10" variants={fadeInUp}>
+                <motion.span className="section-subtitle">Technical Case Study</motion.span>
+                <motion.h2 className="herotwo-heading">
+                  <span>OddLogic</span>
+                  <span>Predictive</span>
+                  <span>Engine</span>
+                </motion.h2>
+                <motion.p className="section-description">
+                  How we architected a high-performance predictive engine for OddLogic.
+                </motion.p>
+              </motion.div>
+
+              <motion.div className="mb-8" variants={fadeInUp}>
+                <div className="relative rounded-xl overflow-hidden border border-[#2FA0B5]">
+                  <img
+                    src="/images/oddlogic.png"
+                    alt="OddLogic predictive engine technical case study dashboard"
+                    className="w-full h-auto"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              </motion.div>
+
+              <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-6" variants={fadeInUp}>
+                <div className="bg-[#111] p-6 rounded-xl border border-white/10">
+                  <div className="flex items-center gap-3 mb-4">
+                    <i className="fas fa-database text-[#F75F0B]" aria-hidden="true"></i>
+                    <h4 className="font-bold text-white">Data Architecture</h4>
+                  </div>
+                  <p className="text-gray-300 text-sm">
+                    We engineered a robust ingestion layer for real-time sports data feeds, validating and routing events through a low-latency pipeline that keeps predictions current under continuous load.
+                  </p>
+                </div>
+                <div className="bg-[#111] p-6 rounded-xl border border-[#2FA0B5]">
+                  <div className="flex items-center gap-3 mb-4">
+                    <i className="fas fa-sitemap text-[#2FA0B5]" aria-hidden="true"></i>
+                    <h4 className="font-bold text-white">Algorithm Logic</h4>
+                  </div>
+                  <p className="text-gray-300 text-sm">
+                    We mapped transparent system logic across ingestion, feature scoring, prediction generation, and confidence routing so teams can audit outputs and improve model decisions over time.
+                  </p>
+                </div>
+                <div className="bg-[#111] p-6 rounded-xl border border-white/10">
+                  <div className="flex items-center gap-3 mb-4">
+                    <i className="fas fa-chart-line text-[#F75F0B]" aria-hidden="true"></i>
+                    <h4 className="font-bold text-white">Scalability</h4>
+                  </div>
+                  <p className="text-gray-300 text-sm">
+                    The infrastructure is built for venture-scale traffic with resilient services, horizontal scaling paths, and performance safeguards that keep response times stable during peak demand.
+                  </p>
+                </div>
+              </motion.div>
+            </motion.div>
+          </div>
+        </section>
+
         {/* Infrastructure Gallery */}
         <section className="section-standard">
           <div className="container">
