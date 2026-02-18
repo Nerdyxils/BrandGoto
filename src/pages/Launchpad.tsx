@@ -74,8 +74,8 @@ const Launchpad: React.FC = () => {
       answer: 'It is a unified brand identity, a high-performance web presence (Webflow/Next.js), and a core growth stack (CRM/Automation) that proves to investors your startup is built on a scalable foundation.',
     },
     {
-      question: 'Is the $7,500 USD price fixed?',
-      answer: 'Yes. Our 14-Day Launchpad is a productized service with a fixed investment to give founders price certainty and rapid results without hidden fees.',
+      question: 'Are your Launchpad prices fixed in USD?',
+      answer: 'Yes. Launchpad is a productized offer with fixed USD tiers: Professional ($3,500), Growth ($5,500), and Ultimate ($8,500). Each tier has a defined scope and timeline, so founders get price certainty without hidden fees.',
     },
   ];
 
@@ -428,7 +428,7 @@ const Launchpad: React.FC = () => {
             >
               <h2 className="text-4xl font-bold text-white mb-4">Ready to Launch Your Startup?</h2>
               <p className="text-gray-400 mb-8 text-lg">
-                Book a strategic audit to discuss your 14-day GTM infrastructure needs.
+                Book a strategic audit to choose the right fixed-USD Launchpad tier for your goals and timeline.
               </p>
               <a 
                 href="https://calendar.app.google/bkuV5B26kSURz2jbA" 
