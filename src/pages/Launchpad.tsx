@@ -95,9 +95,9 @@ const Launchpad: React.FC = () => {
               initial="visible"
               animate="visible"
             >
-              <h1 className="sr-only">
+              <h2 className="sr-only">
                 14-Day GTM Launchpad | Investor-Ready Brand & Web for Startups
-              </h1>
+              </h2>
               <motion.span className="section-subtitle" variants={fadeInUp}>
                 The 14-Day GTM Launchpad
               </motion.span>

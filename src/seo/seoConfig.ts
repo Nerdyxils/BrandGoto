@@ -9,9 +9,9 @@ export type SEOEntry = {
 
 export const seoConfig: Record<string, SEOEntry> = {
   home: {
-    title: 'Brandgoto | Technical Growth Partner & Startup GTM Infrastructure',
+    title: 'Brandgoto | Technical Growth Partner for Venture-Scale Startups',
     description:
-      'Investor-ready branding, venture-scale web, and AI-Ops systems for US startups ready to scale fast.',
+      'Investor-ready branding, venture-scale web engineering, and AI-Ops infrastructure for startups. 3x faster delivery, zero technical debt, fixed USD pricing.',
     path: '/',
     keywords:
       'startup GTM infrastructure, technical growth partner, investor-ready branding, venture-scale web, AI-Ops automation',

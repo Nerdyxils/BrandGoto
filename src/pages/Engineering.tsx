@@ -107,9 +107,9 @@ const Engineering: React.FC = () => {
               initial="visible"
               animate="visible"
             >
-              <h1 className="sr-only">
+              <h2 className="sr-only">
                 Fractional CTO & High-End Engineering Studio | Brandgoto
-              </h1>
+              </h2>
               <motion.span className="section-subtitle" variants={fadeInUp}>
                 High-Performance Engineering
               </motion.span>

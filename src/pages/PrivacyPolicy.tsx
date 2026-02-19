@@ -72,9 +72,9 @@ const PrivacyPolicy: React.FC = () => {
         {/* Privacy Policy Content */}
         <section className="py-16 px-4 max-w-4xl mx-auto">
           <motion.div variants={fadeInUp} className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
               Privacy Policy
-            </h1>
+            </h2>
             <p className="text-lg text-gray-300">
               Effective Date: 01 January 2025
             </p>

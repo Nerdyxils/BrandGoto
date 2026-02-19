@@ -157,11 +157,11 @@ const TestimonialSection: React.FC = () => {
           Testimonials
         </span>
 
-        <h1 className="herotwo-heading">
+        <h2 className="herotwo-heading">
           <span>Love</span>
           <span>From</span>
           <span>Clients</span>
-        </h1>
+        </h2>
 
         <p className="section-description">
           What They're Saying About Our Work
