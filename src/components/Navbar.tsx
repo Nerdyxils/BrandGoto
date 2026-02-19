@@ -14,6 +14,7 @@ interface NavbarProps {
 const navLinks = [
   { label: 'Launchpad', path: '/launchpad' },
   { label: 'Engineering', path: '/engineering' },
+  { label: 'Blog', path: '/blog' },
   { label: 'Case Studies', path: '/things-we-built' },
   { label: 'About Us', path: '/about-us' },
 ];
@@ -23,6 +24,8 @@ const homeLink = { label: 'Home', path: '/' };
 const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen, isScrolled }) => {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+  const isLinkActive = (path: string) =>
+    path === '/blog' ? location.pathname === '/blog' || location.pathname.startsWith('/blog/') : location.pathname === path;
   
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -57,7 +60,7 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen, isScrolled }
             <Link
               key={link.path}
               to={link.path}
-              className={`nav-link ${location.pathname === link.path ? 'active' : ''}`}
+              className={`nav-link ${isLinkActive(link.path) ? 'active' : ''}`}
               onClick={scrollToTop}
             >
               {link.label}
@@ -126,7 +129,7 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen, isScrolled }
                   <Link
                     key={link.path}
                     to={link.path}
-                    className={`mobile-nav-link ${location.pathname === link.path ? 'active' : ''}`}
+                    className={`mobile-nav-link ${isLinkActive(link.path) ? 'active' : ''}`}
                     onClick={() => {
                       setIsMenuOpen(false);
                       scrollToTop();

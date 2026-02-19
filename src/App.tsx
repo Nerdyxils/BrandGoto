@@ -11,6 +11,8 @@ const BookConsultation = lazy(() => import('./pages/BookConsultation'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const Launchpad = lazy(() => import('./pages/Launchpad'));
 const Engineering = lazy(() => import('./pages/Engineering'));
+const Blog = lazy(() => import('./pages/Blog'));
+const BlogPost = lazy(() => import('./pages/BlogPost'));
 const ChatbotWidget = lazy(() => import('./components/Chatbot/Chatbot'));
 
 const App: React.FC = () => {
@@ -26,6 +28,8 @@ const App: React.FC = () => {
             <Route path="/how-we-help" element={<HowWeHelp />} />
             <Route path="/things-we-built" element={<ThingsWeBuilt />} />
             <Route path="/success-stories" element={<SuccessStories />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/book-consultation" element={<BookConsultation />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           </Routes>

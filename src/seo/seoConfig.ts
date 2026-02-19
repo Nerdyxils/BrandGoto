@@ -106,6 +106,13 @@ export const seoConfig: Record<string, SEOEntry> = {
     path: '/book-consultation',
     ogType: 'website',
   },
+  blog: {
+    title: 'Brandgoto Blog | GTM Infrastructure, AI-Ops, and Fractional CTO Insights',
+    description:
+      'Practical insights on fast MVP development, startup GTM infrastructure, AI-Ops workflow automation, and fractional CTO strategy.',
+    path: '/blog',
+    ogType: 'website',
+  },
   privacyPolicy: {
     title: 'Privacy Policy | Brandgoto',
     description:
