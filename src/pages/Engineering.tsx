@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import ScrollToTop from '../components/ScrollToTop';
 import Footer from '../components/Footer';
 import TechTicker from '../components/TechTicker';
+import YouTubeVideo from '../components/YouTubeVideo';
 import SEO from '../components/SEO';
 import FAQ, { FAQItem } from '../components/FAQ';
 import '../components/Hero.css';
@@ -213,17 +214,12 @@ const Engineering: React.FC = () => {
 
               <div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-8">
                 {/* Video Container (60%) */}
-                <div className="video-container">
-                  <div className="video-wrapper" style={{ border: '1px solid #2FA0B5' }}>
-                    <iframe
-                      src="https://www.youtube.com/embed/_-w6CPPE7Qs"
-                      title="AI Lead Workflow Technical Walkthrough"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className="video-iframe"
-                      loading="lazy"
-                    />
-                  </div>
+                <div className="video-container video-container--custom">
+                  <YouTubeVideo
+                    videoId="_-w6CPPE7Qs"
+                    title="AI Lead Workflow Technical Walkthrough"
+                    accent="teal"
+                  />
                 </div>
 
                 {/* System Logic Map (40%) */}

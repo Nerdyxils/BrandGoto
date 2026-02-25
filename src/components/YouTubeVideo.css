@@ -1,0 +1,121 @@
+/* ========== BRANDGOTO CUSTOM YOUTUBE VIDEO ========== */
+/* Matte black + teal/orange, no red button, lazy-load iframe on click */
+
+.youtube-video {
+  position: relative;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.youtube-video--orange {
+  border-color: rgba(247, 95, 11, 0.4);
+}
+
+.youtube-video--teal {
+  border-color: rgba(47, 160, 181, 0.4);
+}
+
+.youtube-video__thumbnail-btn {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+}
+
+.youtube-video__thumbnail-btn:hover .youtube-video__overlay,
+.youtube-video__thumbnail-btn:focus .youtube-video__overlay {
+  opacity: 0.85;
+}
+
+.youtube-video__thumbnail-btn:hover .youtube-video__play-icon,
+.youtube-video__thumbnail-btn:focus .youtube-video__play-icon {
+  transform: scale(1.08);
+}
+
+.youtube-video__thumbnail-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.youtube-video__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.youtube-video--orange .youtube-video__overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.youtube-video--teal .youtube-video__overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.youtube-video__play-icon {
+  position: relative;
+  z-index: 2;
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.youtube-video__play-icon svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+}
+
+.youtube-video--orange .youtube-video__play-icon {
+  color: #F75F0B;
+}
+
+.youtube-video--teal .youtube-video__play-icon {
+  color: #2FA0B5;
+}
+
+/* Compact play icon for Shorts (9:16) */
+.youtube-video[style*="177.78%"] .youtube-video__play-icon {
+  width: 56px;
+  height: 56px;
+}
+
+.youtube-video__iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+@media (max-width: 768px) {
+  .youtube-video__play-icon {
+    width: 56px;
+    height: 56px;
+  }
+
+  .youtube-video[style*="177.78%"] .youtube-video__play-icon {
+    width: 44px;
+    height: 44px;
+  }
+}

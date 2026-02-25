@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import ScrollToTop from '../components/ScrollToTop';
 import Footer from '../components/Footer';
+import YouTubeVideo from '../components/YouTubeVideo';
 import SEO from '../components/SEO';
 import '../components/Hero.css';
 import '../components/Herotwo.css';
@@ -193,8 +194,8 @@ const AboutUs: React.FC = () => {
                 </motion.h2>
               </motion.div>
               
-              <motion.div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center" variants={fadeInUp}>
-                <div className="space-y-6">
+              <motion.div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start" variants={fadeInUp}>
+                <div className="space-y-6 lg:col-span-2">
                   <div className="bg-[#111] p-6 rounded-xl border border-white/10">
                     <h3 className="text-xl font-bold text-white mb-4">Silas — From Lone Wolf to Studio Lead</h3>
                     <p className="text-gray-300 leading-relaxed mb-4">
@@ -215,19 +216,40 @@ const AboutUs: React.FC = () => {
                     </div>
                   </div>
                 </div>
-                <div className="bg-[#111] p-8 rounded-xl border border-[#2FA0B5]">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-16 h-16 bg-[#2FA0B5] rounded-lg flex items-center justify-center">
-                      <i className="fas fa-user-tie text-white text-2xl" aria-hidden="true"></i>
+                <div className="space-y-6">
+                  <div className="bg-[#111] p-8 rounded-xl border border-[#2FA0B5]">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-16 h-16 bg-[#2FA0B5] rounded-lg flex items-center justify-center">
+                        <i className="fas fa-user-tie text-white text-2xl" aria-hidden="true"></i>
+                      </div>
+                      <div>
+                        <h4 className="text-xl font-bold text-white">Technical Architect</h4>
+                        <p className="text-gray-400 text-sm">Founder & Full Stack Developer</p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="text-xl font-bold text-white">Technical Architect</h4>
-                      <p className="text-gray-400 text-sm">Founder & Full Stack Developer</p>
+                    <p className="text-gray-300 leading-relaxed">
+                      Every architecture decision is made with one question: <span className="text-white font-semibold">"Does this serve the business goal?"</span> Not just code—strategic infrastructure.
+                    </p>
+                  </div>
+                  <div className="bg-[#111] rounded-xl border border-[#F75F0B] overflow-hidden">
+                    <YouTubeVideo
+                      videoId="w1CCEIsH8LY"
+                      title="Not Most Agencies — Brandgoto Studio for Tier 3 Clients"
+                      accent="orange"
+                      aspectRatio="9:16"
+                    />
+                    <div className="p-4 border-t border-white/10">
+                      <p className="text-sm text-gray-400">
+                        We build for Tier 3 "Whale" clients who need technical leadership, not just task execution.
+                      </p>
                     </div>
                   </div>
-                  <p className="text-gray-300 leading-relaxed">
-                    Every architecture decision is made with one question: <span className="text-white font-semibold">"Does this serve the business goal?"</span> Not just code—strategic infrastructure.
-                  </p>
+                  <Link
+                    to="/book-consultation"
+                    className="block w-full text-center bg-[#2FA0B5] text-white px-6 py-3 rounded-lg font-bold hover:bg-[#3bb0c5] transition-all no-underline"
+                  >
+                    Request Strategic GTM Audit
+                  </Link>
                 </div>
               </motion.div>
             </motion.div>
@@ -326,7 +348,7 @@ const AboutUs: React.FC = () => {
                   <div className="w-16 h-16 bg-[#F75F0B] rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform mx-auto">
                     <i className="fas fa-chart-line text-white text-2xl"></i>
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-4">Results-Driven</h3>
+                  <h3 className="text-xl font-bold text-white mb-4 text-center">Results-Driven</h3>
                   <p className="text-gray-400 leading-relaxed text-center">
                     Every design decision and line of code serves a business purpose. We measure success by growth, not just aesthetics.
                   </p>
@@ -336,7 +358,7 @@ const AboutUs: React.FC = () => {
                   <div className="w-16 h-16 bg-[#F75F0B] rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform mx-auto">
                     <i className="fas fa-tachometer-alt text-white text-2xl"></i>
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-4">Speed & Efficiency</h3>
+                  <h3 className="text-xl font-bold text-white mb-4 text-center">Speed & Efficiency</h3>
                   <p className="text-gray-400 leading-relaxed text-center">
                     We build fast, launch quickly, and optimize continuously. Time to market matters as much as quality.
                   </p>
@@ -346,7 +368,7 @@ const AboutUs: React.FC = () => {
                   <div className="w-16 h-16 bg-[#F75F0B] rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform mx-auto">
                     <i className="fas fa-users text-white text-2xl"></i>
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-4">Partnership</h3>
+                  <h3 className="text-xl font-bold text-white mb-4 text-center">Partnership</h3>
                   <p className="text-gray-400 leading-relaxed text-center">
                     We work as an extension of your team, not just a vendor. Your success is our success.
                   </p>

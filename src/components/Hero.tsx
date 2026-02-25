@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import Navbar from './Navbar';
 import SEO from './SEO';
 import ImgCo from '../assets/conversion.webp';
@@ -14,9 +15,11 @@ import ServicesSection from './ServicesSection';
 import RecentProjects from './RecentProjects';
 import FounderSection from './FounderSection';
 import TestimonialsSection from './TestimonialsSection';
+import YouTubeShortsGrid from './YouTubeShortsGrid';
 import Footer from './Footer';
 import ScrollToTop from './ScrollToTop';
 import TechTicker from './TechTicker';
+import YouTubeVideo from './YouTubeVideo';
 import { lazy, Suspense } from 'react';
 import { seoConfig } from '../seo/seoConfig';
 
@@ -309,6 +312,46 @@ const Hero: React.FC = () => {
           </div>
         </section>
 
+        {/* PRETTY VS. PROFITABLE — CONVERSION HOOK */}
+        <motion.section
+          className="section-standard bg-[#0a0a0a]"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          <div className="container mx-auto">
+            <motion.div className="section-header text-center mb-10" variants={fadeInUp}>
+              <motion.span className="section-subtitle" variants={fadeInUp}>
+                The Conversion Hook
+              </motion.span>
+              <motion.h2 className="text-2xl md:text-3xl font-bold text-white mb-4" variants={fadeInUp}>
+                Pretty vs. Profitable
+              </motion.h2>
+              <motion.p className="section-description max-w-2xl mx-auto" variants={fadeInUp}>
+                Most agencies sell aesthetics. We build GTM Infrastructure—brand, web, and systems that convert. Watch how we bridge the gap between pretty branding and profitable growth.
+              </motion.p>
+            </motion.div>
+            <motion.div className="max-w-4xl mx-auto mb-10" variants={fadeInUp}>
+              <div className="video-container video-container--custom">
+                <YouTubeVideo
+                  videoId="-rrCbZdHUx8"
+                  title="Pretty vs. Profitable — GTM Infrastructure for Startups"
+                  accent="teal"
+                />
+              </div>
+            </motion.div>
+            <motion.div className="text-center" variants={fadeInUp}>
+              <Link
+                to="/book-consultation"
+                className="inline-block bg-[#2FA0B5] text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-[#3fb8d0] transition-all no-underline"
+              >
+                Request Strategic GTM Audit
+              </Link>
+            </motion.div>
+          </div>
+        </motion.section>
+
         {/* EMPATHY & PAIN BLOCK */}
         <motion.section 
           className="section-standard bg-[#0a0a0a]"
@@ -495,17 +538,12 @@ const Hero: React.FC = () => {
 
               <div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-8">
                 {/* Video Container (60%) */}
-                <div className="video-container">
-                  <div className="video-wrapper">
-                    <iframe
-                      src="https://www.youtube.com/embed/_-w6CPPE7Qs"
-                      title="AI Lead Workflow Technical Walkthrough"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className="video-iframe"
-                      loading="lazy"
-                    />
-                  </div>
+                <div className="video-container video-container--custom">
+                  <YouTubeVideo
+                    videoId="_-w6CPPE7Qs"
+                    title="AI Lead Workflow Technical Walkthrough"
+                    accent="orange"
+                  />
                 </div>
 
                 {/* System Logic Map (40%) */}
@@ -665,6 +703,8 @@ const Hero: React.FC = () => {
         >
           <TestimonialsSection />
         </motion.section>
+
+        <YouTubeShortsGrid showCta={true} />
 
         <motion.section 
           id="contact"
