@@ -1,0 +1,163 @@
+/* Audit Slide Modal — Boutique Lab: Matte Black / Orange / Teal, no gradients, no box-shadows */
+
+.audit-slide-modal-container {
+  position: fixed;
+  inset: 0;
+  z-index: 10050;
+  display: flex;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+
+.audit-slide-modal-container .audit-slide-modal-backdrop,
+.audit-slide-modal-container .audit-slide-modal-panel {
+  pointer-events: auto;
+}
+
+.audit-slide-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.audit-slide-modal-panel {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  height: 100%;
+  background: #0a0a0a;
+  border-left: 1px solid rgba(247, 95, 11, 0.4);
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+.audit-slide-modal-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.audit-slide-modal-close:hover {
+  border-color: #F75F0B;
+  color: #F75F0B;
+}
+
+.audit-slide-modal-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 3rem;
+}
+
+.audit-slide-modal-headline {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.25;
+  margin: 0 0 1rem;
+}
+
+.audit-slide-modal-subtext {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.5;
+  margin: 0 0 2rem;
+}
+
+.audit-slide-modal-cta {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  background: #F75F0B;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.875rem 1.5rem;
+  border-radius: 9999px;
+  text-decoration: none;
+  border: 1px solid #F75F0B;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.audit-slide-modal-cta:hover {
+  background: #E0540A;
+  border-color: #E0540A;
+  color: #fff;
+}
+
+/* ========== Mobile: bottom sheet (distinct, less disruptive) ========== */
+.audit-slide-modal-container--mobile {
+  justify-content: flex-end;
+  align-items: stretch;
+}
+
+.audit-slide-modal-panel--mobile {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: auto;
+  width: 100%;
+  max-width: none;
+  max-height: 58vh;
+  height: auto;
+  border-left: none;
+  border-top: 1px solid rgba(47, 160, 181, 0.5);
+  border-radius: 16px 16px 0 0;
+  padding: 0 1.25rem 1.5rem;
+  padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.audit-slide-modal-panel--mobile .audit-slide-modal-close {
+  top: 0.75rem;
+  right: 0.5rem;
+}
+
+.audit-slide-modal-panel--mobile .audit-slide-modal-content {
+  padding-top: 2.5rem;
+  justify-content: flex-start;
+}
+
+.audit-slide-modal-drag-handle {
+  width: 40px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 2px;
+  margin: 0.75rem auto 0;
+  flex-shrink: 0;
+}
+
+.audit-slide-modal-panel--mobile .audit-slide-modal-headline {
+  font-size: 1.35rem;
+  margin-bottom: 0.75rem;
+}
+
+.audit-slide-modal-panel--mobile .audit-slide-modal-subtext {
+  font-size: 0.9375rem;
+  margin-bottom: 1.5rem;
+}
+
+.audit-slide-modal-panel--mobile .audit-slide-modal-cta {
+  padding: 0.875rem 1.25rem;
+  font-size: 0.9375rem;
+}
+
+@media (max-width: 480px) {
+  .audit-slide-modal-headline {
+    font-size: 1.5rem;
+  }
+}

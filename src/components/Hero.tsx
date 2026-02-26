@@ -16,6 +16,7 @@ import RecentProjects from './RecentProjects';
 import FounderSection from './FounderSection';
 import TestimonialsSection from './TestimonialsSection';
 import YouTubeShortsGrid from './YouTubeShortsGrid';
+import AuditSlideModal from './AuditSlideModal';
 import Footer from './Footer';
 import ScrollToTop from './ScrollToTop';
 import TechTicker from './TechTicker';
@@ -29,7 +30,8 @@ const ContactSection = lazy(() => import('./ContactSection'));
 const Hero: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  
+  const [showAuditModal, setShowAuditModal] = useState(false);
+
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
     return () => { document.body.style.overflow = 'auto'; };
@@ -41,6 +43,11 @@ const Hero: React.FC = () => {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowAuditModal(true), 8000);
+    return () => clearTimeout(timer);
   }, []);
 
   const HeroImg = '/images/hero_imgg.webp';
@@ -720,6 +727,7 @@ const Hero: React.FC = () => {
 
         <Footer />
       </div>
+      <AuditSlideModal isOpen={showAuditModal} onClose={() => setShowAuditModal(false)} />
     </div>
   );
 };

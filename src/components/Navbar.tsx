@@ -71,7 +71,7 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen, isScrolled }
         {/* CTA Button - Desktop only */}
         <div className="w-1/5 navbar-cta">
           <Link to="/book-consultation" onClick={scrollToTop}>
-            <button className="cta-btn">Book a Free Consultation</button>
+            <button className="cta-btn">Free Technical Audit</button>
           </Link>
         </div>
 
@@ -145,7 +145,7 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen, isScrolled }
                   setIsMenuOpen(false);
                   scrollToTop();
                 }}>
-                  <button className="cta-btn">Book a Free Consultation</button>
+                  <button className="cta-btn">Free Technical Audit</button>
                 </Link>
               </div>
             </motion.div>
