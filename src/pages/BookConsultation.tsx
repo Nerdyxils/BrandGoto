@@ -661,12 +661,18 @@ const styles = `
     padding: 4rem 0;
     margin: 0;
     width: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
+    box-sizing: border-box;
   }
 
   .section-black .container {
-    padding: 0 1rem;
-    margin: 0 auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 1200px;
+    box-sizing: border-box;
   }
 
   .main-content > *:last-child {
@@ -678,9 +684,12 @@ const styles = `
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 100%;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
     padding: 2rem 0;
+    box-sizing: border-box;
   }
 
   .consultation-content {
@@ -1096,9 +1105,20 @@ const styles = `
   }
 
   @media (max-width: 768px) {
+    .section-black .container {
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+    }
+
     .creative-consultation-wrapper {
       gap: 2rem;
       padding: 1rem 0;
+      max-width: 100%;
+    }
+
+    .consultation-content {
+      width: 100%;
+      max-width: 100%;
     }
 
     .consultation-title {
