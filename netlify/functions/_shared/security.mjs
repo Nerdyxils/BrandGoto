@@ -14,12 +14,6 @@ const DEVELOPMENT_ORIGINS = new Set([
   'http://127.0.0.1:8888',
 ]);
 
-function getHeader(event, name) {
-  const headers = event.headers || {};
-  const match = Object.keys(headers).find((key) => key.toLowerCase() === name.toLowerCase());
-  return match ? headers[match] : undefined;
-}
-
 function getAllowedOrigins() {
   const configured = (process.env.ALLOWED_ORIGINS || '')
     .split(',')
@@ -34,9 +28,10 @@ function getAllowedOrigins() {
   return allowed;
 }
 
-function getCorsHeaders(event) {
-  const origin = getHeader(event, 'origin');
-  const host = getHeader(event, 'x-forwarded-host') || getHeader(event, 'host');
+function getCorsHeaders(request) {
+  const origin = request.headers.get('origin');
+  const forwardedHost = request.headers.get('x-forwarded-host');
+  const requestHost = forwardedHost || new URL(request.url).host;
   const baseHeaders = {
     Vary: 'Origin',
     'Access-Control-Allow-Headers': 'Content-Type',
@@ -47,7 +42,7 @@ function getCorsHeaders(event) {
 
   let isSameOrigin = false;
   try {
-    isSameOrigin = Boolean(host && new URL(origin).host === host);
+    isSameOrigin = new URL(origin).host === requestHost;
   } catch {
     return null;
   }
@@ -60,30 +55,28 @@ function getCorsHeaders(event) {
   };
 }
 
-function jsonResponse(statusCode, body, corsHeaders = {}, extraHeaders = {}) {
-  return {
-    statusCode,
+export function jsonResponse(status, body, corsHeaders = {}, extraHeaders = {}) {
+  return Response.json(body, {
+    status,
     headers: {
       ...corsHeaders,
       ...extraHeaders,
-      'Content-Type': 'application/json',
       'Cache-Control': 'no-store',
     },
-    body: JSON.stringify(body),
-  };
+  });
 }
 
-function getClientIp(event) {
+function getClientIp(request) {
   return (
-    getHeader(event, 'x-nf-client-connection-ip') ||
-    (getHeader(event, 'x-forwarded-for') || '').split(',')[0].trim() ||
-    'unknown'
+    request.headers.get('x-nf-client-connection-ip')
+    || (request.headers.get('x-forwarded-for') || '').split(',')[0].trim()
+    || 'unknown'
   );
 }
 
-function checkRateLimit(event, namespace, limit, windowMs) {
+function checkRateLimit(request, namespace, limit, windowMs) {
   const now = Date.now();
-  const key = `${namespace}:${getClientIp(event)}`;
+  const key = `${namespace}:${getClientIp(request)}`;
   const current = rateLimitBuckets.get(key);
 
   if (!current || current.resetAt <= now) {
@@ -99,37 +92,31 @@ function checkRateLimit(event, namespace, limit, windowMs) {
   return null;
 }
 
-function decodeBody(event) {
-  const raw = event.body || '';
-  return event.isBase64Encoded ? Buffer.from(raw, 'base64').toString('utf8') : raw;
-}
-
-function guardRequest(event, { namespace, maxBytes, limit, windowMs }) {
-  const corsHeaders = getCorsHeaders(event);
+export async function guardRequest(request, { namespace, maxBytes, limit, windowMs }) {
+  const corsHeaders = getCorsHeaders(request);
   if (!corsHeaders) {
     return { response: jsonResponse(403, { error: 'Origin not allowed' }) };
   }
 
-  if (event.httpMethod === 'OPTIONS') {
+  if (request.method === 'OPTIONS') {
     return {
-      response: {
-        statusCode: 204,
+      response: new Response(null, {
+        status: 204,
         headers: corsHeaders,
-        body: '',
-      },
+      }),
     };
   }
 
-  if (event.httpMethod !== 'POST') {
+  if (request.method !== 'POST') {
     return { response: jsonResponse(405, { error: 'Method not allowed' }, corsHeaders) };
   }
 
-  const rawBody = decodeBody(event);
-  if (Buffer.byteLength(rawBody, 'utf8') > maxBytes) {
+  const rawBody = await request.text();
+  if (new TextEncoder().encode(rawBody).byteLength > maxBytes) {
     return { response: jsonResponse(413, { error: 'Request body too large' }, corsHeaders) };
   }
 
-  const retryAfter = checkRateLimit(event, namespace, limit, windowMs);
+  const retryAfter = checkRateLimit(request, namespace, limit, windowMs);
   if (retryAfter !== null) {
     return {
       response: jsonResponse(
@@ -147,8 +134,3 @@ function guardRequest(event, { namespace, maxBytes, limit, windowMs }) {
     return { response: jsonResponse(400, { error: 'Invalid JSON body' }, corsHeaders) };
   }
 }
-
-module.exports = {
-  guardRequest,
-  jsonResponse,
-};

@@ -1,7 +1,7 @@
-const { guardRequest, jsonResponse } = require('./_shared/security.cjs');
+import { guardRequest, jsonResponse } from './_shared/security.mjs';
 
-exports.handler = async (event) => {
-  const guarded = guardRequest(event, {
+export default async function handler(request) {
+  const guarded = await guardRequest(request, {
     namespace: 'chat',
     maxBytes: 50 * 1024,
     limit: 20,
@@ -26,8 +26,7 @@ exports.handler = async (event) => {
   }
 
   const apiKey = process.env.OPENAI_API_KEY;
-  const model = process.env.OPENAI_MODEL;
-  if (!apiKey || !model) {
+  if (!apiKey) {
     return jsonResponse(503, { error: 'Chat service is not configured' }, corsHeaders);
   }
 
@@ -57,7 +56,7 @@ BrandGoto is a remote-first studio serving founders in the United States and glo
         Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model,
+        model: process.env.OPENAI_MODEL || 'gpt-4o-mini',
         messages: [
           { role: 'system', content: systemPreamble + (contextText ? `\n\nContext:\n${contextText}` : '') },
           ...normalizedMessages,
@@ -85,4 +84,4 @@ BrandGoto is a remote-first studio serving founders in the United States and glo
     console.error('Chat function error:', error instanceof Error ? error.message : 'Unknown error');
     return jsonResponse(500, { error: 'Chat service failed' }, corsHeaders);
   }
-};
+}

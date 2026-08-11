@@ -1,15 +1,20 @@
 import { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Footer from './Footer';
 import Navbar from './Navbar';
 import ScrollToTop from './ScrollToTop';
 
 const SiteLayout: React.FC = () => {
+  const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
+    setIsMenuOpen(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? 'hidden' : '';
 
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape') setIsMenuOpen(false);
@@ -23,7 +28,7 @@ const SiteLayout: React.FC = () => {
     return () => {
       document.removeEventListener('keydown', handleEscape);
       window.removeEventListener('resize', handleResize);
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = '';
     };
   }, [isMenuOpen]);
 

@@ -1,9 +1,10 @@
-const { guardRequest, jsonResponse } = require('./_shared/security.cjs');
+import { guardRequest, jsonResponse } from './_shared/security.mjs';
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const LIVE_AGENT_RECIPIENT = 'silas@brandgoto.com';
 
-exports.handler = async (event) => {
-  const guarded = guardRequest(event, {
+export default async function handler(request) {
+  const guarded = await guardRequest(request, {
     namespace: 'lead',
     maxBytes: 20 * 1024,
     limit: 10,
@@ -21,7 +22,6 @@ exports.handler = async (event) => {
   const message = typeof body.message === 'string' ? body.message.trim().slice(0, 4000) : interest;
   const requestType = body.requestType === 'live_agent_ticket' ? 'live_agent_ticket' : 'lead';
   const isLiveAgentTicket = requestType === 'live_agent_ticket';
-  const liveAgentRecipient = 'silas@brandgoto.com';
 
   if (!EMAIL_PATTERN.test(email)) {
     return jsonResponse(400, { error: 'A valid email is required' }, corsHeaders);
@@ -71,7 +71,7 @@ exports.handler = async (event) => {
         },
         body: JSON.stringify({
           from: process.env.LIVE_AGENT_FROM_EMAIL,
-          to: [liveAgentRecipient],
+          to: [LIVE_AGENT_RECIPIENT],
           reply_to: email,
           subject: `BrandGoto live-agent request from ${name}`,
           text: [
@@ -97,8 +97,8 @@ exports.handler = async (event) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...lead,
-          recipient: isLiveAgentTicket ? liveAgentRecipient : undefined,
-          to: isLiveAgentTicket ? liveAgentRecipient : undefined,
+          recipient: isLiveAgentTicket ? LIVE_AGENT_RECIPIENT : undefined,
+          to: isLiveAgentTicket ? LIVE_AGENT_RECIPIENT : undefined,
           form_source: isLiveAgentTicket ? 'chatbot_live_agent' : 'chatbot_lead',
           form_timestamp: new Date().toISOString(),
         }),
@@ -116,4 +116,4 @@ exports.handler = async (event) => {
   }
 
   return jsonResponse(200, { ok: true, deliveryChannel, crmDelivered }, corsHeaders);
-};
+}

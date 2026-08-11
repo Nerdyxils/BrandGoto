@@ -215,9 +215,19 @@ export default function Chatbot() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     });
-    const result = await response.json();
+    const responseText = await response.text();
+    let result: { ok?: boolean; error?: string } = {};
+
+    if (responseText) {
+      try {
+        result = JSON.parse(responseText) as { ok?: boolean; error?: string };
+      } catch {
+        // Netlify and upstream proxies can return plain-text error pages.
+      }
+    }
+
     if (!response.ok || !result.ok) {
-      throw new Error(result.error || 'Lead submission failed');
+      throw new Error(result.error || `Lead submission failed (${response.status})`);
     }
   }
 

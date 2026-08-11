@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Logo from '../assets/brandlogo-white.webp';
 import './Navbar.css';
 import { Button, LinkButton } from './ui/Button';
@@ -27,6 +27,8 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen, isScrolled }
   const isHomePage = location.pathname === '/';
   const isLinkActive = (path: string) =>
     path === '/blog' ? location.pathname === '/blog' || location.pathname.startsWith('/blog/') : location.pathname === path;
+
+  const closeMenu = () => setIsMenuOpen(false);
   
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -34,7 +36,7 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen, isScrolled }
 
   const handleLogoClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     if (isHomePage) event.preventDefault();
-    setIsMenuOpen(false);
+    closeMenu();
     scrollToTop();
   };
 
@@ -42,7 +44,7 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen, isScrolled }
   const currentNavLinks = isHomePage ? navLinks : [homeLink, ...navLinks];
 
   return (
-    <header className={`navbar-container ${isScrolled ? 'scrolled' : ''}`}>
+    <header className={`navbar-container ${isScrolled ? 'scrolled' : ''} ${isMenuOpen ? 'menu-open' : ''}`}>
       <div className="navbar-inner">
         {/* Logo */}
         <div className="w-1/5 navbar-logo">
@@ -73,7 +75,7 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen, isScrolled }
         {/* Hamburger Menu - Mobile only */}
         <Button
           className="menu-toggle"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          onClick={() => setIsMenuOpen((open) => !open)}
           aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
           aria-expanded={isMenuOpen}
           aria-controls="mobile-navigation"
@@ -83,30 +85,30 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen, isScrolled }
       </div>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <>
+      {isMenuOpen && (
+          <div className="mobile-menu-layer">
             {/* Overlay */}
             <motion.div
-              id="mobile-navigation"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.2 }}
               className="mobile-menu-backdrop"
-              onClick={() => setIsMenuOpen(false)}
+              onClick={closeMenu}
+              aria-hidden="true"
             />
 
             {/* Slide-in Panel */}
-            <motion.div
+            <motion.aside
+              id="mobile-navigation"
               initial={{ x: '100%', opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              exit={{ x: '100%', opacity: 0 }}
               transition={{ type: 'tween', duration: 0.3 }}
               className="mobile-menu enhanced"
+              aria-label="Mobile navigation"
+              aria-modal="true"
             >
               <div className="mobile-menu-header">
-                <Button className="menu-toggle-close" onClick={() => setIsMenuOpen(false)} aria-label="Close navigation menu">
+                <Button className="menu-toggle-close" onClick={closeMenu} aria-label="Close navigation menu">
                   <svg 
                     width="24" 
                     height="24" 
@@ -133,7 +135,7 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen, isScrolled }
                     to={link.path}
                     className={`mobile-nav-link ${isLinkActive(link.path) ? 'active' : ''}`}
                     onClick={() => {
-                      setIsMenuOpen(false);
+                      closeMenu();
                       scrollToTop();
                     }}
                   >
@@ -144,16 +146,15 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen, isScrolled }
 
               <div className="mobile-menu-cta">
                 <LinkButton to="/book-consultation" className="cta-btn" onClick={() => {
-                  setIsMenuOpen(false);
+                  closeMenu();
                   scrollToTop();
                 }}>
                   Strategic GTM Audit
                 </LinkButton>
               </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+            </motion.aside>
+          </div>
+      )}
     </header>
   );
 };

@@ -1,9 +1,9 @@
-const { guardRequest, jsonResponse } = require('./_shared/security.cjs');
+import { guardRequest, jsonResponse } from './_shared/security.mjs';
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-exports.handler = async (event) => {
-  const guarded = guardRequest(event, {
+export default async function handler(request) {
+  const guarded = await guardRequest(request, {
     namespace: 'form-submit',
     maxBytes: 20 * 1024,
     limit: 10,
@@ -38,4 +38,4 @@ exports.handler = async (event) => {
     console.error('Form submission error:', error instanceof Error ? error.message : 'Unknown error');
     return jsonResponse(500, { success: false, error: 'Form submission failed' }, corsHeaders);
   }
-};
+}

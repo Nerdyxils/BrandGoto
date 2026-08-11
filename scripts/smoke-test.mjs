@@ -118,6 +118,7 @@ try {
   if (!focusVisible) throw new Error('Primary CTA has no visible keyboard focus indicator.');
   await page.keyboard.press('Enter');
   await page.waitForFunction(() => window.location.pathname === '/launchpad');
+  await page.waitForSelector('.site-layout > header a[href="/book-consultation"]');
   await page.focus('.site-layout > header a[href="/book-consultation"]');
   await page.keyboard.press('Enter');
   await page.waitForFunction(() => window.location.pathname === '/book-consultation');
@@ -236,13 +237,61 @@ try {
   await page.waitForSelector('.mobile-menu.enhanced');
   const mobilePanelMetrics = await page.$eval('.mobile-menu.enhanced', (panel) => {
     const rect = panel.getBoundingClientRect();
-    return { top: rect.top, bottom: rect.bottom, height: rect.height, viewportHeight: window.innerHeight };
+    const navbar = panel.closest('.navbar-container');
+    return {
+      top: rect.top,
+      bottom: rect.bottom,
+      height: rect.height,
+      viewportHeight: window.innerHeight,
+      navbarZIndex: navbar ? Number.parseInt(getComputedStyle(navbar).zIndex, 10) : 0,
+    };
   });
-  if (Math.abs(mobilePanelMetrics.top) > 1 || Math.abs(mobilePanelMetrics.bottom - mobilePanelMetrics.viewportHeight) > 1) {
+  if (
+    Math.abs(mobilePanelMetrics.top) > 1
+    || Math.abs(mobilePanelMetrics.bottom - mobilePanelMetrics.viewportHeight) > 1
+    || mobilePanelMetrics.navbarZIndex <= 10050
+  ) {
     throw new Error(`Mobile side panel is not viewport-height: ${JSON.stringify(mobilePanelMetrics)}`);
   }
-  await page.keyboard.press('Escape');
-  console.log('Mobile navigation passed.');
+  await page.waitForFunction(() => {
+    const panel = document.querySelector('.mobile-menu.enhanced');
+    if (!(panel instanceof HTMLElement)) return false;
+    return Math.abs(panel.getBoundingClientRect().right - window.innerWidth) < 1;
+  });
+  await page.click('.mobile-nav-link');
+  await page.waitForFunction(() => window.location.pathname === '/launchpad');
+  await page.waitForSelector('.mobile-menu.enhanced', { hidden: true });
+  const navigationCloseState = await page.evaluate(() => ({
+    hasPanel: Boolean(document.querySelector('.mobile-menu.enhanced')),
+    hasBackdrop: Boolean(document.querySelector('.mobile-menu-backdrop')),
+    expanded: document.querySelector('.menu-toggle')?.getAttribute('aria-expanded'),
+    bodyOverflow: document.body.style.overflow,
+  }));
+  if (
+    navigationCloseState.hasPanel
+    || navigationCloseState.hasBackdrop
+    || navigationCloseState.expanded !== 'false'
+    || navigationCloseState.bodyOverflow !== ''
+  ) {
+    throw new Error(`Mobile menu remained after route navigation: ${JSON.stringify(navigationCloseState)}`);
+  }
+
+  await page.waitForSelector('.menu-toggle', { visible: true });
+  await page.click('.menu-toggle');
+  await page.waitForSelector('.menu-toggle-close', { visible: true });
+  await page.waitForFunction(() => {
+    const panel = document.querySelector('.mobile-menu.enhanced');
+    if (!(panel instanceof HTMLElement)) return false;
+    return Math.abs(panel.getBoundingClientRect().right - window.innerWidth) < 1;
+  });
+  await page.click('.menu-toggle-close');
+  await page.waitForSelector('.mobile-menu.enhanced', { hidden: true });
+
+  await page.click('.menu-toggle');
+  await page.waitForSelector('.mobile-menu-backdrop', { visible: true });
+  await page.click('.mobile-menu-backdrop');
+  await page.waitForSelector('.mobile-menu.enhanced', { hidden: true });
+  console.log('Mobile route, close-button, and backdrop navigation passed.');
 
   await page.click('.chatbot-launcher');
   await page.type('#chatbot-message', 'Please connect me with a live agent');
