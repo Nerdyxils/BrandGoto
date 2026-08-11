@@ -26,7 +26,8 @@ exports.handler = async (event) => {
   }
 
   const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) {
+  const model = process.env.OPENAI_MODEL;
+  if (!apiKey || !model) {
     return jsonResponse(503, { error: 'Chat service is not configured' }, corsHeaders);
   }
 
@@ -56,7 +57,7 @@ BrandGoto is a remote-first studio serving founders in the United States and glo
         Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: process.env.OPENAI_MODEL || 'gpt-4o-mini',
+        model,
         messages: [
           { role: 'system', content: systemPreamble + (contextText ? `\n\nContext:\n${contextText}` : '') },
           ...normalizedMessages,
