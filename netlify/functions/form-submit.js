@@ -1,80 +1,41 @@
-exports.handler = async (event, context) => {
-  // Handle CORS preflight requests
-  if (event.httpMethod === 'OPTIONS') {
-    return {
-      statusCode: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      },
-      body: '',
-    };
+const { guardRequest, jsonResponse } = require('./_shared/security.cjs');
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+exports.handler = async (event) => {
+  const guarded = guardRequest(event, {
+    namespace: 'form-submit',
+    maxBytes: 20 * 1024,
+    limit: 10,
+    windowMs: 15 * 60 * 1000,
+  });
+  if (guarded.response) return guarded.response;
+
+  const { body: formData, corsHeaders } = guarded;
+  if (typeof formData.email !== 'string' || !EMAIL_PATTERN.test(formData.email.trim())) {
+    return jsonResponse(400, { success: false, error: 'A valid email is required' }, corsHeaders);
   }
 
-  // Only allow POST requests
-  if (event.httpMethod !== 'POST') {
-    return {
-      statusCode: 405,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-      },
-      body: JSON.stringify({ success: false, error: 'Method not allowed' }),
-    };
+  const webhookUrl = process.env.MAKE_WEBHOOK_URL;
+  if (!webhookUrl) {
+    return jsonResponse(503, { success: false, error: 'Form service is not configured' }, corsHeaders);
   }
 
   try {
-    // Parse the incoming request body
-    const formData = JSON.parse(event.body);
-    
-    // Debug logging
-    console.log('📥 Received form data:', JSON.stringify(formData, null, 2));
-    console.log('🔍 Form data validation - Name:', formData.firstname, 'Email:', formData.email, 'Phone:', formData.phone);
-
-    // Forward the data to Make.com webhook
-    const webhookUrl = process.env.MAKE_WEBHOOK_URL || 'https://hook.us2.make.com/2jhecx0f9v8buiu1so1pwk8jc73qi5h1';
-    
-    console.log('📤 Forwarding to webhook:', webhookUrl);
-    
     const response = await fetch(webhookUrl, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
     });
 
-    console.log('📥 Webhook response status:', response.status);
-    
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error('❌ Webhook error response:', errorText);
-      throw new Error(`Webhook request failed with status ${response.status}: ${errorText}`);
+      console.error('Form webhook failed with status:', response.status);
+      return jsonResponse(502, { success: false, error: 'Form delivery failed' }, corsHeaders);
     }
 
-    // Return success response
-    return {
-      statusCode: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ success: true }),
-    };
-
+    return jsonResponse(200, { success: true }, corsHeaders);
   } catch (error) {
-    console.error('Form submission error:', error);
-    
-    return {
-      statusCode: 500,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ 
-        success: false, 
-        error: error.message || 'Internal server error' 
-      }),
-    };
+    console.error('Form submission error:', error instanceof Error ? error.message : 'Unknown error');
+    return jsonResponse(500, { success: false, error: 'Form submission failed' }, corsHeaders);
   }
 };

@@ -3,10 +3,10 @@ import { motion } from 'framer-motion';
 import './TeamSection.css';
 
 const teamMembers = [
-  { name: 'Silas', role: 'Founder & Project Lead', img: '/images/Founder.webp' },
-  { name: 'Robert', role: 'Full Stack Developer', img: '/images/Robert.webp' },
-  { name: 'Olha', role: 'Product Designer', img: '/images/Olha.webp' },
-  { name: 'Dmytro', role: 'Marketing Strategist', img: '/images/Dymtro.webp' },
+  { name: 'Silas', role: 'Founder & Project Lead', img: '/images/Founder-960.webp', width: 960, height: 1228 },
+  { name: 'Robert', role: 'Full Stack Developer', img: '/images/Robert.webp', width: 1024, height: 1536 },
+  { name: 'Olha', role: 'Product Designer', img: '/images/Olha.webp', width: 958, height: 1280 },
+  { name: 'Dmytro', role: 'Marketing Strategist', img: '/images/Dymtro.webp', width: 1024, height: 1280 },
 ];
 
 const fadeInUp = {
@@ -58,7 +58,7 @@ const TeamSection: React.FC = () => {
                 whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
               >
                 <div className="team-image-wrapper">
-                  <img src={member.img} alt={member.name} className="team-image" />
+                  <img src={member.img} alt={member.name} className="team-image" width={member.width} height={member.height} loading="lazy" decoding="async" />
                 </div>
                 <div className="team-info">
                   <h4 className="team-name">{member.name}</h4>

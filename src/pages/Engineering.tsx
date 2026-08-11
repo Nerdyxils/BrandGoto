@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import Navbar from '../components/Navbar';
-import ScrollToTop from '../components/ScrollToTop';
-import Footer from '../components/Footer';
 import TechTicker from '../components/TechTicker';
 import YouTubeVideo from '../components/YouTubeVideo';
 import SEO from '../components/SEO';
@@ -12,36 +9,10 @@ import '../components/Herotwo.css';
 import '../components/FAQ.css';
 import '../components/ContactSection.css';
 import { seoConfig } from '../seo/seoConfig';
+import FaIcon from '../components/FaIcon';
+import { ExternalLinkButton } from '../components/ui/Button';
 
 const Engineering: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  
-  useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setIsMenuOpen(false);
-    };
-    const handleResize = () => {
-      if (window.innerWidth > 768) setIsMenuOpen(false);
-    };
-    document.addEventListener('keydown', handleEsc);
-    window.addEventListener('resize', handleResize);
-    return () => {
-      document.removeEventListener('keydown', handleEsc);
-      window.removeEventListener('resize', handleResize);
-      document.body.style.overflow = 'auto';
-    };
-  }, [isMenuOpen]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   const fadeInUp = {
     hidden: { opacity: 1, y: 12 },
     visible: { 
@@ -83,8 +54,8 @@ const Engineering: React.FC = () => {
       answer: 'A Fractional CTO is a strategic technical partner who handles your architecture, technical roadmap, and engineering management at a fraction of the cost of a full-time executive hire.',
     },
     {
-      question: 'How does the US-Strategic / European-Engineering model work?',
-      answer: 'Our Lead Architect handles high-level strategy and architecture to ensure alignment with North American markets, while our elite European engineering team provides 24/7 technical execution and delivery.',
+      question: 'How does the Fractional CTO & Engineering Retainer work?',
+      answer: 'The Lead Architect handles technical strategy, architecture, and roadmap decisions while the engineering team supports implementation, delivery, and ongoing iteration.',
     },
     {
       question: 'What technologies do you specialize in?',
@@ -95,8 +66,6 @@ const Engineering: React.FC = () => {
   return (
     <div className="scroll-container bg-black">
       <SEO {...seoConfig.engineering} />
-      <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isScrolled={isScrolled} />
-      <ScrollToTop />
       <div className="main-content">
         {/* Hero Section */}
         <section className="hero-section section-standard">
@@ -108,19 +77,16 @@ const Engineering: React.FC = () => {
               initial="visible"
               animate="visible"
             >
-              <h2 className="sr-only">
-                Fractional CTO & High-End Engineering Studio | Brandgoto
-              </h2>
               <motion.span className="section-subtitle" variants={fadeInUp}>
-                High-Performance Engineering
+                Fractional CTO & Engineering Retainer
               </motion.span>
-              <motion.h2 className="herotwo-heading" variants={fadeInUp}>
+              <motion.h1 className="herotwo-heading" variants={fadeInUp}>
                 <span>For</span>
                 <span>Growing</span>
                 <span>Teams</span>
-              </motion.h2>
+              </motion.h1>
               <motion.p className="section-description" variants={fadeInUp}>
-                Venture-backed startup partner delivering Fractional CTO Services, AI-Ops and Workflow Automation, and a Lead Architect + Engineering Team model that scales.
+                Recurring technical leadership and engineering delivery for venture-scale startups, including architecture, implementation, AI-Ops, and workflow automation.
               </motion.p>
             </motion.div>
           </div>
@@ -149,19 +115,19 @@ const Engineering: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
                 {[
                   {
-                    icon: <i className="fas fa-user-tie text-4xl text-[#F75F0B]"></i>,
-                    title: 'Fractional CTO',
-                    desc: 'Fractional CTO Services with strategic roadmapping and architecture—senior leadership without full-time overhead.',
+                    icon: <FaIcon name="user-tie" className="text-4xl text-[#F75F0B]" />,
+                    title: 'Fractional CTO & Engineering Retainer',
+                    desc: 'Strategic roadmapping, architecture, and engineering delivery without full-time executive overhead.',
                     features: ['Technical Strategy', 'Architecture Design', 'Team Leadership']
                   },
                   {
-                    icon: <i className="fas fa-laptop-code text-4xl text-[#2FA0B5]"></i>,
+                    icon: <FaIcon name="laptop-code" className="text-4xl text-[#2FA0B5]" />,
                     title: 'Custom Development',
                     desc: 'Scaling web applications and complex API integrations. Build robust, scalable solutions that grow with your business.',
                     features: ['Full-Stack Development', 'API Integration', 'System Scaling']
                   },
                   {
-                    icon: <i className="fas fa-robot text-4xl text-[#F75F0B]"></i>,
+                    icon: <FaIcon name="robot" className="text-4xl text-[#F75F0B]" />,
                     title: 'AI Operations',
                     desc: 'AI-Ops and workflow automation using LLM systems to remove manual friction and accelerate execution.',
                     features: ['LLM Integration', 'Workflow Automation', 'AI-Powered Solutions']
@@ -177,7 +143,7 @@ const Engineering: React.FC = () => {
                     <p className="text-gray-400 text-sm leading-relaxed mb-6">{item.desc}</p>
                     <div className="space-y-2 border-t border-white/5 pt-4">
                       {item.features.map((f, idx) => (
-                        <div key={idx} className="flex items-center gap-2 text-xs text-gray-500 font-medium uppercase tracking-wider">
+                        <div key={idx} className="flex items-center gap-2 text-xs text-gray-300 font-medium uppercase tracking-wider">
                           <span className="w-1 h-1 bg-[#F75F0B] rounded-full"></span>
                           {f}
                         </div>
@@ -212,7 +178,7 @@ const Engineering: React.FC = () => {
                 </motion.p>
               </motion.div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-8">
+              <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] gap-8">
                 {/* Video Container (60%) */}
                 <div className="video-container video-container--custom">
                   <YouTubeVideo
@@ -224,7 +190,7 @@ const Engineering: React.FC = () => {
 
                 {/* System Logic Map (40%) */}
                 <div className="system-logic-container">
-                  <h4 className="system-logic-title">System Logic</h4>
+                  <h3 className="system-logic-title">System Logic</h3>
                   <div className="system-logic-steps">
                     {[
                       {
@@ -260,7 +226,7 @@ const Engineering: React.FC = () => {
                     ].map((step, index) => (
                       <div key={index} className="system-logic-step">
                         <div className="step-icon-wrapper">
-                          <i className={step.icon} aria-hidden="true" />
+                          <FaIcon name={step.icon} />
                         </div>
                         <div className="step-content">
                           <span className="step-label">{step.label}</span>
@@ -276,9 +242,9 @@ const Engineering: React.FC = () => {
               {/* Technical Stats Grid */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
                 {[
-                  { value: '2.3s', label: 'Average Response Time' },
-                  { value: '99.9%', label: 'Uptime' },
-                  { value: '24/7', label: 'Automated Operation' },
+                  { value: 'Automated', label: 'Lead Response' },
+                  { value: 'Resilient', label: 'Infrastructure' },
+                  { value: 'Continuous', label: 'Workflow Operation' },
                 ].map((stat, i) => (
                   <motion.div
                     key={i}
@@ -321,7 +287,7 @@ const Engineering: React.FC = () => {
                     variants={fadeInUp}
                   >
                     <div className="flex flex-col items-center gap-3">
-                      <i className={`${tech.iconClass} text-2xl text-white/80`} aria-hidden="true" />
+                      <FaIcon name={tech.iconClass} className="text-2xl text-white/80" />
                       <span className="text-white font-bold text-xs md:text-sm uppercase tracking-tight">{tech.name}</span>
                     </div>
                   </motion.div>
@@ -361,22 +327,20 @@ const Engineering: React.FC = () => {
             >
               <h2 className="text-4xl font-bold text-white mb-4">Ready to Scale Your Engineering?</h2>
               <p className="text-gray-400 mb-8 text-lg">
-                Let's discuss how our Fractional CTO and Studio Retainers can accelerate your growth.
+                Discuss whether a Fractional CTO & Engineering Retainer fits your technical roadmap and delivery needs.
               </p>
-              <a 
-                href="https://calendar.app.google/bkuV5B26kSURz2jbA" 
+              <ExternalLinkButton
+                href="https://calendar.app.google/uCcmuLDGudKtHW9V8"
                 target="_blank" 
                 rel="noopener noreferrer"
+                className="bg-[#023942] border border-[#CFF8FF] text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-[#CFF8FF] hover:text-[#023942] transition-all"
               >
-                <button className="bg-[#2FA0B5] text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-[#3fb8d0] transition-all">
-                  Book a Strategic Audit
-                </button>
-              </a>
+                Strategic GTM Audit
+              </ExternalLinkButton>
             </motion.div>
           </div>
         </section>
 
-        <Footer />
       </div>
     </div>
   );

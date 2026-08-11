@@ -94,9 +94,9 @@ const YouTubeShortsGrid: React.FC<YouTubeShortsGridProps> = ({
             <Link
               to="/book-consultation"
               className="youtube-shorts-grid__cta-btn"
-              aria-label="Request Strategic GTM Audit"
+              aria-label="Strategic GTM Audit"
             >
-              Request Strategic GTM Audit
+              Strategic GTM Audit
             </Link>
           </motion.div>
         )}

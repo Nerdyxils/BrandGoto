@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
-import { Link } from 'react-router-dom';
 import './TestimonialsSection.css';
+import { LinkButton } from './ui/Button';
 
 interface Stat {
   value: string;
@@ -16,6 +16,10 @@ interface Testimonial {
   title: string;
   logo: string;
   avatar: string;
+  logoWidth: number;
+  logoHeight: number;
+  avatarWidth: number;
+  avatarHeight: number;
   stats: Stat[];
 }
 
@@ -28,6 +32,10 @@ const testimonials: Testimonial[] = [
     title: 'CEO & Founder of Higher Glyphs',
     logo: '/images/higherglyphs1.webp',
     avatar: '/images/shannon-travis-1.webp',
+    logoWidth: 1554,
+    logoHeight: 716,
+    avatarWidth: 371,
+    avatarHeight: 371,
     stats: [
       { value: '97%', label: 'Client Satisfaction', numericValue: 97 },
       { value: '43%', label: 'Customer engagement', numericValue: 43 },
@@ -36,12 +44,16 @@ const testimonials: Testimonial[] = [
   },
   {
     id: 2,
-    company: 'SMT',
+    company: 'Nexora',
     testimonial: 'Working with BrandGoto was a game-changer. They didn\'t just design our website — they helped us clarify our vision, streamline our messaging, and launch with confidence. Our leads tripled within the first month!',
     name: 'Sarah L',
     title: 'Marketing Director at Nexora',
     logo: '/images/Nexora.webp',
     avatar: '/images/SarahL.webp',
+    logoWidth: 1024,
+    logoHeight: 1024,
+    avatarWidth: 1024,
+    avatarHeight: 1536,
     stats: [
       { value: '94%', label: 'Client Satisfaction', numericValue: 94 },
       { value: '60%', label: 'Customer engagement', numericValue: 60 },
@@ -56,6 +68,10 @@ const testimonials: Testimonial[] = [
     title: 'Co-founder of NeuraForm Labs',
     logo: '/images/Neuralabs.webp',
     avatar: '/images/DavidK.webp',
+    logoWidth: 352,
+    logoHeight: 200,
+    avatarWidth: 1024,
+    avatarHeight: 1536,
     stats: [
       { value: '97%', label: 'Client Satisfaction', numericValue: 97 },
       { value: '43%', label: 'Customer engagement', numericValue: 43 },
@@ -70,69 +86,63 @@ const TestimonialCard: React.FC<{
   index: number; 
 }> = ({ testimonial, index }) => {
   const cardRef = useRef<HTMLDivElement>(null);
-  const isEven = index % 2 === 0;
-  const bgClass = isEven ? 'teal-overlay' : 'orange-overlay';
+  const accentClass = index % 2 === 0 ? 'testimonial-card--teal' : 'testimonial-card--orange';
 
   return (
     <div 
-      className={`testimonial-row ${!isEven ? 'reverse-row' : ''}`} 
+      className="testimonial-card-shell"
       ref={cardRef}
       aria-label={`Testimonial from ${testimonial.name} at ${testimonial.company}`}
     >
-      {/* Logo Box */}
-      <div className={`logo-box ${bgClass}`}>
-        <div className="logo-container">
-          <img 
-            src={testimonial.logo} 
-            alt={`${testimonial.company} logo`}
-            loading="lazy"
-            decoding="async"
-          />
-          <div className="logo-glow" />
-        </div>
-        <div className="connection-line" />
-      </div>
-
-      {/* Testimonial Card */}
-      <div className={`testimonial-card ${bgClass}`}>
-        <div className="card-content">
-          <div className="testimonial-text">
-            <div className="quote-mark">"</div>
-            <p>{testimonial.testimonial}</p>
-            <div className="author">
-              <div className="avatar-container">
-                <img 
-                  src={testimonial.avatar} 
-                  alt={testimonial.name}
-                  loading="lazy"
-                  decoding="async"
-                />
-                <div className="avatar-ring" />
-              </div>
-              <div className="author-info">
-                <strong>{testimonial.name}</strong>
-                <span>{testimonial.title}</span>
-              </div>
-            </div>
+      <article className={`testimonial-card ${accentClass}`}>
+        <header className="testimonial-card-header">
+          <div className="testimonial-logo">
+            <img
+              src={testimonial.logo}
+              alt={`${testimonial.company} logo`}
+              width={testimonial.logoWidth}
+              height={testimonial.logoHeight}
+              loading="lazy"
+              decoding="async"
+            />
           </div>
+          <span className="testimonial-card-number" aria-hidden="true">
+            {String(index + 1).padStart(2, '0')}
+          </span>
+        </header>
 
-          <div className="testimonial-stats">
-            <div className="stats-grid">
-              {testimonial.stats.map((stat, idx) => (
-                <div 
-                  className="stat" 
-                  key={idx}
-                >
-                  <h4>{stat.value}</h4>
-                  <p>{stat.label}</p>
-                </div>
-              ))}
-            </div>
+        <div className="testimonial-quote">
+          <span className="quote-mark" aria-hidden="true">“</span>
+          <p>{testimonial.testimonial}</p>
+        </div>
+
+        <div className="testimonial-author">
+          <div className="avatar-container">
+            <img
+              src={testimonial.avatar}
+              alt={testimonial.name}
+              width={testimonial.avatarWidth}
+              height={testimonial.avatarHeight}
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div className="author-info">
+            <strong>{testimonial.name}</strong>
+            <span>{testimonial.title}</span>
           </div>
         </div>
-        
-        <div className="card-pattern" />
-      </div>
+
+        <div className="testimonial-stats" aria-label={`${testimonial.company} outcomes`}>
+          {testimonial.stats.map((stat) => (
+            <div className="testimonial-stat" key={stat.label}>
+              <p className="stat-value">{stat.value}</p>
+              <p>{stat.label}</p>
+            </div>
+          ))}
+        </div>
+
+      </article>
     </div>
   );
 };
@@ -171,7 +181,7 @@ const TestimonialSection: React.FC = () => {
       {/* Testimonials Grid */}
       <div className="testimonial-grid" role="list">
         {testimonials.map((testimonial, index) => (
-          <div 
+          <div
             key={testimonial.id}
             id={`testimonial-${index}`}
             role="listitem"
@@ -187,16 +197,12 @@ const TestimonialSection: React.FC = () => {
       {/* CTA Buttons */}
       <div className="cta-buttons-container text-center mt-16">
                   <div className="flex flex-row gap-4 justify-center items-center">
-            <Link to="/book-consultation" onClick={scrollToTop}>
-              <button className="cta-btn-primary">
-                Want Results Like This?
-              </button>
-            </Link>
-            <Link to="/success-stories" onClick={scrollToTop}>
-              <button className="cta-btn-secondary">
-                More Success Stories
-              </button>
-            </Link>
+            <LinkButton to="/book-consultation" onClick={scrollToTop} className="cta-btn-primary">
+              Want Results Like This?
+            </LinkButton>
+            <LinkButton to="/success-stories" onClick={scrollToTop} className="cta-btn-secondary">
+              More Success Stories
+            </LinkButton>
           </div>
       </div>
     </section>

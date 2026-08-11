@@ -1,46 +1,34 @@
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import '../components/RecentProjects.css';
-
-interface Project {
-  id: number;
-  title: string;
-  img: string;
-  description: string;
-}
+import Modal from './ui/Modal';
+import { Button } from './ui/Button';
+import type { CarouselProject } from '../data/projectData';
 
 interface ProjectModalProps {
-  project: Project;
+  project: CarouselProject;
   onClose: () => void;
   triggerElement: HTMLElement | null;
 }
 
-const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
+const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, triggerElement }) => {
   return (
-    <AnimatePresence>
-      <motion.div
-        className="section-modal"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.3 }}
-        onClick={onClose}
-      >
-        <motion.div
-          className="modal-content"
-          initial={{ opacity: 1, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 1, y: 12 }}
-          transition={{ duration: 0.3 }}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <button onClick={onClose} className="close-btn">×</button>
-          <h3>{project.title}</h3>
+    <Modal
+      isOpen
+      onClose={onClose}
+      labelledBy={`project-modal-title-${project.id}`}
+      containerClassName="section-modal"
+      panelClassName="modal-content"
+      backdropClassName="section-modal-backdrop"
+      restoreFocusTo={triggerElement}
+    >
+          <Button onClick={onClose} className="close-btn" aria-label="Close project details">×</Button>
+          <h2 id={`project-modal-title-${project.id}`}>{project.title}</h2>
           <p>{project.description}</p>
-          <img src={project.img} alt={project.title} />
-        </motion.div>
-      </motion.div>
-    </AnimatePresence>
+          <picture>
+            {project.avifSrcSet && <source type="image/avif" srcSet={project.avifSrcSet} sizes="(max-width: 768px) 90vw, 760px" />}
+            <img src={project.img} alt={project.title} width={project.width} height={project.height} decoding="async" />
+          </picture>
+    </Modal>
   );
 };
 

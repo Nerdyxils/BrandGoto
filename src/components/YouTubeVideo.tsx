@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import './YouTubeVideo.css';
 
+const BRANDED_VIDEO_POSTERS: Record<string, string> = {
+  '-rrCbZdHUx8': '/images/video-covers/pretty-profitable.webp',
+  '_-w6CPPE7Qs': '/images/video-covers/ai-lead-workflow.webp',
+  'w1CCEIsH8LY': '/images/video-covers/technical-partner.webp',
+};
+
 export interface YouTubeVideoProps {
   /** YouTube video ID (e.g. from youtu.be/xxx or youtube.com/watch?v=xxx) */
   videoId: string;
@@ -45,6 +51,7 @@ const YouTubeVideo: React.FC<YouTubeVideoProps> = ({
 }) => {
   const id = getVideoId(videoId);
   const [isPlaying, setIsPlaying] = useState(false);
+  const posterUrl = thumbnailUrl || BRANDED_VIDEO_POSTERS[id];
 
   const embedUrl = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
 
@@ -65,19 +72,27 @@ const YouTubeVideo: React.FC<YouTubeVideoProps> = ({
           aria-label={`Play video: ${title}`}
         >
           <img
-            src={thumbnailUrl || `https://img.youtube.com/vi/${id}/hqdefault.jpg`}
-            srcSet={thumbnailUrl ? undefined : `https://img.youtube.com/vi/${id}/hqdefault.jpg 480w, https://img.youtube.com/vi/${id}/sddefault.jpg 640w, https://img.youtube.com/vi/${id}/maxresdefault.jpg 1280w`}
+            src={posterUrl || `https://img.youtube.com/vi/${id}/hqdefault.jpg`}
+            srcSet={posterUrl ? undefined : `https://img.youtube.com/vi/${id}/hqdefault.jpg 480w, https://img.youtube.com/vi/${id}/sddefault.jpg 640w, https://img.youtube.com/vi/${id}/maxresdefault.jpg 1280w`}
             sizes="(max-width: 640px) 480px, (max-width: 1280px) 640px, 1280px"
             alt=""
             className="youtube-video__thumbnail-img"
             loading="lazy"
             decoding="async"
+            width="1280"
+            height="720"
           />
           <span className="youtube-video__overlay" aria-hidden="true" />
+          <span className="youtube-video__frame" aria-hidden="true" />
+          <span className="youtube-video__cover-copy" aria-hidden="true">
+            <span className="youtube-video__eyebrow">BrandGoto / Studio Film</span>
+            <span className="youtube-video__cover-title">{title}</span>
+            <span className="youtube-video__watch-label">Watch the film</span>
+          </span>
           <span className="youtube-video__play-icon" aria-hidden="true">
             <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true">
-              <circle cx="40" cy="40" r="38" fill="currentColor" opacity="0.95" />
-              <path d="M33 26v28l22-14-22-14z" fill="#0a0a0a" />
+              <rect x="1" y="1" width="78" height="78" rx="39" fill="currentColor" />
+              <path d="M34 27v26l21-13-21-13z" fill="#050708" />
             </svg>
           </span>
         </button>

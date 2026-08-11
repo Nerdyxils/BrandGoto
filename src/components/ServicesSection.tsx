@@ -10,6 +10,8 @@ import Imgbi from '../assets/BIdentity.webp';
 import Imgmk from '../assets/Frame-icons.webp';
 // You'll need a mobile app icon - suggest adding: import ImgApp from '../assets/MobileApp.webp';
 import './ServicesSection.css';
+import FaIcon from './FaIcon';
+import { LinkButton } from './ui/Button';
 
 const ServicesSection: React.FC = () => {
   const ref = useRef(null);
@@ -36,42 +38,42 @@ const ServicesSection: React.FC = () => {
 
   const services = [
     {
-      icon: <img src={Imgwd} alt='Website Design & Development' />,
+      icon: <img src={Imgwd} alt='Website Design & Development' width="31" height="31" />,
       title: 'Website Design & Development',
       description: 'Websites that convert. Clean, fast, mobile-first with AI-ready infrastructure.',
     },
     {
-      icon: <img src={Imgwd} alt='Mobile App Development' />, // Replace with ImgApp when you add the icon
+      icon: <img src={Imgwd} alt='Mobile App Development' width="31" height="31" />, // Replace with ImgApp when you add the icon
       title: 'Mobile App Development',
       description: 'iOS & Android apps that customers love.',
     },
     {
-      icon: <img src={Imgbi} alt='Brand Identity & Logo Design' />,
+      icon: <img src={Imgbi} alt='Brand Identity & Logo Design' width="31" height="30" />,
       title: 'Brand Identity & Logo Design',
       description: 'Memorable brands that stand out and stick.',
     },
     {
-      icon: <img src={Imgcd} alt='Creative Direction & Strategy' />,
+      icon: <img src={Imgcd} alt='Creative Direction & Strategy' width="31" height="30" />,
       title: 'Creative Direction & Strategy',
       description: 'Clear direction from scattered ideas.',
     },
     {
-      icon: <img src={Imgdigm} alt='Digital Marketing & Growth' />,
+      icon: <img src={Imgdigm} alt='Digital Marketing & Growth' width="31" height="30" />,
       title: 'Digital Marketing & Growth',
       description: 'Marketing that actually gets results with AI-assisted targeting and optimization.',
     },
     {
-      icon: <img src={Imggd} alt='Graphic Design & Visual Content' />,
+      icon: <img src={Imggd} alt='Graphic Design & Visual Content' width="31" height="31" />,
       title: 'Graphic Design & Visual Content',
       description: 'Eye-catching visuals that stop the scroll.',
     },
     {
-      icon: <img src={Imgdm} alt='Technical Setup & Infrastructure' />,
+      icon: <img src={Imgdm} alt='Technical Setup & Infrastructure' width="31" height="31" />,
       title: 'Technical Setup & Infrastructure',
-      description: 'All the techy stuff handled for you, including AI integrations and automation.',
+      description: 'Technical setup, infrastructure, AI integrations, and automation managed as one growth stack.',
     },
     {
-      icon: <img src={Imgmk} alt='AI Integrations & Systems' />,
+      icon: <img src={Imgmk} alt='AI Integrations & Systems' width="22" height="22" />,
       title: 'AI Integrations & Systems',
       description: 'LLM-powered workflows, AI assistants, and automation that remove manual friction.',
     },
@@ -96,14 +98,14 @@ const ServicesSection: React.FC = () => {
               className="section-subtitle"
               variants={fadeInUp}
             >
-              Complete Digital Solutions
+              GTM Infrastructure
             </motion.span>
 
             <motion.h2 className="herotwo-heading" variants={fadeInUp}>
               <span>From</span>
               <span>Idea</span>
               <span>to</span>
-              <span>Empire</span>
+              <span>Infrastructure</span>
               <span>—</span>
               <span>BrandGoto</span>
               <span>Powers</span>
@@ -114,7 +116,7 @@ const ServicesSection: React.FC = () => {
               className="section-description"
               variants={fadeInUp}
             >
-              Your one-stop creative partner. From startup idea to scaling business—we handle the creative, tech, and AI systems so you can focus on growth.
+              GTM Infrastructure unifies brand, performance web, and AI-enabled operations so each layer supports growth.
             </motion.p>
 
             <motion.p className="text-sm text-gray-400 mt-4" variants={fadeInUp}>
@@ -124,7 +126,7 @@ const ServicesSection: React.FC = () => {
               </Link>{' '}
               and scale with{' '}
               <Link to="/engineering" onClick={scrollToTop} className="text-[#2FA0B5] hover:text-[#3fb8d0] underline">
-                Fractional CTO Services
+                Fractional CTO &amp; Engineering Retainer
               </Link>
               .
             </motion.p>
@@ -149,9 +151,9 @@ const ServicesSection: React.FC = () => {
                     {service.icon}
                   </div>
                   <div>
-                    <h4 className="font-semibold text-sm md:text-base text-white mb-1">
+                    <h3 className="font-semibold text-sm md:text-base text-white mb-1">
                       {service.title}
-                    </h4>
+                    </h3>
                   </div>
                 </div>
                 <div className="p_text">
@@ -182,7 +184,7 @@ const ServicesSection: React.FC = () => {
               {
                 title: 'Technical Architecture',
                 description:
-                  'A rock-solid foundation with investor-ready infrastructure, secure deployment, and all technical debt eliminated.',
+                  'A maintainable foundation with investor-ready infrastructure, secure deployment, and a clear path for continued engineering.',
                 points: ['Enterprise Domain Governance', 'Hardened Cloud Infrastructure', 'System Integrity & Scaling'],
                 color: 'bg-purple',
                 borderColor: 'border-purple-dark',
@@ -211,7 +213,7 @@ const ServicesSection: React.FC = () => {
                     <ul className="highlight-points">
                       {card.points.map((point, idx) => (
                         <li key={idx} className="pill-icon-wrapper">
-                          <i className="fas fa-check" style={{ color: card.iconColor }} aria-hidden="true"></i>
+                          <FaIcon name="check" style={{ color: card.iconColor }} />
                           {point}
                         </li>
                       ))}
@@ -234,16 +236,12 @@ const ServicesSection: React.FC = () => {
               className="flex justify-center items-center"
               variants={fadeInUp}
             >
-              <Link to="/book-consultation" onClick={scrollToTop} className="w-full sm:w-auto">
-                <button className="cta-btn-primary w-full">
-                  Let's Build Something Amazing
-                </button>
-              </Link>
-              <Link to="/how-we-help" onClick={scrollToTop} className="w-full sm:w-auto">
-                <button className="cta-btn-secondary w-full">
-                  See What We Can Do
-                </button>
-              </Link>
+              <LinkButton to="/book-consultation" onClick={scrollToTop} className="cta-btn-primary w-full sm:w-auto">
+                Let's Build Something Amazing
+              </LinkButton>
+              <LinkButton to="/how-we-help" onClick={scrollToTop} className="cta-btn-secondary w-full sm:w-auto">
+                See What We Can Do
+              </LinkButton>
             </motion.div>
           </motion.div>
         </div>

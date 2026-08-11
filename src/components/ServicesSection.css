@@ -130,7 +130,7 @@
   color: #fff;
 }
 
-.pill-icon-wrapper i {
+.pill-icon-wrapper svg {
   font-size: 0.875rem;
   flex-shrink: 0;
 }
@@ -145,7 +145,9 @@
 }
 
 .cta-btn-primary {
-  @apply bg-[#F75F0B] text-white py-4 px-8 font-bold uppercase tracking-widest transition-all duration-300;
+  @apply py-4 px-8 font-bold uppercase tracking-widest transition-all duration-300;
+  background-color: #F75F0B;
+  color: #000000;
   border-radius: 4px;
 }
 
@@ -155,12 +157,15 @@
 }
 
 .cta-btn-secondary {
-  @apply bg-transparent text-[#2FA0B5] py-4 px-8 font-bold border border-[#2FA0B5] uppercase tracking-widest transition-all duration-300;
+  @apply bg-transparent py-4 px-8 font-bold border uppercase tracking-widest transition-all duration-300;
+  color: #CFF8FF;
+  border-color: #CFF8FF;
   border-radius: 4px;
 }
 
 .cta-btn-secondary:hover {
-  @apply bg-[#2FA0B5] text-white;
+  background-color: #CFF8FF;
+  color: #023942;
   transform: translateY(-2px);
 }
 

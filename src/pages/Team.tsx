@@ -1,43 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import Navbar from '../components/Navbar';
-import ScrollToTop from '../components/ScrollToTop';
-import Footer from '../components/Footer';
+import FaIcon from '../components/FaIcon';
 
 import '../components/Hero.css';
 import '../components/Herotwo.css';
 import '../components/TeamSection.css';
 
 const Team: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  
-  // MENU AND SCROLL HANDLERS
-  useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setIsMenuOpen(false);
-    };
-    const handleResize = () => {
-      if (window.innerWidth > 768) setIsMenuOpen(false);
-    };
-    document.addEventListener('keydown', handleEsc);
-    window.addEventListener('resize', handleResize);
-    return () => {
-      document.removeEventListener('keydown', handleEsc);
-      window.removeEventListener('resize', handleResize);
-      document.body.style.overflow = 'auto';
-    };
-  }, [isMenuOpen]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
     visible: { 
@@ -58,7 +27,9 @@ const Team: React.FC = () => {
     {
       name: 'Silas',
       role: 'Founder & Lead Developer',
-      image: '/images/Founder.JPG',
+      image: '/images/Founder-960.webp',
+      width: 960,
+      height: 1228,
       bio: 'Full-stack developer and creative strategist with a passion for building brands that scale. Combines technical expertise with strategic vision to lead our team.',
       skills: ['Full-Stack Development', 'Strategic Leadership', 'Brand Development', 'Technical Architecture'],
       linkedin: 'https://www.linkedin.com/in/abiodun-silas-timi/',
@@ -67,7 +38,9 @@ const Team: React.FC = () => {
     {
       name: 'Robert',
       role: 'Senior Full Stack Developer',
-      image: '/images/Robert.png',
+      image: '/images/Robert.webp',
+      width: 1024,
+      height: 1536,
       bio: 'Senior developer with expertise in modern web technologies. Builds fast, scalable applications that users love.',
       skills: ['React', 'Node.js', 'Python', 'Database Design'],
       linkedin: 'https://linkedin.com/in/robert-dev',
@@ -76,7 +49,9 @@ const Team: React.FC = () => {
     {
       name: 'Olha',
       role: 'Senior Product Designer',
-      image: '/images/Olha.jpg',
+      image: '/images/Olha.webp',
+      width: 958,
+      height: 1280,
       bio: 'UX/UI designer focused on creating intuitive, beautiful interfaces that drive user engagement and conversion.',
       skills: ['UI/UX Design', 'Prototyping', 'User Research', 'Design Systems'],
       linkedin: 'https://linkedin.com/in/olha-designer',
@@ -85,7 +60,9 @@ const Team: React.FC = () => {
     {
       name: 'Dmytro',
       role: 'Marketing Strategist',
-      image: '/images/Dymtro.jpg',
+      image: '/images/Dymtro.webp',
+      width: 1024,
+      height: 1280,
       bio: 'Growth-focused marketer who understands how to build campaigns that convert and scale businesses.',
       skills: ['Digital Marketing', 'Growth Strategy', 'Analytics', 'Content Strategy'],
       linkedin: 'https://linkedin.com/in/dmytro-marketing',
@@ -95,12 +72,8 @@ const Team: React.FC = () => {
 
   return (
     <div className="scroll-container">
-      <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isScrolled={isScrolled} />
-      <ScrollToTop />
       <motion.div
         className="main-content"
-        animate={isMenuOpen ? { x: '-40vw' } : { x: 0 }}
-        transition={{ type: 'tween', duration: 0.3 }}
       >
         {/* Hero Section */}
         <section className="hero-section">
@@ -171,6 +144,9 @@ const Team: React.FC = () => {
                       alt={member.name}
                       className="team-image"
                       loading="lazy"
+                      decoding="async"
+                      width={member.width}
+                      height={member.height}
                     />
                     {member.isFounder && (
                       <div className="founder-badge">
@@ -237,7 +213,7 @@ const Team: React.FC = () => {
               <div className="culture-grid">
                 <motion.div className="culture-item" variants={fadeInUp}>
                   <div className="culture-icon">
-                    <i className="fas fa-chart-line"></i>
+                    <FaIcon name="chart-line" />
                   </div>
                   <h3 className="sm__txt">Results-Focused</h3>
                   <p className="h__txt">
@@ -247,7 +223,7 @@ const Team: React.FC = () => {
                 
                 <motion.div className="culture-item" variants={fadeInUp}>
                   <div className="culture-icon">
-                    <i className="fas fa-rocket"></i>
+                    <FaIcon name="rocket" />
                   </div>
                   <h3 className="sm__txt">Fast Execution</h3>
                   <p className="h__txt">
@@ -257,7 +233,7 @@ const Team: React.FC = () => {
                 
                 <motion.div className="culture-item" variants={fadeInUp}>
                   <div className="culture-icon">
-                    <i className="fas fa-handshake"></i>
+                    <FaIcon name="handshake" />
                   </div>
                   <h3 className="sm__txt">True Partnership</h3>
                   <p className="h__txt">
@@ -270,7 +246,6 @@ const Team: React.FC = () => {
         </section>
 
         {/* Footer */}
-        <Footer />
       </motion.div>
     </div>
   );

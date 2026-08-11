@@ -111,7 +111,7 @@
   color: #F75F0B;
 }
 
-.faq-icon i {
+.faq-icon svg {
   font-size: 1rem;
   transition: transform 0.3s ease;
 }
@@ -183,7 +183,7 @@
     min-width: 44px;
   }
 
-  .faq-icon i {
+  .faq-icon svg {
     font-size: 0.9rem;
   }
 

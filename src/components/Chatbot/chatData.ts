@@ -1,4 +1,11 @@
-// Comprehensive knowledge base and FAQ for BrandGoto
+// Canonical, website-backed knowledge for Celine. Keep answers factual and avoid
+// inventing guarantees, client outcomes, or scope that is not published onsite.
+import { caseStudyProjects } from '../../data/projectData';
+
+const caseStudyNames = caseStudyProjects
+  .slice(0, 6)
+  .map((project) => project.title.split(' – ')[0])
+  .join(', ');
 
 export type KnowledgeItem = {
   id: string;
@@ -9,190 +16,191 @@ export type KnowledgeItem = {
 };
 
 export const knowledgeBase: KnowledgeItem[] = [
-  // === SERVICES ===
-  {
-    id: 'services-branding',
-    title: 'BrandGoto Services - Brand Identity & Logo Design',
-    text:
-      'BrandGoto delivers complete brand identity solutions including logo design, visual identity systems, brand strategy, messaging, and comprehensive brand guidelines. We create memorable brands that stand out and stick, helping businesses establish a strong, memorable presence that resonates with their target audience.',
-    tags: ['branding', 'identity', 'logo design', 'strategy', 'visual identity', 'brand guidelines'],
-  },
-  {
-    id: 'services-web',
-    title: 'BrandGoto Services - Website Design & Development',
-    text:
-      'We design and build responsive, high-performance websites that convert with clean, fast, mobile-first design. From stunning landing pages to complex e-commerce platforms, our sites are optimized for speed, SEO, and conversion with seamless user experiences across all devices.',
-    tags: ['web design', 'web development', 'react', 'seo', 'responsive', 'ux', 'ecommerce', 'landing pages'],
-  },
-  {
-    id: 'services-mobile',
-    title: 'BrandGoto Services - Mobile App Development',
-    text:
-      'BrandGoto offers comprehensive mobile app development for iOS & Android apps that customers love. We build native and cross-platform mobile applications that deliver exceptional user experiences, solve real problems, engage users, and scale with your business growth.',
-    tags: ['mobile apps', 'ios', 'android', 'app development', 'native apps', 'cross-platform'],
-  },
-  {
-    id: 'services-marketing',
-    title: 'BrandGoto Services - Digital Marketing & Growth',
-    text:
-      'Our digital marketing services include data-driven strategies that drive traffic, generate leads, and increase conversions. From social media campaigns to email marketing, we create campaigns that deliver measurable ROI and marketing that actually gets results.',
-    tags: ['digital marketing', 'social media', 'seo', 'content marketing', 'advertising', 'growth', 'roi'],
-  },
-  {
-    id: 'services-graphic',
-    title: 'BrandGoto Services - Graphic Design & Visual Content',
-    text:
-      'We provide comprehensive graphic design services including print materials, digital assets, social media graphics, presentations, and marketing collateral. Our eye-catching visuals stop the scroll and maintain brand consistency while effectively communicating your message.',
-    tags: ['graphic design', 'print design', 'digital assets', 'marketing materials', 'visual content'],
-  },
-  {
-    id: 'services-strategy',
-    title: 'BrandGoto Services - Creative Direction & Strategy',
-    text:
-      'Our creative direction and strategy services provide clear direction from scattered ideas. We help businesses define their vision, positioning, and creative approach, developing comprehensive strategies that align creative execution with business objectives.',
-    tags: ['creative direction', 'strategy', 'brand strategy', 'creative strategy', 'vision', 'positioning'],
-  },
-  {
-    id: 'services-technical',
-    title: 'BrandGoto Services - Technical Setup & Infrastructure',
-    text:
-      'BrandGoto handles all the techy stuff for you including domain registration, DNS configuration, professional business email setup, and technical infrastructure. We ensure your domain is properly configured for optimal performance and security.',
-    tags: ['technical setup', 'infrastructure', 'domain setup', 'business email', 'dns', 'email configuration'],
-  },
-
-  // === SMARTLAUNCH ===
-  {
-    id: 'packages-smartlaunch',
-    title: 'SmartLaunch by BrandGoto - AI Automation Packages',
-    text:
-      'SmartLaunch is our startup-focused AI automation offering designed to accelerate business growth. Packages include lead capture systems, CRM workflows, AI-powered assistants, automated onboarding, and intelligent business process automation.',
-    tags: ['smartlaunch', 'ai automation', 'startup', 'packages', 'automation', 'ai', 'lead capture', 'crm'],
-  },
-
-  // === COMPANY INFO ===
   {
     id: 'company-overview',
-    title: 'BrandGoto Company Overview',
-    text:
-      'BrandGoto is a remote-first technical growth studio founded in 2023 with the slogan "Bold Brands. Digital Excellence." We specialize in brand identity, web design, UI/UX, and AI-driven tech solutions for startups and enterprises serving the US and global markets.',
-    tags: ['company', 'overview', 'founded', 'slogan', 'creative agency', 'digital agency'],
+    title: 'What BrandGoto is',
+    text: 'BrandGoto is an AI-powered technical growth studio and Technical Growth Partner for Venture-Scale Startups. It connects conversion-focused brand strategy, performance web, GTM systems, and engineering so founders can launch and scale with one integrated partner.',
+    tags: ['company', 'about', 'technical growth partner', 'venture-scale startup', 'growth studio', 'ai-powered'],
+    url: '/about-us',
   },
   {
-    id: 'company-locations',
-    title: 'BrandGoto Locations - Remote-First, Global',
-    text:
-      'BrandGoto is a remote-first studio serving clients across the United States and globally. Our distributed team model lets us partner with founders anywhere.',
-    tags: ['remote-first', 'united states', 'global', 'locations', 'usa', 'offices', 'startup partner'],
+    id: 'positioning-principle',
+    title: 'Pretty vs. Profitable',
+    text: 'BrandGoto\'s Pretty vs. Profitable principle means design must support conversion clarity and business outcomes. Visual polish matters, but it is built around a clear offer, a useful customer journey, measurable acquisition infrastructure, and maintainable delivery.',
+    tags: ['pretty vs profitable', 'conversion', 'design principle', 'business outcomes', 'clarity'],
   },
   {
-    id: 'company-expertise',
-    title: 'BrandGoto Expertise & Experience',
-    text:
-      'BrandGoto has worked with 50+ businesses, from startups to enterprises, delivering creative digital solutions that drive growth. We have a 4.9/5 rating with 127 reviews, combining creative excellence with technical expertise to deliver results that exceed expectations.',
-    tags: ['experience', 'expertise', 'clients', 'portfolio', 'results', 'rating', 'reviews'],
-  },
-
-  // === TEAM ===
-  {
-    id: 'team-founder',
-    title: 'BrandGoto Team - Silas (Founder)',
-    text:
-      'Silas is the Founder & Lead Developer at BrandGoto, a full-stack developer and creative strategist with a passion for building brands that scale. He combines technical expertise with strategic vision to lead our team.',
-    tags: ['silas', 'founder', 'lead developer', 'full-stack', 'strategist', 'leadership'],
-  },
-
-  // === PROJECTS ===
-  {
-    id: 'project-prodex',
-    title: 'BrandGoto Project - Prodex Inventory Management',
-    text:
-      'Prodex is a comprehensive inventory and product management system built with MERN stack. The platform allows businesses to track stock levels, manage product listings, and generate reports with role-based authentication and real-time data updates.',
-    tags: ['prodex', 'inventory management', 'mern stack', 'product management', 'authentication', 'real-time'],
+    id: 'ideal-client',
+    title: 'Who BrandGoto works with',
+    text: 'BrandGoto is built for ambitious founders and venture-scale startups that need to move from an early-stage idea, fragmented tools, or an underperforming presence to a coherent growth and technical foundation. A Strategic GTM Audit confirms whether the scope and offer are a fit.',
+    tags: ['ideal client', 'startup', 'founder', 'early-stage', 'venture-scale', 'who do you work with'],
   },
   {
-    id: 'project-coinvers',
-    title: 'BrandGoto Project - CoinVers Cryptocurrency Platform',
-    text:
-      'CoinVers is a cryptocurrency tracking and analytics platform using React frontend and Django backend. It features real-time price updates, interactive charts, user authentication, portfolio tracking, and third-party API integration for live crypto data.',
-    tags: ['coinvers', 'cryptocurrency', 'react', 'django', 'trading', 'analytics', 'portfolio'],
+    id: 'offer-gtm-infrastructure',
+    title: 'GTM Infrastructure',
+    text: 'GTM Infrastructure is BrandGoto\'s umbrella growth system: investor-ready brand identity, performance web, lead capture, CRM, analytics, AI-Ops, and workflow automation designed to work together instead of as disconnected deliverables.',
+    tags: ['gtm infrastructure', 'brand', 'performance web', 'crm', 'analytics', 'ai-ops', 'automation', 'lead capture'],
   },
   {
-    id: 'project-dala',
-    title: 'BrandGoto Project - Dala Landing Page',
-    text:
-      'Dala is a fancy landing page developed with React + Next.js paired with GSAP ScrollTrigger. It features smooth scroll animations, modern design elements, performance optimization, and responsive layout.',
-    tags: ['dala', 'landing page', 'react', 'nextjs', 'gsap', 'animations', 'smooth scroll'],
+    id: 'offer-launchpad',
+    title: '14-Day Launchpad overview',
+    text: 'The 14-Day Launchpad is BrandGoto\'s productized GTM Infrastructure offer. It moves through discovery and strategy, brand identity and design, performance web build, then launch and growth-stack setup. Most standard-scope launches complete in 14 days; more complex builds can take longer, and the Strategic GTM Audit confirms scope and timing.',
+    tags: ['14-day launchpad', 'launch', 'launch+', 'productized offer', 'timeline', 'scope'],
+    url: '/launchpad',
   },
   {
-    id: 'project-jayo',
-    title: 'BrandGoto Project - Jayo Tech Consulting',
-    text:
-      'Jayo is a fully functional, high-performance ReactJS website for a forward-thinking tech consulting firm based in the USA. Built with ReactJS, NextJS, Tailwind, and Framer Motion for smooth interactions.',
-    tags: ['jayo', 'tech consulting', 'reactjs', 'nextjs', 'tailwind', 'framer motion', 'consulting'],
-  },
-
-  // === CONTACT INFO ===
-  {
-    id: 'contact-info',
-    title: 'BrandGoto Contact Information',
-    text:
-      'Contact BrandGoto at +1-647-937-7031 for customer service. We serve the United States and global regions, available in English. Our team operates remote-first to support founders worldwide.',
-    tags: ['contact', 'phone', '647-937-7031', 'customer service', 'united states', 'global', 'support'],
-  },
-
-  // === SOCIAL MEDIA ===
-  {
-    id: 'social-media',
-    title: 'BrandGoto Social Media Presence',
-    text:
-      'Follow BrandGoto on social media: Instagram @brand_goto, LinkedIn company/brandgoto, Twitter/X @brand_goto, Behance brandgoto, and Dribbble brandgoto. Stay updated with our latest work, insights, and creative resources.',
-    tags: ['social media', 'instagram', 'linkedin', 'twitter', 'behance', 'dribbble', 'brand_goto'],
-  },
-
-  // === PROCESS ===
-  {
-    id: 'process-consultation',
-    title: 'BrandGoto Process - Free Consultation',
-    text:
-      'We offer free consultations to understand your project needs, goals, and vision. During the consultation, we discuss scope, timeline, and investment to create a customized approach that aligns with your business objectives.',
-    tags: ['consultation', 'free consultation', 'process', 'discovery', 'scope', 'timeline'],
+    id: 'launchpad-process',
+    title: '14-Day Launchpad process',
+    text: 'The Launchpad schedule is Days 1–3: Discovery & Strategy; Days 4–7: Brand Identity & Design; Days 8–11: Performance Web Build; Days 12–14: Launch & Growth Stack. Complex requirements may extend the schedule.',
+    tags: ['launchpad process', 'days 1 3', 'days 4 7', 'days 8 11', 'days 12 14', 'schedule', 'timeline'],
+    url: '/launchpad',
   },
   {
-    id: 'process-timeline',
-    title: 'BrandGoto Process - Project Timeline',
-    text:
-      'Our projects typically range from 2-12 weeks depending on scope and complexity. We provide clear timelines, regular updates, and milestone-based delivery to ensure projects stay on track and meet your expectations.',
-    tags: ['timeline', 'project duration', 'milestones', 'delivery', '2-12 weeks', 'updates'],
-  },
-
-  // === CALL TO ACTIONS ===
-  {
-    id: 'cta-schedule',
-    title: 'Schedule a Call with BrandGoto',
-    text:
-      'Ready to start your project? Schedule a free consultation call to discuss your needs, get a custom quote, and learn how BrandGoto can help transform your business with creative digital solutions.',
-    tags: ['schedule', 'call', 'consultation', 'quote', 'get started', 'book consultation'],
+    id: 'launch-price',
+    title: 'Launch package pricing',
+    text: 'Launch is listed at $5,500 USD and includes a full brand suite, a five-page website, two AI workflows, and HubSpot CRM setup.',
+    tags: ['launch price', 'pricing', 'cost', '$5,500', 'five page website', 'hubspot', 'ai workflows'],
+    url: '/launchpad',
   },
   {
-    id: 'cta-portfolio',
-    title: 'View BrandGoto Portfolio',
-    text:
-      'Explore our portfolio to see examples of our work across branding, web design, app development, and digital marketing. Our case studies showcase the results we deliver for businesses like yours.',
-    tags: ['portfolio', 'case studies', 'examples', 'work', 'results', 'things we built'],
+    id: 'launch-plus-price',
+    title: 'Launch+ package pricing',
+    text: 'Launch+ is listed at $8,500 USD. It includes everything in Launch plus a booking system, a GPT-trained email responder, content automation, and a Launch Success Partner. Final scope and timeline are confirmed in the Strategic GTM Audit.',
+    tags: ['launch plus price', 'launch+', 'pricing', 'cost', '$8,500', 'booking', 'email responder', 'content automation'],
+    url: '/launchpad',
+  },
+  {
+    id: 'launchpad-platforms',
+    title: 'Launchpad web platforms',
+    text: 'Depending on scope, BrandGoto builds Launchpad websites in Webflow or Next.js. The package combines the site with brand identity, lead capture, CRM, and analytics rather than treating the website as a standalone asset.',
+    tags: ['webflow', 'next.js', 'nextjs', 'website platform', 'launchpad technology', 'analytics'],
+    url: '/launchpad',
+  },
+  {
+    id: 'offer-retainer',
+    title: 'Fractional CTO & Engineering Retainer',
+    text: 'The Fractional CTO & Engineering Retainer is BrandGoto\'s ongoing technical partnership for strategy, architecture, roadmapping, engineering delivery, AI operations, maintenance, and iteration as the company and product evolve.',
+    tags: ['fractional cto', 'engineering retainer', 'architecture', 'roadmap', 'engineering', 'ai-ops', 'ongoing'],
+    url: '/engineering',
+  },
+  {
+    id: 'fractional-cto-model',
+    title: 'How the Fractional CTO model works',
+    text: 'BrandGoto\'s Lead Architect handles technical strategy, architecture, priorities, and the roadmap. The engineering team supports implementation, delivery, and ongoing iteration, giving founders senior technical direction plus execution without building the entire function at once.',
+    tags: ['lead architect', 'fractional cto model', 'engineering team', 'implementation', 'delivery', 'technical leadership'],
+    url: '/engineering',
+  },
+  {
+    id: 'engineering-services',
+    title: 'Engineering services',
+    text: 'BrandGoto\'s engineering work includes Fractional CTO leadership, custom product and platform development, integrations, technical infrastructure, and AI Operations. The exact team and cadence depend on the approved roadmap and scope.',
+    tags: ['custom development', 'product development', 'platform', 'integration', 'technical infrastructure', 'ai operations'],
+    url: '/engineering',
+  },
+  {
+    id: 'engineering-stack',
+    title: 'Technology stack',
+    text: 'Technologies shown by BrandGoto include Webflow, Next.js, React, Vue, TypeScript, Node.js, Python, Django, FastAPI, AWS, Docker, Kubernetes, PostgreSQL, MongoDB, Redis, OpenAI, LangChain, and API integrations. Technology is selected around the project requirements rather than forced into one stack.',
+    tags: ['tech stack', 'technology', 'react', 'vue', 'typescript', 'node', 'python', 'aws', 'docker', 'kubernetes', 'postgresql', 'mongodb', 'redis', 'openai', 'langchain'],
+    url: '/engineering',
+  },
+  {
+    id: 'ai-operations',
+    title: 'AI Operations and automation',
+    text: 'BrandGoto designs practical AI workflows and automations around operating needs such as lead handling, customer communication, content operations, data movement, and connected internal processes. Recommendations depend on the workflow, data, integrations, and human review required.',
+    tags: ['ai ops', 'ai operations', 'automation', 'workflow', 'openai', 'lead handling', 'content automation'],
+    url: '/engineering',
+  },
+  {
+    id: 'brand-web-services',
+    title: 'Brand, web, and creative services',
+    text: 'BrandGoto can support brand identity and logo systems, creative direction, performance website design and development, graphic design, digital marketing and growth, mobile application development, technical setup, and AI integrations. These capabilities are assembled around the selected growth offer.',
+    tags: ['services', 'branding', 'logo', 'creative direction', 'website', 'web design', 'mobile app', 'marketing', 'graphic design'],
+    url: '/how-we-help',
+  },
+  {
+    id: 'delivery-process',
+    title: 'BrandGoto delivery process',
+    text: 'BrandGoto\'s broader delivery process follows four stages: Discovery & Research, Strategy & Planning, Engineering & Build, and Launch & Scaling. The detail and duration of each stage vary by offer and scope.',
+    tags: ['process', 'discovery', 'research', 'strategy', 'planning', 'build', 'launch', 'scaling'],
+    url: '/how-we-help',
+  },
+  {
+    id: 'case-studies',
+    title: 'Case studies and portfolio',
+    text: `BrandGoto publishes case studies spanning brand, performance web, product, and technical infrastructure. Current examples include ${caseStudyNames}. Visit Things We Built for the project collection and individual case-study detail.`,
+    tags: ['case studies', 'portfolio', 'things we built', 'work', 'examples', 'results'],
+    url: '/things-we-built',
+  },
+  {
+    id: 'location-collaboration',
+    title: 'Location and collaboration',
+    text: 'BrandGoto is remote-first and works with founders in the United States and globally. Collaboration format, meetings, access, and delivery cadence are agreed during scoping.',
+    tags: ['location', 'remote', 'global', 'united states', 'collaboration', 'timezone'],
+    url: '/about-us',
+  },
+  {
+    id: 'conversion-audit',
+    title: 'Strategic GTM Audit',
+    text: 'The Strategic GTM Audit is the primary next step. BrandGoto reviews goals, existing infrastructure, project scope, timing, and offer fit, then identifies whether GTM Infrastructure, the 14-Day Launchpad, or the Fractional CTO & Engineering Retainer is the appropriate path.',
+    tags: ['strategic gtm audit', 'consultation', 'audit', 'get started', 'scope', 'timeline', 'offer fit', 'book'],
+    url: '/book-consultation',
+  },
+  {
+    id: 'live-agent',
+    title: 'Contact a live agent',
+    text: 'A visitor who wants a person can request a live-agent follow-up in Celine. The visitor submits a name, email address, company, and question; the ticket is addressed to silas@brandgoto.com and the BrandGoto team follows up.',
+    tags: ['live agent', 'human', 'person', 'contact', 'email', 'silas', 'ticket', 'support'],
   },
 ];
 
 export const faq: Array<{ q: string; a: string }> = [
   {
-    q: 'What services do you offer?',
-    a: 'We provide branding, web design & development, and AI automation (SmartLaunch) tailored to your growth goals.'
+    q: 'What does BrandGoto do?',
+    a: 'BrandGoto is a Technical Growth Partner for Venture-Scale Startups, combining conversion-focused brand, performance web, GTM infrastructure, engineering, and AI operations.',
+  },
+  {
+    q: 'What are BrandGoto\'s three core offers?',
+    a: 'The three core paths are GTM Infrastructure, the productized 14-Day Launchpad, and the ongoing Fractional CTO & Engineering Retainer.',
+  },
+  {
+    q: 'How much does the 14-Day Launchpad cost?',
+    a: 'Launch is listed at $5,500 USD. Launch+ is listed at $8,500 USD. The Strategic GTM Audit confirms final scope, timing, and fit.',
+  },
+  {
+    q: 'What is included in Launch?',
+    a: 'Launch includes a full brand suite, a five-page website, two AI workflows, and HubSpot CRM setup.',
+  },
+  {
+    q: 'What is included in Launch+?',
+    a: 'Launch+ includes everything in Launch plus a booking system, a GPT-trained email responder, content automation, and a Launch Success Partner.',
+  },
+  {
+    q: 'Does every Launchpad project take exactly 14 days?',
+    a: 'Most standard-scope launches complete in 14 days. More complex builds can take longer; the Strategic GTM Audit confirms the realistic schedule.',
+  },
+  {
+    q: 'What does a Fractional CTO engagement include?',
+    a: 'It combines senior technical strategy, architecture, prioritization, and roadmapping with engineering implementation, delivery, AI operations, and ongoing iteration.',
+  },
+  {
+    q: 'What technology does BrandGoto use?',
+    a: 'The published stack includes Webflow, Next.js, React, Vue, TypeScript, Node.js, Python, Django, FastAPI, AWS, Docker, Kubernetes, common databases, OpenAI, LangChain, and API integrations. The final stack depends on project needs.',
+  },
+  {
+    q: 'Can I see BrandGoto case studies?',
+    a: 'Yes. Visit Things We Built for BrandGoto\'s portfolio and project case studies across brand, web, product, and infrastructure work.',
+  },
+  {
+    q: 'Does BrandGoto work remotely?',
+    a: 'Yes. BrandGoto is remote-first and works with founders in the United States and globally.',
   },
   {
     q: 'How do I get started?',
-    a: 'Schedule a call to discuss your goals and we will propose a clear path and timeline.'
+    a: 'Request a Strategic GTM Audit so BrandGoto can review your goals, current infrastructure, scope, timing, and the right offer fit.',
   },
   {
-    q: 'What is SmartLaunch?',
-    a: 'SmartLaunch is our startup-focused AI automation package suite, covering lead capture, CRM workflows, and AI assistants.'
+    q: 'Can I talk to a live agent?',
+    a: 'Yes. Choose Live Agent or ask Celine to speak with a person. Submit the short ticket and the BrandGoto team will get back to you.',
   },
 ];

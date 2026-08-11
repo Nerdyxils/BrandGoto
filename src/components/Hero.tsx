@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { lazy, Suspense, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import Navbar from './Navbar';
 import SEO from './SEO';
 import ImgCo from '../assets/conversion.webp';
 import ImgDi from '../assets/digital.webp';
 import ImgCs from '../assets/clientS.webp';
-import Arrowup from '../assets/ArrowUpRight.webp';
 import BigArr from '../assets/bigarrow.webp';
-import TinArr from '../assets/tinyarrow-dropdown.webp';
 import './Hero.css';
 import Herotwo from './Herotwo';
 import ServicesSection from './ServicesSection';
@@ -17,32 +14,62 @@ import FounderSection from './FounderSection';
 import TestimonialsSection from './TestimonialsSection';
 import YouTubeShortsGrid from './YouTubeShortsGrid';
 import AuditSlideModal from './AuditSlideModal';
-import Footer from './Footer';
-import ScrollToTop from './ScrollToTop';
 import TechTicker from './TechTicker';
 import YouTubeVideo from './YouTubeVideo';
-import { lazy, Suspense } from 'react';
 import { seoConfig } from '../seo/seoConfig';
+import FaIcon from './FaIcon';
+import GrowthProcessSection from './home/GrowthProcessSection';
 
 // Lazy load below-the-fold ContactSection to reduce initial bundle
 const ContactSection = lazy(() => import('./ContactSection'));
 
+const HERO_IMAGE = '/images/hero_imgg.webp';
+const CLIENT_SUCCESS_IMAGE = '/images/Image.webp';
+
+const leftStats = [
+  { iconSrc: ImgCo, iconAlt: 'Brandgoto startup growth metrics icon', label: 'Integrated Delivery', value: 'Brand + Web + Systems' },
+  { iconSrc: ImgDi, iconAlt: 'Brandgoto venture-scale performance icon', label: 'Built for Startup Growth', value: 'Launch and scale foundations' },
+  { iconSrc: ImgCs, iconAlt: 'Brandgoto client success icon for startups', label: 'Technical Growth Partnership', value: 'Strategy through execution' },
+];
+
+const rightStats = [
+  { label: 'Unified Delivery', subLabel: 'One technical growth partner', value: 'Integrated' },
+  { label: 'Conversion Clarity', subLabel: 'Built around profitable growth', value: 'Focused' },
+  { label: 'Technical Foundation', subLabel: 'Designed to evolve with scope', value: 'Maintainable' },
+];
+
+const fadeInUp = {
+  hidden: { opacity: 1, y: 12 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
+};
+
+const staggerContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
+};
+
+const sectionVariants = {
+  hidden: { opacity: 1, y: 12 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
+};
+
 const Hero: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const [showAuditModal, setShowAuditModal] = useState(false);
 
   useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
-    return () => { document.body.style.overflow = 'auto'; };
-  }, [isMenuOpen]);
+    const existingPreload = document.querySelector<HTMLLinkElement>('link[data-home-hero-preload]');
+    if (existingPreload) return;
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const preload = document.createElement('link');
+    preload.rel = 'preload';
+    preload.as = 'image';
+    preload.href = HERO_IMAGE;
+    preload.type = 'image/webp';
+    preload.fetchPriority = 'high';
+    preload.dataset.homeHeroPreload = 'true';
+    document.head.appendChild(preload);
+
+    return () => preload.remove();
   }, []);
 
   useEffect(() => {
@@ -50,84 +77,9 @@ const Hero: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const HeroImg = '/images/hero_imgg.webp';
-  const CSMimg = '/images/Image.webp';
-
-  // STATS DATA - KEEPING YOUR ORIGINAL DATA
-  const leftStats = [
-    {
-      icon: <img src={ImgCo} alt="Brandgoto startup growth metrics icon" loading="lazy" decoding="async" />,
-      label: 'Complete Solutions Delivered',
-      value: '150+',
-      change: '81%',
-    },
-    {
-      icon: <img src={ImgDi} alt="Brandgoto venture-scale performance icon" loading="lazy" decoding="async" />,
-      label: 'Businesses Launched & Scaled',
-      value: '50+',
-      change: '76%',
-    },
-    {
-      icon: <img src={ImgCs} alt="Brandgoto client success icon for startups" loading="lazy" decoding="async" />,
-      label: 'Founders Trust Us',
-      value: '99.2%',
-      change: '79%',
-    },
-  ];
-
-  const rightStats = [
-    {
-      label: 'Faster Than Multiple Agencies',
-      subLabel: 'Complete solution speed',
-      value: '3x',
-    },
-    {
-      label: 'Average Business Growth',
-      subLabel: 'After complete rebrand',
-      value: '+65%',
-    },
-    {
-      label: 'End-to-End Success Rate',
-      subLabel: 'From idea to launch',
-      value: '100%',
-    },
-  ];
-
-  // PREMIUM ANIMATION VARIANTS
-  const fadeInUp = {
-    hidden: { opacity: 1, y: 12 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
-    }
-  };
-
-  const staggerContainer = {
-    hidden: {},
-    visible: {
-      transition: { staggerChildren: 0.1, delayChildren: 0.2 }
-    }
-  };
-
-  // PREMIUM SECTION ANIMATION
-  const sectionVariants = {
-    hidden: { opacity: 1, y: 12 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { 
-        duration: 0.8, 
-        ease: [0.16, 1, 0.3, 1]
-      }
-    }
-  };
-
   return (
     <div className="scroll-container bg-black">
       <SEO {...seoConfig.home} />
-      <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isScrolled={isScrolled}/>
-      <ScrollToTop />
       <div className="main-content">
         {/* HERO SECTION - ORIGINAL STRUCTURE */}
         <section className="hero-section landing-hero relative text-white px-4 sm:px-8 pt-[90px] pb-10">
@@ -164,7 +116,7 @@ const Hero: React.FC = () => {
               {/* SOCIAL PROOF - KEEPING YOUR ORIGINAL CLASSES */}
               <motion.div className="social-proof mt-4" variants={fadeInUp}>
                 <span className="proof-text text-sm text-gray-400">
-                  Trusted by 50+ founders from idea to $1M+
+                  Built for founders moving from idea to venture-scale infrastructure
                 </span>
               </motion.div>
             </motion.div>
@@ -184,23 +136,20 @@ const Hero: React.FC = () => {
                     className="left-card"
                     variants={fadeInUp}
                     whileHover={{ 
-                      scale: 1.02,
-                      transition: { duration: 0.2 }
+                      y: -6,
+                      scale: 1.012,
+                      transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] }
                     }}
                   >
                     <div className="left-card-content">
                       <div className="left_top_stats">
                         <div className="left-card-icon">
-                          {stat.icon}
+                          <img src={stat.iconSrc} alt={stat.iconAlt} width="24" height="24" loading="lazy" decoding="async" />
                         </div>
                         <p className="left-card-label">{stat.label}</p>
                       </div>
                       <div className="left-card-change">
                         <p className="left-card-value">{stat.value}</p>
-                        <div className="change-group">
-                          <span>{stat.change}</span>
-                          <img src={Arrowup} alt="Arrow Up" loading="lazy" decoding="async" />
-                        </div>
                       </div>
                     </div>
                   </motion.div>
@@ -213,12 +162,13 @@ const Hero: React.FC = () => {
                 variants={fadeInUp}
               >
                 <motion.img
-                  src={HeroImg}
+                  src={HERO_IMAGE}
                   alt="Brandgoto technical growth partner profile"
                   className="middle-image"
                   loading="eager"
-                  fetchPriority="high"
                   decoding="async"
+                  width="500"
+                  height="500"
                   whileHover={{
                     scale: 1.02,
                     transition: { duration: 0.3 }
@@ -234,14 +184,15 @@ const Hero: React.FC = () => {
                     className="right-card"
                     variants={fadeInUp}
                     whileHover={{ 
-                      scale: 1.02,
-                      transition: { duration: 0.2 }
+                      y: -6,
+                      scale: 1.012,
+                      transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] }
                     }}
                   >
                     <div className="right-card-dot shadow-glow" />
                     <div className="right-card-content">
                       <div className="right-card-arrow-container">
-                        <img src={BigArr} className="right-card-arrow" alt="Growth metrics arrow indicator" loading="lazy" decoding="async" />
+                        <img src={BigArr} className="right-card-arrow" alt="" aria-hidden="true" width="18" height="18" loading="lazy" decoding="async" />
                       </div>
                       <div className="right-card-texts">
                         <p className="right-card-label">{stat.label}</p>
@@ -249,7 +200,6 @@ const Hero: React.FC = () => {
                       </div>
                       <div className="right-card-change">
                         <span>{stat.value}</span>
-                        <img src={TinArr} alt="Performance trend indicator" loading="lazy" decoding="async" />
                       </div>
                     </div>
                   </motion.div>
@@ -273,12 +223,13 @@ const Hero: React.FC = () => {
               >
                 <div className="cta-image-wrapper">
                   <img 
-                    src={CSMimg} 
+                    src={CLIENT_SUCCESS_IMAGE}
                     alt="Client Success Manager" 
                     className="cta-image"
                     loading="eager"
-                    fetchPriority="high"
                     decoding="async"
+                    width="44"
+                    height="44"
                   />
                   <span className="cta-online-indicator"></span>
                 </div>
@@ -289,20 +240,21 @@ const Hero: React.FC = () => {
                 <div className="cta-buttons-wrapper">
                   <motion.a 
                     href="/launchpad"
-                    className="cta-button"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                    className="cta-button cta-button--primary"
+                    whileHover={{ y: -3 }}
+                    whileTap={{ scale: 0.97 }}
                   >
-                    Start your 14-Day Launchpad
+                    <span>Start your 14-Day Launchpad</span>
+                    <span className="cta-button-arrow" aria-hidden="true">&#8599;</span>
                   </motion.a>
                   <motion.a 
                     href="/engineering"
-                    className="cta-button"
-                    style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                    className="cta-button cta-button--secondary"
+                    whileHover={{ y: -3 }}
+                    whileTap={{ scale: 0.97 }}
                   >
-                    Explore Engineering Retainers
+                    <span>Fractional CTO & Engineering Retainer</span>
+                    <span className="cta-button-arrow" aria-hidden="true">&#8599;</span>
                   </motion.a>
                 </div>
               </motion.div>
@@ -351,9 +303,9 @@ const Hero: React.FC = () => {
             <motion.div className="text-center" variants={fadeInUp}>
               <Link
                 to="/book-consultation"
-                className="inline-block bg-[#2FA0B5] text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-[#3fb8d0] transition-all no-underline"
+                className="inline-block bg-[#023942] border border-[#CFF8FF] text-[#CFF8FF] px-8 py-4 rounded-full font-bold text-lg hover:bg-[#CFF8FF] hover:text-[#023942] transition-all no-underline"
               >
-                Request Strategic GTM Audit
+                Strategic GTM Audit
               </Link>
             </motion.div>
           </div>
@@ -377,9 +329,9 @@ const Hero: React.FC = () => {
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               {[
-                { value: '80%', label: 'Time spent on admin' },
-                { value: '90%', label: 'Tasks that don\'t scale' },
-                { value: '95%', label: 'Manual processes' },
+                { value: 'Admin', label: 'Repetitive work' },
+                { value: 'Friction', label: 'Tasks that do not scale' },
+                { value: 'Manual', label: 'Disconnected processes' },
               ].map((stat, i) => (
                 <motion.div
                   key={i}
@@ -393,7 +345,7 @@ const Hero: React.FC = () => {
             </div>
 
             <motion.p className="text-center text-gray-300 text-lg max-w-2xl mx-auto mb-12" variants={fadeInUp}>
-              Most founders spend 80% of their time on tasks that don't scale. You're doing what AI should be doing.
+              Repetitive admin and disconnected processes pull founders away from work that compounds growth.
             </motion.p>
 
             {/* Comparison Table */}
@@ -404,19 +356,19 @@ const Hero: React.FC = () => {
                   <h3 className="text-xl font-bold text-white mb-4 uppercase">Traditional Agency</h3>
                   <ul className="space-y-3">
                     <li className="flex items-start gap-2 text-gray-400">
-                      <i className="fas fa-times text-[#F75F0B] mt-1" aria-hidden="true"></i>
+                      <FaIcon name="times" className="text-[#F75F0B] mt-1" />
                       <span>Months of development</span>
                     </li>
                     <li className="flex items-start gap-2 text-gray-400">
-                      <i className="fas fa-times text-[#F75F0B] mt-1" aria-hidden="true"></i>
+                      <FaIcon name="times" className="text-[#F75F0B] mt-1" />
                       <span>Multiple agencies</span>
                     </li>
                     <li className="flex items-start gap-2 text-gray-400">
-                      <i className="fas fa-times text-[#F75F0B] mt-1" aria-hidden="true"></i>
+                      <FaIcon name="times" className="text-[#F75F0B] mt-1" />
                       <span>Manual processes</span>
                     </li>
                     <li className="flex items-start gap-2 text-gray-400">
-                      <i className="fas fa-times text-[#F75F0B] mt-1" aria-hidden="true"></i>
+                      <FaIcon name="times" className="text-[#F75F0B] mt-1" />
                       <span>Hidden costs</span>
                     </li>
                   </ul>
@@ -427,19 +379,19 @@ const Hero: React.FC = () => {
                   <h3 className="text-xl font-bold text-white mb-4 uppercase">Brandgoto Studio</h3>
                   <ul className="space-y-3">
                     <li className="flex items-start gap-2 text-white">
-                      <i className="fas fa-check text-[#2FA0B5] mt-1" aria-hidden="true"></i>
-                      <span>14-day strategic sprints</span>
+                      <FaIcon name="check" className="text-[#2FA0B5] mt-1" />
+                      <span>14-Day Launchpad delivery</span>
                     </li>
                     <li className="flex items-start gap-2 text-white">
-                      <i className="fas fa-check text-[#2FA0B5] mt-1" aria-hidden="true"></i>
+                      <FaIcon name="check" className="text-[#2FA0B5] mt-1" />
                       <span>Unified technical partner</span>
                     </li>
                     <li className="flex items-start gap-2 text-white">
-                      <i className="fas fa-check text-[#2FA0B5] mt-1" aria-hidden="true"></i>
+                      <FaIcon name="check" className="text-[#2FA0B5] mt-1" />
                       <span>AI-automated workflows</span>
                     </li>
                     <li className="flex items-start gap-2 text-white">
-                      <i className="fas fa-check text-[#2FA0B5] mt-1" aria-hidden="true"></i>
+                      <FaIcon name="check" className="text-[#2FA0B5] mt-1" />
                       <span>Fixed USD pricing</span>
                     </li>
                   </ul>
@@ -517,7 +469,7 @@ const Hero: React.FC = () => {
                   variants={fadeInUp}
                 >
                   <div className="mb-6">
-                    <i className={`${item.icon} text-3xl text-[#F75F0B]`} aria-hidden="true" />
+                    <FaIcon name={item.icon} className="text-3xl text-[#F75F0B]" />
                   </div>
                   <h3 className="text-xl font-bold text-white mb-4 uppercase tracking-tight">{item.title}</h3>
                   <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
@@ -543,7 +495,7 @@ const Hero: React.FC = () => {
                 </motion.p>
               </motion.div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-8">
+              <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] gap-8">
                 {/* Video Container (60%) */}
                 <div className="video-container video-container--custom">
                   <YouTubeVideo
@@ -555,7 +507,7 @@ const Hero: React.FC = () => {
 
                 {/* System Logic Map (40%) */}
                 <div className="system-logic-container">
-                  <h4 className="system-logic-title">System Logic</h4>
+                  <h3 className="system-logic-title">System Logic</h3>
                   <div className="system-logic-steps">
                     {[
                       {
@@ -591,7 +543,7 @@ const Hero: React.FC = () => {
                     ].map((step, index) => (
                       <div key={index} className="system-logic-step">
                         <div className="step-icon-wrapper">
-                          <i className={step.icon} aria-hidden="true" />
+                          <FaIcon name={step.icon} />
                         </div>
                         <div className="step-content">
                           <span className="step-label">{step.label}</span>
@@ -627,79 +579,7 @@ const Hero: React.FC = () => {
           <FounderSection />
         </motion.section>
 
-        <motion.section 
-          id="process"
-          className="section-standard"
-          variants={sectionVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          <div className="container mx-auto">
-            <motion.div className="section-header" variants={fadeInUp}>
-              <motion.span className="section-subtitle">Our Methodology</motion.span>
-              <motion.h2 className="herotwo-heading">
-                <span>The</span>
-                <span>Path</span>
-                <span>to</span>
-                <span>Digital</span>
-                <span>Excellence</span>
-              </motion.h2>
-              <motion.p className="section-description">
-                A proven four-stage process that transforms early-stage ideas into investor-ready infrastructure.
-              </motion.p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
-              {[
-                {
-                  step: '01',
-                  title: 'Discovery & Research',
-                  desc: 'We dive deep into your business, goals, and audience to understand what success looks like.',
-                  features: ['Market Analysis', 'Goal Setting', 'Competitor Audit']
-                },
-                {
-                  step: '02',
-                  title: 'Strategy & Planning',
-                  desc: 'We create a clear roadmap and strategy that aligns with your business objectives.',
-                  features: ['Project Scope', 'Timeline Planning', 'Success Metrics']
-                },
-                {
-                  step: '03',
-                  title: 'Engineering & Build',
-                  desc: 'We bring your vision to life with clean design and solid technology.',
-                  features: ['UI/UX Design', 'Full-Stack Dev', 'Rapid Iteration']
-                },
-                {
-                  step: '04',
-                  title: 'Launch & Scaling',
-                  desc: 'We launch with confidence and continue optimizing for growth.',
-                  features: ['Global Launch', 'Analytics Audit', 'Post-Launch Ops']
-                }
-              ].map((item, i) => (
-                <motion.div 
-                  key={i} 
-                  className="bg-[#111] p-8 rounded-xl border border-white/10 hover:border-[#F75F0B] transition-all group"
-                  variants={fadeInUp}
-                >
-                  <div className="w-12 h-12 bg-[#F75F0B] rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <span className="text-white font-bold text-lg">{item.step}</span>
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-4 uppercase tracking-tight">{item.title}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed mb-6">{item.desc}</p>
-                  <div className="space-y-2 border-t border-white/5 pt-4">
-                    {item.features.map((f, idx) => (
-                      <div key={idx} className="flex items-center gap-2 text-xs text-gray-500 font-medium uppercase tracking-wider">
-                        <span className="w-1 h-1 bg-[#F75F0B] rounded-full"></span>
-                        {f}
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </motion.section>
+        <GrowthProcessSection />
 
         <motion.section 
           id="success-stories"
@@ -725,7 +605,6 @@ const Hero: React.FC = () => {
           </Suspense>
         </motion.section>
 
-        <Footer />
       </div>
       <AuditSlideModal isOpen={showAuditModal} onClose={() => setShowAuditModal(false)} />
     </div>

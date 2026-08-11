@@ -6,36 +6,29 @@ interface BreadcrumbItem {
   path: string;
 }
 
+const pathMap: Record<string, string> = {
+  '/launchpad': '14-Day Launchpad',
+  '/engineering': 'Fractional CTO & Engineering Retainer',
+  '/about-us': 'About Us',
+  '/how-we-help': 'How We Help',
+  '/things-we-built': 'Case Studies',
+  '/success-stories': 'Success Stories',
+  '/book-consultation': 'Strategic GTM Audit',
+  '/privacy-policy': 'Privacy Policy',
+};
+
 const Breadcrumbs: React.FC = () => {
   const location = useLocation();
   
-  // Don't show breadcrumbs on homepage
-  if (location.pathname === '/') {
-    return null;
-  }
-
-  const pathMap: Record<string, string> = {
-    '/launchpad': '14-Day GTM Launchpad',
-    '/engineering': 'Fractional CTO & Engineering',
-    '/about-us': 'About Us',
-    '/how-we-help': 'How We Help',
-    '/things-we-built': 'Case Studies',
-    '/success-stories': 'Success Stories',
-    '/book-consultation': 'Book Consultation',
-    '/privacy-policy': 'Privacy Policy',
-  };
-
-  const breadcrumbs: BreadcrumbItem[] = [
-    { label: 'Home', path: '/' },
-  ];
-
-  const currentPath = pathMap[location.pathname];
-  if (currentPath) {
-    breadcrumbs.push({ label: currentPath, path: location.pathname });
-  }
+  const breadcrumbs = React.useMemo<BreadcrumbItem[]>(() => {
+    const items: BreadcrumbItem[] = [{ label: 'Home', path: '/' }];
+    const currentPath = pathMap[location.pathname];
+    if (currentPath) items.push({ label: currentPath, path: location.pathname });
+    return items;
+  }, [location.pathname]);
 
   // Structured data for breadcrumbs
-  const breadcrumbStructuredData = {
+  const breadcrumbStructuredData = React.useMemo(() => ({
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     'itemListElement': breadcrumbs.map((crumb, index) => ({
@@ -44,9 +37,10 @@ const Breadcrumbs: React.FC = () => {
       'name': crumb.label,
       'item': `https://www.brandgoto.com${crumb.path}`,
     })),
-  };
+  }), [breadcrumbs]);
 
   React.useEffect(() => {
+    if (location.pathname === '/') return;
     // Inject breadcrumb structured data
     const existingScript = document.querySelector('script[type="application/ld+json"][data-breadcrumbs="true"]');
     if (existingScript) {
@@ -65,7 +59,9 @@ const Breadcrumbs: React.FC = () => {
         scriptToRemove.remove();
       }
     };
-  }, [location.pathname]);
+  }, [location.pathname, breadcrumbStructuredData]);
+
+  if (location.pathname === '/') return null;
 
   return (
     <nav aria-label="Breadcrumb" className="breadcrumbs-container">

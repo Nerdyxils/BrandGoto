@@ -1,24 +1,26 @@
+export type JsonValue = string | number | boolean | null | JsonValue[] | { [key: string]: JsonValue };
+
 export type SEOEntry = {
   title: string;
   description: string;
   path: string;
   keywords?: string;
   ogType?: string;
-  structuredData?: Record<string, any>;
+  structuredData?: Record<string, JsonValue>;
 };
 
 export const seoConfig: Record<string, SEOEntry> = {
   home: {
     title: 'Brandgoto | Technical Growth Partner for Venture-Scale Startups',
     description:
-      'Investor-ready branding, venture-scale web engineering, and AI-Ops infrastructure for startups. 3x faster delivery, zero technical debt, fixed USD pricing.',
+      'Investor-ready branding, venture-scale web engineering, and AI-Ops infrastructure for startups, delivered through one technical growth partner.',
     path: '/',
     keywords:
       'startup GTM infrastructure, technical growth partner, investor-ready branding, venture-scale web, AI-Ops automation',
     ogType: 'website',
   },
   launchpad: {
-    title: '14-Day GTM Launchpad | Investor-Ready Brand & Web for Startups',
+    title: '14-Day Launchpad | Investor-Ready Brand & Web for Startups',
     description:
       'GTM (Go-to-Market) infrastructure for startups with investor-ready branding, performance Webflow/Next.js, and AI-Ops automation.',
     path: '/launchpad',
@@ -28,7 +30,7 @@ export const seoConfig: Record<string, SEOEntry> = {
     structuredData: {
       '@context': 'https://schema.org',
       '@type': 'Service',
-      'name': '14-Day GTM Launchpad',
+      'name': '14-Day Launchpad',
       'description': 'GTM (Go-to-Market) infrastructure for startups with investor-ready branding, performance Webflow and Next.js development, and AI-Ops automation.',
       'provider': {
         '@type': 'ProfessionalService',
@@ -45,18 +47,18 @@ export const seoConfig: Record<string, SEOEntry> = {
     },
   },
   engineering: {
-    title: 'Fractional CTO & High-End Engineering Studio | Brandgoto',
+    title: 'Fractional CTO & Engineering Retainer | Brandgoto',
     description:
-      'Venture-backed startup partner delivering fractional CTO services, AI-Ops and workflow automation, and scalable engineering.',
+      'Fractional CTO leadership, engineering delivery, AI-Ops, and workflow automation for venture-scale startups.',
     path: '/engineering',
     keywords:
-      'fractional CTO services, engineering studio, AI-Ops and workflow automation, scalable startup infrastructure',
+      'fractional CTO and engineering retainer, AI-Ops and workflow automation, scalable startup infrastructure',
     ogType: 'website',
     structuredData: {
       '@context': 'https://schema.org',
       '@type': 'Service',
-      'name': 'Fractional CTO & High-End Engineering Studio',
-      'description': 'Venture-backed startup partner delivering fractional CTO services, AI-Ops and workflow automation, and scalable engineering infrastructure.',
+      'name': 'Fractional CTO & Engineering Retainer',
+      'description': 'Fractional CTO leadership, engineering delivery, AI-Ops, and workflow automation for venture-scale startups.',
       'provider': {
         '@type': 'ProfessionalService',
         'name': 'Brandgoto',
@@ -100,9 +102,9 @@ export const seoConfig: Record<string, SEOEntry> = {
     ogType: 'website',
   },
   bookConsultation: {
-    title: 'Book a GTM Strategy Call | Brandgoto',
+    title: 'Strategic GTM Audit | Brandgoto',
     description:
-      'Book a GTM strategy call to plan investor-ready branding, performance web, and AI-Ops automation.',
+      'Request a Strategic GTM Audit for GTM Infrastructure, the 14-Day Launchpad, or a Fractional CTO & Engineering Retainer.',
     path: '/book-consultation',
     ogType: 'website',
   },

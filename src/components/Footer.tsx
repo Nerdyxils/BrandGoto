@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import './ContactSection.css';
 import LogoImg from '../assets/logo.svg';
+import FaIcon from './FaIcon';
 
 interface LogoData {
   src: string;
@@ -11,6 +12,8 @@ interface LogoData {
 
 const Footer: React.FC = () => {
   const [newsletterEmail, setNewsletterEmail] = useState<string>('');
+  const [newsletterStatus, setNewsletterStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [isNewsletterSubmitting, setIsNewsletterSubmitting] = useState(false);
   const [screenWidth, setScreenWidth] = useState<number>(0);
   const logosRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number>(1);
@@ -18,7 +21,7 @@ const Footer: React.FC = () => {
   // Logo data
   const logos: LogoData[] = [
     { src: "/images/higherglyphs1.webp", alt: "Higher Glyphs" },
-    { src: "/images/smt.webp", alt: "SMT" },
+    { src: "/images/smt-240.webp", alt: "SMT" },
     { src: "/images/Neuralabs.webp", alt: "Neuralabs" },
     { src: "/images/herlogo.webp", alt: "Jayo" }
   ];
@@ -80,6 +83,8 @@ const Footer: React.FC = () => {
         key={`${logo.alt}-${index}`}
         src={logo.src}
         alt={logo.alt}
+        width={dimensions.logoWidth}
+        height={dimensions.logoHeight}
         style={{
           width: `${dimensions.logoWidth}px`,
           height: `${dimensions.logoHeight}px`,
@@ -96,6 +101,8 @@ const Footer: React.FC = () => {
         key={`${logo.alt}-duplicate-${index}`}
         src={logo.src}
         alt={logo.alt}
+        width={dimensions.logoWidth}
+        height={dimensions.logoHeight}
         style={{
           width: `${dimensions.logoWidth}px`,
           height: `${dimensions.logoHeight}px`,
@@ -109,7 +116,7 @@ const Footer: React.FC = () => {
     return [...logoElements, ...duplicatedElements];
   };
 
-  const animateLogos = () => {
+  const animateLogos = useCallback(() => {
     if (!logosRef.current) return;
 
     const container = logosRef.current;
@@ -137,14 +144,14 @@ const Footer: React.FC = () => {
     };
 
     step();
-  };
+  }, [dimensions.animationSpeed]);
 
-  const restartAnimation = () => {
+  const restartAnimation = useCallback(() => {
     if (animationRef.current) {
       cancelAnimationFrame(animationRef.current);
     }
     animateLogos();
-  };
+  }, [animateLogos]);
 
   useEffect(() => {
     restartAnimation();
@@ -153,11 +160,40 @@ const Footer: React.FC = () => {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [dimensions.animationSpeed]);
+  }, [restartAnimation]);
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setNewsletterEmail('');
+    if (isNewsletterSubmitting) return;
+
+    setIsNewsletterSubmitting(true);
+    setNewsletterStatus('idle');
+
+    try {
+      const response = await fetch('/.netlify/functions/form-submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: newsletterEmail.trim(),
+          form_source: 'newsletter_signup',
+          lead_source: 'BrandGoto Website - Newsletter',
+          page_url: window.location.href,
+          form_timestamp: new Date().toISOString(),
+        }),
+      });
+      const result = await response.json();
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || 'Newsletter signup failed');
+      }
+
+      setNewsletterEmail('');
+      setNewsletterStatus('success');
+    } catch (error) {
+      console.error('Newsletter signup error:', error);
+      setNewsletterStatus('error');
+    } finally {
+      setIsNewsletterSubmitting(false);
+    }
   };
 
   const fadeInUp = {
@@ -218,16 +254,16 @@ const Footer: React.FC = () => {
 
       <div className="footer-top">
         <div className="logo-social">
-          <img src={LogoImg} alt="BrandGoto Official Logo" />
+          <img src={LogoImg} alt="BrandGoto Official Logo" width="65" height="61" />
           <div className="socials">
-            <a href="https://x.com/Brand_goto" target="_blank" rel="noopener noreferrer">
-              <i className="fab fa-x-twitter"></i>
+            <a href="https://x.com/Brand_goto" target="_blank" rel="noopener noreferrer" aria-label="BrandGoto on X">
+              <FaIcon name="x-twitter" />
             </a>
-            <a href="https://www.linkedin.com/company/brandgoto/" target="_blank" rel="noopener noreferrer">
-              <i className="fab fa-linkedin-in"></i>
+            <a href="https://www.linkedin.com/company/brandgoto/" target="_blank" rel="noopener noreferrer" aria-label="BrandGoto on LinkedIn">
+              <FaIcon name="linkedin-in" />
             </a>
-            <a href="https://www.instagram.com/brand_goto/" target="_blank" rel="noopener noreferrer">
-              <i className="fab fa-instagram"></i>
+            <a href="https://www.instagram.com/brand_goto/" target="_blank" rel="noopener noreferrer" aria-label="BrandGoto on Instagram">
+              <FaIcon name="instagram" />
             </a>
           </div>
           <p className='copy_w'>© Copyright 2025, All Rights Reserved.</p>
@@ -239,17 +275,23 @@ const Footer: React.FC = () => {
 
         <div className="newsletter">
           <form onSubmit={handleNewsletterSubmit}>
+            <label htmlFor="newsletter-email" className="sr-only">Email address</label>
             <input 
+              id="newsletter-email"
               type="email" 
               placeholder="What's your e-mail?" 
               value={newsletterEmail}
               onChange={(e) => setNewsletterEmail(e.target.value)}
               required 
             />
-            <button type="submit">→</button>
+            <button type="submit" disabled={isNewsletterSubmitting} aria-label="Subscribe to newsletter">→</button>
           </form>
+          <p className="privacy" aria-live="polite">
+            {newsletterStatus === 'success' && 'Subscription received.'}
+            {newsletterStatus === 'error' && 'Subscription failed. Please try again.'}
+          </p>
           <p className="privacy">
-            I confirm that I have read <Link to="/privacy-policy" className="text-blue-400 hover:text-blue-300 underline"><strong>BrandGoto's Privacy Policy</strong></Link> and agree to receive marketing communications.
+            I confirm that I have read <Link to="/privacy-policy" className="text-[#CFF8FF] hover:text-white underline"><strong>BrandGoto's Privacy Policy</strong></Link> and agree to receive marketing communications.
           </p>
         </div>
       </div>

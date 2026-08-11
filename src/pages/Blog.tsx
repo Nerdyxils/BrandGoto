@@ -1,68 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import Navbar from '../components/Navbar';
-import ScrollToTop from '../components/ScrollToTop';
-import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import { seoConfig } from '../seo/seoConfig';
 import { blogPosts } from './blogData';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
-  },
-};
+import FaIcon from '../components/FaIcon';
 
 const Blog: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
-    const onEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setIsMenuOpen(false);
-    };
-    const onResize = () => {
-      if (window.innerWidth > 768) setIsMenuOpen(false);
-    };
-    document.addEventListener('keydown', onEsc);
-    window.addEventListener('resize', onResize);
-    return () => {
-      document.removeEventListener('keydown', onEsc);
-      window.removeEventListener('resize', onResize);
-      document.body.style.overflow = 'auto';
-    };
-  }, [isMenuOpen]);
-
-  useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 10);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
   return (
     <div className="scroll-container">
       <SEO {...seoConfig.blog} />
-      <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isScrolled={isScrolled} />
-      <ScrollToTop />
 
-      <main className="main-content">
-        <section className="section-standard pt-32 pb-16">
+      <div className="main-content">
+        <section className="section-standard pt-32 pb-16" style={{ paddingTop: '8rem', paddingBottom: '4rem' }}>
           <div className="container">
-            <motion.div initial="hidden" animate="visible" variants={fadeInUp} className="max-w-4xl mx-auto">
+            <div className="max-w-4xl mx-auto">
               <span className="text-[#2FA0B5] uppercase tracking-[0.18em] text-xs font-semibold">Brandgoto Journal</span>
-              <h2 className="text-3xl md:text-5xl font-extrabold text-white mt-4 leading-tight">
+              <h1 className="text-3xl md:text-5xl font-extrabold text-white mt-4 leading-tight">
                 Startup GTM Infrastructure Insights
-              </h2>
+              </h1>
               <p className="text-gray-300 mt-5 text-base md:text-lg leading-relaxed">
                 Tactical breakdowns on fast MVP development, AI-Ops systems, and fractional CTO strategy for
                 venture-scale founders.
               </p>
-            </motion.div>
+            </div>
           </div>
         </section>
 
@@ -90,16 +51,15 @@ const Blog: React.FC = () => {
                     to={`/blog/${post.slug}`}
                     className="mt-6 inline-flex items-center gap-2 text-[#2FA0B5] font-semibold hover:text-[#F75F0B] transition-colors"
                   >
-                    Read Full Post <i className="fa-solid fa-arrow-right" aria-hidden="true" />
+                    Read Full Post <FaIcon name="arrow-right" />
                   </Link>
                 </motion.article>
               ))}
             </div>
           </div>
         </section>
-      </main>
+      </div>
 
-      <Footer />
     </div>
   );
 };

@@ -1,12 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-
-interface Project {
-  id: number;
-  title: string;
-  img: string;
-  description: string;
-}
+import type { CarouselProject } from '../data/projectData';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -64,8 +58,8 @@ const cardVariants = {
 };
 
 const ProjectGrid: React.FC<{ 
-  projects: Project[], 
-  onCardClick: (project: Project, element: HTMLElement) => void 
+  projects: CarouselProject[],
+  onCardClick: (project: CarouselProject, element: HTMLElement) => void
 }> = ({ projects, onCardClick }) => {
   // Shuffle projects array for random effect
   const shuffledProjects = [...projects].sort(() => Math.random() - 0.5);
@@ -99,7 +93,7 @@ const ProjectGrid: React.FC<{
             }}
             onClick={(e) => onCardClick(project, e.currentTarget)}
           >
-            <img src={project.img} alt={project.title} />
+            <img src={project.img} alt={project.title} width={project.width} height={project.height} loading="lazy" decoding="async" />
           </motion.div>
         ))}
       </motion.div>

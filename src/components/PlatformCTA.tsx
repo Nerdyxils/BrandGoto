@@ -2,15 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import './PlatformCTA.css';
 import './Herotwo.css';
-
-// TypeScript JSX fix
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      span: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>;
-    }
-  }
-}
+import FaIcon from './FaIcon';
 
 const PlatformCTA: React.FC = () => {
   const fadeInUp = {
@@ -47,19 +39,15 @@ const PlatformCTA: React.FC = () => {
           viewport={{ once: true, amount: 0.2 }}
         >
           <motion.span className="section-subtitle" variants={fadeInUp}>
-            Tech Platforms
+            GTM Infrastructure
           </motion.span>
           <motion.h2 className="herotwo-heading" variants={fadeInUp}>
-            <span>Scale</span>
-            <span>Your</span>
-            <span>Business</span>
-            <span>with</span>
-            <span>Our</span>
-            <span>Tech</span>
-            <span>Platforms</span>
+            <span>Technical</span>
+            <span>Growth</span>
+            <span>Offers</span>
           </motion.h2>
           <p className="section-description">
-            Beyond creative services, we offer powerful platforms to accelerate your growth
+            Choose a productized launch or recurring technical partnership based on your scope.
           </p>
         </motion.div>
 
@@ -70,106 +58,78 @@ const PlatformCTA: React.FC = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
-          {/* Outsource Platform Card */}
+          {/* Launchpad Card */}
           <motion.div
-            className="platform-card outsource-card"
+            className="platform-card launchpad-card"
             variants={fadeInUp}
             whileHover={scaleOnHover}
           >
             <div className="platform-card-header">
               <div className="platform-icon">
-                <i className="fas fa-users"></i>
+                <FaIcon name="users" />
               </div>
-              <div className="platform-badge">Tech Outsourcing</div>
+              <div className="platform-badge">Productized Offer</div>
             </div>
             
             <div className="platform-card-content">
-              <h3 className="platform-card-title">Outsource Platform</h3>
+              <h3 className="platform-card-title">14-Day Launchpad</h3>
               <p className="platform-card-description">
-                Connect with top-tier developers, designers, and tech experts. 
-                Scale your team instantly with vetted professionals ready to deliver.
+                GTM Infrastructure for founders who need investor-ready brand, performance web, and growth systems delivered as one scope.
               </p>
               
               <div className="platform-features">
                 <div className="feature-item">
-                  <i className="fas fa-bolt feature-icon"></i>
-                  <span>Instant Team Scaling</span>
+                  <FaIcon name="bolt" className="feature-icon" />
+                  <span>Investor-Ready Brand</span>
                 </div>
                 <div className="feature-item">
-                  <i className="fas fa-bullseye feature-icon"></i>
-                  <span>Vetted Professionals</span>
+                  <FaIcon name="bullseye" className="feature-icon" />
+                  <span>Performance Web</span>
                 </div>
                 <div className="feature-item">
-                  <i className="fas fa-rocket feature-icon"></i>
-                  <span>Fast Project Delivery</span>
+                  <FaIcon name="rocket" className="feature-icon" />
+                  <span>Growth Systems</span>
                 </div>
               </div>
             </div>
 
-            <div className="platform-card-footer">
-              <motion.a
-                href="https://outsource.brandgoto.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="platform-cta-button primary"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Explore Outsource Platform
-                <i className="fas fa-external-link-alt"></i>
-              </motion.a>
-            </div>
           </motion.div>
 
-          {/* SmartLaunch Platform Card */}
+          {/* Fractional CTO & Engineering Retainer Card */}
           <motion.div
-            className="platform-card smartlaunch-card"
+            className="platform-card retainer-card"
             variants={fadeInUp}
             whileHover={scaleOnHover}
           >
             <div className="platform-card-header">
               <div className="platform-icon">
-                <i className="fas fa-robot"></i>
+                <FaIcon name="robot" />
               </div>
-              <div className="platform-badge">AI Automation</div>
+              <div className="platform-badge">Recurring Offer</div>
             </div>
             
             <div className="platform-card-content">
-              <h3 className="platform-card-title">SmartLaunch</h3>
+              <h3 className="platform-card-title">Fractional CTO &amp; Engineering Retainer</h3>
               <p className="platform-card-description">
-                AI-powered automation packages that streamline your business processes. 
-                From lead generation to customer support - automate it all.
+                Ongoing technical leadership and engineering delivery for teams that need architecture, implementation, and operational support.
               </p>
               
               <div className="platform-features">
                 <div className="feature-item">
-                  <i className="fas fa-robot feature-icon"></i>
-                  <span>AI-Powered Automation</span>
+                  <FaIcon name="robot" className="feature-icon" />
+                  <span>Technical Roadmapping</span>
                 </div>
                 <div className="feature-item">
-                  <i className="fas fa-chart-line feature-icon"></i>
-                  <span>Lead Generation</span>
+                  <FaIcon name="chart-line" className="feature-icon" />
+                  <span>Engineering Delivery</span>
                 </div>
                 <div className="feature-item">
-                  <i className="fas fa-cogs feature-icon"></i>
-                  <span>Process Optimization</span>
+                  <FaIcon name="cogs" className="feature-icon" />
+                  <span>AI-Ops &amp; Automation</span>
                 </div>
               </div>
             </div>
 
-            <div className="platform-card-footer">
-              <motion.a
-                href="https://smartlaunch.brandgoto.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="platform-cta-button secondary"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Discover SmartLaunch
-                <i className="fas fa-external-link-alt"></i>
-              </motion.a>
-            </div>
           </motion.div>
         </motion.div>
 
@@ -192,7 +152,7 @@ const PlatformCTA: React.FC = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Get Started Today
+              Strategic GTM Audit
             </motion.a>
           </div>
         </motion.div>

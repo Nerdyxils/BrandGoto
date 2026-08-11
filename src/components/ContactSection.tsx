@@ -3,59 +3,15 @@ import './ContactSection.css';
 import { motion } from 'framer-motion';
 import patternBg from '../assets/Pattern.webp';
 import ConfirmationModal from './ConfirmationModal';
-
-// Country codes
-const countryCodes: Record<string, string> = {
-  US: '1',
-  CA: '1',
-  NG: '234',
-  GB: '44',
-  IN: '91',
-  DE: '49',
-  FR: '33',
-  AU: '61',
-  NZ: '64',
-  ZA: '27',
-  JP: '81',
-  KR: '82',
-  CN: '86',
-  BR: '55',
-  MX: '52',
-  ES: '34',
-  IT: '39',
-  NL: '31',
-  SE: '46',
-  NO: '47',
-  DK: '45',
-  FI: '358',
-  PL: '48',
-  RU: '7',
-};
-
-interface FormData {
-  name: string;
-  phone: string;
-  email: string;
-  companyWebsite: string;
-  services: string[];
-  budget: string;
-  countryCode: string;
-}
+import { FieldLabel, SelectField } from './ui/FormField';
+import { budgetOptions, buildLeadPayload, countryCodes, emptyLeadForm, LEAD_ENDPOINT, services, validateLeadForm, type LeadFormData } from '../features/leads/leadForm';
 
 interface ContactSectionProps {
   formSource?: string;
 }
 
 const ContactSection: React.FC<ContactSectionProps> = ({ formSource }) => {
-  const [formData, setFormData] = useState<FormData>({
-    name: '',
-    phone: '',
-    email: '',
-    companyWebsite: '',
-    services: [],
-    budget: '',
-    countryCode: '1',
-  });
+  const [formData, setFormData] = useState<LeadFormData>(emptyLeadForm());
   const [showConfirmationModal, setShowConfirmationModal] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
@@ -83,54 +39,6 @@ const ContactSection: React.FC<ContactSectionProps> = ({ formSource }) => {
     }
   };
 
-  // AI Intelligence Functions for Business Automation
-  const calculateComplexityScore = (services: string[]): number => {
-    const complexityMap: Record<string, number> = {
-      "GTM Infrastructure (14-Day Launchpad)": 10,
-      "Investor-Ready Brand Identity": 8,
-      "Performance Web Engineering": 9,
-      "AI Operations & Automation Audit": 7,
-      "Fractional CTO & Strategic Support": 9
-    };
-    return services.reduce((total, service) => total + (complexityMap[service] || 5), 0);
-  };
-
-  const calculateProjectValue = (services: string[], budget: string): number => {
-    // Use budget if available, otherwise calculate from services
-    if (budget) {
-      if (budget.includes('$10,000+')) return 10000;
-      if (budget.includes('$5,500 - $8,500')) return 7000;
-      if (budget.includes('$3,500 - $5,500')) return 4500;
-    }
-    
-    const valueMap: Record<string, number> = {
-      "GTM Infrastructure (14-Day Launchpad)": 5500,
-      "Investor-Ready Brand Identity": 3500,
-      "Performance Web Engineering": 8500,
-      "AI Operations & Automation Audit": 5000,
-      "Fractional CTO & Strategic Support": 10000
-    };
-    return services.reduce((total, service) => total + (valueMap[service] || 5000), 0);
-  };
-
-  const calculatePriorityLevel = (services: string[]): string => {
-    if (services.length >= 3) return "High";
-    if (services.includes("GTM Infrastructure (14-Day Launchpad)")) return "High";
-    if (services.includes("Fractional CTO & Strategic Support")) return "High";
-    if (services.includes("Performance Web Engineering")) return "High";
-    return "Medium";
-  };
-
-  const getEmailTemplateId = (services: string[]): string => {
-    if (services.length >= 3) return "comprehensive_package";
-    if (services.includes("GTM Infrastructure (14-Day Launchpad)")) return "launchpad_focused";
-    if (services.includes("Investor-Ready Brand Identity")) return "branding_focused";
-    if (services.includes("Performance Web Engineering")) return "engineering_focused";
-    if (services.includes("AI Operations & Automation Audit")) return "ai_ops_focused";
-    if (services.includes("Fractional CTO & Strategic Support")) return "cto_focused";
-    return "general_inquiry";
-  };
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -138,52 +46,12 @@ const ContactSection: React.FC<ContactSectionProps> = ({ formSource }) => {
     if (isSubmitting) return;
     setIsSubmitting(true);
 
-    const cleanedPhone = formData.phone.replace(/\D/g, '');
-    const formattedPhone = `+${formData.countryCode}${cleanedPhone}`;
-
-    // Validate required fields
-    if (!formData.name || !formData.name.trim()) {
-      alert("Please enter your name.");
+    const validation = validateLeadForm(formData);
+    if (validation.error) {
+      alert(validation.error);
       setIsSubmitting(false);
       return;
     }
-
-    if (!formData.email || !formData.email.trim()) {
-      alert("Please enter your email address.");
-      setIsSubmitting(false);
-      return;
-    }
-
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      alert("Please enter a valid email address.");
-      setIsSubmitting(false);
-      return;
-    }
-
-    if (!formData.companyWebsite || !formData.companyWebsite.trim()) {
-      alert("Please enter your company website or LinkedIn profile.");
-      setIsSubmitting(false);
-      return;
-    }
-
-    // Validate phone number
-    if (!cleanedPhone || cleanedPhone.length < 7 || cleanedPhone.length > 15) {
-      alert("Please enter a valid phone number (7-15 digits).");
-      setIsSubmitting(false);
-      return;
-    }
-
-    if (!/^\+\d+$/.test(formattedPhone)) {
-      alert("Invalid phone number format. It must start with '+' followed by digits only.");
-      setIsSubmitting(false);
-      return;
-    }
-
-    // Calculate intelligence data first
-    const complexityScore = calculateComplexityScore(formData.services);
-    const projectValue = calculateProjectValue(formData.services, formData.budget);
-    const priorityLevel = calculatePriorityLevel(formData.services);
-    const templateId = getEmailTemplateId(formData.services);
 
     // Determine form source
     const detectedFormSource = formSource || 
@@ -192,41 +60,14 @@ const ContactSection: React.FC<ContactSectionProps> = ({ formSource }) => {
        window.location.pathname === '/' ? 'homepage_hero' : 'other');
 
     // Complete payload with all intelligence data for Make.com
-    const payload = {
-      email: formData.email,
-      firstname: formData.name,
-      phone: formattedPhone,
-      company_website: formData.companyWebsite,
-      services_selected: formData.services.join(';'),
-      services_count: formData.services.length,
-      primary_service: formData.services[0] || "General Inquiry",
-      budget_range: formData.budget || "Not specified",
-      service_complexity_score: complexityScore,
-      estimated_project_value: projectValue,
-      priority_level: priorityLevel,
-      email_template_id: templateId,
-      page_url: window.location.href,
-      form_source: detectedFormSource,
-      lead_source: "BrandGoto Website",
-      consultation_status: "New Lead",
-      requires_consultation: formData.services.length > 1 ? "Yes" : "No",
-      automated_followup_enabled: "Yes",
-      form_timestamp: new Date().toISOString(),
-      referrer: document.referrer || "Direct",
-      browser_info: navigator.userAgent.substring(0, 100)
-    };
+    const payload = buildLeadPayload(formData, detectedFormSource, 'BrandGoto Website');
 
     console.log("📦 Submitting complete intelligence data:", JSON.stringify(payload, null, 2));
     console.log("📋 Form data before submission:", formData);
     console.log("🔍 Form validation - Name:", formData.name, "Email:", formData.email, "Phone:", formData.phone);
 
     try {
-        const endpoint =
-          window.location.hostname === "localhost"
-            ? import.meta.env.VITE_MAKE_WEBHOOK_URL || "https://hook.us2.make.com/2jhecx0f9v8buiu1so1pwk8jc73qi5h1"
-            : "/.netlify/functions/form-submit";
-
-      const response = await fetch(endpoint, {
+      const response = await fetch(LEAD_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -238,48 +79,18 @@ const ContactSection: React.FC<ContactSectionProps> = ({ formSource }) => {
         throw new Error(`Form submission failed with status ${response.status}`);
       }
 
-      // For localhost (direct webhook), we don't get a JSON response with success field
-      if (window.location.hostname === "localhost") {
-        console.log("✅ Intelligence form data submitted successfully (localhost)");
-        setShowConfirmationModal(true);
-        
-        // Reset form after successful submission
-        setTimeout(() => {
-          setFormData({
-            name: '',
-            phone: '',
-            email: '',
-            companyWebsite: '',
-            services: [],
-            budget: '',
-            countryCode: formData.countryCode,
-          });
-        }, 1000);
-      } else {
-        // For production (Netlify function), check the success field
-        const result = await response.json();
-        console.log("📥 Netlify function response:", result);
-        
-        if (!result.success) {
-          throw new Error(result.error || 'Form submission failed');
-        }
+      const result = await response.json();
 
-        console.log("✅ Intelligence form data submitted successfully (production)");
-        setShowConfirmationModal(true);
-        
-        // Reset form after successful submission
-        setTimeout(() => {
-          setFormData({
-            name: '',
-            phone: '',
-            email: '',
-            companyWebsite: '',
-            services: [],
-            budget: '',
-            countryCode: formData.countryCode,
-          });
-        }, 1000);
+      if (!result.success) {
+        throw new Error(result.error || 'Form submission failed');
       }
+
+      console.log("✅ Intelligence form data submitted successfully");
+      setShowConfirmationModal(true);
+
+      setTimeout(() => {
+        setFormData(emptyLeadForm(formData.countryCode));
+      }, 1000);
     } catch (err) {
       console.error("❌ Form submission error:", err);
       alert("There was an error submitting the form. Please try again later.");
@@ -288,21 +99,6 @@ const ContactSection: React.FC<ContactSectionProps> = ({ formSource }) => {
     }
   };
 
-
-  const services: string[] = [
-    'GTM Infrastructure (14-Day Launchpad)',
-    'Investor-Ready Brand Identity',
-    'Performance Web Engineering',
-    'AI Operations & Automation Audit',
-    'Fractional CTO & Strategic Support',
-  ];
-
-  const budgetOptions = [
-    '$3,500 - $5,500',
-    '$5,500 - $8,500',
-    '$10,000+',
-    'Not sure yet',
-  ];
 
 
   const fadeInUp = {
@@ -345,7 +141,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ formSource }) => {
           Let's Make It Happen
         </motion.span>
 
-        <motion.h1 
+        <motion.h2
           className="herotwo-heading"
           variants={fadeInUp}
         >
@@ -353,7 +149,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ formSource }) => {
           <span>Conversation</span>
           <span>with</span>
           <span>Us</span>
-        </motion.h1>
+        </motion.h2>
 
         <motion.p
           className="section-description"
@@ -371,9 +167,11 @@ const ContactSection: React.FC<ContactSectionProps> = ({ formSource }) => {
         viewport={{ once: true, amount: 0.2 }}
       >
         <div className="form-content">
-          <h3>Request Strategic Audit</h3>
+          <h2>Strategic GTM Audit</h2>
           <form onSubmit={handleSubmit}>
+            <FieldLabel htmlFor="contact-name" className="sr-only">Name</FieldLabel>
             <input 
+              id="contact-name"
               type="text" 
               name="name" 
               placeholder="Enter name" 
@@ -383,7 +181,10 @@ const ContactSection: React.FC<ContactSectionProps> = ({ formSource }) => {
             />
             
             <div className="phone-field">
-              <select 
+              <SelectField
+                id="contact-country-code"
+                label="Country calling code"
+                labelClassName="sr-only"
                 className='phone_code' 
                 name="countryCode" 
                 value={formData.countryCode} 
@@ -392,8 +193,10 @@ const ContactSection: React.FC<ContactSectionProps> = ({ formSource }) => {
                 {Object.entries(countryCodes).map(([key, val]) => (
                   <option key={key} value={val}>+{val} ({key})</option>
                 ))}
-              </select>
+              </SelectField>
+              <FieldLabel htmlFor="contact-phone" className="sr-only">Phone number</FieldLabel>
               <input 
+                id="contact-phone"
                 className='phone' 
                 type="text" 
                 name="phone" 
@@ -404,7 +207,9 @@ const ContactSection: React.FC<ContactSectionProps> = ({ formSource }) => {
               />
             </div>
 
-            <input 
+            <FieldLabel htmlFor="contact-email" className="sr-only">Email address</FieldLabel>
+            <input
+              id="contact-email"
               type="email" 
               name="email" 
               placeholder="Enter email" 
@@ -413,7 +218,9 @@ const ContactSection: React.FC<ContactSectionProps> = ({ formSource }) => {
               required 
             />
 
-            <input 
+            <FieldLabel htmlFor="contact-company" className="sr-only">Company website or LinkedIn profile</FieldLabel>
+            <input
+              id="contact-company"
               type="text" 
               name="companyWebsite" 
               placeholder="Company Website / LinkedIn" 
@@ -422,8 +229,9 @@ const ContactSection: React.FC<ContactSectionProps> = ({ formSource }) => {
               required 
             />
 
-            <p className="services-title">What do you need help with? (Select all that apply)</p>
-            <div className="checkbox-grid">
+            <fieldset>
+              <legend className="services-title">What do you need help with? (Select all that apply)</legend>
+              <div className="checkbox-grid">
               {services.map((service) => (
                 <label key={service}>
                   <input
@@ -436,12 +244,13 @@ const ContactSection: React.FC<ContactSectionProps> = ({ formSource }) => {
                   {service}
                 </label>
               ))}
-            </div>
+              </div>
+            </fieldset>
 
             <div className="budget-field">
-              <label htmlFor="budget">Investment Range (USD)</label>
-              <select 
-                id="budget"
+              <SelectField
+                id="contact-budget"
+                label="Investment Range (USD)"
                 name="budget" 
                 value={formData.budget} 
                 onChange={handleChange}
@@ -450,11 +259,11 @@ const ContactSection: React.FC<ContactSectionProps> = ({ formSource }) => {
                 {budgetOptions.map((option) => (
                   <option key={option} value={option}>{option}</option>
                 ))}
-              </select>
+              </SelectField>
             </div>
 
             <button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? 'Submitting...' : 'Request Strategic Audit'}
+              {isSubmitting ? 'Submitting...' : 'Strategic GTM Audit'}
             </button>
           </form>
         </div>
@@ -471,7 +280,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ formSource }) => {
         />
 
         <div className="form-image">
-          <img src="/images/client.webp" alt="Happy Client" />
+          <img src="/images/client.webp" alt="Happy Client" width="622" height="519" loading="lazy" decoding="async" />
         </div>
       </motion.div>
     </section>

@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import Navbar from '../components/Navbar';
-import ScrollToTop from '../components/ScrollToTop';
-import Footer from '../components/Footer';
 import TestimonialsSection from '../components/TestimonialsSection';
 import SEO from '../components/SEO';
 import '../components/Hero.css';
@@ -11,35 +8,6 @@ import '../components/TestimonialsSection.css';
 import { seoConfig } from '../seo/seoConfig';
 
 const SuccessStories: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  
-  // MENU AND SCROLL HANDLERS
-  useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setIsMenuOpen(false);
-    };
-    const handleResize = () => {
-      if (window.innerWidth > 768) setIsMenuOpen(false);
-    };
-    document.addEventListener('keydown', handleEsc);
-    window.addEventListener('resize', handleResize);
-    return () => {
-      document.removeEventListener('keydown', handleEsc);
-      window.removeEventListener('resize', handleResize);
-      document.body.style.overflow = 'auto';
-    };
-  }, [isMenuOpen]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   const fadeInUp = {
     hidden: { opacity: 1, y: 12 },
     visible: { 
@@ -59,8 +27,6 @@ const SuccessStories: React.FC = () => {
   return (
     <div className="scroll-container">
       <SEO {...seoConfig.successStories} />
-      <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isScrolled={isScrolled} />
-      <ScrollToTop />
       <motion.div
         className="main-content"
          
@@ -124,7 +90,7 @@ const SuccessStories: React.FC = () => {
                 <motion.div className="case-study-card" variants={fadeInUp}>
                   <div className="case-study-content">
                     <div className="case-study-header">
-                      <img src="/images/Nexora.webp" alt="Nexora Logo" className="company-logo" />
+                      <img src="/images/Nexora.webp" alt="Nexora Logo" className="company-logo" width="1024" height="1024" loading="lazy" decoding="async" />
                       <h3 className="sm__txt">Nexora - Digital Transformation</h3>
                     </div>
                     <p className="h__txt">
@@ -158,7 +124,7 @@ const SuccessStories: React.FC = () => {
                 <motion.div className="case-study-card" variants={fadeInUp}>
                   <div className="case-study-content">
                     <div className="case-study-header">
-                      <img src="/images/Neuralabs.webp" alt="NeuraForm Labs Logo" className="company-logo" />
+                      <img src="/images/Neuralabs.webp" alt="NeuraForm Labs Logo" className="company-logo" width="352" height="200" loading="lazy" decoding="async" />
                       <h3 className="sm__txt">NeuraForm Labs - Brand Evolution</h3>
                     </div>
                     <p className="h__txt">
@@ -222,7 +188,6 @@ const SuccessStories: React.FC = () => {
         </section>
 
         {/* Footer */}
-        <Footer />
       </motion.div>
     </div>
   );

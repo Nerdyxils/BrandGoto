@@ -1,48 +1,19 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import Navbar from '../components/Navbar';
-import ScrollToTop from '../components/ScrollToTop';
-import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import { blogPosts } from './blogData';
+import FaIcon from '../components/FaIcon';
 
 const BlogPost: React.FC = () => {
   const { slug } = useParams();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
 
   const post = useMemo(() => blogPosts.find((item) => item.slug === slug), [slug]);
-
-  useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
-    const onEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setIsMenuOpen(false);
-    };
-    const onResize = () => {
-      if (window.innerWidth > 768) setIsMenuOpen(false);
-    };
-    document.addEventListener('keydown', onEsc);
-    window.addEventListener('resize', onResize);
-    return () => {
-      document.removeEventListener('keydown', onEsc);
-      window.removeEventListener('resize', onResize);
-      document.body.style.overflow = 'auto';
-    };
-  }, [isMenuOpen]);
-
-  useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 10);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
   if (!post) {
     return (
       <div className="scroll-container">
-        <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isScrolled={isScrolled} />
-        <ScrollToTop />
-        <main className="main-content pt-32 pb-20">
+        <div className="main-content pt-32 pb-20">
           <div className="container max-w-3xl mx-auto text-center">
             <h2 className="text-white text-4xl font-bold">Post not found</h2>
             <p className="text-gray-300 mt-4">The blog post you requested is not available.</p>
@@ -50,8 +21,7 @@ const BlogPost: React.FC = () => {
               Return to Blog
             </Link>
           </div>
-        </main>
-        <Footer />
+        </div>
       </div>
     );
   }
@@ -86,26 +56,19 @@ const BlogPost: React.FC = () => {
           keywords: post.targetKeyword,
         }}
       />
-      <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isScrolled={isScrolled} />
-      <ScrollToTop />
 
-      <main className="main-content">
-        <article className="section-standard pt-32 pb-20">
+      <div className="main-content">
+        <article className="section-standard pt-32 pb-20" style={{ paddingTop: '8rem', paddingBottom: '5rem' }}>
           <div className="container max-w-4xl mx-auto">
-            <motion.header
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45 }}
-              className="pb-8 border-b border-[#1f2f33]"
-            >
+            <header className="pb-8 border-b border-[#1f2f33]">
               <Link to="/blog" className="inline-flex items-center text-[#2FA0B5] hover:text-[#F75F0B] text-sm font-semibold">
-                <i className="fa-solid fa-arrow-left mr-2" aria-hidden="true" />
+                <FaIcon name="arrow-left" className="mr-2" />
                 Back to Blog
               </Link>
               <p className="mt-5 text-[#F75F0B] uppercase tracking-[0.14em] text-xs font-semibold">{post.targetKeyword}</p>
               <h2 className="text-white text-3xl md:text-5xl font-extrabold mt-3 leading-tight">{post.title}</h2>
               <p className="text-gray-300 mt-5 text-base md:text-lg leading-relaxed">{post.intro}</p>
-            </motion.header>
+            </header>
 
             <div className="mt-10 max-w-3xl">
               {post.sections.map((section, index) => (
@@ -149,7 +112,7 @@ const BlogPost: React.FC = () => {
                 className="inline-flex items-center mt-5 text-[#2FA0B5] font-semibold hover:text-[#F75F0B]"
               >
                 View OddLogic Live Demo
-                <i className="fa-solid fa-up-right-from-square ml-2" aria-hidden="true" />
+                <FaIcon name="arrow-up-right-from-square" className="ml-2" />
               </a>
             </motion.section>
 
@@ -168,16 +131,15 @@ const BlogPost: React.FC = () => {
                 href="https://brandgoto.com/book-consultation"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center mt-5 px-5 py-3 rounded-lg bg-[#F75F0B] text-white font-semibold hover:bg-[#e45708] transition-colors"
+                className="inline-flex items-center mt-5 px-5 py-3 rounded-lg bg-[#F75F0B] text-black font-semibold hover:bg-[#ff8555] transition-colors"
               >
                 Request GTM Audit
               </a>
             </motion.section>
           </div>
         </article>
-      </main>
+      </div>
 
-      <Footer />
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '../assets/brandlogo-white.webp';
 import './Navbar.css';
+import { Button, LinkButton } from './ui/Button';
 
 interface NavbarProps {
   isMenuOpen: boolean;
@@ -12,8 +13,8 @@ interface NavbarProps {
 }
 
 const navLinks = [
-  { label: 'Launchpad', path: '/launchpad' },
-  { label: 'Engineering', path: '/engineering' },
+  { label: '14-Day Launchpad', path: '/launchpad' },
+  { label: 'Fractional CTO & Engineering Retainer', path: '/engineering' },
   { label: 'Blog', path: '/blog' },
   { label: 'Case Studies', path: '/things-we-built' },
   { label: 'About Us', path: '/about-us' },
@@ -31,14 +32,10 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen, isScrolled }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleLogoClick = () => {
-    if (location.pathname === '/') {
-      // If already on home page, refresh the page
-      window.location.reload();
-    } else {
-      // If on other pages, navigate to home and scroll to top
-      scrollToTop();
-    }
+  const handleLogoClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (isHomePage) event.preventDefault();
+    setIsMenuOpen(false);
+    scrollToTop();
   };
 
   // Create navigation links array - include Home only when not on home page
@@ -50,7 +47,7 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen, isScrolled }
         {/* Logo */}
         <div className="w-1/5 navbar-logo">
           <Link to="/" onClick={handleLogoClick}>
-            <img src={Logo} alt="BrandGoto Official Logo" className="logoImg" />
+            <img src={Logo} alt="BrandGoto Official Logo" className="logoImg" width="406" height="482" />
           </Link>
         </div>
 
@@ -70,15 +67,19 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen, isScrolled }
 
         {/* CTA Button - Desktop only */}
         <div className="w-1/5 navbar-cta">
-          <Link to="/book-consultation" onClick={scrollToTop}>
-            <button className="cta-btn">Free Technical Audit</button>
-          </Link>
+          <LinkButton to="/book-consultation" onClick={scrollToTop} className="cta-btn">Strategic GTM Audit</LinkButton>
         </div>
 
         {/* Hamburger Menu - Mobile only */}
-        <button className="menu-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+        <Button
+          className="menu-toggle"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-navigation"
+        >
           {isMenuOpen ? <X size={28} /> : <Menu size={40} />}
-        </button>
+        </Button>
       </div>
 
       {/* Mobile Menu */}
@@ -87,6 +88,7 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen, isScrolled }
           <>
             {/* Overlay */}
             <motion.div
+              id="mobile-navigation"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -98,13 +100,13 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen, isScrolled }
             {/* Slide-in Panel */}
             <motion.div
               initial={{ x: '100%', opacity: 0 }}
-              animate={{ x: '30vw', opacity: 1 }}
+              animate={{ x: 0, opacity: 1 }}
               exit={{ x: '100%', opacity: 0 }}
               transition={{ type: 'tween', duration: 0.3 }}
               className="mobile-menu enhanced"
             >
               <div className="mobile-menu-header">
-                <button onClick={() => setIsMenuOpen(false)}>
+                <Button className="menu-toggle-close" onClick={() => setIsMenuOpen(false)} aria-label="Close navigation menu">
                   <svg 
                     width="24" 
                     height="24" 
@@ -121,7 +123,7 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen, isScrolled }
                       strokeLinejoin="round"
                     />
                   </svg>
-                </button>
+                </Button>
               </div>
 
               <div className="mobile-menu-links">
@@ -141,12 +143,12 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen, isScrolled }
               </div>
 
               <div className="mobile-menu-cta">
-                <Link to="/book-consultation" onClick={() => {
+                <LinkButton to="/book-consultation" className="cta-btn" onClick={() => {
                   setIsMenuOpen(false);
                   scrollToTop();
                 }}>
-                  <button className="cta-btn">Free Technical Audit</button>
-                </Link>
+                  Strategic GTM Audit
+                </LinkButton>
               </div>
             </motion.div>
           </>

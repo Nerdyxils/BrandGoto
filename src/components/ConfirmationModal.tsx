@@ -1,6 +1,7 @@
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import './ConfirmationModal.css';
+import Modal from './ui/Modal';
+import { Button } from './ui/Button';
 
 interface ConfirmationModalProps {
   isOpen: boolean;
@@ -22,29 +23,16 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   confirmationMessage = "We've received your request and will contact you within 24 hours."
 }) => {
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <div className="confirmation-modal-container">
-          {/* Backdrop */}
-          <motion.div
-            className="confirmation-modal-backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            onClick={onClose}
-          />
-          
-          {/* Modal */}
-          <motion.div
-            className="confirmation-modal"
-            initial={{ opacity: 0, scale: 0.8, y: 50 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 50 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-          >
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      labelledBy="confirmation-modal-title"
+      containerClassName="confirmation-modal-container"
+      panelClassName="confirmation-modal"
+      backdropClassName="confirmation-modal-backdrop"
+    >
             {/* Close Button */}
-            <button
+            <Button
               className="confirmation-modal-close"
               onClick={onClose}
               aria-label="Close modal"
@@ -58,12 +46,12 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
                   strokeLinejoin="round"
                 />
               </svg>
-            </button>
+            </Button>
 
             {/* Content */}
             <div className="confirmation-modal-content">
               {/* Title */}
-              <div className="confirmation-modal-title">
+              <div id="confirmation-modal-title" className="confirmation-modal-title">
                 <span className="title-text">{title}</span>
                 <span className="title-highlight">{subtitle}</span>
               </div>
@@ -97,10 +85,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
                 {confirmationMessage}
               </p>
             </div>
-          </motion.div>
-        </div>
-      )}
-    </AnimatePresence>
+    </Modal>
   );
 };
 

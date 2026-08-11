@@ -1,46 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import ScrollToTop from '../components/ScrollToTop';
-import Footer from '../components/Footer';
 import YouTubeVideo from '../components/YouTubeVideo';
 import SEO from '../components/SEO';
 import '../components/Hero.css';
 import '../components/Herotwo.css';
 import { seoConfig } from '../seo/seoConfig';
 import '../components/RecentProjects.css';
+import FaIcon from '../components/FaIcon';
 
 const AboutUs: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  
-  // MENU AND SCROLL HANDLERS
-  useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setIsMenuOpen(false);
-    };
-    const handleResize = () => {
-      if (window.innerWidth > 768) setIsMenuOpen(false);
-    };
-    document.addEventListener('keydown', handleEsc);
-    window.addEventListener('resize', handleResize);
-    return () => {
-      document.removeEventListener('keydown', handleEsc);
-      window.removeEventListener('resize', handleResize);
-      document.body.style.overflow = 'auto';
-    };
-  }, [isMenuOpen]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   const fadeInUp = {
     hidden: { opacity: 1, y: 12 },
     visible: { 
@@ -60,8 +29,6 @@ const AboutUs: React.FC = () => {
   return (
     <div className="scroll-container">
       <SEO {...seoConfig.aboutUs} />
-      <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isScrolled={isScrolled} />
-      <ScrollToTop />
       <motion.div
         className="main-content"
          
@@ -122,7 +89,7 @@ const AboutUs: React.FC = () => {
                 <motion.div className="bg-[#111] p-8 rounded-xl border border-[#F75F0B]" variants={fadeInUp}>
                   <div className="flex items-center gap-4 mb-6">
                     <div className="w-12 h-12 bg-[#F75F0B] rounded-lg flex items-center justify-center">
-                      <i className="fas fa-chess text-white text-xl" aria-hidden="true"></i>
+                      <FaIcon name="chess" className="text-white text-xl" />
                     </div>
                     <h3 className="text-2xl font-bold text-white">US-Aligned Strategy & Architecture</h3>
                   </div>
@@ -131,15 +98,15 @@ const AboutUs: React.FC = () => {
                   </p>
                   <ul className="space-y-3 mt-6">
                     <li className="flex items-start gap-3 text-gray-300">
-                      <i className="fas fa-check text-[#F75F0B] mt-1" aria-hidden="true"></i>
+                      <FaIcon name="check" className="text-[#F75F0B] mt-1" />
                       <span>Strategic technical roadmapping</span>
                     </li>
                     <li className="flex items-start gap-3 text-gray-300">
-                      <i className="fas fa-check text-[#F75F0B] mt-1" aria-hidden="true"></i>
+                      <FaIcon name="check" className="text-[#F75F0B] mt-1" />
                       <span>Business-aligned architecture decisions</span>
                     </li>
                     <li className="flex items-start gap-3 text-gray-300">
-                      <i className="fas fa-check text-[#F75F0B] mt-1" aria-hidden="true"></i>
+                      <FaIcon name="check" className="text-[#F75F0B] mt-1" />
                       <span>Investor-ready technical documentation</span>
                     </li>
                   </ul>
@@ -149,24 +116,24 @@ const AboutUs: React.FC = () => {
                 <motion.div className="bg-[#111] p-8 rounded-xl border border-[#2FA0B5]" variants={fadeInUp}>
                   <div className="flex items-center gap-4 mb-6">
                     <div className="w-12 h-12 bg-[#2FA0B5] rounded-lg flex items-center justify-center">
-                      <i className="fas fa-cogs text-white text-xl" aria-hidden="true"></i>
+                      <FaIcon name="cogs" className="text-white text-xl" />
                     </div>
-                    <h3 className="text-2xl font-bold text-white">European Engineering Excellence</h3>
+                    <h3 className="text-2xl font-bold text-white">Engineering Delivery</h3>
                   </div>
                   <p className="text-gray-300 leading-relaxed mb-4">
-                    An elite engineering team providing high-speed, 24/7 delivery cycles. We ship faster than traditional agencies while maintaining enterprise-grade quality.
+                    A remote-first engineering team supporting implementation, iteration, and maintainable technical delivery.
                   </p>
                   <ul className="space-y-3 mt-6">
                     <li className="flex items-start gap-3 text-gray-300">
-                      <i className="fas fa-check text-[#2FA0B5] mt-1" aria-hidden="true"></i>
-                      <span>24/7 development cycles</span>
+                      <FaIcon name="check" className="text-[#2FA0B5] mt-1" />
+                      <span>Structured development cycles</span>
                     </li>
                     <li className="flex items-start gap-3 text-gray-300">
-                      <i className="fas fa-check text-[#2FA0B5] mt-1" aria-hidden="true"></i>
+                      <FaIcon name="check" className="text-[#2FA0B5] mt-1" />
                       <span>Enterprise-grade code quality</span>
                     </li>
                     <li className="flex items-start gap-3 text-gray-300">
-                      <i className="fas fa-check text-[#2FA0B5] mt-1" aria-hidden="true"></i>
+                      <FaIcon name="check" className="text-[#2FA0B5] mt-1" />
                       <span>Rapid iteration and deployment</span>
                     </li>
                   </ul>
@@ -199,20 +166,20 @@ const AboutUs: React.FC = () => {
                   <div className="bg-[#111] p-6 rounded-xl border border-white/10">
                     <h3 className="text-xl font-bold text-white mb-4">Silas — From Lone Wolf to Studio Lead</h3>
                     <p className="text-gray-300 leading-relaxed mb-4">
-                      The transition from solo developer to studio founder wasn't just about scaling—it was about eliminating technical debt for startups at scale.
+                      The transition from solo developer to studio founder wasn't just about scaling—it was about helping startups address technical debt with clearer architecture and delivery practices.
                     </p>
                     <p className="text-gray-300 leading-relaxed">
-                      With a track record of <span className="text-[#F75F0B] font-semibold">150+ solutions delivered</span>, the mission is clear: bridge the gap between visionary strategy and bulletproof execution.
+                      The mission is clear: bridge the gap between visionary strategy and maintainable technical execution.
                     </p>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="bg-[#111] p-4 rounded-lg border border-white/10 text-center">
-                      <div className="text-3xl font-bold text-[#F75F0B] mb-2">150+</div>
-                      <div className="text-sm text-gray-400 uppercase tracking-wider">Solutions</div>
+                      <div className="text-base sm:text-3xl font-bold text-[#F75F0B] mb-2">Integrated</div>
+                      <div className="text-sm text-gray-400 uppercase tracking-wider">Delivery</div>
                     </div>
                     <div className="bg-[#111] p-4 rounded-lg border border-white/10 text-center">
-                      <div className="text-3xl font-bold text-[#2FA0B5] mb-2">100%</div>
-                      <div className="text-sm text-gray-400 uppercase tracking-wider">Zero Debt</div>
+                      <div className="text-base sm:text-3xl font-bold text-[#2FA0B5] mb-2">Maintainable</div>
+                      <div className="text-sm text-gray-400 uppercase tracking-wider">Foundations</div>
                     </div>
                   </div>
                 </div>
@@ -220,7 +187,7 @@ const AboutUs: React.FC = () => {
                   <div className="bg-[#111] p-8 rounded-xl border border-[#2FA0B5]">
                     <div className="flex items-center gap-4 mb-6">
                       <div className="w-16 h-16 bg-[#2FA0B5] rounded-lg flex items-center justify-center">
-                        <i className="fas fa-user-tie text-white text-2xl" aria-hidden="true"></i>
+                        <FaIcon name="user-tie" className="text-white text-2xl" />
                       </div>
                       <div>
                         <h4 className="text-xl font-bold text-white">Technical Architect</h4>
@@ -248,7 +215,7 @@ const AboutUs: React.FC = () => {
                     to="/book-consultation"
                     className="block w-full text-center bg-[#2FA0B5] text-white px-6 py-3 rounded-lg font-bold hover:bg-[#3bb0c5] transition-all no-underline"
                   >
-                    Request Strategic GTM Audit
+                    Strategic GTM Audit
                   </Link>
                 </div>
               </motion.div>
@@ -278,14 +245,14 @@ const AboutUs: React.FC = () => {
                   {
                     step: '01',
                     title: 'Architecture',
-                    desc: 'Mapping the GTM infrastructure. We analyze your business goals, technical requirements, and growth trajectory to design a scalable architecture that eliminates future technical debt.',
+                    desc: 'Mapping the GTM infrastructure. We analyze your business goals, technical requirements, and growth trajectory to design a maintainable architecture that reduces technical-debt risk.',
                     icon: 'fa-sitemap',
                     color: '#F75F0B'
                   },
                   {
                     step: '02',
                     title: 'Engineering',
-                    desc: 'High-velocity building with Next.js/Webflow. Our European engineering team delivers enterprise-grade code at startup speed—3x faster than traditional agencies.',
+                    desc: 'Focused implementation with Next.js and Webflow, supported by maintainable engineering practices and clear delivery milestones.',
                     icon: 'fa-code',
                     color: '#2FA0B5'
                   },
@@ -313,7 +280,7 @@ const AboutUs: React.FC = () => {
                     <div className="flex-1 bg-[#111] p-6 rounded-xl border border-white/10">
                       <div className="flex items-center gap-4 mb-4">
                         <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${item.color}20` }}>
-                          <i className={`fas ${item.icon}`} style={{ color: item.color }} aria-hidden="true"></i>
+                          <FaIcon name={item.icon} style={{ color: item.color }} />
                         </div>
                         <h3 className="text-xl font-bold text-white">{item.title}</h3>
                       </div>
@@ -346,7 +313,7 @@ const AboutUs: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
                 <motion.div className="bg-[#111] p-8 rounded-xl border border-white/10 hover:border-[#F75F0B] transition-all group" variants={fadeInUp}>
                   <div className="w-16 h-16 bg-[#F75F0B] rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform mx-auto">
-                    <i className="fas fa-chart-line text-white text-2xl"></i>
+                    <FaIcon name="chart-line" className="text-white text-2xl" />
                   </div>
                   <h3 className="text-xl font-bold text-white mb-4 text-center">Results-Driven</h3>
                   <p className="text-gray-400 leading-relaxed text-center">
@@ -356,7 +323,7 @@ const AboutUs: React.FC = () => {
                 
                 <motion.div className="bg-[#111] p-8 rounded-xl border border-white/10 hover:border-[#F75F0B] transition-all group" variants={fadeInUp}>
                   <div className="w-16 h-16 bg-[#F75F0B] rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform mx-auto">
-                    <i className="fas fa-tachometer-alt text-white text-2xl"></i>
+                    <FaIcon name="tachometer-alt" className="text-white text-2xl" />
                   </div>
                   <h3 className="text-xl font-bold text-white mb-4 text-center">Speed & Efficiency</h3>
                   <p className="text-gray-400 leading-relaxed text-center">
@@ -366,7 +333,7 @@ const AboutUs: React.FC = () => {
                 
                 <motion.div className="bg-[#111] p-8 rounded-xl border border-white/10 hover:border-[#F75F0B] transition-all group" variants={fadeInUp}>
                   <div className="w-16 h-16 bg-[#F75F0B] rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform mx-auto">
-                    <i className="fas fa-users text-white text-2xl"></i>
+                    <FaIcon name="users" className="text-white text-2xl" />
                   </div>
                   <h3 className="text-xl font-bold text-white mb-4 text-center">Partnership</h3>
                   <p className="text-gray-400 leading-relaxed text-center">
@@ -389,23 +356,23 @@ const AboutUs: React.FC = () => {
               viewport={{ once: true, amount: 0.2 }}
             >
               <motion.div className="text-center" variants={fadeInUp}>
-                <div className="text-3xl md:text-4xl font-bold text-[#F75F0B] mb-2">150+</div>
-                <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Solutions Delivered</div>
+                <div className="text-xl sm:text-3xl md:text-4xl font-bold text-[#F75F0B] mb-2">Integrated</div>
+                <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Brand, Web &amp; Systems</div>
               </motion.div>
               
               <motion.div className="text-center" variants={fadeInUp}>
-                <div className="text-3xl md:text-4xl font-bold text-[#2FA0B5] mb-2">3x</div>
-                <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Faster Delivery</div>
+                <div className="text-xl sm:text-3xl md:text-4xl font-bold text-[#2FA0B5] mb-2">Focused</div>
+                <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Delivery</div>
               </motion.div>
               
               <motion.div className="text-center" variants={fadeInUp}>
-                <div className="text-3xl md:text-4xl font-bold text-white mb-2">100%</div>
-                <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Success Rate</div>
+                <div className="text-xl sm:text-3xl md:text-4xl font-bold text-white mb-2">Maintainable</div>
+                <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Technical Foundation</div>
               </motion.div>
               
               <motion.div className="text-center" variants={fadeInUp}>
-                <div className="text-3xl md:text-4xl font-bold text-[#F75F0B] mb-2">24/7</div>
-                <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Global Engineering</div>
+                <div className="text-xl sm:text-3xl md:text-4xl font-bold text-[#F75F0B] mb-2">Remote</div>
+                <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Collaboration</div>
               </motion.div>
             </motion.div>
           </div>
@@ -425,14 +392,14 @@ const AboutUs: React.FC = () => {
                 className="bg-[#111] p-8 rounded-xl border border-[#F75F0B] text-center hover:bg-[#F75F0B]/5 transition-all"
                 variants={fadeInUp}
               >
-                <i className="fas fa-rocket text-4xl text-[#F75F0B] mb-4" aria-hidden="true"></i>
-                <h3 className="text-xl font-bold text-white mb-3">Start Your 14-Day Sprint</h3>
-                <p className="text-gray-400 mb-6 text-sm">From idea to investor-ready infrastructure in 14 days.</p>
+                <FaIcon name="rocket" className="text-4xl text-[#F75F0B] mb-4" />
+                <h3 className="text-xl font-bold text-white mb-3">14-Day Launchpad</h3>
+                <p className="text-gray-400 mb-6 text-sm">Productized GTM Infrastructure for an investor-ready launch.</p>
                 <Link
                   to="/launchpad"
                   className="inline-block bg-[#F75F0B] text-white px-8 py-3 rounded-lg font-bold hover:bg-[#ff8555] transition-all"
                 >
-                  View Launchpad
+                  View 14-Day Launchpad
                 </Link>
               </motion.div>
 
@@ -440,14 +407,14 @@ const AboutUs: React.FC = () => {
                 className="bg-[#111] p-8 rounded-xl border border-[#2FA0B5] text-center hover:bg-[#2FA0B5]/5 transition-all"
                 variants={fadeInUp}
               >
-                <i className="fas fa-code-branch text-4xl text-[#2FA0B5] mb-4" aria-hidden="true"></i>
+                <FaIcon name="code-branch" className="text-4xl text-[#2FA0B5] mb-4" />
                 <h3 className="text-xl font-bold text-white mb-3">Discuss Technical Architecture</h3>
-                <p className="text-gray-400 mb-6 text-sm">Fractional CTO services and high-performance engineering.</p>
+                <p className="text-gray-400 mb-6 text-sm">Ongoing technical leadership and engineering delivery.</p>
                 <Link
                   to="/engineering"
                   className="inline-block bg-[#2FA0B5] text-white px-8 py-3 rounded-lg font-bold hover:bg-[#3bb0c5] transition-all"
                 >
-                  View Engineering
+                  View Fractional CTO &amp; Engineering Retainer
                 </Link>
               </motion.div>
             </motion.div>
@@ -455,7 +422,6 @@ const AboutUs: React.FC = () => {
         </section>
 
         {/* Footer */}
-        <Footer />
       </motion.div>
     </div>
   );

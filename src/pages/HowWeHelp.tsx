@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import Navbar from '../components/Navbar';
-import ScrollToTop from '../components/ScrollToTop';
-import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import Imgwd from '../assets/WebDev.webp';
 import Imgbi from '../assets/BIdentity.webp';
@@ -16,35 +13,6 @@ import '../components/ServicesSection.css';
 import { seoConfig } from '../seo/seoConfig';
 
 const HowWeHelp: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  
-  // MENU AND SCROLL HANDLERS
-  useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setIsMenuOpen(false);
-    };
-    const handleResize = () => {
-      if (window.innerWidth > 768) setIsMenuOpen(false);
-    };
-    document.addEventListener('keydown', handleEsc);
-    window.addEventListener('resize', handleResize);
-    return () => {
-      document.removeEventListener('keydown', handleEsc);
-      window.removeEventListener('resize', handleResize);
-      document.body.style.overflow = 'auto';
-    };
-  }, [isMenuOpen]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   const fadeInUp = {
     hidden: { opacity: 1, y: 12 },
     visible: { 
@@ -63,39 +31,39 @@ const HowWeHelp: React.FC = () => {
 
   const services = [
     {
-      icon: <img src={Imgwd} alt='Website Design & Development' />,
+      icon: <img src={Imgwd} alt='Website Design & Development' width="31" height="31" />,
       title: 'Website Design & Development',
       description: 'Websites that convert. Clean, fast, mobile-first.',
       context: 'From stunning landing pages to complex e-commerce platforms, we build websites that not only look great but drive real business results. Our sites are optimized for speed, SEO, and conversion with seamless user experiences across all devices.',
     },
     {
-      icon: <img src={Imgwd} alt='Mobile App Development' />,
+      icon: <img src={Imgwd} alt='Mobile App Development' width="31" height="31" />,
       title: 'Mobile App Development',
       description: 'iOS & Android apps that customers love.',
       context: 'Native and cross-platform mobile applications that deliver exceptional user experiences. We specialize in creating apps that solve real problems, engage users, and scale with your business growth.',
     },
     {
-      icon: <img src={Imgbi} alt='Brand Identity & Logo Design' />,
+      icon: <img src={Imgbi} alt='Brand Identity & Logo Design' width="31" height="30" />,
       title: 'Brand Identity & Logo Design',
       description: 'Memorable brands that stand out and stick.',
       context: 'Complete brand identity systems including logos, color palettes, typography, and brand guidelines. We help businesses establish a strong, memorable presence that resonates with their target audience.',
     },
     {
-      icon: <img src={Imgdigm} alt='Digital Marketing & Growth' />,
+      icon: <img src={Imgdigm} alt='Digital Marketing & Growth' width="31" height="30" />,
       title: 'Digital Marketing & Growth',
       description: 'Marketing that actually gets results.',
       context: 'Data-driven digital marketing strategies that drive traffic, generate leads, and increase conversions. From social media campaigns to email marketing, we create campaigns that deliver measurable ROI.',
     },
     {
-      icon: <img src={Imggd} alt='Graphic Design & Visual Content' />,
+      icon: <img src={Imggd} alt='Graphic Design & Visual Content' width="31" height="31" />,
       title: 'Graphic Design & Visual Content',
       description: 'Eye-catching visuals that stop the scroll.',
       context: 'Professional graphic design services including social media graphics, marketing materials, presentations, and visual content that captures attention and communicates your message effectively.',
     },
     {
-      icon: <img src={Imgdm} alt='Technical Setup & Infrastructure' />,
+      icon: <img src={Imgdm} alt='Technical Setup & Infrastructure' width="31" height="31" />,
       title: 'Technical Setup & Infrastructure',
-      description: 'All the techy stuff handled for you.',
+      description: 'Technical setup and infrastructure managed as part of a maintainable growth stack.',
       context: 'Complete technical infrastructure setup including domain management, hosting configuration, email systems, security protocols, and ongoing technical support to keep your digital presence running smoothly.',
     },
   ];
@@ -103,8 +71,6 @@ const HowWeHelp: React.FC = () => {
   return (
     <div className="scroll-container">
       <SEO {...seoConfig.howWeHelp} />
-      <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isScrolled={isScrolled} />
-      <ScrollToTop />
       <motion.div
         className="main-content"
          
@@ -136,7 +102,7 @@ const HowWeHelp: React.FC = () => {
               </motion.h1>
 
               <motion.p className="section-description" variants={fadeInUp}>
-                Your one-stop creative partner. From startup idea to scaling business—we handle the creative and tech so you can focus on growth.
+                GTM Infrastructure brings brand, performance web, and growth systems into one coordinated delivery model.
               </motion.p>
             </motion.div>
           </div>
@@ -171,7 +137,7 @@ const HowWeHelp: React.FC = () => {
                   </div>
                   <div className="p_text">
                     <p className="text-sm text-gray-400 mb-3">{service.description}</p>
-                    <p className="text-xs text-gray-500 leading-relaxed">{service.context}</p>
+                    <p className="text-xs text-gray-300 leading-relaxed">{service.context}</p>
                   </div>
                 </motion.div>
               ))}
@@ -228,7 +194,7 @@ const HowWeHelp: React.FC = () => {
                       <ul className="highlight-points">
                         {card.points.map((point, idx) => (
                           <li key={idx} className="pill-icon-wrapper">
-                            <img src={Imgmk} alt="✓" className="w-4 h-4" />
+                            <img src={Imgmk} alt="" aria-hidden="true" className="w-4 h-4" width="22" height="22" />
                             {point}
                           </li>
                         ))}
@@ -237,61 +203,6 @@ const HowWeHelp: React.FC = () => {
                   </div>
                 </motion.div>
               ))}
-            </motion.div>
-          </div>
-        </section>
-
-        {/* SmartLaunch CTA Section */}
-        <section className="smartlaunch-cta">
-          <div className="container">
-            <motion.div
-              className="content-wrapper"
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              <motion.div className="text-center" variants={fadeInUp}>
-                <motion.div className="badge-container" variants={fadeInUp}>
-                  <span className="ai-badge">AI-Powered Solution</span>
-                </motion.div>
-                
-                <motion.h2 className="herotwo-heading smartlaunch-heading" variants={fadeInUp}>
-                  <span>SmartLaunch</span>
-                  <span>AI</span>
-                  <span>Platform</span>
-                </motion.h2>
-                
-                <motion.p className="h__txt smartlaunch-description" variants={fadeInUp}>
-                  Streamline your business with our intelligent automation platform. SmartLaunch helps you capture leads, automate workflows, and scale your operations with AI-powered tools. From lead generation to customer follow-up, our platform handles the repetitive tasks so you can focus on what matters most—growing your business.
-                </motion.p>
-                
-                <motion.div className="features-list" variants={fadeInUp}>
-                  <div className="feature-item">
-                    <span className="feature-dot"></span>
-                    <span className="feature-text">Lead Capture Automation</span>
-                  </div>
-                  <div className="feature-item">
-                    <span className="feature-dot"></span>
-                    <span className="feature-text">Workflow Management</span>
-                  </div>
-                  <div className="feature-item">
-                    <span className="feature-dot"></span>
-                    <span className="feature-text">AI-Powered Insights</span>
-                  </div>
-                </motion.div>
-                
-                <motion.div variants={fadeInUp}>
-                  <a 
-                    href="https://smartlaunch.brandgoto.com/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="smartlaunch-button"
-                  >
-                    🚀 Launch SmartLaunch Platform
-                  </a>
-                </motion.div>
-              </motion.div>
             </motion.div>
           </div>
         </section>
@@ -355,7 +266,7 @@ const HowWeHelp: React.FC = () => {
                     <p className="text-gray-400 text-sm leading-relaxed mb-6">{item.desc}</p>
                     <div className="space-y-2 border-t border-white/5 pt-4">
                       {item.features.map((f, idx) => (
-                        <div key={idx} className="flex items-center gap-2 text-xs text-gray-500 font-medium uppercase tracking-wider">
+                        <div key={idx} className="flex items-center gap-2 text-xs text-gray-300 font-medium uppercase tracking-wider">
                           <span className="w-1 h-1 bg-[#F75F0B] rounded-full"></span>
                           {f}
                         </div>
@@ -369,7 +280,6 @@ const HowWeHelp: React.FC = () => {
         </section>
 
         {/* Footer */}
-        <Footer />
       </motion.div>
     </div>
   );

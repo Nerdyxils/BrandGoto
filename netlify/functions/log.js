@@ -1,47 +1,16 @@
+const { guardRequest, jsonResponse } = require('./_shared/security.cjs');
+
 exports.handler = async (event) => {
-  // Handle CORS preflight requests
-  if (event.httpMethod === 'OPTIONS') {
-    return {
-      statusCode: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      },
-      body: '',
-    };
-  }
+  const guarded = guardRequest(event, {
+    namespace: 'log',
+    maxBytes: 10 * 1024,
+    limit: 60,
+    windowMs: 10 * 60 * 1000,
+  });
+  if (guarded.response) return guarded.response;
 
-  if (event.httpMethod !== 'POST') {
-    return { 
-      statusCode: 405, 
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-      },
-      body: JSON.stringify({ error: 'Method not allowed' }) 
-    };
-  }
-
-  try {
-    const body = JSON.parse(event.body || '{}');
-    // In production you might forward to your data warehouse or analytics collector.
-    console.log('chat_log', JSON.stringify(body));
-    return { 
-      statusCode: 200, 
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ ok: true }) 
-    };
-  } catch (err) {
-    return { 
-      statusCode: 500, 
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ error: err?.message || 'Server error' }) 
-    };
-  }
+  const { body, corsHeaders } = guarded;
+  const eventName = typeof body.event === 'string' ? body.event.slice(0, 100) : 'unknown';
+  console.log('chat_event', { event: eventName, ts: body.ts || Date.now() });
+  return jsonResponse(200, { ok: true }, corsHeaders);
 };

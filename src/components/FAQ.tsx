@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import FaIcon from './FaIcon';
 
 export interface FAQItem {
   question: string;
@@ -20,7 +21,7 @@ const FAQ: React.FC<FAQProps> = ({ items, title, subtitle }) => {
   };
 
   // Generate FAQPage Schema
-  const faqSchema = {
+  const faqSchema = React.useMemo(() => ({
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: items.map((item) => ({
@@ -31,7 +32,7 @@ const FAQ: React.FC<FAQProps> = ({ items, title, subtitle }) => {
         text: item.answer,
       },
     })),
-  };
+  }), [items]);
 
   React.useEffect(() => {
     // Inject FAQPage structured data
@@ -52,7 +53,7 @@ const FAQ: React.FC<FAQProps> = ({ items, title, subtitle }) => {
         scriptToRemove.remove();
       }
     };
-  }, [items]);
+  }, [faqSchema]);
 
   return (
     <section className="faq-section" aria-label="Frequently Asked Questions">
@@ -81,7 +82,7 @@ const FAQ: React.FC<FAQProps> = ({ items, title, subtitle }) => {
               >
                 <span className="faq-question-text">{item.question}</span>
                 <span className="faq-icon" aria-hidden="true">
-                  <i className={`fas ${isOpen ? 'fa-minus' : 'fa-plus'}`} />
+                  <FaIcon name={isOpen ? 'minus' : 'plus'} />
                 </span>
               </button>
               <AnimatePresence>

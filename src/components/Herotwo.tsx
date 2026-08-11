@@ -27,15 +27,15 @@ const Herotwo: React.FC = () => {
   const cardData = [
   {
     title: 'Strategic Brand Identity Conversion',
-    image: <img src={Imgcon} alt='Strategic Brand Identity Conversion '/>,
+    image: <img src={Imgcon} alt='Strategic Brand Identity Conversion' width="339" height="320" loading="lazy" decoding="async" />,
   },
   {
     title: 'Multi-Channel Brand Core',
-    image: <img src={Imgcor} alt='Multi-Channel Brand Core '/>,
+    image: <img src={Imgcor} alt='Multi-Channel Brand Core' width="339" height="320" loading="lazy" decoding="async" />,
   },
   {
     title: 'Data-Driven Brand Tracking',
-    image: <img src={Imgdat} alt='Data-Driven Brand Tracking'/>,
+    image: <img src={Imgdat} alt='Data-Driven Brand Tracking' width="340" height="320" loading="lazy" decoding="async" />,
   },
 ];
 
@@ -74,7 +74,7 @@ const Herotwo: React.FC = () => {
               className="section-description"
               variants={fadeInUp}
             >
-              Your brand deserves the spotlight — we make sure it steals the show online.
+              Your brand should clarify value and make the next step obvious online.
             </motion.p>
           </motion.div>
         </div>

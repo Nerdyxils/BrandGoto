@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import type { SEOEntry } from '../seo/seoConfig';
+import type { JsonValue, SEOEntry } from '../seo/seoConfig';
 
 const DEFAULT_SITE_URL = 'https://www.brandgoto.com';
 
@@ -25,7 +25,7 @@ const setLink = (rel: string, href: string) => {
   link.setAttribute('href', href);
 };
 
-const injectStructuredData = (data: Record<string, any>) => {
+const injectStructuredData = (data: Record<string, JsonValue>) => {
   // Remove existing structured data script if present
   const existingScript = document.querySelector('script[type="application/ld+json"][data-seo="true"]');
   if (existingScript) {

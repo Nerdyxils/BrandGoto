@@ -1,107 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import Navbar from '../components/Navbar';
-import ScrollToTop from '../components/ScrollToTop';
-import Footer from '../components/Footer';
 import ConfirmationModal from '../components/ConfirmationModal';
+import { FieldLabel, SelectField } from '../components/ui/FormField';
 import SEO from '../components/SEO';
 import '../components/Hero.css';
 import '../components/Herotwo.css';
 import '../components/ContactSection.css';
 import { seoConfig } from '../seo/seoConfig';
+import FaIcon from '../components/FaIcon';
+import { budgetOptions, buildLeadPayload, countryCodes, emptyLeadForm, LEAD_ENDPOINT, services, validateLeadForm, type LeadFormData } from '../features/leads/leadForm';
 
 const BookConsultation: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  // Country codes
-  const countryCodes: Record<string, string> = {
-    US: '1',
-    CA: '1',
-    NG: '234',
-    GB: '44',
-    IN: '91',
-    DE: '49',
-    FR: '33',
-    AU: '61',
-    NZ: '64',
-    ZA: '27',
-    JP: '81',
-    KR: '82',
-    CN: '86',
-    BR: '55',
-    MX: '52',
-    ES: '34',
-    IT: '39',
-    NL: '31',
-    SE: '46',
-    NO: '47',
-    DK: '45',
-    FI: '358',
-    PL: '48',
-    RU: '7',
-  };
-
-  const [formData, setFormData] = useState<{
-    name: string;
-    phone: string;
-    email: string;
-    companyWebsite: string;
-    services: string[];
-    budget: string;
-    countryCode: string;
-  }>({
-    name: '',
-    phone: '',
-    email: '',
-    companyWebsite: '',
-    services: [],
-    budget: '',
-    countryCode: '1',
-  });
+  const [formData, setFormData] = useState<LeadFormData>(emptyLeadForm());
 
   const [showConfirmationModal, setShowConfirmationModal] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-
-  const services: string[] = [
-    'GTM Infrastructure (14-Day Launchpad)',
-    'Investor-Ready Brand Identity',
-    'Performance Web Engineering',
-    'AI Operations & Automation Audit',
-    'Fractional CTO & Strategic Support',
-  ];
-
-  const budgetOptions = [
-    '$3,500 - $5,500',
-    '$5,500 - $8,500',
-    '$10,000+',
-    'Not sure yet',
-  ];
-  
-  // MENU AND SCROLL HANDLERS
-  useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setIsMenuOpen(false);
-    };
-    const handleResize = () => {
-      if (window.innerWidth > 768) setIsMenuOpen(false);
-    };
-    document.addEventListener('keydown', handleEsc);
-    window.addEventListener('resize', handleResize);
-    return () => {
-      document.removeEventListener('keydown', handleEsc);
-      window.removeEventListener('resize', handleResize);
-      document.body.style.overflow = 'auto';
-    };
-  }, [isMenuOpen]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const fadeInUp = {
     hidden: { opacity: 1, y: 12 },
@@ -119,54 +32,6 @@ const BookConsultation: React.FC = () => {
     }
   };
 
-  // AI Intelligence Functions for Business Automation
-  const calculateComplexityScore = (services: string[]): number => {
-    const complexityMap: Record<string, number> = {
-      "GTM Infrastructure (14-Day Launchpad)": 10,
-      "Investor-Ready Brand Identity": 8,
-      "Performance Web Engineering": 9,
-      "AI Operations & Automation Audit": 7,
-      "Fractional CTO & Strategic Support": 9
-    };
-    return services.reduce((total, service) => total + (complexityMap[service] || 5), 0);
-  };
-
-  const calculateProjectValue = (services: string[], budget: string): number => {
-    // Use budget if available, otherwise calculate from services
-    if (budget) {
-      if (budget.includes('$10,000+')) return 10000;
-      if (budget.includes('$5,500 - $8,500')) return 7000;
-      if (budget.includes('$3,500 - $5,500')) return 4500;
-    }
-    
-    const valueMap: Record<string, number> = {
-      "GTM Infrastructure (14-Day Launchpad)": 5500,
-      "Investor-Ready Brand Identity": 3500,
-      "Performance Web Engineering": 8500,
-      "AI Operations & Automation Audit": 5000,
-      "Fractional CTO & Strategic Support": 10000
-    };
-    return services.reduce((total, service) => total + (valueMap[service] || 5000), 0);
-  };
-
-  const calculatePriorityLevel = (services: string[]): string => {
-    if (services.length >= 3) return "High";
-    if (services.includes("GTM Infrastructure (14-Day Launchpad)")) return "High";
-    if (services.includes("Fractional CTO & Strategic Support")) return "High";
-    if (services.includes("Performance Web Engineering")) return "High";
-    return "Medium";
-  };
-
-  const getEmailTemplateId = (services: string[]): string => {
-    if (services.length >= 3) return "comprehensive_package";
-    if (services.includes("GTM Infrastructure (14-Day Launchpad)")) return "launchpad_focused";
-    if (services.includes("Investor-Ready Brand Identity")) return "branding_focused";
-    if (services.includes("Performance Web Engineering")) return "engineering_focused";
-    if (services.includes("AI Operations & Automation Audit")) return "ai_ops_focused";
-    if (services.includes("Fractional CTO & Strategic Support")) return "cto_focused";
-    return "general_inquiry";
-  };
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -174,90 +39,23 @@ const BookConsultation: React.FC = () => {
     if (isSubmitting) return;
     setIsSubmitting(true);
 
-    const cleanedPhone = formData.phone.replace(/\D/g, '');
-    const formattedPhone = `+${formData.countryCode}${cleanedPhone}`;
-
-    // Validate required fields
-    if (!formData.name || !formData.name.trim()) {
-      alert("Please enter your name.");
+    const validation = validateLeadForm(formData, true);
+    if (validation.error) {
+      alert(validation.error);
       setIsSubmitting(false);
       return;
     }
-
-    if (!formData.email || !formData.email.trim()) {
-      alert("Please enter your email address.");
-      setIsSubmitting(false);
-      return;
-    }
-
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      alert("Please enter a valid email address.");
-      setIsSubmitting(false);
-      return;
-    }
-
-    if (!formData.companyWebsite || !formData.companyWebsite.trim()) {
-      alert("Please enter your company website or LinkedIn profile.");
-      setIsSubmitting(false);
-      return;
-    }
-
-    // Validate phone number
-    if (!cleanedPhone || cleanedPhone.length < 7 || cleanedPhone.length > 15) {
-      alert("Please enter a valid phone number (7-15 digits).");
-      setIsSubmitting(false);
-      return;
-    }
-
-    if (!/^\+\d+$/.test(formattedPhone)) {
-      alert("Invalid phone number format. It must start with '+' followed by digits only.");
-      setIsSubmitting(false);
-      return;
-    }
-
-    // Calculate intelligence data first
-    const complexityScore = calculateComplexityScore(formData.services);
-    const projectValue = calculateProjectValue(formData.services, formData.budget);
-    const priorityLevel = calculatePriorityLevel(formData.services);
-    const templateId = getEmailTemplateId(formData.services);
 
     // Determine form source
     const formSource = 'book_consultation_page';
 
     // Complete payload with all intelligence data for Make.com
-    const payload = {
-      email: formData.email,
-      firstname: formData.name,
-      phone: formattedPhone,
-      company_website: formData.companyWebsite,
-      services_selected: formData.services.join(';'),
-      services_count: formData.services.length,
-      primary_service: formData.services[0] || "General Inquiry",
-      budget_range: formData.budget || "Not specified",
-      service_complexity_score: complexityScore,
-      estimated_project_value: projectValue,
-      priority_level: priorityLevel,
-      email_template_id: templateId,
-      page_url: window.location.href,
-      form_source: formSource,
-      lead_source: "BrandGoto Website - Book Consultation",
-      consultation_status: "New Lead",
-      requires_consultation: formData.services.length > 1 ? "Yes" : "No",
-      automated_followup_enabled: "Yes",
-      form_timestamp: new Date().toISOString(),
-      referrer: document.referrer || "Direct",
-      browser_info: navigator.userAgent.substring(0, 100)
-    };
+    const payload = buildLeadPayload(formData, formSource, 'BrandGoto Website - Strategic GTM Audit');
 
     console.log("📦 Submitting complete intelligence data:", JSON.stringify(payload, null, 2));
 
     try {
-        const endpoint =
-          window.location.hostname === "localhost"
-            ? import.meta.env.VITE_MAKE_WEBHOOK_URL || "https://hook.us2.make.com/2jhecx0f9v8buiu1so1pwk8jc73qi5h1"
-            : "/.netlify/functions/form-submit";
-
-      const response = await fetch(endpoint, {
+      const response = await fetch(LEAD_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -269,41 +67,16 @@ const BookConsultation: React.FC = () => {
         throw new Error(`Form submission failed with status ${response.status}`);
       }
 
-      // For localhost (direct webhook), we don't get a JSON response with success field
-      if (window.location.hostname === "localhost") {
-        console.log("✅ Intelligence form data submitted successfully");
-        setShowConfirmationModal(true);
-        
-        setFormData({
-          name: '',
-          phone: '',
-          email: '',
-          companyWebsite: '',
-          services: [],
-          budget: '',
-          countryCode: formData.countryCode,
-        });
-      } else {
-        // For production (Netlify function), check the success field
-        const result = await response.json();
-        
-        if (!result.success) {
-          throw new Error(result.error || 'Form submission failed');
-        }
+      const result = await response.json();
 
-        console.log("✅ Intelligence form data submitted successfully");
-        setShowConfirmationModal(true);
-        
-        setFormData({
-          name: '',
-          phone: '',
-          email: '',
-          companyWebsite: '',
-          services: [],
-          budget: '',
-          countryCode: formData.countryCode,
-        });
+      if (!result.success) {
+        throw new Error(result.error || 'Form submission failed');
       }
+
+      console.log("✅ Intelligence form data submitted successfully");
+      setShowConfirmationModal(true);
+
+      setFormData(emptyLeadForm(formData.countryCode));
     } catch (err) {
       console.error("❌ Form submission error:", err);
       alert("There was an error submitting the form. Please try again later.");
@@ -332,8 +105,6 @@ const BookConsultation: React.FC = () => {
   return (
     <div className="scroll-container">
       <SEO {...seoConfig.bookConsultation} />
-      <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isScrolled={isScrolled} />
-      <ScrollToTop />
       <motion.div
         className="main-content"
          
@@ -351,18 +122,17 @@ const BookConsultation: React.FC = () => {
               animate="visible"
             >
               <motion.span className="section-subtitle" variants={fadeInUp}>
-                Book a Free Consultation
+                Strategic GTM Audit
               </motion.span>
 
               <motion.h1 className="herotwo-heading" variants={fadeInUp}>
-                <span>Let's</span>
-                <span>Create</span>
-                <span>Something</span>
-                <span>Amazing</span>
+                <span>Strategic</span>
+                <span>GTM</span>
+                <span>Audit</span>
               </motion.h1>
 
               <motion.p className="section-description" variants={fadeInUp}>
-                Tell us about your project and we'll come prepared with ideas, strategy, and a clear roadmap to success!
+                Tell us about your project, scope, and goals so we can assess the right GTM Infrastructure fit.
               </motion.p>
             </motion.div>
           </div>
@@ -397,10 +167,10 @@ const BookConsultation: React.FC = () => {
                       ease: "easeInOut"
                     }}
                   >
-                    <i className="fas fa-magic"></i>
+                    <FaIcon name="magic" />
                   </motion.div>
                   <p className="consultation-subtitle">
-                    Ready to transform your vision into reality? Let's start the conversation that will change everything.
+                    Use the audit to assess scope across GTM Infrastructure, the 14-Day Launchpad, or a Fractional CTO & Engineering Retainer.
                   </p>
                 </div>
 
@@ -411,11 +181,11 @@ const BookConsultation: React.FC = () => {
                     whileHover={{ scale: 1.05 }}
                   >
                     <div className="feature-icon">
-                      <i className="fas fa-rocket"></i>
+                      <FaIcon name="rocket" />
                     </div>
                     <div className="feature-text">
-                      <h4>Free Strategy Session</h4>
-                      <p>30-minute deep dive into your goals and vision</p>
+                      <p className="feature-title">Strategic GTM Audit</p>
+                      <p>Focused review of your goals, scope, and current infrastructure</p>
                     </div>
                   </motion.div>
 
@@ -425,10 +195,10 @@ const BookConsultation: React.FC = () => {
                     whileHover={{ scale: 1.05 }}
                   >
                     <div className="feature-icon">
-                      <i className="fas fa-route"></i>
+                      <FaIcon name="route" />
                     </div>
                     <div className="feature-text">
-                      <h4>Custom Roadmap</h4>
+                      <p className="feature-title">Custom Roadmap</p>
                       <p>Detailed project plan tailored to your needs</p>
                     </div>
                   </motion.div>
@@ -439,10 +209,10 @@ const BookConsultation: React.FC = () => {
                     whileHover={{ scale: 1.05 }}
                   >
                     <div className="feature-icon">
-                      <i className="fas fa-coins"></i>
+                      <FaIcon name="coins" />
                     </div>
                     <div className="feature-text">
-                      <h4>Investment Range</h4>
+                      <p className="feature-title">Investment Range</p>
                       <p>Clear pricing structure and timeline</p>
                     </div>
                   </motion.div>
@@ -454,24 +224,24 @@ const BookConsultation: React.FC = () => {
                     variants={fadeInUp}
                     whileHover={{ scale: 1.1 }}
                   >
-                    <span className="stat-number">24h</span>
-                    <span className="stat-label">Response Time</span>
+                    <span className="stat-number">Focused</span>
+                    <span className="stat-label">Scope Review</span>
                   </motion.div>
                   <motion.div 
                     className="stat-item"
                     variants={fadeInUp}
                     whileHover={{ scale: 1.1 }}
                   >
-                    <span className="stat-number">100%</span>
-                    <span className="stat-label">Free Consultation</span>
+                    <span className="stat-number">Clear</span>
+                    <span className="stat-label">Offer Fit</span>
                   </motion.div>
                   <motion.div 
                     className="stat-item"
                     variants={fadeInUp}
                     whileHover={{ scale: 1.1 }}
                   >
-                    <span className="stat-number">50+</span>
-                    <span className="stat-label">Happy Clients</span>
+                    <span className="stat-number">Practical</span>
+                    <span className="stat-label">Next Steps</span>
                   </motion.div>
                 </div>
               </motion.div>
@@ -484,16 +254,18 @@ const BookConsultation: React.FC = () => {
                 <div className="form-card">
                   <div className="form-header">
                     <div className="form-icon">
-                      <i className="fas fa-comments"></i>
+                      <FaIcon name="comments" />
                     </div>
-                    <h3>Start Your Journey</h3>
-                    <p>Tell us about your project and we'll create magic together</p>
+                    <h2>Strategic GTM Audit</h2>
+                    <p>Tell us about your project, current infrastructure, and goals</p>
                   </div>
 
                   <form onSubmit={handleSubmit} className="creative-form">
                     <div className="form-field-group">
+                      <FieldLabel htmlFor="consultation-name" className="sr-only">Name</FieldLabel>
                       <div className="input-wrapper">
                         <input 
+                          id="consultation-name"
                           type="text" 
                           name="name" 
                           placeholder="Your name" 
@@ -502,14 +274,17 @@ const BookConsultation: React.FC = () => {
                           required 
                         />
                         <div className="input-icon">
-                          <i className="fas fa-user"></i>
+                          <FaIcon name="user" />
                         </div>
                       </div>
                     </div>
 
                     <div className="form-field-group">
                       <div className="phone-input-wrapper">
-                        <select 
+                        <SelectField
+                          id="consultation-country-code"
+                          label="Country calling code"
+                          labelClassName="sr-only"
                           className='country-select' 
                           name="countryCode" 
                           value={formData.countryCode} 
@@ -518,8 +293,10 @@ const BookConsultation: React.FC = () => {
                           {Object.entries(countryCodes).map(([key, val]) => (
                             <option key={key} value={val}>+{val} ({key})</option>
                           ))}
-                        </select>
+                        </SelectField>
+                        <FieldLabel htmlFor="consultation-phone" className="sr-only">Phone number</FieldLabel>
                         <input 
+                          id="consultation-phone"
                           className='phone-input' 
                           type="text" 
                           name="phone" 
@@ -532,8 +309,10 @@ const BookConsultation: React.FC = () => {
                     </div>
 
                     <div className="form-field-group">
+                      <FieldLabel htmlFor="consultation-email" className="sr-only">Email address</FieldLabel>
                       <div className="input-wrapper">
                         <input 
+                          id="consultation-email"
                           type="email" 
                           name="email" 
                           placeholder="Your email" 
@@ -542,14 +321,16 @@ const BookConsultation: React.FC = () => {
                           required 
                         />
                         <div className="input-icon">
-                          <i className="fas fa-envelope"></i>
+                          <FaIcon name="envelope" />
                         </div>
                       </div>
                     </div>
 
                     <div className="form-field-group">
+                      <FieldLabel htmlFor="consultation-company" className="sr-only">Company website or LinkedIn profile</FieldLabel>
                       <div className="input-wrapper">
                         <input 
+                          id="consultation-company"
                           type="text" 
                           name="companyWebsite" 
                           placeholder="Company Website / LinkedIn" 
@@ -558,13 +339,13 @@ const BookConsultation: React.FC = () => {
                           required 
                         />
                         <div className="input-icon">
-                          <i className="fas fa-globe"></i>
+                          <FaIcon name="globe" />
                         </div>
                       </div>
                     </div>
 
-                    <div className="form-field-group">
-                      <label className="services-label">What do you need help with?</label>
+                    <fieldset className="form-field-group">
+                      <legend className="services-label">What do you need help with?</legend>
                       <div className="services-grid-form">
                         {services.map((service) => (
                           <label key={service} className="service-checkbox">
@@ -580,12 +361,14 @@ const BookConsultation: React.FC = () => {
                           </label>
                         ))}
                       </div>
-                    </div>
+                    </fieldset>
 
                     <div className="form-field-group">
-                      <label className="services-label">Investment Range (USD)</label>
                       <div className="input-wrapper">
-                        <select 
+                        <SelectField
+                          id="consultation-budget"
+                          label="Investment Range (USD)"
+                          labelClassName="services-label"
                           name="budget" 
                           value={formData.budget} 
                           onChange={handleChange}
@@ -595,9 +378,9 @@ const BookConsultation: React.FC = () => {
                           {budgetOptions.map((option) => (
                             <option key={option} value={option}>{option}</option>
                           ))}
-                        </select>
+                        </SelectField>
                         <div className="input-icon">
-                          <i className="fas fa-dollar-sign"></i>
+                          <FaIcon name="dollar-sign" />
                         </div>
                       </div>
                     </div>
@@ -609,9 +392,9 @@ const BookConsultation: React.FC = () => {
                       whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
                       whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
                     >
-                      <span>{isSubmitting ? 'Submitting...' : 'Request Strategic Audit'}</span>
+                      <span>{isSubmitting ? 'Submitting...' : 'Strategic GTM Audit'}</span>
                       <div className="btn-icon">
-                        <i className="fas fa-arrow-right"></i>
+                        <FaIcon name="arrow-right" />
                       </div>
                     </motion.button>
                   </form>
@@ -633,7 +416,6 @@ const BookConsultation: React.FC = () => {
         </section>
 
         {/* Footer */}
-        <Footer />
       </motion.div>
     </div>
   );
@@ -763,7 +545,7 @@ const styles = `
     font-size: 2rem;
   }
 
-  .feature-text h4 {
+  .feature-text .feature-title {
     font-size: 1.1rem;
     font-weight: 600;
     color: #ffffff;
@@ -844,7 +626,7 @@ const styles = `
     font-size: 3rem;
   }
 
-  .form-header h3 {
+  .form-header h2 {
     font-size: 1.75rem;
     font-weight: 600;
     color: #ffffff;
@@ -1047,7 +829,7 @@ const styles = `
     background: #F75F0B;
     border: 1px solid #F75F0B;
     border-radius: 12px;
-    color: #ffffff;
+    color: #000000;
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;

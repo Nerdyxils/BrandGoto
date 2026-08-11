@@ -1,4 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/poppins-latin-400.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/poppins-latin-500.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/poppins-latin-600.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -25,6 +47,24 @@
   scrollbar-width: thin;
   scrollbar-color: var(--brand-orange) transparent;
 }
+
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid var(--brand-light-cyan) !important;
+  outline-offset: 3px;
+}
+
+.interactive-control {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
 
 html {
   scroll-behavior: smooth;
@@ -83,7 +123,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-primary {
-  @apply bg-[#F75F0B] text-white py-4 px-8 font-bold uppercase tracking-wider transition-all;
+  @apply py-4 px-8 font-bold uppercase tracking-wider transition-all;
+  background-color: #F75F0B;
+  color: #000000;
   border-radius: 2px;
 }
 
@@ -93,7 +135,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-secondary {
-  @apply bg-transparent text-[#2FA0B5] py-4 px-8 font-bold border border-[#2FA0B5] uppercase tracking-wider transition-all;
+  @apply bg-transparent py-4 px-8 font-bold border uppercase tracking-wider transition-all;
+  color: #CFF8FF;
+  border-color: #CFF8FF;
   border-radius: 2px;
 }
 

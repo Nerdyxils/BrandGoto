@@ -1,42 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import Navbar from '../components/Navbar';
-import ScrollToTop from '../components/ScrollToTop';
-import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import '../components/Hero.css';
 import { seoConfig } from '../seo/seoConfig';
 
 const PrivacyPolicy: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  
-  // MENU AND SCROLL HANDLERS
-  useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setIsMenuOpen(false);
-    };
-    const handleResize = () => {
-      if (window.innerWidth > 768) setIsMenuOpen(false);
-    };
-    document.addEventListener('keydown', handleEsc);
-    window.addEventListener('resize', handleResize);
-    return () => {
-      document.removeEventListener('keydown', handleEsc);
-      window.removeEventListener('resize', handleResize);
-      document.body.style.overflow = 'auto';
-    };
-  }, [isMenuOpen]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   const fadeInUp = {
     hidden: { opacity: 1, y: 12 },
     visible: { 
@@ -56,12 +24,6 @@ const PrivacyPolicy: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-900">
       <SEO {...seoConfig.privacyPolicy} />
-      <Navbar 
-        isMenuOpen={isMenuOpen} 
-        setIsMenuOpen={setIsMenuOpen} 
-        isScrolled={isScrolled} 
-      />
-      <ScrollToTop />
       
       <motion.div
         variants={staggerContainer}
@@ -72,9 +34,9 @@ const PrivacyPolicy: React.FC = () => {
         {/* Privacy Policy Content */}
         <section className="py-16 px-4 max-w-4xl mx-auto">
           <motion.div variants={fadeInUp} className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
               Privacy Policy
-            </h2>
+            </h1>
             <p className="text-lg text-gray-300">
               Effective Date: 01 January 2025
             </p>
@@ -254,7 +216,6 @@ const PrivacyPolicy: React.FC = () => {
         </section>
 
         {/* Footer */}
-        <Footer />
       </motion.div>
     </div>
   );

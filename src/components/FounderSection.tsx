@@ -46,7 +46,7 @@ const FounderSection: React.FC = () => {
             <motion.blockquote className="founder-quote" variants={fadeInUp}>
               <span className="quote-mark">"</span>
               <p className="quote-text">
-                Creative Minds. Technical Infrastructure. We are an elite, remote-first studio of architects and engineers serving venture-backed founders globally. We bridge the gap between visionary brand strategy and high-performance technical execution. Whether you are preparing for a seed round or scaling to Series A, we deploy the infrastructure that turns early-stage ideas into investor-ready assets.
+                Creative Minds. Technical Infrastructure. We are a remote-first studio of architects and engineers serving venture-backed founders globally. We bridge the gap between visionary brand strategy and high-performance technical execution. Whether you are preparing for a seed round or scaling to Series A, we deploy the infrastructure that turns early-stage ideas into investor-ready assets.
               </p>
               <footer className="quote-author">
                 <strong>Silas</strong>
@@ -61,14 +61,18 @@ const FounderSection: React.FC = () => {
             variants={fadeInUp}
           >
             <div className="founder-image-wrapper">
-              <img 
-                src="/images/Founder.webp" 
-                alt="Silas - Founding Partner & Lead Architect" 
-                className="founder-image"
-                loading="lazy"
-                decoding="async"
-                fetchPriority="low"
-              />
+              <picture>
+                <source type="image/avif" srcSet="/images/Founder-480.avif 480w, /images/Founder-960.avif 960w" sizes="(max-width: 768px) 90vw, 480px" />
+                <img
+                  src="/images/Founder-960.webp"
+                  alt="Silas - Founding Partner & Lead Architect"
+                  className="founder-image"
+                  loading="lazy"
+                  decoding="async"
+                  width="960"
+                  height="1228"
+                />
+              </picture>
               <div className="founder-badge-overlay">
                 <span>Founder</span>
               </div>
@@ -81,4 +85,3 @@ const FounderSection: React.FC = () => {
 };
 
 export default FounderSection;
-
