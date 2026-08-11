@@ -5,6 +5,9 @@
 
 [build.environment]
   NODE_VERSION = "20.19.0"
+  # OPENAI_MODEL is a public model identifier, not a credential. Netlify otherwise
+  # flags the intentional source fallback when it matches the dashboard value.
+  SECRETS_SCAN_OMIT_KEYS = "OPENAI_MODEL"
   # Environment variables are set in Netlify dashboard
   # OPENAI_API_KEY = "set in dashboard"
   # OPENAI_MODEL = "set in dashboard" 
